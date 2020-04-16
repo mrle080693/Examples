@@ -1,4 +1,4 @@
-package mrle080693.UniversityTimetable.models;
+package com.foxminded.universitytimetable.models;
 
 public class Lesson {
     private int lessonNumber;

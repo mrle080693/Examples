@@ -1,4 +1,4 @@
-package mrle080693.UniversityTimetable.models;
+package com.foxminded.universitytimetable.models;
 
 import java.util.List;
 
