@@ -1,4 +1,4 @@
-package com.foxminded.universitytimetable.dao.interfaces;
+package com.foxminded.universitytimetable.dao;
 
 import com.foxminded.universitytimetable.dao.models.Lesson;
 

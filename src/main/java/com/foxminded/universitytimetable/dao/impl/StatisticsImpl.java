@@ -1,6 +1,6 @@
 package com.foxminded.universitytimetable.dao.impl;
 
-import com.foxminded.universitytimetable.dao.interfaces.StatisticsDAO;
+import com.foxminded.universitytimetable.dao.StatisticsDAO;
 
 import java.util.Date;
 

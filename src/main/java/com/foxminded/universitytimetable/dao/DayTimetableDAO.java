@@ -1,11 +1,11 @@
-package com.foxminded.universitytimetable.dao.interfaces;
+package com.foxminded.universitytimetable.dao;
 
 import com.foxminded.universitytimetable.dao.models.DayTimetable;
 
 import java.util.Date;
 import java.util.List;
 
-public interface TimetableDAO {
+public interface DayTimetableDAO {
     void add(DayTimetable dayTimetable);
 
     List<DayTimetable> getAll();

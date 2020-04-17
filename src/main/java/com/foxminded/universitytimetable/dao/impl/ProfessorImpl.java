@@ -1,6 +1,6 @@
 package com.foxminded.universitytimetable.dao.impl;
 
-import com.foxminded.universitytimetable.dao.interfaces.ProfessorDAO;
+import com.foxminded.universitytimetable.dao.ProfessorDAO;
 import com.foxminded.universitytimetable.dao.models.Lesson;
 import com.foxminded.universitytimetable.dao.models.Professor;
 import com.foxminded.universitytimetable.dao.models.Timetable;
