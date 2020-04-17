@@ -1,21 +1,17 @@
-package com.foxminded.universitytimetable.dao;
+package com.foxminded.universitytimetable.db.dao.daomodels;
 
-import com.foxminded.universitytimetable.models.Professor;
+import com.foxminded.universitytimetable.db.models.Professor;
 
 import java.util.List;
 
-public interface IProfessorDAO {
-    // Create
+public interface ProfessorDAO {
     void add(Professor professor);
 
-    // Read
     List<Professor> getAll();
 
     Professor getByFullName(String fullName);
 
-    // Update
     void update(Professor professor);
 
-    // Delete
     void remove(Professor professor);
 }

@@ -1,4 +1,4 @@
-package com.foxminded.universitytimetable.configurations;
+package com.foxminded.universitytimetable.db.configurations;
 
 import com.foxminded.universitytimetable.Constants;
 import org.springframework.context.annotation.Bean;

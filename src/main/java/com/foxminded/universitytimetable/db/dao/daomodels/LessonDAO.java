@@ -1,21 +1,17 @@
-package com.foxminded.universitytimetable.dao;
+package com.foxminded.universitytimetable.db.dao.daomodels;
 
-import com.foxminded.universitytimetable.models.Lesson;
+import com.foxminded.universitytimetable.db.models.Lesson;
 
 import java.util.List;
 
-public interface ILessonDAO {
-    // Create
+public interface LessonDAO {
     void add(Lesson lesson);
 
-    // Read
     List<Lesson> getAll();
 
     Lesson getByLessonNumber(int lessonNumber);
 
-    // Update
     void update(Lesson lesson);
 
-    // Delete
     void remove(Lesson lesson);
 }

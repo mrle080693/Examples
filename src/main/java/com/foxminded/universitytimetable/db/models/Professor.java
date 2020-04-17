@@ -1,4 +1,4 @@
-package com.foxminded.universitytimetable.models;
+package com.foxminded.universitytimetable.db.models;
 
 public class Professor {
     private String fullName;
