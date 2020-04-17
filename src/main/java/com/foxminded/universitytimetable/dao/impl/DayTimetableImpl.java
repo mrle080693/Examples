@@ -15,6 +15,10 @@ public class DayTimetableImpl implements DayTimetableDAO {
         return null;
     }
 
+    public DayTimetable getById(int id) {
+        return null;
+    }
+
     public DayTimetable getByDate(Date date) {
         return null;
     }

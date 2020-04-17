@@ -9,6 +9,8 @@ public interface LessonDAO {
 
     List<Lesson> getAll();
 
+    Lesson getById(int id);
+
     Lesson getByLessonNumber(int lessonNumber);
 
     void update(Lesson lesson);

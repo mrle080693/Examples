@@ -10,6 +10,8 @@ public interface TimetableDAO {
 
     List<DayTimetable> getAll();
 
+    DayTimetable getById(int id);
+
     DayTimetable getByDate(Date date);
 
     void update(DayTimetable dayTimetable);

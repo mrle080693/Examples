@@ -17,6 +17,10 @@ public class ProfessorImpl implements ProfessorDAO {
         return null;
     }
 
+    public Professor getById(int id) {
+        return null;
+    }
+
     public Professor getByFullName(String fullName) {
         return null;
     }

@@ -12,6 +12,8 @@ public interface ProfessorDAO {
 
     List<Professor> getAll();
 
+    Professor getById(int id);
+
     Professor getByFullName(String fullName);
 
     void update(Professor professor);

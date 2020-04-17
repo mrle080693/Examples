@@ -15,6 +15,10 @@ public class TimetableImpl implements TimetableDAO {
         return null;
     }
 
+    public DayTimetable getById(int id) {
+        return null;
+    }
+
     public DayTimetable getByDate(Date date) {
         return null;
     }

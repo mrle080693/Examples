@@ -1,6 +1,7 @@
 package com.foxminded.universitytimetable.dao.models;
 
 public class Lesson {
+    private int id;
     private int lessonNumber;
     private Group group;
     private Professor professor;
@@ -10,7 +11,8 @@ public class Lesson {
     public Lesson() {
     }
 
-    public Lesson(int lessonNumber, Group group, Professor professor, String building, String classroom) {
+    public Lesson(int id, int lessonNumber, Group group, Professor professor, String building, String classroom) {
+        this.id = id;
         this.lessonNumber = lessonNumber;
         this.group = group;
         this.professor = professor;
@@ -56,5 +58,13 @@ public class Lesson {
 
     public void setClassroom(String classroom) {
         this.classroom = classroom;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

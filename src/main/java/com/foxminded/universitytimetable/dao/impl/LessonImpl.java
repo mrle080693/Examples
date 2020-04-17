@@ -14,6 +14,10 @@ public class LessonImpl implements LessonDAO {
         return null;
     }
 
+    public Lesson getById(int id) {
+        return null;
+    }
+
     public Lesson getByLessonNumber(int lessonNumber) {
         return null;
     }

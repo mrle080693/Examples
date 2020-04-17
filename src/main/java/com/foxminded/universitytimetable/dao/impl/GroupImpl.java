@@ -17,6 +17,10 @@ public class GroupImpl implements GroupDAO {
         return null;
     }
 
+    public Group getById(int id) {
+        return null;
+    }
+
     public Group getByName(String name) {
         return null;
     }

@@ -12,6 +12,8 @@ public interface GroupDAO {
 
     List<Group> getAll();
 
+    Group getById(int id);
+
     Group getByName(String name);
 
     void update(Group group);
