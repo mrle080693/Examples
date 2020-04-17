@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan("com.foxminded.universitytimetable")
-public class SpringJDBCPostgresConfig {
+public class SpringJDBCPostgreSQLConfig {
     @Bean
     public DataSource postgreSQLDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();

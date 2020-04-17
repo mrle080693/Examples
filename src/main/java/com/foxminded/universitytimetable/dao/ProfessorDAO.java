@@ -1,8 +1,8 @@
 package com.foxminded.universitytimetable.dao;
 
-import com.foxminded.universitytimetable.dao.models.Lesson;
-import com.foxminded.universitytimetable.dao.models.Professor;
-import com.foxminded.universitytimetable.dao.models.Timetable;
+import com.foxminded.universitytimetable.models.Lesson;
+import com.foxminded.universitytimetable.models.Professor;
+import com.foxminded.universitytimetable.models.Timetable;
 
 import java.util.Date;
 import java.util.List;

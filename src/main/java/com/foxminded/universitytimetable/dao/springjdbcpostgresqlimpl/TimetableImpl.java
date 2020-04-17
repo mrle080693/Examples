@@ -1,7 +1,7 @@
-package com.foxminded.universitytimetable.dao.impl;
+package com.foxminded.universitytimetable.dao.springjdbcpostgresqlimpl;
 
 import com.foxminded.universitytimetable.dao.TimetableDAO;
-import com.foxminded.universitytimetable.dao.models.DayTimetable;
+import com.foxminded.universitytimetable.models.DayTimetable;
 
 import java.util.Date;
 import java.util.List;

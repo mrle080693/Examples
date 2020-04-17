@@ -1,4 +1,4 @@
-package com.foxminded.universitytimetable.dao.models;
+package com.foxminded.universitytimetable.models;
 
 public class Group {
     private int id;

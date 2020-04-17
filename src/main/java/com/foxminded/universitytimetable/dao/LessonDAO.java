@@ -1,6 +1,6 @@
 package com.foxminded.universitytimetable.dao;
 
-import com.foxminded.universitytimetable.dao.models.Lesson;
+import com.foxminded.universitytimetable.models.Lesson;
 
 import java.util.List;
 
