@@ -1,12 +1,12 @@
-package com.foxminded.universitytimetable.db.impldao.impldaomodels;
+package com.foxminded.universitytimetable.dao.impl;
 
-import com.foxminded.universitytimetable.db.dao.daomodels.DayTimetableDAO;
-import com.foxminded.universitytimetable.db.models.DayTimetable;
+import com.foxminded.universitytimetable.dao.interfaces.TimetableDAO;
+import com.foxminded.universitytimetable.dao.models.DayTimetable;
 
 import java.util.Date;
 import java.util.List;
 
-public class ImplDayTimetableDAO implements DayTimetableDAO {
+public class TimetableImpl implements TimetableDAO {
     public void add(DayTimetable dayTimetable) {
 
     }

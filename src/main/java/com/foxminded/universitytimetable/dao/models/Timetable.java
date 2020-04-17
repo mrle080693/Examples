@@ -1,4 +1,4 @@
-package com.foxminded.universitytimetable.db.models;
+package com.foxminded.universitytimetable.dao.models;
 
 import java.util.List;
 

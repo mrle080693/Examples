@@ -1,4 +1,4 @@
-package com.foxminded.universitytimetable.db.models;
+package com.foxminded.universitytimetable.dao.models;
 
 public class Group {
     private String name;

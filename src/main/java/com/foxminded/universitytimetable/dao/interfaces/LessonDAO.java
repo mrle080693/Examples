@@ -1,6 +1,6 @@
-package com.foxminded.universitytimetable.db.dao.daomodels;
+package com.foxminded.universitytimetable.dao.interfaces;
 
-import com.foxminded.universitytimetable.db.models.Lesson;
+import com.foxminded.universitytimetable.dao.models.Lesson;
 
 import java.util.List;
 

@@ -1,11 +1,11 @@
-package com.foxminded.universitytimetable.db.impldao.impldaomodels;
+package com.foxminded.universitytimetable.dao.impl;
 
-import com.foxminded.universitytimetable.db.dao.daomodels.LessonDAO;
-import com.foxminded.universitytimetable.db.models.Lesson;
+import com.foxminded.universitytimetable.dao.interfaces.LessonDAO;
+import com.foxminded.universitytimetable.dao.models.Lesson;
 
 import java.util.List;
 
-public class ImplLessonDAO implements LessonDAO {
+public class LessonImpl implements LessonDAO {
     public void add(Lesson lesson) {
 
     }

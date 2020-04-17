@@ -1,4 +1,4 @@
-package com.foxminded.universitytimetable.db.configurations;
+package com.foxminded.universitytimetable.dao.configurations;
 
 import com.foxminded.universitytimetable.Constants;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan("com.foxminded.universitytimetable")
-public class SpringJDBCConfig {
+public class SpringJDBCPostgresConfig {
     @Bean
     public DataSource postgreSQLDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
