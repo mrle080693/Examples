@@ -1,14 +1,18 @@
-package com.foxminded.universitytimetable.dao.springjdbcpostgresqlimpl;
+package com.foxminded.universitytimetable.dao.impl;
 
+import com.foxminded.universitytimetable.configurations.SpringJDBCPostgreSQLConfig;
 import com.foxminded.universitytimetable.dao.DayTimetableDAO;
 import com.foxminded.universitytimetable.models.DayTimetable;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.Date;
 import java.util.List;
 
 public class DayTimetableImpl implements DayTimetableDAO {
-    public void add(DayTimetable dayTimetable) {
+    private SpringJDBCPostgreSQLConfig config = new SpringJDBCPostgreSQLConfig();
+    private JdbcTemplate jdbcTemplate = config.postgreSQLJdbcTemplate();
 
+    public void add(DayTimetable dayTimetable) {
     }
 
     public List<DayTimetable> getAll() {

@@ -2,24 +2,28 @@ package com.foxminded.universitytimetable.models;
 
 public class Professor {
     private int id;
-    private String fullName;
+    private String name;
+    private String surName;
+    private String patronymic;
     private String subject;
 
     public Professor() {
     }
 
-    public Professor(int id, String fullName, String subject) {
+    public Professor(int id, String name, String surName, String patronymic, String subject) {
         this.id = id;
-        this.fullName = fullName;
+        this.name = name;
+        this.surName = surName;
+        this.patronymic = patronymic;
         this.subject = subject;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getName() {
+        return name;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSubject() {
@@ -36,5 +40,21 @@ public class Professor {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getSurName() {
+        return surName;
+    }
+
+    public void setSurName(String surName) {
+        this.surName = surName;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
     }
 }

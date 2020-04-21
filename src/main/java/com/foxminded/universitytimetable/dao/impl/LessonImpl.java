@@ -1,4 +1,4 @@
-package com.foxminded.universitytimetable.dao.springjdbcpostgresqlimpl;
+package com.foxminded.universitytimetable.dao.impl;
 
 import com.foxminded.universitytimetable.dao.LessonDAO;
 import com.foxminded.universitytimetable.models.Lesson;

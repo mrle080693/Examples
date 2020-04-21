@@ -24,7 +24,7 @@ public class SpringJDBCPostgreSQLConfig {
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplate() {
+    public JdbcTemplate postgreSQLJdbcTemplate() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(postgreSQLDataSource());
 
