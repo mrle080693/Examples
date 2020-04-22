@@ -16,7 +16,6 @@ import java.util.List;
 public class ProfessorImpl implements ProfessorDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    private static long objectsCounter = 0;
 
     public void add(Professor professor) {
 

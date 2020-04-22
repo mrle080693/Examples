@@ -11,7 +11,6 @@ import java.util.Date;
 public class StatisticsImpl implements StatisticsDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    private static long objectsCounter = 0;
 
     public int getProfessorEmployment(int professorId, Date from, Date till) {
         return 0;

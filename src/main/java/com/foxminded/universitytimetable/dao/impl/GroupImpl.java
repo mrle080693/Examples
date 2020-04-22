@@ -15,7 +15,6 @@ import java.util.List;
 public class GroupImpl implements GroupDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    private static long objectsCounter = 0;
 
     public void add(Group group) {
 

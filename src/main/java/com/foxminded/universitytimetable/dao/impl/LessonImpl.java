@@ -13,7 +13,6 @@ import java.util.List;
 public class LessonImpl implements LessonDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    private static long objectsCounter = 0;
 
     public void add(Lesson lesson) {
 
