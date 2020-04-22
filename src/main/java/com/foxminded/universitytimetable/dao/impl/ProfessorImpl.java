@@ -4,11 +4,22 @@ import com.foxminded.universitytimetable.dao.ProfessorDAO;
 import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.models.Professor;
 import com.foxminded.universitytimetable.models.Timetable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
 
+@Component
 public class ProfessorImpl implements ProfessorDAO {
+    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public ProfessorImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     public void add(Professor professor) {
 
     }

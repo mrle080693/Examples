@@ -1,9 +1,10 @@
 package com.foxminded.universitytimetable.configurations;
 
-import com.foxminded.universitytimetable.Constants;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
@@ -11,14 +12,25 @@ import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan("com.foxminded.universitytimetable")
+@PropertySource("classpath:postgres.properties")
 public class SpringJDBCPostgreSQLConfig {
+
+    @Value("${spring.datasource.driver}")
+    private String postgresDriverClassName;
+    @Value("${spring.datasource.url}")
+    private String url;
+    @Value("${spring.datasource.username}")
+    private String username;
+    @Value("${spring.datasource.password}")
+    private String password;
+
     @Bean
     public DataSource postgreSQLDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(Constants.POSTGRES_DRIVER_CLASS_NAME);
-        dataSource.setUrl(Constants.URL);
-        dataSource.setUsername(Constants.USERNAME);
-        dataSource.setPassword(Constants.PASS);
+        dataSource.setDriverClassName(postgresDriverClassName);
+        dataSource.setUrl(url);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
 
         return dataSource;
     }

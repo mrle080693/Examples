@@ -2,10 +2,21 @@ package com.foxminded.universitytimetable.dao.impl;
 
 import com.foxminded.universitytimetable.dao.LessonDAO;
 import com.foxminded.universitytimetable.models.Lesson;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class LessonImpl implements LessonDAO {
+    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public LessonImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     public void add(Lesson lesson) {
 
     }
