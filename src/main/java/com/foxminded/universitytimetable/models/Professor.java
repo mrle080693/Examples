@@ -10,8 +10,7 @@ public class Professor {
     public Professor() {
     }
 
-    public Professor(int id, String name, String surName, String patronymic, String subject) {
-        this.id = id;
+    public Professor(String name, String surName, String patronymic, String subject) {
         this.name = name;
         this.surName = surName;
         this.patronymic = patronymic;

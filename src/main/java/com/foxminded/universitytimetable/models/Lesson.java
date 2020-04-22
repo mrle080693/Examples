@@ -11,8 +11,7 @@ public class Lesson {
     public Lesson() {
     }
 
-    public Lesson(int id, DayTimetable dayTimetable, int lessonNumber, Group group, Professor professor, String building, String classroom) {
-        this.id = id;
+    public Lesson(DayTimetable dayTimetable, int lessonNumber, Group group, Professor professor, String building, String classroom) {
         this.lessonNumber = lessonNumber;
         this.group = group;
         this.professor = professor;

@@ -9,8 +9,7 @@ public class Timetable {
     public Timetable() {
     }
 
-    public Timetable(int id, List<DayTimetable> daysTimetable) {
-        this.id = id;
+    public Timetable(List<DayTimetable> daysTimetable) {
         this.daysTimetable = daysTimetable;
     }
 

@@ -11,8 +11,7 @@ public class DayTimetable {
     public DayTimetable() {
     }
 
-    public DayTimetable(int id, Timetable timetableId, List<Lesson> lessons, Date date) {
-        this.id = id;
+    public DayTimetable(Timetable timetableId, List<Lesson> lessons, Date date) {
         this.lessons = lessons;
         this.date = date;
     }

@@ -6,19 +6,16 @@ import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.models.Timetable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
 
-@Component
+@Repository
 public class GroupImpl implements GroupDAO {
-    private JdbcTemplate jdbcTemplate;
-
     @Autowired
-    public GroupImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    private JdbcTemplate jdbcTemplate;
+    private static long objectsCounter = 0;
 
     public void add(Group group) {
 
