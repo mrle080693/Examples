@@ -1,17 +1,18 @@
 package com.foxminded.universitytimetable.models;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 public class DayTimetable {
-    private int id;
-    private List<Lesson> lessons;
-    private Date date;
+    private int id = 0;
+    private List<Lesson> lessons = null;
+    private Date date = null;
 
     public DayTimetable() {
     }
 
-    public DayTimetable(Timetable timetableId, List<Lesson> lessons, Date date) {
+    public DayTimetable(List<Lesson> lessons, Date date) {
         this.lessons = lessons;
         this.date = date;
     }
