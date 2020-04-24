@@ -3,18 +3,20 @@ package com.foxminded.universitytimetable.models;
 public class Lesson {
     private int id;
     private int lessonNumber;
-    private Group group;
-    private Professor professor;
+    private int dayTimetableId;
+    private int groupId;
+    private int professorId;
     private String building;
     private String classroom;
 
     public Lesson() {
     }
 
-    public Lesson(DayTimetable dayTimetable, int lessonNumber, Group group, Professor professor, String building, String classroom) {
+    public Lesson(int dayTimetableId, int lessonNumber, int groupId, int professorId, String building, String classroom) {
+        this.dayTimetableId = dayTimetableId;
         this.lessonNumber = lessonNumber;
-        this.group = group;
-        this.professor = professor;
+        this.groupId = groupId;
+        this.professorId = professorId;
         this.building = building;
         this.classroom = classroom;
     }
@@ -27,20 +29,20 @@ public class Lesson {
         this.lessonNumber = lessonNumber;
     }
 
-    public Group getGroup() {
-        return group;
+    public int getGroupId() {
+        return groupId;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
     }
 
-    public Professor getProfessor() {
-        return professor;
+    public int getProfessorId() {
+        return professorId;
     }
 
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
+    public void setProfessorId(int professorId) {
+        this.professorId = professorId;
     }
 
     public String getBuilding() {
@@ -65,5 +67,13 @@ public class Lesson {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getDayTimetableId() {
+        return dayTimetableId;
+    }
+
+    public void setDayTimetableId(int dayTimetableId) {
+        this.dayTimetableId = dayTimetableId;
     }
 }
