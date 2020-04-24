@@ -31,7 +31,7 @@ public class DayTimetableImpl implements DayTimetableDAO {
         try {
             jdbcTemplate.update(ADD_DAY_TIMETABLE_QUERY, dayTimetable.getDate());
         } catch (DataAccessException dae) {
-            throw new DAOException(dae, "Cant get all from table dayTimetable");
+            throw new DAOException("Cant get all from table dayTimetable", dae);
         }
     }
 
@@ -41,7 +41,7 @@ public class DayTimetableImpl implements DayTimetableDAO {
         try {
             dayTimetables = jdbcTemplate.query(GET_ALL_DAY_TIMETABLE_QUERY, new DayTimetableMapper());
         } catch (DataAccessException dae) {
-            throw new DAOException(dae, "Cant get all from table dayTimetable");
+            throw new DAOException("Cant get all from table dayTimetable", dae);
         }
 
         return dayTimetables;
@@ -54,9 +54,9 @@ public class DayTimetableImpl implements DayTimetableDAO {
             timetableForDay = jdbcTemplate.queryForObject(GET_BY_ID_DAY_TIMETABLE_QUERY, new Object[]{id},
                     new DayTimetableMapper());
         } catch (EmptyResultDataAccessException e) {
-            throw new NotFoundEntityException(e, "Wrong id");
+            throw new NotFoundEntityException("Wrong id", e);
         } catch (DataAccessException dae) {
-            throw new DAOException(dae, "Cant get by id from table dayTimetable");
+            throw new DAOException("Cant get by id from table dayTimetable", dae);
         }
 
         return timetableForDay;
@@ -69,9 +69,9 @@ public class DayTimetableImpl implements DayTimetableDAO {
             timetableForDay = jdbcTemplate.queryForObject(GET_BY_DATE_DAY_TIMETABLE_QUERY, new Object[]{date},
                     new DayTimetableMapper());
         } catch (EmptyResultDataAccessException e) {
-            throw new NotFoundEntityException(e, "No such date");
+            throw new NotFoundEntityException("No such date", e);
         } catch (DataAccessException dae) {
-            throw new DAOException(dae, "Cant get by date from table dayTimetable");
+            throw new DAOException("Cant get by date from table dayTimetable", dae);
         }
 
         return timetableForDay;
@@ -81,7 +81,7 @@ public class DayTimetableImpl implements DayTimetableDAO {
         try {
             jdbcTemplate.update(UPDATE_DAY_TIMETABLE_QUERY, dayTimetable.getDate(), dayTimetable.getId());
         } catch (DataAccessException dae) {
-            throw new DAOException(dae, "Cant update table dayTimetable");
+            throw new DAOException("Cant update table dayTimetable", dae);
         }
     }
 
@@ -89,7 +89,7 @@ public class DayTimetableImpl implements DayTimetableDAO {
         try {
             jdbcTemplate.update(REMOVE_DAY_TIMETABLE_QUERY, dayTimetable.getId());
         } catch (DataAccessException dae) {
-            throw new DAOException(dae, "Cant remove element of table dayTimetable");
+            throw new DAOException("Cant remove element of table dayTimetable", dae);
         }
     }
 }
