@@ -14,18 +14,12 @@ import org.springframework.stereotype.Repository;
 import java.util.Date;
 import java.util.List;
 
+import static com.foxminded.universitytimetable.dao.impl.queries.Queries.*;
+
 @Repository
 public class DayTimetableImpl implements DayTimetableDAO {
-
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
-    private final String ADD_DAY_TIMETABLE_QUERY = "INSERT INTO day_timetable (date) values(?)";
-    private final String GET_ALL_DAY_TIMETABLE_QUERY = "select id, date from day_timetable";
-    private final String GET_BY_ID_DAY_TIMETABLE_QUERY = "select id, date from day_timetable where id = ?";
-    private final String GET_BY_DATE_DAY_TIMETABLE_QUERY = "select id, date from day_timetable where date = ?";
-    private final String UPDATE_DAY_TIMETABLE_QUERY = "update day_timetable set date = ? where id = ?";
-    private final String REMOVE_DAY_TIMETABLE_QUERY = "delete from day_timetable where id = ?";
 
     public void add(DayTimetable dayTimetable) {
         try {
@@ -40,6 +34,7 @@ public class DayTimetableImpl implements DayTimetableDAO {
 
         try {
             dayTimetables = jdbcTemplate.query(GET_ALL_DAY_TIMETABLE_QUERY, new DayTimetableMapper());
+
         } catch (DataAccessException dae) {
             throw new DAOException("Cant get all from table dayTimetable", dae);
         }
@@ -53,6 +48,7 @@ public class DayTimetableImpl implements DayTimetableDAO {
         try {
             timetableForDay = jdbcTemplate.queryForObject(GET_BY_ID_DAY_TIMETABLE_QUERY, new Object[]{id},
                     new DayTimetableMapper());
+
         } catch (EmptyResultDataAccessException e) {
             throw new NotFoundEntityException("Wrong id", e);
         } catch (DataAccessException dae) {
