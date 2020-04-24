@@ -6,9 +6,9 @@ public class DAOException extends RuntimeException {
     private DataAccessException dataAccessException = null;
     private String DAOExceptionMessage = null;
 
-    public DAOException(DataAccessException dataAccessException, String DAOExceptionMessage) {
-        this.dataAccessException = dataAccessException;
+    public DAOException(String DAOExceptionMessage, DataAccessException dataAccessException) {
         this.DAOExceptionMessage = DAOExceptionMessage;
+        this.dataAccessException = dataAccessException;
     }
 
     public DataAccessException getDataAccessException() {
