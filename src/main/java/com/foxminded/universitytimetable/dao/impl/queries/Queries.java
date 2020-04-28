@@ -9,15 +9,11 @@ public class Queries {
     public static final String GET_GROUP_BY_NAME_QUERY = "select id, name from groups where name = ?";
     public static final String UPDATE_GROUP_QUERY = "update groups set name = ? where id = ?";
     public static final String REMOVE_GROUP_QUERY = "delete from groups where id = ?";
-    // Возможно тут косяк
+
+
+    // Queries for TimetableImpl class but for table lessons
     public static final String GET_GROUP_TIMETABLE_QUERY =
             "select * from lessons where groupId = ? and date = date between date(?) and date(?)";
-
-
-    // professors table queries
     public static final String GET_PROFESSOR_TIMETABLE_QUERY =
             "select * from lessons where professorId = ? and date = date between date(?) and date(?)";
-
-    // lessons table queries
-    public static final String GET_LESSONS_BY_DAY_TIMETABLE_ID_QUERY = "select * from lessons where dayTimetableId = ?";
 }

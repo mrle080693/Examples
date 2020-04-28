@@ -3,10 +3,8 @@ package com.foxminded.universitytimetable.dao.impl;
 import com.foxminded.universitytimetable.dao.ProfessorDAO;
 import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.models.Professor;
-import com.foxminded.universitytimetable.models.Timetable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;

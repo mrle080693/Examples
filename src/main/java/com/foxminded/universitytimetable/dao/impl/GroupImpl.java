@@ -5,15 +5,12 @@ import com.foxminded.universitytimetable.dao.impl.rowmappers.GroupMapper;
 import com.foxminded.universitytimetable.exceptions.DAOException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.models.Group;
-import com.foxminded.universitytimetable.models.Lesson;
-import com.foxminded.universitytimetable.models.Timetable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
 import static com.foxminded.universitytimetable.dao.impl.queries.Queries.*;
@@ -92,13 +89,5 @@ public class GroupImpl implements GroupDAO {
         } catch (DataAccessException dae) {
             throw new DAOException("Cant remove element of table groups", dae);
         }
-    }
-
-    public Timetable getTimetable(int groupId, Date from, Date till) {
-        return null;
-    }
-
-    public void addLesson(Lesson lesson) {
-
     }
 }

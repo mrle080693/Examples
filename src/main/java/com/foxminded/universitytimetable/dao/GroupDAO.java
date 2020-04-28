@@ -1,10 +1,7 @@
 package com.foxminded.universitytimetable.dao;
 
 import com.foxminded.universitytimetable.models.Group;
-import com.foxminded.universitytimetable.models.Lesson;
-import com.foxminded.universitytimetable.models.Timetable;
 
-import java.util.Date;
 import java.util.List;
 
 public interface GroupDAO {
@@ -19,8 +16,4 @@ public interface GroupDAO {
     void update(Group group);
 
     void remove(Group group);
-
-    Timetable getTimetable(int groupId, Date from, Date till);
-
-    void addLesson(Lesson lesson);
 }
