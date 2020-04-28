@@ -11,7 +11,8 @@ public class LessonMapper implements RowMapper<Lesson> {
         Lesson lesson = new Lesson();
 
         lesson.setId(resultSet.getInt("id"));
-        lesson.setDayTimetableId(resultSet.getInt("dayTimetableId"));
+        lesson.setDate(resultSet.getDate("date"));
+        lesson.setLessonNumber(resultSet.getInt("lessonNumber"));
         lesson.setGroupId(resultSet.getInt("groupId"));
         lesson.setProfessorId(resultSet.getInt("professorId"));
         lesson.setBuilding(resultSet.getString("building"));

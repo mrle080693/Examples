@@ -11,8 +11,6 @@ public interface LessonDAO {
 
     Lesson getById(int id);
 
-    Lesson getByLessonNumber(int lessonNumber);
-
     void update(Lesson lesson);
 
     void remove(Lesson lesson);

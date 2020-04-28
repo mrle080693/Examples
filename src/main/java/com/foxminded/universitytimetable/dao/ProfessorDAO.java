@@ -11,7 +11,7 @@ public interface ProfessorDAO {
 
     Professor getById(int id);
 
-    Professor getByFullName(String fullName);
+    Professor getBySurname(String surname);
 
     void update(Professor professor);
 

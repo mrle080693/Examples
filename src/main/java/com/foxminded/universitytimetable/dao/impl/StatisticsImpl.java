@@ -1,7 +1,11 @@
 package com.foxminded.universitytimetable.dao.impl;
 
 import com.foxminded.universitytimetable.dao.StatisticsDAO;
+import com.foxminded.universitytimetable.dao.impl.queries.Queries;
+import com.foxminded.universitytimetable.dao.impl.rowmappers.LessonMapper;
+import com.foxminded.universitytimetable.exceptions.DAOException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -12,11 +16,30 @@ public class StatisticsImpl implements StatisticsDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Override
     public int getProfessorEmployment(int professorId, Date from, Date till) {
-        return 0;
+        return getEmployment(professorId, from, till, true);
     }
 
     public int getGroupEmployment(int groupId, Date from, Date till) {
-        return 0;
+        return getEmployment(groupId, from, till, false);
+    }
+
+    private int getEmployment(int professorOrGroupId, Date from, Date till, boolean professorEmployment) {
+        int lessonsQuantity = 0;
+
+        try {
+            if (professorEmployment) {
+                lessonsQuantity = jdbcTemplate.query(Queries.GET_PROFESSOR_EMPLOYMENT, new Object[]{professorOrGroupId, from, till},
+                        new LessonMapper());
+            } else {
+                lessonsQuantity = jdbcTemplate.query(Queries.GET_GROUP_EMPLOYMENT, new Object[]{professorOrGroupId, from, till},
+                        new LessonMapper());
+            }
+        } catch (DataAccessException dae) {
+            throw new DAOException("Cant get employment", dae);
+        }
+
+        return lessonsQuantity;
     }
 }

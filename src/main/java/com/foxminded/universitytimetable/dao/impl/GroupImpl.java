@@ -22,11 +22,9 @@ public class GroupImpl implements GroupDAO {
 
     public void add(Group group) {
         try {
-            String name = group.getName();
-
-            jdbcTemplate.update(ADD_GROUP_QUERY, name);
+            jdbcTemplate.update(ADD_GROUP_QUERY, group.getName());
         } catch (DataAccessException dae) {
-            throw new DAOException("Cant get all from table groups", dae);
+            throw new DAOException("Cant add group", dae);
         }
     }
 
