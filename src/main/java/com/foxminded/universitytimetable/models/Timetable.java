@@ -4,21 +4,21 @@ import java.util.List;
 
 public class Timetable {
     private int id;
-    private List<DayTimetable> daysTimetable;
+    private List<Lesson> lessons;
 
     public Timetable() {
     }
 
-    public Timetable(List<DayTimetable> daysTimetable) {
-        this.daysTimetable = daysTimetable;
+    public Timetable(List<Lesson> lessons) {
+        this.lessons = lessons;
     }
 
-    public List<DayTimetable> getDaysTimetable() {
-        return daysTimetable;
+    public List<Lesson> getLessons() {
+        return lessons;
     }
 
-    public void setDaysTimetable(List<DayTimetable> daysTimetable) {
-        this.daysTimetable = daysTimetable;
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons = lessons;
     }
 
     public int getId() {

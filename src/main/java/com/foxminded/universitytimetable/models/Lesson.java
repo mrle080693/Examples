@@ -1,9 +1,11 @@
 package com.foxminded.universitytimetable.models;
 
+import java.util.Date;
+
 public class Lesson {
     private int id;
+    private Date date;
     private int lessonNumber;
-    private int dayTimetableId;
     private int groupId;
     private int professorId;
     private String building;
@@ -12,8 +14,8 @@ public class Lesson {
     public Lesson() {
     }
 
-    public Lesson(int dayTimetableId, int lessonNumber, int groupId, int professorId, String building, String classroom) {
-        this.dayTimetableId = dayTimetableId;
+    public Lesson(Date date, int lessonNumber, int groupId, int professorId, String building, String classroom) {
+        this.date = date;
         this.lessonNumber = lessonNumber;
         this.groupId = groupId;
         this.professorId = professorId;
@@ -69,11 +71,11 @@ public class Lesson {
         this.id = id;
     }
 
-    public int getDayTimetableId() {
-        return dayTimetableId;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDayTimetableId(int dayTimetableId) {
-        this.dayTimetableId = dayTimetableId;
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

@@ -10,11 +10,6 @@ public class SpringContextConfig {
             = new AnnotationConfigApplicationContext(SpringJDBCPostgreSQLConfig.class);
 
     @Bean
-    public DayTimetableImpl dayTimetableImplBean() {
-        return new DayTimetableImpl();
-    }
-
-    @Bean
     public GroupImpl groupImplBean() {
         return new GroupImpl();
     }

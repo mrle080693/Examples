@@ -29,7 +29,7 @@ public class GroupImpl implements GroupDAO {
 
             jdbcTemplate.update(ADD_GROUP_QUERY, name);
         } catch (DataAccessException dae) {
-            throw new DAOException("Cant get all from table dayTimetable", dae);
+            throw new DAOException("Cant get all from table groups", dae);
         }
     }
 
@@ -40,7 +40,7 @@ public class GroupImpl implements GroupDAO {
             groups = jdbcTemplate.query(GET_ALL_GROUPS_QUERY, new GroupMapper());
 
         } catch (DataAccessException dae) {
-            throw new DAOException("Cant get all from table dayTimetable", dae);
+            throw new DAOException("Cant get all from table groups", dae);
         }
 
         return groups;
@@ -56,7 +56,7 @@ public class GroupImpl implements GroupDAO {
         } catch (EmptyResultDataAccessException e) {
             throw new NotFoundEntityException("Wrong id", e);
         } catch (DataAccessException dae) {
-            throw new DAOException("Cant get by id from table dayTimetable", dae);
+            throw new DAOException("Cant get by id from table groups", dae);
         }
 
         return group;
@@ -72,19 +72,26 @@ public class GroupImpl implements GroupDAO {
         } catch (EmptyResultDataAccessException e) {
             throw new NotFoundEntityException("No such name", e);
         } catch (DataAccessException dae) {
-            throw new DAOException("Cant get by id from table dayTimetable", dae);
+            throw new DAOException("Cant get by name from table groups", dae);
         }
 
         return group;
     }
 
-    // ТУТ ЗАКОНЧИЛ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
     public void update(Group group) {
-
+        try {
+            jdbcTemplate.update(UPDATE_GROUP_QUERY, group.getName(), group.getId());
+        } catch (DataAccessException dae) {
+            throw new DAOException("Cant update table groups", dae);
+        }
     }
 
     public void remove(Group group) {
-
+        try {
+            jdbcTemplate.update(REMOVE_GROUP_QUERY, group.getId());
+        } catch (DataAccessException dae) {
+            throw new DAOException("Cant remove element of table groups", dae);
+        }
     }
 
     public Timetable getTimetable(int groupId, Date from, Date till) {
