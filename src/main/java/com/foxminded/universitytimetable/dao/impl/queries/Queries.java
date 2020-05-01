@@ -9,12 +9,6 @@ public class Queries {
     public static final String UPDATE_GROUP_QUERY = "update groups set name = ? where id = ?";
     public static final String REMOVE_GROUP_QUERY = "delete from groups where id = ?";
 
-    // Queries for TimetableImpl class but for table lessons
-    public static final String GET_GROUP_TIMETABLE_QUERY =
-            "select * from lessons where groupId = ? and date = date between date(?) and date(?)";
-    public static final String GET_PROFESSOR_TIMETABLE_QUERY =
-            "select * from lessons where professorId = ? and date = date between date(?) and date(?)";
-
     // lessons table queries
     public static final String ADD_LESSON_QUERY = "insert into lessons (date, lessonNumber, groupId, professorId, " +
             "building, classroom) values(?, ?, ?, ?, ?, ?)";
@@ -37,8 +31,14 @@ public class Queries {
     public static final String REMOVE_PROFESSOR_QUERY = "delete from professors where id = ?";
 
     // StatisticImpl class queries
-    public static final String GET_PROFESSOR_EMPLOYMENT = "select count(professorId) from lessons where professorId = ?" +
-            "and date = date between date(?) and date(?)";
-    public static final String GET_GROUP_EMPLOYMENT = "select count(groupId) from lessons where groupId = ?" +
-            "and date = date between date(?) and date(?)";
+    public static final String GET_PROFESSOR_EMPLOYMENT = "select count(*) from lessons where professorId = ? " +
+            " and date >= ? and date <= ?";
+    public static final String GET_GROUP_EMPLOYMENT = "select count(*) from lessons where groupId = ? and date >= ? " +
+            "and date <= ?";
+
+    // Queries for TimetableImpl class but for table lessons
+    public static final String GET_GROUP_TIMETABLE_QUERY =
+            "select * from lessons where groupId = ? and date >= ? and date <= ?";
+    public static final String GET_PROFESSOR_TIMETABLE_QUERY =
+            "select * from lessons where professorId = ? and date >= ? and date <= ?";
 }

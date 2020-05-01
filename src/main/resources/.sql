@@ -1,5 +1,5 @@
 drop database university_timetable;
-drop table if exists day_timetable cascade;
+
 drop table if exists professors cascade;
 drop table if exists groups cascade;
 drop table if exists lessons cascade;

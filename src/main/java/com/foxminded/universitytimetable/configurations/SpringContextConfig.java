@@ -28,4 +28,9 @@ public class SpringContextConfig {
     public StatisticsImpl statisticsImplBean() {
         return new StatisticsImpl();
     }
+
+    @Bean
+    public TimetableImpl timetableImplBean() {
+        return new TimetableImpl();
+    }
 }

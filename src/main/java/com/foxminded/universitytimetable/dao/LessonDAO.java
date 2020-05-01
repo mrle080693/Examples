@@ -4,6 +4,12 @@ import com.foxminded.universitytimetable.models.Lesson;
 
 import java.util.List;
 
+/*
+Можно сделать save() вместо add() и update()
+if id = 0 - addQuery
+else - updateQuery
+ */
+
 public interface LessonDAO {
     void add(Lesson lesson);
 

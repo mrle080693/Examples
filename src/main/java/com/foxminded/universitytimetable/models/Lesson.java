@@ -3,13 +3,13 @@ package com.foxminded.universitytimetable.models;
 import java.util.Date;
 
 public class Lesson {
-    private int id;
-    private Date date;
-    private int lessonNumber;
-    private int groupId;
-    private int professorId;
-    private String building;
-    private String classroom;
+    private int id = 0;
+    private Date date = null;
+    private int lessonNumber = 0;
+    private int groupId = 0;
+    private int professorId = 0;
+    private String building = null;
+    private String classroom = null;
 
     public Lesson() {
     }

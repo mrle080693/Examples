@@ -1,11 +1,11 @@
 package com.foxminded.universitytimetable.models;
 
 public class Professor {
-    private int id;
-    private String name;
-    private String surName;
-    private String patronymic;
-    private String subject;
+    private int id = 0;
+    private String name = null;
+    private String surName = null;
+    private String patronymic = null;
+    private String subject = null;
 
     public Professor() {
     }

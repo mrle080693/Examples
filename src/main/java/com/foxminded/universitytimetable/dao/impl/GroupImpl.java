@@ -57,11 +57,11 @@ public class GroupImpl implements GroupDAO {
         return group;
     }
 
-    public Group getByName(String name) {
-        Group group = null;
+    public List<Group> getByName(String name) {
+        List<Group> groups = null;
 
         try {
-            group = jdbcTemplate.queryForObject(GET_GROUP_BY_NAME_QUERY, new Object[]{name},
+            groups = jdbcTemplate.query(GET_GROUP_BY_NAME_QUERY, new Object[]{name},
                     new GroupMapper());
 
         } catch (EmptyResultDataAccessException e) {
@@ -70,7 +70,7 @@ public class GroupImpl implements GroupDAO {
             throw new DAOException("Cant get by name from table groups", dae);
         }
 
-        return group;
+        return groups;
     }
 
     public void update(Group group) {

@@ -2,8 +2,8 @@ package com.foxminded.universitytimetable.models;
 
 // Проставь везде нулы
 public class Group {
-    private int id;
-    private String name;
+    private int id = 0;
+    private String name = null;
 
     public Group() {
     }

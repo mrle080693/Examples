@@ -63,11 +63,11 @@ public class ProfessorImpl implements ProfessorDAO {
         return professor;
     }
 
-    public Professor getBySurname(String surname) {
-        Professor professor = null;
+    public List<Professor> getBySurname(String surname) {
+        List<Professor> professors = null;
 
         try {
-            professor = jdbcTemplate.queryForObject(Queries.GET_PROFESSOR_BY_SURNAME_QUERY, new Object[]{surname},
+            professors = jdbcTemplate.query(Queries.GET_PROFESSOR_BY_SURNAME_QUERY, new Object[]{surname},
                     new ProfessorMapper());
 
         } catch (EmptyResultDataAccessException e) {
@@ -76,7 +76,7 @@ public class ProfessorImpl implements ProfessorDAO {
             throw new DAOException("Cant get professor by surname from table professors", dae);
         }
 
-        return professor;
+        return professors;
     }
 
     public void update(Professor professor) {

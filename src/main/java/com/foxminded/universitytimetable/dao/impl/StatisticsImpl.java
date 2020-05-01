@@ -30,11 +30,11 @@ public class StatisticsImpl implements StatisticsDAO {
 
         try {
             if (professorEmployment) {
-                lessonsQuantity = jdbcTemplate.query(Queries.GET_PROFESSOR_EMPLOYMENT, new Object[]{professorOrGroupId, from, till},
-                        new LessonMapper());
+                lessonsQuantity = jdbcTemplate.queryForObject(Queries.GET_PROFESSOR_EMPLOYMENT,
+                        new Object[]{professorOrGroupId, from, till}, Integer.class);
             } else {
-                lessonsQuantity = jdbcTemplate.query(Queries.GET_GROUP_EMPLOYMENT, new Object[]{professorOrGroupId, from, till},
-                        new LessonMapper());
+                lessonsQuantity = jdbcTemplate.queryForObject(Queries.GET_GROUP_EMPLOYMENT,
+                        new Object[]{from, till, }, Integer.class);
             }
         } catch (DataAccessException dae) {
             throw new DAOException("Cant get employment", dae);
