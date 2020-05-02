@@ -1,6 +1,7 @@
 package com.foxminded.universitytimetable.dao.impl;
 
 import com.foxminded.universitytimetable.dao.GroupDAO;
+import com.foxminded.universitytimetable.dao.impl.queries.Queries;
 import com.foxminded.universitytimetable.dao.impl.rowmappers.GroupMapper;
 import com.foxminded.universitytimetable.exceptions.DAOException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
@@ -13,8 +14,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.foxminded.universitytimetable.dao.impl.queries.Queries.*;
-
 @Repository
 public class GroupImpl implements GroupDAO {
     @Autowired
@@ -22,17 +21,17 @@ public class GroupImpl implements GroupDAO {
 
     public void add(Group group) {
         try {
-            jdbcTemplate.update(ADD_GROUP_QUERY, group.getName());
+            jdbcTemplate.update(Queries.ADD_GROUP_QUERY, group.getName());
         } catch (DataAccessException dae) {
             throw new DAOException("Cant add group", dae);
         }
     }
 
     public List<Group> getAll() {
-        List<Group> groups = null;
+        List<Group> groups;
 
         try {
-            groups = jdbcTemplate.query(GET_ALL_GROUPS_QUERY, new GroupMapper());
+            groups = jdbcTemplate.query(Queries.GET_ALL_GROUPS_QUERY, new GroupMapper());
 
         } catch (DataAccessException dae) {
             throw new DAOException("Cant get all from table groups", dae);
@@ -42,10 +41,10 @@ public class GroupImpl implements GroupDAO {
     }
 
     public Group getById(int id) {
-        Group group = null;
+        Group group;
 
         try {
-            group = jdbcTemplate.queryForObject(GET_GROUP_BY_ID_QUERY, new Object[]{id},
+            group = jdbcTemplate.queryForObject(Queries.GET_GROUP_BY_ID_QUERY, new Object[]{id},
                     new GroupMapper());
 
         } catch (EmptyResultDataAccessException e) {
@@ -58,10 +57,10 @@ public class GroupImpl implements GroupDAO {
     }
 
     public List<Group> getByName(String name) {
-        List<Group> groups = null;
+        List<Group> groups;
 
         try {
-            groups = jdbcTemplate.query(GET_GROUP_BY_NAME_QUERY, new Object[]{name},
+            groups = jdbcTemplate.query(Queries.GET_GROUP_BY_NAME_QUERY, new Object[]{name},
                     new GroupMapper());
 
         } catch (EmptyResultDataAccessException e) {
@@ -75,7 +74,7 @@ public class GroupImpl implements GroupDAO {
 
     public void update(Group group) {
         try {
-            jdbcTemplate.update(UPDATE_GROUP_QUERY, group.getName(), group.getId());
+            jdbcTemplate.update(Queries.UPDATE_GROUP_QUERY, group.getName(), group.getId());
         } catch (DataAccessException dae) {
             throw new DAOException("Cant update table groups", dae);
         }
@@ -83,7 +82,7 @@ public class GroupImpl implements GroupDAO {
 
     public void remove(Group group) {
         try {
-            jdbcTemplate.update(REMOVE_GROUP_QUERY, group.getId());
+            jdbcTemplate.update(Queries.REMOVE_GROUP_QUERY, group.getId());
         } catch (DataAccessException dae) {
             throw new DAOException("Cant remove element of table groups", dae);
         }

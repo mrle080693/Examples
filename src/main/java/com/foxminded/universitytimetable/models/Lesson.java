@@ -8,8 +8,8 @@ public class Lesson {
     private int lessonNumber = 0;
     private int groupId = 0;
     private int professorId = 0;
-    private String building = null;
-    private String classroom = null;
+    private String building = "";
+    private String classroom = "";
 
     public Lesson() {
     }

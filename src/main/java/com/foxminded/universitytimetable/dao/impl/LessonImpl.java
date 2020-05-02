@@ -36,7 +36,7 @@ public class LessonImpl implements LessonDAO {
     }
 
     public List<Lesson> getAll() {
-        List<Lesson> lessons = null;
+        List<Lesson> lessons;
 
         try {
             lessons = jdbcTemplate.query(Queries.GET_ALL_LESSONS_QUERY, new LessonMapper());
@@ -49,7 +49,7 @@ public class LessonImpl implements LessonDAO {
     }
 
     public Lesson getById(int id) {
-        Lesson lesson = null;
+        Lesson lesson;
 
         try {
             lesson = jdbcTemplate.queryForObject(Queries.GET_LESSON_BY_ID_QUERY, new Object[]{id},

@@ -5,7 +5,6 @@ import com.foxminded.universitytimetable.dao.impl.queries.Queries;
 import com.foxminded.universitytimetable.dao.impl.rowmappers.ProfessorMapper;
 import com.foxminded.universitytimetable.exceptions.DAOException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
-import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.models.Professor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -13,7 +12,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -35,7 +33,7 @@ public class ProfessorImpl implements ProfessorDAO {
     }
 
     public List<Professor> getAll() {
-        List<Professor> professors = null;
+        List<Professor> professors;
 
         try {
             professors = jdbcTemplate.query(Queries.GET_ALL_PROFESSORS_QUERY, new ProfessorMapper());
@@ -48,7 +46,7 @@ public class ProfessorImpl implements ProfessorDAO {
     }
 
     public Professor getById(int id) {
-        Professor professor = null;
+        Professor professor;
 
         try {
             professor = jdbcTemplate.queryForObject(Queries.GET_PROFESSOR_BY_ID_QUERY, new Object[]{id},
@@ -64,7 +62,7 @@ public class ProfessorImpl implements ProfessorDAO {
     }
 
     public List<Professor> getBySurname(String surname) {
-        List<Professor> professors = null;
+        List<Professor> professors;
 
         try {
             professors = jdbcTemplate.query(Queries.GET_PROFESSOR_BY_SURNAME_QUERY, new Object[]{surname},
