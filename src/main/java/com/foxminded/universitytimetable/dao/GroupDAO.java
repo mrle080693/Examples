@@ -16,7 +16,7 @@ else - updateQuery
  */
 
 public interface GroupDAO {
-    void add(Group group);
+    int add(Group group);
 
     List<Group> getAll();
 
@@ -24,7 +24,7 @@ public interface GroupDAO {
 
     List<Group> getByName(String name);
 
-    void update(Group group);
+    int update(Group group);
 
-    void remove(Group group);
+    int remove(Group group);
 }

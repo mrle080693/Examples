@@ -10,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 @Repository
@@ -19,12 +22,22 @@ public class GroupImpl implements GroupDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public void add(Group group) {
+    public int add(Group group) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
         try {
-            jdbcTemplate.update(Queries.ADD_GROUP_QUERY, group.getName());
+            jdbcTemplate.update(con -> {
+                        PreparedStatement ps = con.prepareStatement(Queries.ADD_GROUP_QUERY, new String[]{"id"});
+                        ps.setString(1, group.getName());
+                        return ps;
+                    }
+                    , keyHolder);
         } catch (DataAccessException dae) {
             throw new DAOException("Cant add group", dae);
         }
+
+        Number id = keyHolder.getKey();
+        return (int) id;
     }
 
     public List<Group> getAll() {
@@ -72,19 +85,28 @@ public class GroupImpl implements GroupDAO {
         return groups;
     }
 
-    public void update(Group group) {
+    public int update(Group group) {
         try {
-            jdbcTemplate.update(Queries.UPDATE_GROUP_QUERY, group.getName(), group.getId());
+            return jdbcTemplate.update(Queries.UPDATE_GROUP_QUERY, group.getName(), group.getId());
         } catch (DataAccessException dae) {
             throw new DAOException("Cant update table groups", dae);
         }
     }
 
-    public void remove(Group group) {
+    public int remove(Group group) {
         try {
-            jdbcTemplate.update(Queries.REMOVE_GROUP_QUERY, group.getId());
+            return jdbcTemplate.update(Queries.REMOVE_GROUP_QUERY, group.getId());
         } catch (DataAccessException dae) {
             throw new DAOException("Cant remove element of table groups", dae);
+        }
+    }
+
+    public void save(Group group) {
+        String query = "";
+        try {
+            jdbcTemplate.update(query, group.getName());
+        } catch (DataAccessException dae) {
+            throw new DAOException("Cant add group", dae);
         }
     }
 }
