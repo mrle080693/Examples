@@ -14,6 +14,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.util.List;
 
@@ -24,6 +25,18 @@ public class GroupImpl implements GroupDAO {
 
     public int add(Group group) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        if (group == null || group.getName() == null) {
+            throw new NullPointerException("Group and group name cant be null");
+        }
+
+        if (group.getId() != 0 || group.getName()
+                .trim()
+                .equals("")) {
+            throw new IllegalArgumentException("1) Id for new group must be 0 becouse its auto generated in db." +
+                    " If you want to update existing group you have to use update method" +
+                    "\n 2) Group name cant be empty string or string with only separators");
+        }
 
         try {
             jdbcTemplate.update(con -> {
@@ -72,6 +85,10 @@ public class GroupImpl implements GroupDAO {
     public List<Group> getByName(String name) {
         List<Group> groups;
 
+        if (name == null) {
+            throw new NullPointerException("Group name cant be null");
+        }
+
         try {
             groups = jdbcTemplate.query(Queries.GET_GROUP_BY_NAME_QUERY, new Object[]{name},
                     new GroupMapper());
@@ -101,12 +118,7 @@ public class GroupImpl implements GroupDAO {
         }
     }
 
-    public void save(Group group) {
-        String query = "";
-        try {
-            jdbcTemplate.update(query, group.getName());
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant add group", dae);
-        }
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate.setDataSource(dataSource);
     }
 }
