@@ -7,7 +7,6 @@ import com.foxminded.universitytimetable.exceptions.DAOException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.models.Group;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,7 +14,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.util.List;
 
@@ -89,15 +87,27 @@ public class GroupImpl implements GroupDAO {
 
     public int update(Group group) {
         try {
-            return jdbcTemplate.update(Queries.UPDATE_GROUP_QUERY, group.getName(), group.getId());
+            int status = jdbcTemplate.update(Queries.UPDATE_GROUP_QUERY, group.getName(), group.getId());
+
+            if (status != 1) {
+                throw new IllegalArgumentException("No such id");
+            }
+
+            return status;
         } catch (DataAccessException dae) {
             throw new DAOException("Cant update table groups", dae);
         }
     }
 
-    public int remove(Group group) {
+    public int remove(int groupId) {
         try {
-            return jdbcTemplate.update(Queries.REMOVE_GROUP_QUERY, group.getId());
+            int status = jdbcTemplate.update(Queries.REMOVE_GROUP_QUERY, groupId);
+
+            if (status != 1) {
+                throw new IllegalArgumentException("No such id");
+            }
+
+            return status;
         } catch (DataAccessException dae) {
             throw new DAOException("Cant remove element of table groups", dae);
         }

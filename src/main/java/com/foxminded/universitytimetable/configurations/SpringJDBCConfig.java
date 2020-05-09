@@ -28,6 +28,14 @@ public class SpringJDBCConfig {
     private String password;
 
     @Bean
+    public JdbcTemplate postgreSQLJdbcTemplate(@Qualifier("h2DataSource") DataSource dataSource) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        jdbcTemplate.setDataSource(dataSource);
+
+        return jdbcTemplate;
+    }
+
+    @Bean
     public DataSource postgreSQLDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(postgresDriverClassName);
@@ -45,14 +53,5 @@ public class SpringJDBCConfig {
                 .setScriptEncoding("UTF-8")
                 .addScript("test.sql")
                 .build();
-    }
-
-
-    @Bean
-    public JdbcTemplate postgreSQLJdbcTemplate(@Qualifier("h2DataSource") DataSource dataSource) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-        jdbcTemplate.setDataSource(dataSource);
-
-        return jdbcTemplate;
     }
 }
