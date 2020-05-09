@@ -1,67 +1,33 @@
 package com.foxminded.universitytimetable.daoImpl;
 
-import com.foxminded.universitytimetable.configurations.SpringContextConfig;
+import com.foxminded.universitytimetable.configurations.SpringJDBCConfig;
 import com.foxminded.universitytimetable.dao.impl.GroupImpl;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.models.Group;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GroupImplTest {
-    private AnnotationConfigApplicationContext context = SpringContextConfig.context;
-    private GroupImpl groupImpl;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+    private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringJDBCConfig.class);
+    private GroupImpl groupImpl = context.getBean("groupImplBean", GroupImpl.class);
     private Group group;
-    private EmbeddedDatabase db;
 
     @BeforeEach
     void deleteAllFromTables() {
-        db = new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).addScript("test.sql")
-                .build();
-        groupImpl = context.getBean("groupImplBean", GroupImpl.class);
-        groupImpl.setDataSource(db);
+    //    db = new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).addScript("test.sql")
+      //          .build();
     }
 
     // add method
-    @Test
-    void addMustThrowNullPointerExceptionIfInputIsNull() {
-        Assertions.assertThrows(NullPointerException.class, () -> groupImpl.add(null));
-    }
-
-    @Test
-    void addMustThrowNullPointerExceptionIfGroupNameIsNull() {
-        group = new Group(null);
-        Assertions.assertThrows(NullPointerException.class, () -> groupImpl.add(group));
-    }
-
-    @Test
-    void addMustThrowIllegalArgumentExceptionIfGroupNameIsEmptyString() {
-        group = new Group("");
-        Assertions.assertThrows(IllegalArgumentException.class, () -> groupImpl.add(group));
-    }
-
-    @Test
-    void addMustThrowIllegalArgumentExceptionIfGroupNameIsOnlySeparators() {
-        group = new Group("   ");
-        Assertions.assertThrows(IllegalArgumentException.class, () -> groupImpl.add(group));
-    }
-
-    @Test
-    void addMustThrowIllegalArgumentExceptionIfGroupIdIsNotZero() {
-        group = new Group("Test");
-        group.setId(2);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> groupImpl.add(group));
-    }
-
     @Test
     void addMustAddGroupWithCorrectName() {
         group = new Group("test");
@@ -85,7 +51,6 @@ class GroupImplTest {
     }
 
     // getAll method
-    // Have to return NotFoundEntityException
     @Test
     void getAllMustReturnEmptyListIfTableIsEmpty() {
         int expected = 0;
@@ -110,16 +75,6 @@ class GroupImplTest {
 
     // getById method
     @Test
-    void getByIdMustReturnNotFoundEntityExceptionIfInputIsZero() {
-        Assertions.assertThrows(NotFoundEntityException.class, () -> groupImpl.getById(0));
-    }
-
-    @Test
-    void getByIdMustReturnNotFoundEntityExceptionIfInputIsWrongId() {
-        Assertions.assertThrows(NotFoundEntityException.class, () -> groupImpl.getById(-789987));
-    }
-
-    @Test
     void getByIdMustReturnCorrectResult() {
         Group group = new Group("Test");
         groupImpl.add(group);
@@ -131,12 +86,8 @@ class GroupImplTest {
     }
 
     // getByName method
-    @Test
-    void getByNameMustThrowNullPointerExceptionIfInputIsNull(){
-        Assertions.assertThrows(NullPointerException.class, () -> groupImpl.getByName(null));
-    }
 
-    // Have to return NotFoundEntityException
+
     @Test
     void getByNameMustThrowNotFoundEntityExceptionIfTableNotExistGroupWithSuchName(){
         Assertions.assertThrows(NotFoundEntityException.class, () -> groupImpl.getByName("HJK"));

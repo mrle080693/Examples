@@ -4,13 +4,14 @@ import com.foxminded.universitytimetable.dao.StatisticsDAO;
 import com.foxminded.universitytimetable.dao.impl.queries.Queries;
 import com.foxminded.universitytimetable.exceptions.DAOException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 
-@Repository
+@Repository("statisticsImplBean")
 public class StatisticsImpl implements StatisticsDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;

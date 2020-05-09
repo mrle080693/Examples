@@ -6,6 +6,7 @@ import com.foxminded.universitytimetable.dao.impl.rowmappers.LessonMapper;
 import com.foxminded.universitytimetable.exceptions.DAOException;
 import com.foxminded.universitytimetable.models.Lesson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Date;
 import java.util.List;
 
-@Repository
+@Repository("timetableImplBean")
 public class TimetableImpl implements TimetableDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
