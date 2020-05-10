@@ -17,7 +17,7 @@ else - updateQuery
 
 
 public interface ProfessorDAO {
-    void add(Professor professor);
+    int add(Professor professor);
 
     List<Professor> getAll();
 
@@ -25,7 +25,7 @@ public interface ProfessorDAO {
 
     List<Professor> getBySurname(String surname);
 
-    void update(Professor professor);
+    int update(Professor professor);
 
-    void remove(Professor professor);
+    int remove(int professorId);
 }

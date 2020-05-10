@@ -11,13 +11,13 @@ else - updateQuery
  */
 
 public interface LessonDAO {
-    void add(Lesson lesson);
+    int add(Lesson lesson);
 
     List<Lesson> getAll();
 
     Lesson getById(int id);
 
-    void update(Lesson lesson);
+    int update(Lesson lesson);
 
-    void remove(Lesson lesson);
+    int remove(int lessonId);
 }

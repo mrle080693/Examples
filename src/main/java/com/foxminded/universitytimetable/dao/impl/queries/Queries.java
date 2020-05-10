@@ -16,8 +16,8 @@ public class Queries {
             "building, classroom from lessons";
     public static final String GET_LESSON_BY_ID_QUERY = "select id, date, lessonNumber, groupId, professorId," +
             "building, classroom from lessons where id = ?";
-    public static final String UPDATE_LESSON_QUERY = "update lessons set (date, lessonNumber, groupId, " +
-            "professorId, building, classroom) values(?,?,?,?,?,?) where id = ?";
+    public static final String UPDATE_LESSON_QUERY = "update lessons set date = ?, lessonNumber = ?, groupId = ?, " +
+            "professorId = ?, building = ?, classroom = ? values(?,?,?,?,?,?) where id = ?";
     public static final String REMOVE_LESSON_QUERY = "delete from lessons where id = ?";
 
     // professors table queries
@@ -26,8 +26,10 @@ public class Queries {
     public static final String GET_ALL_PROFESSORS_QUERY = "select id, name, surName, patronymic, subject from professors";
     public static final String GET_PROFESSOR_BY_ID_QUERY = "select id, name, surName, patronymic, subject " +
             "from professors where id = ?";
-    public static final String GET_PROFESSOR_BY_SURNAME_QUERY = "select id, name from professors where surName = ?";
-    public static final String UPDATE_PROFESSOR_QUERY = "update professors set (name) where id = ?";
+    public static final String GET_PROFESSOR_BY_SURNAME_QUERY = "select id, name, surName, patronymic, subject " +
+            "from professors where surName = ?";
+    public static final String UPDATE_PROFESSOR_QUERY = "update professors set name = ?, surName = ?, patronymic = ?, " +
+            "subject = ? where id = ?";
     public static final String REMOVE_PROFESSOR_QUERY = "delete from professors where id = ?";
 
     // StatisticImpl class queries

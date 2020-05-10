@@ -1,6 +1,7 @@
 package com.foxminded.universitytimetable.models;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 public class Lesson {
     private int id = 0;
@@ -71,7 +72,7 @@ public class Lesson {
         this.id = id;
     }
 
-    public Date getDate() {
+    public java.sql.Date getDate() {
         return date;
     }
 

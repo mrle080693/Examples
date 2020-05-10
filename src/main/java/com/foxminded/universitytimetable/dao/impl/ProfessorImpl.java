@@ -7,12 +7,14 @@ import com.foxminded.universitytimetable.exceptions.DAOException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.models.Professor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 @Repository("professorImplBean")
@@ -20,17 +22,25 @@ public class ProfessorImpl implements ProfessorDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public void add(Professor professor) {
-        try {
-            String name = professor.getName();
-            String surName = professor.getSurName();
-            String patronymic = professor.getPatronymic();
-            String subject = professor.getSubject();
+    public int add(Professor professor) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
 
-            jdbcTemplate.update(Queries.ADD_PROFESSOR_QUERY, name, surName, patronymic, subject);
+        try {
+            jdbcTemplate.update(con -> {
+                        PreparedStatement ps = con.prepareStatement(Queries.ADD_PROFESSOR_QUERY, new String[]{"id"});
+                        ps.setString(1, professor.getName());
+                        ps.setString(2, professor.getSurName());
+                        ps.setString(3, professor.getPatronymic());
+                        ps.setString(4, professor.getSubject());
+                        return ps;
+                    }
+                    , keyHolder);
         } catch (DataAccessException dae) {
             throw new DAOException("Cant add professor", dae);
         }
+
+        Number id = keyHolder.getKey();
+        return (int) id;
     }
 
     public List<Professor> getAll() {
@@ -78,22 +88,35 @@ public class ProfessorImpl implements ProfessorDAO {
         return professors;
     }
 
-    public void update(Professor professor) {
+    public int update(Professor professor) {
         try {
+            int id = professor.getId();
             String name = professor.getName();
             String surName = professor.getSurName();
             String patronymic = professor.getPatronymic();
             String subject = professor.getSubject();
 
-            jdbcTemplate.update(Queries.UPDATE_PROFESSOR_QUERY, name, surName, patronymic, subject);
+            int status = jdbcTemplate.update(Queries.UPDATE_PROFESSOR_QUERY, name, surName, patronymic, subject, id);
+
+            if (status != 1) {
+                throw new IllegalArgumentException("No such id");
+            }
+
+            return status;
         } catch (DataAccessException dae) {
             throw new DAOException("Cant update table professors", dae);
         }
     }
 
-    public void remove(Professor professor) {
+    public int remove(int professorId) {
         try {
-            jdbcTemplate.update(Queries.REMOVE_PROFESSOR_QUERY, professor.getId());
+            int status = jdbcTemplate.update(Queries.REMOVE_PROFESSOR_QUERY, professorId);
+
+            if (status != 1) {
+                throw new IllegalArgumentException("No such id");
+            }
+
+            return status;
         } catch (DataAccessException dae) {
             throw new DAOException("Cant remove element of table groups", dae);
         }
