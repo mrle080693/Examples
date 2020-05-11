@@ -12,7 +12,7 @@ public class ProfessorMapper implements RowMapper<Professor> {
 
         professor.setId(resultSet.getInt("id"));
         professor.setName(resultSet.getString("name"));
-        professor.setSurName(resultSet.getString("surName"));
+        professor.setSurname(resultSet.getString("surName"));
         professor.setPatronymic(resultSet.getString("patronymic"));
         professor.setSubject(resultSet.getString("subject"));
 

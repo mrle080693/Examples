@@ -1,4 +1,4 @@
-package com.foxminded.universitytimetable.daoImpl;
+package com.foxminded.universitytimetable.dao;
 
 import com.foxminded.universitytimetable.configurations.SpringJDBCConfig;
 import com.foxminded.universitytimetable.dao.impl.GroupImpl;

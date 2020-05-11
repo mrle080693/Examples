@@ -1,4 +1,4 @@
-package com.foxminded.universitytimetable.daoImpl;
+package com.foxminded.universitytimetable.dao;
 
 import com.foxminded.universitytimetable.configurations.SpringJDBCConfig;
 import com.foxminded.universitytimetable.dao.impl.GroupImpl;
@@ -39,7 +39,7 @@ class ProfessorImplTest {
 
     @Test
     void addMustAddProfessorWithCorrectName() {
-        Professor professorFromDB = professorImpl.getBySurname(professor.getSurName()).get(0);
+        Professor professorFromDB = professorImpl.getBySurname(professor.getSurname()).get(0);
 
         String expected = professor.getName();
         String actual = professorFromDB.getName();
@@ -49,17 +49,17 @@ class ProfessorImplTest {
 
     @Test
     void addMustAddProfessorWithCorrectSurname() {
-        Professor professorFromDB = professorImpl.getBySurname(professor.getSurName()).get(0);
+        Professor professorFromDB = professorImpl.getBySurname(professor.getSurname()).get(0);
 
-        String expected = professor.getSurName();
-        String actual = professorFromDB.getSurName();
+        String expected = professor.getSurname();
+        String actual = professorFromDB.getSurname();
 
         assertEquals(expected, actual);
     }
 
     @Test
     void addMustAddProfessorWithCorrectPatronymic() {
-        Professor professorFromDB = professorImpl.getBySurname(professor.getSurName()).get(0);
+        Professor professorFromDB = professorImpl.getBySurname(professor.getSurname()).get(0);
 
         String expected = professor.getPatronymic();
         String actual = professorFromDB.getPatronymic();
@@ -69,7 +69,7 @@ class ProfessorImplTest {
 
     @Test
     void addMustAddProfessorWithCorrectSubjectName() {
-        Professor professorFromDB = professorImpl.getBySurname(professor.getSurName()).get(0);
+        Professor professorFromDB = professorImpl.getBySurname(professor.getSurname()).get(0);
 
         String expected = professor.getSubject();
         String actual = professorFromDB.getSubject();
@@ -132,7 +132,7 @@ class ProfessorImplTest {
         List<Professor> professors = professorImpl.getBySurname("Surname");
 
         String expected = "Surname";
-        String actual = professors.get(0).getSurName();
+        String actual = professors.get(0).getSurname();
 
         assertEquals(expected, actual);
     }

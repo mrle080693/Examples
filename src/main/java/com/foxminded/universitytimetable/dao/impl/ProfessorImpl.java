@@ -29,7 +29,7 @@ public class ProfessorImpl implements ProfessorDAO {
             jdbcTemplate.update(con -> {
                         PreparedStatement ps = con.prepareStatement(Queries.ADD_PROFESSOR_QUERY, new String[]{"id"});
                         ps.setString(1, professor.getName());
-                        ps.setString(2, professor.getSurName());
+                        ps.setString(2, professor.getSurname());
                         ps.setString(3, professor.getPatronymic());
                         ps.setString(4, professor.getSubject());
                         return ps;
@@ -92,7 +92,7 @@ public class ProfessorImpl implements ProfessorDAO {
         try {
             int id = professor.getId();
             String name = professor.getName();
-            String surName = professor.getSurName();
+            String surName = professor.getSurname();
             String patronymic = professor.getPatronymic();
             String subject = professor.getSubject();
 

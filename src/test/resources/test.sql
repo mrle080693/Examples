@@ -6,7 +6,7 @@ create table professors
 (
   id         serial primary key,
   name       char(100),
-  surName    char(100),
+  surname    char(100),
   patronymic char(100),
   subject    char(100)
 );
