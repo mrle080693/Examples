@@ -1,33 +1,37 @@
 package com.foxminded.universitytimetable.daoImpl;
 
 import com.foxminded.universitytimetable.configurations.SpringJDBCConfig;
+import com.foxminded.universitytimetable.dao.impl.GroupImpl;
+import com.foxminded.universitytimetable.dao.impl.LessonImpl;
 import com.foxminded.universitytimetable.dao.impl.ProfessorImpl;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
+import com.foxminded.universitytimetable.models.Group;
+import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.models.Professor;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.sql.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProfessorImplTest {
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
     private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringJDBCConfig.class);
     private ProfessorImpl professorImpl = context.getBean("professorImplBean", ProfessorImpl.class);
-    private Professor professor;
+    private Professor professor = new Professor("Name", "Surname", "Patronymic", "Math");
+
+    @BeforeEach
+    void dataSet() {
+        professorImpl.add(professor);
+    }
 
     // add method
     @Test
     void addMustAddProfessorToDB() {
-        professor = new Professor("Name", "Surname", "Patronymic", "Math");
-        professorImpl.add(professor);
-
         int professorsQuantity = professorImpl.getAll().size();
 
         assertTrue(professorsQuantity > 0);
@@ -35,9 +39,6 @@ class ProfessorImplTest {
 
     @Test
     void addMustAddProfessorWithCorrectName() {
-        professor = new Professor("Name", "Surname", "Patronymic", "Math");
-        professorImpl.add(professor);
-
         Professor professorFromDB = professorImpl.getBySurname(professor.getSurName()).get(0);
 
         String expected = professor.getName();
@@ -48,9 +49,6 @@ class ProfessorImplTest {
 
     @Test
     void addMustAddProfessorWithCorrectSurname() {
-        professor = new Professor("Name", "Surname", "Patronymic", "Math");
-        professorImpl.add(professor);
-
         Professor professorFromDB = professorImpl.getBySurname(professor.getSurName()).get(0);
 
         String expected = professor.getSurName();
@@ -61,9 +59,6 @@ class ProfessorImplTest {
 
     @Test
     void addMustAddProfessorWithCorrectPatronymic() {
-        professor = new Professor("Name", "Surname", "Patronymic", "Math");
-        professorImpl.add(professor);
-
         Professor professorFromDB = professorImpl.getBySurname(professor.getSurName()).get(0);
 
         String expected = professor.getPatronymic();
@@ -74,9 +69,6 @@ class ProfessorImplTest {
 
     @Test
     void addMustAddProfessorWithCorrectSubjectName() {
-        professor = new Professor("Name", "Surname", "Patronymic", "Math");
-        professorImpl.add(professor);
-
         Professor professorFromDB = professorImpl.getBySurname(professor.getSurName()).get(0);
 
         String expected = professor.getSubject();
@@ -87,15 +79,15 @@ class ProfessorImplTest {
 
     @Test
     void addMustCreateIdNotEqualsZero() {
-        professor = new Professor("Name", "Surname", "Patronymic", "Math");
         int id = professorImpl.add(professor);
-
         assertTrue(id > 0);
     }
 
     // getAll method
     @Test
     void getAllMustReturnEmptyListIfTableIsEmpty() {
+        professorImpl.remove(1);
+
         int expected = 0;
         int actual = professorImpl.getAll().size();
 
@@ -104,9 +96,7 @@ class ProfessorImplTest {
 
     @Test
     void getAllMustReturnAllFromTable() {
-        professor = new Professor("Name", "Surname", "Patronymic", "Math");
-
-        for (int index = 0; index < 100; index++) {
+        for (int index = 1; index < 100; index++) {
             professorImpl.add(professor);
         }
 
@@ -119,10 +109,6 @@ class ProfessorImplTest {
     // getById method
     @Test
     void getByIdMustReturnCorrectResult() {
-        professor = new Professor("Name", "Surname", "Patronymic", "Math");
-        professorImpl.add(professor);
-
-
         String expected = "Name";
         String actual = professorImpl.getById(1).getName();
 
@@ -143,9 +129,6 @@ class ProfessorImplTest {
 
     @Test
     void getBySurnameMustReturnProfessorsWithInputSurnameIfTableContainsSuchProfessorSurname() {
-        professor = new Professor("Name", "Surname", "Patronymic", "Math");
-        professorImpl.add(professor);
-
         List<Professor> professors = professorImpl.getBySurname("Surname");
 
         String expected = "Surname";
@@ -156,9 +139,7 @@ class ProfessorImplTest {
 
     @Test
     void getBySurnameMustReturnAllProfessorsWithInputSurnameIfTableContainsSuchProfessorSurname() {
-        professor = new Professor("Name", "Surname", "Patronymic", "Math");
-
-        for (int index = 0; index < 1000; index++) {
+        for (int index = 1; index < 1000; index++) {
             professorImpl.add(professor);
         }
 
@@ -171,7 +152,6 @@ class ProfessorImplTest {
     // update method
     @Test
     void updateMustThrowIllegalArgumentExceptionIfTableNotContainsRowWithInputProfessorId() {
-        professor = new Professor("Name", "Surname", "Patronymic", "Math");
         professor.setId(33);
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> professorImpl.update(professor));
@@ -179,9 +159,6 @@ class ProfessorImplTest {
 
     @Test
     void updateMustUpdateRowInTableWithIdEqualsInputProfessorId() {
-        professor = new Professor("Name", "Surname", "Patronymic", "Math");
-        professorImpl.add(professor);
-
         professor.setId(1);
         professor.setName("Updated");
         professorImpl.update(professor);
@@ -195,19 +172,38 @@ class ProfessorImplTest {
     // remove method
     @Test
     void removeMustThrowIllegalArgumentExceptionIfTableNotContainsRowWithInputProfessorId() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> professorImpl.remove(1));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> professorImpl.remove(2));
     }
 
     @Test
     void removeMustRemoveRowInTableWithIdEqualsInputProfessorId() {
-        professor = new Professor("Name", "Surname", "Patronymic", "Math");
-        professorImpl.add(professor);
-
         int rowsQuantityBeforeRemove = professorImpl.getAll().size();
 
         professorImpl.remove(1);
         int rowsQuantityAfterRemove = professorImpl.getAll().size();
 
         assertEquals(rowsQuantityBeforeRemove, rowsQuantityAfterRemove + 1);
+    }
+
+    @Test
+    void removeMustSetZeroToLessonsWithItsProfessor() {
+        Lesson lesson = new Lesson(new Date(1212, 12, 12), 1, 1,
+                1, "Building", "Classroom");
+        Group group = new Group("Test");
+
+        LessonImpl lessonImpl = context.getBean("lessonImplBean", LessonImpl.class);
+        GroupImpl groupImpl = context.getBean("groupImplBean", GroupImpl.class);
+
+        groupImpl.add(group);
+        lessonImpl.add(lesson);
+
+        Lesson lessonFromDB = lessonImpl.getById(1);
+        System.out.println(lessonFromDB.getProfessorId());
+
+        professorImpl.remove(1);
+        lessonFromDB = lessonImpl.getById(1);
+        int professorId = lessonFromDB.getProfessorId();
+
+        assertTrue(professorId == 0);
     }
 }

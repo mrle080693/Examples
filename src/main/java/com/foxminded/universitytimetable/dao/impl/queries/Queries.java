@@ -17,7 +17,7 @@ public class Queries {
     public static final String GET_LESSON_BY_ID_QUERY = "select id, date, lessonNumber, groupId, professorId," +
             "building, classroom from lessons where id = ?";
     public static final String UPDATE_LESSON_QUERY = "update lessons set date = ?, lessonNumber = ?, groupId = ?, " +
-            "professorId = ?, building = ?, classroom = ? values(?,?,?,?,?,?) where id = ?";
+            "professorId = ?, building = ?, classroom = ? where id = ?";
     public static final String REMOVE_LESSON_QUERY = "delete from lessons where id = ?";
 
     // professors table queries

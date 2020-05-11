@@ -2,44 +2,51 @@ package com.foxminded.universitytimetable.daoImpl;
 
 import com.foxminded.universitytimetable.configurations.SpringJDBCConfig;
 import com.foxminded.universitytimetable.dao.impl.GroupImpl;
-import com.foxminded.universitytimetable.exceptions.DAOException;
+import com.foxminded.universitytimetable.dao.impl.LessonImpl;
+import com.foxminded.universitytimetable.dao.impl.ProfessorImpl;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.models.Group;
+import com.foxminded.universitytimetable.models.Lesson;
+import com.foxminded.universitytimetable.models.Professor;
 import org.junit.jupiter.api.BeforeEach;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GroupImplTest {
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
     private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringJDBCConfig.class);
+
     private GroupImpl groupImpl = context.getBean("groupImplBean", GroupImpl.class);
-    private Group group;
+    private Group group = new Group("test");
+
+    @BeforeEach
+    void dataSet() {
+        groupImpl.add(group);
+
+    }
 
     // add method
     @Test
     void addMustAddGroupToDB() {
-        group = new Group("test");
-        groupImpl.add(group);
-
         int groupsQuantity = groupImpl.getAll().size();
-
         assertTrue(groupsQuantity > 0);
     }
 
     @Test
-    void addMustAddGroupWithCorrectName() {
-        group = new Group("test");
-        groupImpl.add(group);
+    void addMustCreateIdNotEqualsZero() {
+        int id = groupImpl.add(group);
 
+        assertTrue(id > 0);
+    }
+
+    @Test
+    void addMustAddGroupWithCorrectName() {
         String expected = groupImpl.getByName(group.getName()).get(0).getName();
         String actual = group.getName();
 
@@ -47,16 +54,8 @@ class GroupImplTest {
     }
 
     @Test
-    void addMustCreateIdNotEqualsZero() {
-        group = new Group("test");
-        int id = groupImpl.add(group);
-
-        assertTrue(id > 0);
-    }
-
-    @Test
     void addMustAddGroupWithLongAndDifficultName() {
-        group = new Group("I am very loooooooong and very difficult */?>< name of the group!!!");
+        group.setName("I am very loooooooong and very difficult */?>< name of the group!!!");
         groupImpl.add(group);
 
         String expected = groupImpl.getByName(group.getName()).get(0).getName();
@@ -68,6 +67,8 @@ class GroupImplTest {
     // getAll method
     @Test
     void getAllMustReturnEmptyListIfTableIsEmpty() {
+        groupImpl.remove(1);
+
         int expected = 0;
         int actual = groupImpl.getAll().size();
 
@@ -76,9 +77,7 @@ class GroupImplTest {
 
     @Test
     void getAllMustReturnAllFromTable() {
-        group = new Group("qw");
-
-        for (int index = 0; index < 100; index++) {
+        for (int index = 1; index < 100; index++) {
             groupImpl.add(group);
         }
 
@@ -91,10 +90,7 @@ class GroupImplTest {
     // getById method
     @Test
     void getByIdMustReturnCorrectResult() {
-        Group group = new Group("Test");
-        groupImpl.add(group);
-
-        String expected = "Test";
+        String expected = "test";
         String actual = groupImpl.getById(1).getName();
 
         assertEquals(expected, actual);
@@ -108,18 +104,17 @@ class GroupImplTest {
     // getByName method
     @Test
     void getByNameMustReturnEmptyListIfTableIsNotContainsGroupsWithSuchName() {
+        groupImpl.remove(1);
+
         int groupsQuantity = groupImpl.getByName("Test").size();
         assertTrue(groupsQuantity == 0);
     }
 
     @Test
     void getByNameMustReturnGroupWithInputNameIfTableContainsSuchGroupName() {
-        Group group = new Group("Test");
-        groupImpl.add(group);
+        List<Group> groups = groupImpl.getByName("test");
 
-        List<Group> groups = groupImpl.getByName("Test");
-
-        String expected = "Test";
+        String expected = "test";
         String actual = groups.get(0).getName();
 
         assertEquals(expected, actual);
@@ -127,14 +122,12 @@ class GroupImplTest {
 
     @Test
     void getByNameMustReturnAllGroupWithInputNameIfTableContainsSuchGroupName() {
-        Group group = new Group("Test");
-
-        for (int index = 0; index < 1000; index++) {
+        for (int index = 1; index < 1000; index++) {
             groupImpl.add(group);
         }
 
         int expected = 1000;
-        int actual = groupImpl.getByName("Test").size();
+        int actual = groupImpl.getByName("test").size();
 
         assertEquals(expected, actual);
     }
@@ -142,17 +135,12 @@ class GroupImplTest {
     // update method
     @Test
     void updateMustThrowIllegalArgumentExceptionIfTableNotContainsRowWithInputGroupId() {
-        Group group = new Group("Test");
         group.setId(33);
-
         Assertions.assertThrows(IllegalArgumentException.class, () -> groupImpl.update(group));
     }
 
     @Test
     void updateMustUpdateRowInTableWithIdEqualsInputGroupId() {
-        Group group = new Group("Test");
-        groupImpl.add(group);
-
         group.setId(1);
         group.setName("Updated");
         groupImpl.update(group);
@@ -166,18 +154,36 @@ class GroupImplTest {
     // remove method
     @Test
     void removeMustThrowIllegalArgumentExceptionIfTableNotContainsRowWithInputGroupId() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> groupImpl.remove(1));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> groupImpl.remove(7));
     }
 
     @Test
     void removeMustRemoveRowInTableWithIdEqualsInputGroupId() {
-        Group group = new Group("Test");
-        groupImpl.add(group);
         int rowsQuantityBeforeRemove = groupImpl.getAll().size();
 
         groupImpl.remove(1);
         int rowsQuantityAfterRemove = groupImpl.getAll().size();
 
         assertEquals(rowsQuantityBeforeRemove, rowsQuantityAfterRemove + 1);
+    }
+
+    @Test
+    void removeMustCascadeRemoveLessonsWithItsGroup() {
+        Lesson lesson = new Lesson(new Date(1212, 12, 12), 1, 1,
+                1, "Building", "Classroom");
+        Professor professor = new Professor("Name", "Surname", "Patronymic", "Math");
+        LessonImpl lessonImpl = context.getBean("lessonImplBean", LessonImpl.class);
+        ProfessorImpl professorImpl = context.getBean("professorImplBean", ProfessorImpl.class);
+
+        professorImpl.add(professor);
+        lessonImpl.add(lesson);
+
+        int lessonsQuantityBeforeRemove = lessonImpl.getAll().size();
+
+        groupImpl.remove(1);
+
+        int lessonsQuantityAfterRemove = lessonImpl.getAll().size();
+
+        assertTrue(lessonsQuantityBeforeRemove > lessonsQuantityAfterRemove);
     }
 }

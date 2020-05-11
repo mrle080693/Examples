@@ -1,6 +1,5 @@
 package com.foxminded.universitytimetable.models;
 
-
 import java.sql.Date;
 
 public class Lesson {
