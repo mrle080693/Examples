@@ -139,13 +139,6 @@ class GroupImplTest {
         assertEquals(expected, actual);
     }
 
-    // Candidate to move to the service
-    @Test
-    void updateMustThrowIllegalArgumentExceptionIfTableNotContainsRowWithInputGroupId() {
-        group.setId(33);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> groupImpl.update(group));
-    }
-
     @Test
     void updateMustUpdateRowInTableWithIdEqualsInputGroupId() {
         group.setId(1);
@@ -156,12 +149,6 @@ class GroupImplTest {
         String actual = groupImpl.getByName("Updated").get(0).getName();
 
         assertEquals(expected, actual);
-    }
-
-    // Candidate to move to the service
-    @Test
-    void removeMustThrowIllegalArgumentExceptionIfTableNotContainsRowWithInputGroupId() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> groupImpl.remove(7));
     }
 
     @Test
