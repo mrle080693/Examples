@@ -12,6 +12,10 @@ public class NotFoundEntityException extends RuntimeException {
         this.emptyResultDataAccessException = emptyResultDataAccessException;
     }
 
+    public NotFoundEntityException(String emptyResultExceptionMessage) {
+        this.emptyResultExceptionMessage = emptyResultExceptionMessage;
+    }
+
     public EmptyResultDataAccessException getEmptyResultDataAccessException() {
         return emptyResultDataAccessException;
     }
