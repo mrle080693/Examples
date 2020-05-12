@@ -8,11 +8,15 @@ import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.models.Group;
 import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.models.Professor;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
+import javax.sql.DataSource;
 import java.sql.Date;
 import java.util.List;
 
@@ -20,22 +24,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GroupImplTest {
-    private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringJDBCConfig.class);
+    private DataSource dataSource;
+    private static AnnotationConfigApplicationContext context;
 
-    private GroupImpl groupImpl = context.getBean("groupImplBean", GroupImpl.class);
-    private Group group = new Group("test");
+    private static GroupImpl groupImpl;
+    private static Group group;
+
+    @BeforeAll
+    static void initialize() {
+        context = new AnnotationConfigApplicationContext(SpringJDBCConfig.class);
+        groupImpl = context.getBean("groupImplBean", GroupImpl.class);
+    }
 
     @BeforeEach
     void dataSet() {
+        dataSource = new EmbeddedDatabaseBuilder()
+                .setType(EmbeddedDatabaseType.H2)
+                .setScriptEncoding("UTF-8")
+                .addScript("test.sql")
+                .build();
+
+        group = new Group("test");
         groupImpl.add(group);
-
-    }
-
-    // add method
-    @Test
-    void addMustAddGroupToDB() {
-        int groupsQuantity = groupImpl.getAll().size();
-        assertTrue(groupsQuantity > 0);
     }
 
     @Test
@@ -64,7 +74,6 @@ class GroupImplTest {
         assertEquals(expected, actual);
     }
 
-    // getAll method
     @Test
     void getAllMustReturnEmptyListIfTableIsEmpty() {
         groupImpl.remove(1);
@@ -87,9 +96,8 @@ class GroupImplTest {
         assertEquals(expected, actual);
     }
 
-    // getById method
     @Test
-    void getByIdMustReturnCorrectResult() {
+    void getByIdMustReturnGroupWithCorrectName() {
         String expected = "test";
         String actual = groupImpl.getById(1).getName();
 
@@ -101,7 +109,6 @@ class GroupImplTest {
         Assertions.assertThrows(NotFoundEntityException.class, () -> groupImpl.getById(6));
     }
 
-    // getByName method
     @Test
     void getByNameMustReturnEmptyListIfTableIsNotContainsGroupsWithSuchName() {
         groupImpl.remove(1);
@@ -132,7 +139,7 @@ class GroupImplTest {
         assertEquals(expected, actual);
     }
 
-    // update method
+    // Candidate to move to the service
     @Test
     void updateMustThrowIllegalArgumentExceptionIfTableNotContainsRowWithInputGroupId() {
         group.setId(33);
@@ -151,7 +158,7 @@ class GroupImplTest {
         assertEquals(expected, actual);
     }
 
-    // remove method
+    // Candidate to move to the service
     @Test
     void removeMustThrowIllegalArgumentExceptionIfTableNotContainsRowWithInputGroupId() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> groupImpl.remove(7));

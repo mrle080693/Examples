@@ -23,15 +23,16 @@ public class StatisticsImpl implements StatisticsDAO {
 
         try {
             // For check if group with such id exists
+            // Maybe this checking will be in service
             jdbcTemplate.queryForObject(Queries.GET_GROUP_BY_ID_QUERY, new Object[]{groupId},
                     new GroupMapper());
 
             lessonsQuantity = jdbcTemplate.queryForObject(Queries.GET_GROUP_EMPLOYMENT,
                     new Object[]{groupId, from, till}, Integer.class);
-        } catch (EmptyResultDataAccessException e) {
-            throw new NotFoundEntityException("Wrong id", e);
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant get group employment", dae);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new NotFoundEntityException("Row with input id doesnt exist", ex);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant get group employment", ex);
         }
 
         return lessonsQuantity;
@@ -43,15 +44,16 @@ public class StatisticsImpl implements StatisticsDAO {
 
         try {
             // For check if professor with such id exists
+            // Maybe this checking will be in service
             jdbcTemplate.queryForObject(Queries.GET_PROFESSOR_BY_ID_QUERY, new Object[]{professorId},
                     new GroupMapper());
 
             lessonsQuantity = jdbcTemplate.queryForObject(Queries.GET_PROFESSOR_EMPLOYMENT,
                     new Object[]{professorId, from, till}, Integer.class);
-        } catch (EmptyResultDataAccessException e) {
-            throw new NotFoundEntityException("Wrong id", e);
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant get professor employment", dae);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new NotFoundEntityException("Row with input id doesnt exist", ex);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant get professor employment", ex);
         }
 
         return lessonsQuantity;

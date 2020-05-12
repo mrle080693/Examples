@@ -27,15 +27,16 @@ public class TimetableImpl implements TimetableDAO {
 
         try {
             // For check if group with such id exists
+            // Maybe this checking will be in service
             jdbcTemplate.queryForObject(Queries.GET_GROUP_BY_ID_QUERY, new Object[]{groupId},
                     new GroupMapper());
 
             lessons = jdbcTemplate.query(Queries.GET_GROUP_TIMETABLE_QUERY, new Object[]{groupId, from, till},
                     new LessonMapper());
-        } catch (EmptyResultDataAccessException e) {
-            throw new NotFoundEntityException("Wrong id", e);
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant get group timetable", dae);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new NotFoundEntityException("Row with input id doesnt exist", ex);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant get group timetable", ex);
         }
 
         return lessons;
@@ -47,16 +48,17 @@ public class TimetableImpl implements TimetableDAO {
 
         try {
             // For check if professor with such id exists
+            // Maybe this checking will be in service
             jdbcTemplate.queryForObject(Queries.GET_PROFESSOR_BY_ID_QUERY, new Object[]{professorId},
                     new GroupMapper());
 
 
             lessons = jdbcTemplate.query(Queries.GET_PROFESSOR_TIMETABLE_QUERY, new Object[]{professorId, from, till},
                     new LessonMapper());
-        } catch (EmptyResultDataAccessException e) {
-            throw new NotFoundEntityException("Wrong id", e);
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant get professor timetable", dae);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new NotFoundEntityException("Row with input id doesnt exist", ex);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant get professor timetable", ex);
         }
 
         return lessons;

@@ -9,10 +9,14 @@ import com.foxminded.universitytimetable.models.Group;
 import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.models.Professor;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
+import javax.sql.DataSource;
 import java.sql.Date;
 import java.util.List;
 
@@ -20,21 +24,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProfessorImplTest {
-    private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringJDBCConfig.class);
-    private ProfessorImpl professorImpl = context.getBean("professorImplBean", ProfessorImpl.class);
-    private Professor professor = new Professor("Name", "Surname", "Patronymic", "Math");
+    private DataSource dataSource;
+    private static AnnotationConfigApplicationContext context;
+    private static ProfessorImpl professorImpl;
+    private Professor professor;
+
+    @BeforeAll
+    static void initialize() {
+        context = new AnnotationConfigApplicationContext(SpringJDBCConfig.class);
+        professorImpl = context.getBean("professorImplBean", ProfessorImpl.class);
+    }
 
     @BeforeEach
     void dataSet() {
+        dataSource = new EmbeddedDatabaseBuilder()
+                .setType(EmbeddedDatabaseType.H2)
+                .setScriptEncoding("UTF-8")
+                .addScript("test.sql")
+                .build();
+
+        professor = new Professor("Name", "Surname", "Patronymic", "Subject");
         professorImpl.add(professor);
-    }
-
-    // add method
-    @Test
-    void addMustAddProfessorToDB() {
-        int professorsQuantity = professorImpl.getAll().size();
-
-        assertTrue(professorsQuantity > 0);
     }
 
     @Test
@@ -83,7 +93,6 @@ class ProfessorImplTest {
         assertTrue(id > 0);
     }
 
-    // getAll method
     @Test
     void getAllMustReturnEmptyListIfTableIsEmpty() {
         professorImpl.remove(1);
@@ -106,21 +115,20 @@ class ProfessorImplTest {
         assertEquals(expected, actual);
     }
 
-    // getById method
     @Test
-    void getByIdMustReturnCorrectResult() {
+    void getByIdMustReturnProfessorWithCorrectName() {
         String expected = "Name";
         String actual = professorImpl.getById(1).getName();
 
         assertEquals(expected, actual);
     }
 
+    // Candidate to move to the service
     @Test
     void getByIdMustThrowNotFoundEntityExceptionIfTableIsNotContainsSuchId() {
         Assertions.assertThrows(NotFoundEntityException.class, () -> professorImpl.getById(6));
     }
 
-    // getBySurname method
     @Test
     void getBySurnameMustReturnEmptyListIfTableIsNotContainsProfessorWithSuchSurname() {
         int professorsQuantity = professorImpl.getBySurname("Test").size();
@@ -149,11 +157,10 @@ class ProfessorImplTest {
         assertEquals(expected, actual);
     }
 
-    // update method
+    // Candidate to move to the service
     @Test
     void updateMustThrowIllegalArgumentExceptionIfTableNotContainsRowWithInputProfessorId() {
         professor.setId(33);
-
         Assertions.assertThrows(IllegalArgumentException.class, () -> professorImpl.update(professor));
     }
 
@@ -169,7 +176,7 @@ class ProfessorImplTest {
         assertEquals(expected, actual);
     }
 
-    // remove method
+    // Candidate to move to the service
     @Test
     void removeMustThrowIllegalArgumentExceptionIfTableNotContainsRowWithInputProfessorId() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> professorImpl.remove(2));
@@ -197,11 +204,8 @@ class ProfessorImplTest {
         groupImpl.add(group);
         lessonImpl.add(lesson);
 
-        Lesson lessonFromDB = lessonImpl.getById(1);
-        System.out.println(lessonFromDB.getProfessorId());
-
         professorImpl.remove(1);
-        lessonFromDB = lessonImpl.getById(1);
+        Lesson lessonFromDB = lessonImpl.getById(1);
         int professorId = lessonFromDB.getProfessorId();
 
         assertTrue(professorId == 0);

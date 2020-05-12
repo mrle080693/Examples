@@ -10,40 +10,55 @@ import com.foxminded.universitytimetable.models.Group;
 import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.models.Professor;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
+import javax.sql.DataSource;
 import java.sql.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class LessonImplTest {
-    private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringJDBCConfig.class);
+    private DataSource dataSource;
+    private static AnnotationConfigApplicationContext context;
 
-    private LessonImpl lessonImpl = context.getBean("lessonImplBean", LessonImpl.class);
-    private ProfessorImpl professorImpl = context.getBean("professorImplBean", ProfessorImpl.class);
-    private GroupImpl groupImpl = context.getBean("groupImplBean", GroupImpl.class);
+    private static LessonImpl lessonImpl;
+    private static ProfessorImpl professorImpl;
+    private static GroupImpl groupImpl;
 
-    private Lesson lesson = new Lesson(new Date(1212, 12, 12), 1, 1,
-            1, "Building", "Classroom");
-    private Professor professor = new Professor("Name", "Surname", "Patronymic",
-            "Subject");
-    private Group group = new Group("Group");
+    private Lesson lesson;
+    private Professor professor;
+    private Group group;
+
+    @BeforeAll
+    static void initialize() {
+        context = new AnnotationConfigApplicationContext(SpringJDBCConfig.class);
+        lessonImpl = context.getBean("lessonImplBean", LessonImpl.class);
+        professorImpl = context.getBean("professorImplBean", ProfessorImpl.class);
+        groupImpl = context.getBean("groupImplBean", GroupImpl.class);
+    }
 
     @BeforeEach
     void dataSet() {
+        dataSource = new EmbeddedDatabaseBuilder()
+                .setType(EmbeddedDatabaseType.H2)
+                .setScriptEncoding("UTF-8")
+                .addScript("test.sql")
+                .build();
+
+        lesson = new Lesson(new Date(1212, 12, 12), 1, 1, 1,
+                "Building", "Classroom");
+        professor = new Professor("Name", "Surname", "Patronymic", "Subject");
+        group = new Group("Group");
+
         professorImpl.add(professor);
         groupImpl.add(group);
         lessonImpl.add(lesson);
-    }
-
-    // add method
-    @Test
-    void addMustAddLessonToDB() {
-        int lessonsQuantity = lessonImpl.getAll().size();
-        assertTrue(lessonsQuantity > 0);
     }
 
     @Test
@@ -113,8 +128,6 @@ class LessonImplTest {
         Assertions.assertThrows(DAOException.class, () -> lessonImpl.add(lesson));
     }
 
-
-    // getAll method
     @Test
     void getAllMustReturnEmptyListIfTableIsEmpty() {
         lessonImpl.remove(1);
@@ -137,21 +150,42 @@ class LessonImplTest {
         assertEquals(expected, actual);
     }
 
-    // getById method
     @Test
-    void getByIdMustReturnCorrectResult() {
-        String expected = "Building";
-        String actual = lessonImpl.getById(1).getBuilding();
+    void getByIdMustReturnCorrectLesson() {
+        Lesson lessonFromDB = lessonImpl.getById(1);
 
-        assertEquals(expected, actual);
+        Date expectedDate = lesson.getDate();
+        Date actualDate = lessonFromDB.getDate();
+        assertEquals(expectedDate, actualDate);
+
+        int expectedLessonNumber = lesson.getLessonNumber();
+        int actualLessonNumber = lessonFromDB.getLessonNumber();
+        assertEquals(expectedLessonNumber, actualLessonNumber);
+
+        int expectedGroupId = lesson.getGroupId();
+        int actualGroupId = lessonFromDB.getGroupId();
+        assertEquals(expectedGroupId, actualGroupId);
+
+        int expectedProfessorId = lesson.getProfessorId();
+        int actualProfessorId = lessonFromDB.getProfessorId();
+        assertEquals(expectedProfessorId, actualProfessorId);
+
+        String expectedBuilding = lesson.getBuilding();
+        String actualBuilding = lessonFromDB.getBuilding();
+        assertEquals(expectedBuilding, actualBuilding);
+
+        String expectedClassroom = lesson.getClassroom();
+        String actualClassroom = lessonFromDB.getClassroom();
+        assertEquals(expectedClassroom, actualClassroom);
     }
 
+    // Candidate to move to the service
     @Test
     void getByIdMustThrowNotFoundEntityExceptionIfTableIsNotContainsSuchId() {
         Assertions.assertThrows(NotFoundEntityException.class, () -> lessonImpl.getById(6));
     }
 
-    // update method
+    // Candidate to move to the service
     @Test
     void updateMustThrowIllegalArgumentExceptionIfTableNotContainsRowWithInputLessonId() {
         lesson.setId(33);
@@ -171,7 +205,7 @@ class LessonImplTest {
         assertEquals(expected, actual);
     }
 
-    // remove method
+    // Candidate to move to the service
     @Test
     void removeMustThrowIllegalArgumentExceptionIfTableNotContainsRowWithInputLessonId() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> lessonImpl.remove(2));

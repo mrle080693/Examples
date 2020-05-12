@@ -38,8 +38,8 @@ public class LessonImpl implements LessonDAO {
                         return ps;
                     }
                     , keyHolder);
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant add professor", dae);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant add professor", ex);
         }
 
         Number id = keyHolder.getKey();
@@ -52,8 +52,8 @@ public class LessonImpl implements LessonDAO {
         try {
             lessons = jdbcTemplate.query(Queries.GET_ALL_LESSONS_QUERY, new LessonMapper());
 
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant get all from table lessons", dae);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant get all from table lessons", ex);
         }
 
         return lessons;
@@ -66,10 +66,10 @@ public class LessonImpl implements LessonDAO {
             lesson = jdbcTemplate.queryForObject(Queries.GET_LESSON_BY_ID_QUERY, new Object[]{id},
                     new LessonMapper());
 
-        } catch (EmptyResultDataAccessException e) {
-            throw new NotFoundEntityException("Wrong id", e);
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant get by id from table lessons", dae);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new NotFoundEntityException("Row with input id doesnt exist", ex);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant get by id from table lessons", ex);
         }
 
         return lesson;
@@ -89,12 +89,12 @@ public class LessonImpl implements LessonDAO {
                     classroom, id);
 
             if (status != 1) {
-                throw new IllegalArgumentException("No such id");
+                throw new IllegalArgumentException("Row with input id doesnt exist");
             }
 
             return status;
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant update table lessons", dae);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant update table lessons", ex);
         }
     }
 
@@ -103,12 +103,12 @@ public class LessonImpl implements LessonDAO {
             int status = jdbcTemplate.update(Queries.REMOVE_LESSON_QUERY, lessonId);
 
             if (status != 1) {
-                throw new IllegalArgumentException("No such id");
+                throw new IllegalArgumentException("Row with input id doesnt exist");
             }
 
             return status;
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant remove element of table groups", dae);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant remove element of table groups", ex);
         }
     }
 }

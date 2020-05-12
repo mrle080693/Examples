@@ -45,13 +45,4 @@ public class SpringJDBCConfig {
 
         return dataSource;
     }
-
-    @Bean
-    public DataSource h2DataSource() {
-        return new EmbeddedDatabaseBuilder()
-                .setType(EmbeddedDatabaseType.H2)
-                .setScriptEncoding("UTF-8")
-                .addScript("test.sql")
-                .build();
-    }
 }

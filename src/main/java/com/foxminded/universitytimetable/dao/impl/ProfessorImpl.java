@@ -35,8 +35,8 @@ public class ProfessorImpl implements ProfessorDAO {
                         return ps;
                     }
                     , keyHolder);
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant add professor", dae);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant add professor", ex);
         }
 
         Number id = keyHolder.getKey();
@@ -49,8 +49,8 @@ public class ProfessorImpl implements ProfessorDAO {
         try {
             professors = jdbcTemplate.query(Queries.GET_ALL_PROFESSORS_QUERY, new ProfessorMapper());
 
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant get all from table professors", dae);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant get all from table professors", ex);
         }
 
         return professors;
@@ -63,10 +63,10 @@ public class ProfessorImpl implements ProfessorDAO {
             professor = jdbcTemplate.queryForObject(Queries.GET_PROFESSOR_BY_ID_QUERY, new Object[]{id},
                     new ProfessorMapper());
 
-        } catch (EmptyResultDataAccessException e) {
-            throw new NotFoundEntityException("Wrong id", e);
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant get by id from table professors", dae);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new NotFoundEntityException("Row with input id doesnt exist", ex);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant get by id from table professors", ex);
         }
 
         return professor;
@@ -79,10 +79,10 @@ public class ProfessorImpl implements ProfessorDAO {
             professors = jdbcTemplate.query(Queries.GET_PROFESSOR_BY_SURNAME_QUERY, new Object[]{surname},
                     new ProfessorMapper());
 
-        } catch (EmptyResultDataAccessException e) {
-            throw new NotFoundEntityException("Wrong id", e);
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant get professor by surname from table professors", dae);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new NotFoundEntityException("Row with input id doesnt exist", ex);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant get professor by surname from table professors", ex);
         }
 
         return professors;
@@ -99,12 +99,12 @@ public class ProfessorImpl implements ProfessorDAO {
             int status = jdbcTemplate.update(Queries.UPDATE_PROFESSOR_QUERY, name, surName, patronymic, subject, id);
 
             if (status != 1) {
-                throw new IllegalArgumentException("No such id");
+                throw new IllegalArgumentException("Row with input id doesnt exist");
             }
 
             return status;
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant update table professors", dae);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant update table professors", ex);
         }
     }
 
@@ -113,12 +113,12 @@ public class ProfessorImpl implements ProfessorDAO {
             int status = jdbcTemplate.update(Queries.REMOVE_PROFESSOR_QUERY, professorId);
 
             if (status != 1) {
-                throw new IllegalArgumentException("No such id");
+                throw new IllegalArgumentException("Row with input id doesnt exist");
             }
 
             return status;
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant remove element of table groups", dae);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant remove element of table groups", ex);
         }
     }
 }

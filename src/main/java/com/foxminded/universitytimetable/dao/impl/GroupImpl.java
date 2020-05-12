@@ -32,8 +32,8 @@ public class GroupImpl implements GroupDAO {
                         return ps;
                     }
                     , keyHolder);
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant add group", dae);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant add group", ex);
         }
 
         Number id = keyHolder.getKey();
@@ -46,8 +46,8 @@ public class GroupImpl implements GroupDAO {
         try {
             groups = jdbcTemplate.query(Queries.GET_ALL_GROUPS_QUERY, new GroupMapper());
 
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant get all from table groups", dae);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant get all from table groups", ex);
         }
 
         return groups;
@@ -60,10 +60,10 @@ public class GroupImpl implements GroupDAO {
             group = jdbcTemplate.queryForObject(Queries.GET_GROUP_BY_ID_QUERY, new Object[]{id},
                     new GroupMapper());
 
-        } catch (EmptyResultDataAccessException e) {
-            throw new NotFoundEntityException("Wrong id", e);
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant get by id from table groups", dae);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new NotFoundEntityException("Wrong group id", ex);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant get by id from table groups", ex);
         }
 
         return group;
@@ -76,10 +76,10 @@ public class GroupImpl implements GroupDAO {
             groups = jdbcTemplate.query(Queries.GET_GROUP_BY_NAME_QUERY, new Object[]{name},
                     new GroupMapper());
 
-        } catch (EmptyResultDataAccessException e) {
-            throw new NotFoundEntityException("No such name", e);
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant get by name from table groups", dae);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new NotFoundEntityException("Wrong group name", ex);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant get by name from table groups", ex);
         }
 
         return groups;
@@ -90,12 +90,12 @@ public class GroupImpl implements GroupDAO {
             int status = jdbcTemplate.update(Queries.UPDATE_GROUP_QUERY, group.getName(), group.getId());
 
             if (status != 1) {
-                throw new IllegalArgumentException("No such id");
+                throw new IllegalArgumentException("Row with input id doesnt exist");
             }
 
             return status;
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant update table groups", dae);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant update table groups", ex);
         }
     }
 
@@ -104,12 +104,12 @@ public class GroupImpl implements GroupDAO {
             int status = jdbcTemplate.update(Queries.REMOVE_GROUP_QUERY, groupId);
 
             if (status != 1) {
-                throw new IllegalArgumentException("No such id");
+                throw new IllegalArgumentException("Row with input id doesnt exist");
             }
 
             return status;
-        } catch (DataAccessException dae) {
-            throw new DAOException("Cant remove element of table groups", dae);
+        } catch (DataAccessException ex) {
+            throw new DAOException("Cant remove element of table groups", ex);
         }
     }
 }
