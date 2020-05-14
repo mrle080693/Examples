@@ -1,61 +1,44 @@
 package com.foxminded.universitytimetable.services;
 
-public class GroupServiceTest {
-    /*
-    @Test
-    void addMustThrowIllegalArgumentExceptionIfInputIsNull() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> groupImpl.add(null));
+import com.foxminded.universitytimetable.configurations.SpringJDBCConfig;
+import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
+import com.foxminded.universitytimetable.models.Group;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@Component
+class GroupServiceTest {
+    @Autowired
+    private static AnnotationConfigApplicationContext context;
+    private static GroupService groupService;
+
+    @BeforeAll
+    static void dataSet() {
+        context = new AnnotationConfigApplicationContext(SpringJDBCConfig.class);
+        groupService = context.getBean("groupServiceBean", GroupService.class);
     }
 
     @Test
-    void addMustThrowIllegalArgumentExceptionIfGroupNameIsNull() {
-        group = new Group(null);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> groupImpl.add(group));
+    void addMustAddNewGroup() {
+        Group group = new Group("Test");
+
+        int expected = 1;
+        int actual = groupService.add(group);
+
+        assertEquals(expected, actual);
     }
+
+
+
 
     @Test
-    void addMustThrowIllegalArgumentExceptionIfGroupNameIsEmptyString() {
-        group = new Group("");
-        Assertions.assertThrows(IllegalArgumentException.class, () -> groupImpl.add(group));
+    void getByIdMustThrowNotFoundEntityExceptionIfTableIsNotContainsSuchId() {
+        Assertions.assertThrows(NotFoundEntityException.class, () -> groupService.getById(6));
     }
-
-    @Test
-    void addMustThrowIllegalArgumentExceptionIfGroupNameIsOnlySeparators() {
-        group = new Group("   ");
-        Assertions.assertThrows(IllegalArgumentException.class, () -> groupImpl.add(group));
-    }
-
-    @Test
-    void addMustThrowIllegalArgumentExceptionIfGroupIdIsNotZero() {
-        group = new Group("Test");
-        group.setId(2);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> groupImpl.add(group));
-    }
-
-    @Test
-    void getByIdMustReturnNotFoundEntityExceptionIfInputIsZero() {
-        Assertions.assertThrows(NotFoundEntityException.class, () -> groupImpl.getById(0));
-    }
-
-    @Test
-    void getByIdMustReturnNotFoundEntityExceptionIfInputIsWrongId() {
-        Assertions.assertThrows(NotFoundEntityException.class, () -> groupImpl.getById(-789987));
-    }
-
- @Test
-    void getByNameMustThrowIllegalArgumentExceptionIfInputIsNull(){
-        Assertions.assertThrows(IllegalArgumentException.class, () -> groupImpl.getByName(null));
-    }
-
-    @Test
-    void updateMustThrowIllegalArgumentExceptionIfTableNotContainsRowWithInputGroupId() {
-        group.setId(33);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> groupImpl.update(group));
-    }
-
-    @Test
-    void removeMustThrowIllegalArgumentExceptionIfTableNotContainsRowWithInputGroupId() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> groupImpl.remove(7));
-    }
-*/
 }

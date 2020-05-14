@@ -105,11 +105,6 @@ class GroupImplTest {
     }
 
     @Test
-    void getByIdMustThrowNotFoundEntityExceptionIfTableIsNotContainsSuchId() {
-        Assertions.assertThrows(NotFoundEntityException.class, () -> groupImpl.getById(6));
-    }
-
-    @Test
     void getByNameMustReturnEmptyListIfTableIsNotContainsGroupsWithSuchName() {
         groupImpl.remove(1);
 

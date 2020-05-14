@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 import javax.sql.DataSource;
 
@@ -28,7 +26,7 @@ public class SpringJDBCConfig {
     private String password;
 
     @Bean
-    public JdbcTemplate postgreSQLJdbcTemplate(@Qualifier("h2DataSource") DataSource dataSource) {
+    public JdbcTemplate jdbcTemplate(@Qualifier("h2DataSource") DataSource dataSource) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource);
 
