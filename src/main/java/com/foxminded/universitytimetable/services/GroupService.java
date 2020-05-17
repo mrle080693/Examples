@@ -14,8 +14,12 @@ import java.util.List;
 
 @Service("groupServiceBean")
 public class GroupService {
+    private final GroupImpl groupImpl;
+
     @Autowired
-    private GroupImpl groupImpl;
+    public GroupService(GroupImpl groupImpl) {
+        this.groupImpl = groupImpl;
+    }
 
     public int add(Group group) {
         int groupIdInTable;
@@ -43,7 +47,7 @@ public class GroupService {
             groups = groupImpl.getAll();
 
             if (groups.isEmpty()) {
-                throw new EntityValidationException("Table groups is empty");
+                throw new NotFoundEntityException("Table groups is empty");
             }
         } catch (DataAccessException ex) {
             throw new DAOException("Cant get all from table groups", ex);
@@ -78,7 +82,7 @@ public class GroupService {
                 throw new EntityValidationException("Group must have name");
             }
 
-            if (name.trim().equals("")) {
+            if (name.trim().isEmpty()) {
                 throw new EntityValidationException("Group name must not be empty");
             }
 
@@ -106,7 +110,7 @@ public class GroupService {
             status = groupImpl.update(group);
 
             if (status != 1) {
-                throw new IllegalArgumentException("Group with input id doesnt exist");
+                throw new NotFoundEntityException("Group with input id doesnt exist");
             }
         } catch (DataAccessException ex) {
             throw new DAOException("Cant update table groups", ex);
@@ -122,7 +126,7 @@ public class GroupService {
             status = groupImpl.remove(groupId);
 
             if (status != 1) {
-                throw new EntityValidationException("Group with input id doesnt exist");
+                throw new NotFoundEntityException("Group with input id doesnt exist");
             }
         } catch (DataAccessException ex) {
             throw new DAOException("Cant remove element of table groups", ex);
@@ -132,17 +136,17 @@ public class GroupService {
     }
 
     private void checkGroup(Group group) {
-        String name = group.getName();
-
         if (group == null) {
-            throw new IllegalArgumentException("Group for update cant be null");
+            throw new IllegalArgumentException("Group for add or update cant be null");
         }
+
+        String name = group.getName();
 
         if (name == null) {
             throw new EntityValidationException("Group must have name");
         }
 
-        if (name.isEmpty()) {
+        if (name.trim().isEmpty()) {
             throw new EntityValidationException("Group name must not be empty");
         }
     }
