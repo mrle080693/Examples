@@ -143,13 +143,14 @@ public class ProfessorService {
         String name = professor.getName();
         String surname = professor.getSurname();
         String patronymic = professor.getPatronymic();
+        String subject = professor.getSubject();
 
-        if (name == null || surname == null || patronymic == null) {
-            throw new EntityValidationException("Professor must have name, surname and patronymic");
+        if (name == null || surname == null || patronymic == null || subject == null) {
+            throw new EntityValidationException("Professor must have name, surname, patronymic and subject not null");
         }
 
-        if (name.trim().isEmpty() || surname.trim().isEmpty() || patronymic.trim().isEmpty()) {
-            throw new EntityValidationException("Professor name must not be empty");
+        if (name.trim().isEmpty() || surname.trim().isEmpty() || patronymic.trim().isEmpty() || subject.trim().isEmpty()) {
+            throw new EntityValidationException("Professor name, surname, patronymic and subject must not be empty");
         }
     }
 }
