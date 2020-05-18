@@ -123,12 +123,6 @@ class ProfessorImplTest {
         assertEquals(expected, actual);
     }
 
-    // Candidate to move to the service
-    @Test
-    void getByIdMustThrowNotFoundEntityExceptionIfTableIsNotContainsSuchId() {
-        Assertions.assertThrows(NotFoundEntityException.class, () -> professorImpl.getById(6));
-    }
-
     @Test
     void getBySurnameMustReturnEmptyListIfTableIsNotContainsProfessorWithSuchSurname() {
         int professorsQuantity = professorImpl.getBySurname("Test").size();

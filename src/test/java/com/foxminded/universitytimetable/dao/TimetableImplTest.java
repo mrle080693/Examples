@@ -68,13 +68,6 @@ class TimetableImplTest {
     }
 
     @Test
-    void getGroupTimetableMustThrowNotFoundEntityExceptionIfGroupIsNotExists() {
-        groupImpl.remove(1);
-        Assertions.assertThrows(NotFoundEntityException.class, () -> timetableImpl.getGroupTimetable(1,
-                from, till));
-    }
-
-    @Test
     void getGroupTimetableMustReturnZeroIfGroupHaveNotLessons() {
         int expected = 0;
         int actual = timetableImpl.getGroupTimetable(1, from, till).size();
@@ -150,13 +143,6 @@ class TimetableImplTest {
             String actualClassroom = lessonFromDB.getClassroom();
             assertEquals(expectedClassroom, actualClassroom);
         }
-    }
-
-    @Test
-    void getProfessorTimetableMustThrowNotFoundEntityExceptionIfProfessorIsNotExists() {
-        professorImpl.remove(1);
-        Assertions.assertThrows(NotFoundEntityException.class, () -> timetableImpl.getProfessorTimetable(1,
-                from, till));
     }
 
     @Test

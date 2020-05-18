@@ -70,13 +70,6 @@ class StatisticsImplTest {
     }
 
     @Test
-    void getGroupEmploymentMustThrowNotFoundEntityExceptionIfGroupIsNotExists() {
-        groupImpl.remove(1);
-        Assertions.assertThrows(NotFoundEntityException.class, () -> statisticsImpl.getGroupEmployment(1,
-                from, till));
-    }
-
-    @Test
     void getGroupEmploymentMustReturnZeroIfGroupHaveNotLessons() {
         int expected = 0;
         int actual = statisticsImpl.getGroupEmployment(1, from, till);
@@ -117,13 +110,6 @@ class StatisticsImplTest {
         int actual = statisticsImpl.getGroupEmployment(1, dateFrom, till);
 
         assertEquals(expected, actual);
-    }
-
-    @Test
-    void getProfessorEmploymentMustThrowNotFoundEntityExceptionIfProfessorIsNotExists() {
-        professorImpl.remove(1);
-        Assertions.assertThrows(NotFoundEntityException.class, () -> statisticsImpl.getProfessorEmployment(1,
-                from, till));
     }
 
     @Test

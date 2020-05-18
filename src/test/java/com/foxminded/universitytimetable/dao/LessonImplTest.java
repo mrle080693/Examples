@@ -117,18 +117,6 @@ class LessonImplTest {
     }
 
     @Test
-    void addMustThrowDAOExceptionIfProfessorWithInputProfessorIdNotExists() {
-        lesson.setProfessorId(2);
-        Assertions.assertThrows(DAOException.class, () -> lessonImpl.add(lesson));
-    }
-
-    @Test
-    void addMustThrowDAOExceptionIfGroupWithInputGroupIdNotExists() {
-        lesson.setGroupId(2);
-        Assertions.assertThrows(DAOException.class, () -> lessonImpl.add(lesson));
-    }
-
-    @Test
     void getAllMustReturnEmptyListIfTableIsEmpty() {
         lessonImpl.remove(1);
 
@@ -179,13 +167,6 @@ class LessonImplTest {
         assertEquals(expectedClassroom, actualClassroom);
     }
 
-    // Candidate to move to the service
-    @Test
-    void getByIdMustThrowNotFoundEntityExceptionIfTableIsNotContainsSuchId() {
-        Assertions.assertThrows(NotFoundEntityException.class, () -> lessonImpl.getById(6));
-    }
-
-    // Candidate to move to the service
     @Test
     void updateMustThrowIllegalArgumentExceptionIfTableNotContainsRowWithInputLessonId() {
         lesson.setId(33);
