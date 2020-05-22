@@ -137,14 +137,18 @@ public class LessonService {
         Date todayDate = new Date(Calendar.getInstance().getTime().getTime());
 
         if (date == null || building == null || classroom == null) {
-            throw new EntityValidationException("Lesson must have date, building, classroom");
+            throw new EntityValidationException("Lesson date, building, classroom cant be null");
+        }
+
+        if (building.trim().isEmpty() || classroom.trim().isEmpty()) {
+            throw new EntityValidationException("Lesson date, building, classroom cant be null");
         }
 
         if (lessonNumber == 0 || groupId == 0 || professorId == 0) {
             throw new EntityValidationException("lessonNumber, groupId, professorId cant be zero");
         }
 
-        if (date.before(todayDate)) {
+        if (date.after(todayDate)) {
             throw new EntityValidationException("Lesson date for add or update cant be earlier then today");
         }
 

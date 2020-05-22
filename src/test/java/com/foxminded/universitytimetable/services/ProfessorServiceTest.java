@@ -1,17 +1,14 @@
 package com.foxminded.universitytimetable.services;
 
-import com.foxminded.universitytimetable.configurations.SpringJDBCConfig;
 import com.foxminded.universitytimetable.dao.impl.ProfessorImpl;
 import com.foxminded.universitytimetable.exceptions.DAOException;
 import com.foxminded.universitytimetable.exceptions.EntityValidationException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.models.Professor;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 
@@ -22,15 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 class ProfessorServiceTest {
-    private static AnnotationConfigApplicationContext context;
-    private static ProfessorImpl professorImpl;
-    private static ProfessorService professorService;
+    private ProfessorImpl professorImpl;
+    private ProfessorService professorService;
     private Professor professor;
-
-    @BeforeAll
-    static void initialize() {
-        context = new AnnotationConfigApplicationContext(SpringJDBCConfig.class);
-    }
 
     @BeforeEach
     void dataSet() {

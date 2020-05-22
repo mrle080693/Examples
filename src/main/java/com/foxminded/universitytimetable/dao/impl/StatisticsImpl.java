@@ -19,7 +19,6 @@ public class StatisticsImpl implements StatisticsDAO {
         lessonsQuantity = jdbcTemplate.queryForObject(Queries.GET_GROUP_EMPLOYMENT,
                 new Object[]{groupId, from, till}, Integer.class);
 
-
         return lessonsQuantity;
     }
 

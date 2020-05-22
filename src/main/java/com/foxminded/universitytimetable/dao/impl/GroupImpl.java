@@ -3,6 +3,7 @@ package com.foxminded.universitytimetable.dao.impl;
 import com.foxminded.universitytimetable.dao.GroupDAO;
 import com.foxminded.universitytimetable.dao.impl.queries.Queries;
 import com.foxminded.universitytimetable.dao.impl.rowmappers.GroupMapper;
+import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.models.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -42,6 +43,7 @@ public class GroupImpl implements GroupDAO {
         Group group;
         group = jdbcTemplate.queryForObject(Queries.GET_GROUP_BY_ID_QUERY, new Object[]{id},
                 new GroupMapper());
+
         return group;
     }
 

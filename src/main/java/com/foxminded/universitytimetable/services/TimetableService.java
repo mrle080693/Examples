@@ -18,21 +18,21 @@ import java.util.List;
 @Service("timetableServiceBean")
 public class TimetableService {
     private final TimetableImpl timetableImpl;
-    private final GroupImpl groupImpl;
-    private final ProfessorImpl professorImpl;
+    private final GroupService groupService;
+    private final ProfessorService professorService;
 
     @Autowired
-    public TimetableService(TimetableImpl timetableImpl, GroupImpl groupImpl, ProfessorImpl professorImpl) {
+    public TimetableService(TimetableImpl timetableImpl, GroupService groupService, ProfessorService professorService) {
         this.timetableImpl = timetableImpl;
-        this.groupImpl = groupImpl;
-        this.professorImpl = professorImpl;
+        this.groupService = groupService;
+        this.professorService = professorService;
     }
 
     public List<Lesson> getGroupTimetable(int groupId, Date from, Date till) {
         List<Lesson> lessons;
 
         try {
-            groupImpl.getById(groupId);
+            groupService.getById(groupId);
         } catch (EmptyResultDataAccessException ex) {
             throw new NotFoundEntityException("Group is not exists", ex);
         }
@@ -54,7 +54,7 @@ public class TimetableService {
         List<Lesson> lessons;
 
         try {
-            professorImpl.getById(professorId);
+            professorService.getById(professorId);
         } catch (EmptyResultDataAccessException ex) {
             throw new NotFoundEntityException("Professor is not exist", ex);
         }

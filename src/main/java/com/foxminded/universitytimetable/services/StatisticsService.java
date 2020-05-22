@@ -1,7 +1,5 @@
 package com.foxminded.universitytimetable.services;
 
-import com.foxminded.universitytimetable.dao.impl.GroupImpl;
-import com.foxminded.universitytimetable.dao.impl.ProfessorImpl;
 import com.foxminded.universitytimetable.dao.impl.StatisticsImpl;
 import com.foxminded.universitytimetable.exceptions.DAOException;
 import com.foxminded.universitytimetable.exceptions.EntityValidationException;
@@ -16,21 +14,21 @@ import java.util.Date;
 @Service("statisticsServiceBean")
 public class StatisticsService {
     private final StatisticsImpl statisticsImpl;
-    private final GroupImpl groupImpl;
-    private final ProfessorImpl professorImpl;
+    private final GroupService groupService;
+    private final ProfessorService professorService;
 
     @Autowired
-    public StatisticsService(StatisticsImpl statisticsImpl, GroupImpl groupImpl, ProfessorImpl professorImpl) {
+    public StatisticsService(StatisticsImpl statisticsImpl, GroupService groupService, ProfessorService professorService) {
         this.statisticsImpl = statisticsImpl;
-        this.groupImpl = groupImpl;
-        this.professorImpl = professorImpl;
+        this.groupService = groupService;
+        this.professorService = professorService;
     }
 
     public int getGroupEmployment(int groupId, Date from, Date till) {
         int lessonsQuantity;
 
         try {
-            groupImpl.getById(groupId);
+            groupService.getById(groupId);
         } catch (EmptyResultDataAccessException ex) {
             throw new NotFoundEntityException("Group is not exists", ex);
         }
@@ -52,7 +50,7 @@ public class StatisticsService {
         int lessonsQuantity;
 
         try {
-            professorImpl.getById(professorId);
+            professorService.getById(professorId);
         } catch (EmptyResultDataAccessException ex) {
             throw new NotFoundEntityException("Professor is not exist", ex);
         }

@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 
@@ -22,15 +21,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 class GroupServiceTest {
-    private static AnnotationConfigApplicationContext context;
-    private static GroupImpl groupImpl;
-    private static GroupService groupService;
+    private GroupImpl groupImpl;
+    private GroupService groupService;
     private Group group;
-
-    @BeforeAll
-    static void initialize() {
-        context = new AnnotationConfigApplicationContext(SpringJDBCConfig.class);
-    }
 
     @BeforeEach
     void dataSet() {
