@@ -1,6 +1,6 @@
 package com.foxminded.universitytimetable.services;
 
-import com.foxminded.universitytimetable.dao.impl.ProfessorImpl;
+import com.foxminded.universitytimetable.dao.ProfessorDAO;
 import com.foxminded.universitytimetable.exceptions.DAOException;
 import com.foxminded.universitytimetable.exceptions.EntityValidationException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
@@ -14,11 +14,11 @@ import java.util.List;
 
 @Service("professorServiceBean")
 public class ProfessorService {
-    private final ProfessorImpl professorImpl;
+    private final ProfessorDAO professorDAO;
 
     @Autowired
-    public ProfessorService(ProfessorImpl professorImpl) {
-        this.professorImpl = professorImpl;
+    public ProfessorService(ProfessorDAO professorDAO) {
+        this.professorDAO = professorDAO;
     }
 
     public int add(Professor professor) {
@@ -32,7 +32,7 @@ public class ProfessorService {
                         "If you want update professor you have to use update method");
             }
 
-            professorIdInTable = professorImpl.add(professor);
+            professorIdInTable = professorDAO.add(professor);
         } catch (DataAccessException ex) {
             throw new DAOException("Cant add professor", ex);
         }
@@ -44,7 +44,7 @@ public class ProfessorService {
         List<Professor> professors;
 
         try {
-            professors = professorImpl.getAll();
+            professors = professorDAO.getAll();
 
             if (professors.isEmpty()) {
                 throw new NotFoundEntityException("Table professors is empty");
@@ -64,7 +64,7 @@ public class ProfessorService {
                 throw new EntityValidationException("Professor id cant be 0");
             }
 
-            professor = professorImpl.getById(id);
+            professor = professorDAO.getById(id);
         } catch (EmptyResultDataAccessException ex) {
             throw new NotFoundEntityException("Table professors have not rows with input id", ex);
         } catch (DataAccessException ex) {
@@ -86,7 +86,7 @@ public class ProfessorService {
                 throw new EntityValidationException("Professor surname have not be empty");
             }
 
-            professors = professorImpl.getBySurname(surname);
+            professors = professorDAO.getBySurname(surname);
         } catch (EmptyResultDataAccessException ex) {
             throw new NotFoundEntityException("Table professors have not rows with input surname", ex);
         } catch (DataAccessException ex) {
@@ -107,7 +107,7 @@ public class ProfessorService {
                         "If you want add new professor you have to use add method");
             }
 
-            status = professorImpl.update(professor);
+            status = professorDAO.update(professor);
 
             if (status != 1) {
                 throw new NotFoundEntityException("Professor with input id doesnt exist");
@@ -123,7 +123,7 @@ public class ProfessorService {
         int status;
 
         try {
-            status = professorImpl.remove(professorId);
+            status = professorDAO.remove(professorId);
 
             if (status != 1) {
                 throw new NotFoundEntityException("Professor with input id doesnt exist");

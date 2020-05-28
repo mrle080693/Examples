@@ -1,8 +1,8 @@
 package com.foxminded.universitytimetable.services;
 
-import com.foxminded.universitytimetable.dao.impl.GroupImpl;
-import com.foxminded.universitytimetable.dao.impl.LessonImpl;
-import com.foxminded.universitytimetable.dao.impl.ProfessorImpl;
+import com.foxminded.universitytimetable.dao.GroupDAO;
+import com.foxminded.universitytimetable.dao.LessonDAO;
+import com.foxminded.universitytimetable.dao.ProfessorDAO;
 import com.foxminded.universitytimetable.exceptions.DAOException;
 import com.foxminded.universitytimetable.exceptions.EntityValidationException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
@@ -18,15 +18,15 @@ import java.util.List;
 
 @Service("lessonServiceBean")
 public class LessonService {
-    private final LessonImpl lessonImpl;
-    private final GroupImpl groupImpl;
-    private final ProfessorImpl professorImpl;
+    private final LessonDAO lessonDAO;
+    private final GroupDAO groupDAO;
+    private final ProfessorDAO professorDAO;
 
     @Autowired
-    public LessonService(LessonImpl lessonImpl, GroupImpl groupImpl, ProfessorImpl professorImpl) {
-        this.lessonImpl = lessonImpl;
-        this.groupImpl = groupImpl;
-        this.professorImpl = professorImpl;
+    public LessonService(LessonDAO lessonDAO, GroupDAO groupDAO, ProfessorDAO professorDAO) {
+        this.lessonDAO = lessonDAO;
+        this.groupDAO = groupDAO;
+        this.professorDAO = professorDAO;
     }
 
 
@@ -41,7 +41,7 @@ public class LessonService {
                         "If you want update lesson you have to use update method");
             }
 
-            lessonIdInTable = lessonImpl.add(lesson);
+            lessonIdInTable = lessonDAO.add(lesson);
         } catch (DataAccessException ex) {
             throw new DAOException("Cant add lesson", ex);
         }
@@ -53,7 +53,7 @@ public class LessonService {
         List<Lesson> lessons;
 
         try {
-            lessons = lessonImpl.getAll();
+            lessons = lessonDAO.getAll();
 
             if (lessons.isEmpty()) {
                 throw new NotFoundEntityException("Table lessons is empty");
@@ -73,7 +73,7 @@ public class LessonService {
                 throw new EntityValidationException("Lesson id cant be 0");
             }
 
-            lesson = lessonImpl.getById(id);
+            lesson = lessonDAO.getById(id);
         } catch (EmptyResultDataAccessException ex) {
             throw new NotFoundEntityException("Table lessons have not rows with input id", ex);
         } catch (DataAccessException ex) {
@@ -94,7 +94,7 @@ public class LessonService {
                         "If you want add new lesson you have to use add method");
             }
 
-            status = lessonImpl.update(lesson);
+            status = lessonDAO.update(lesson);
 
             if (status != 1) {
                 throw new NotFoundEntityException("Lesson with input id doesnt exist");
@@ -110,7 +110,7 @@ public class LessonService {
         int status;
 
         try {
-            status = lessonImpl.remove(lessonId);
+            status = lessonDAO.remove(lessonId);
 
             if (status != 1) {
                 throw new NotFoundEntityException("Lesson with input id doesnt exist");
@@ -153,13 +153,13 @@ public class LessonService {
         }
 
         try {
-            groupImpl.getById(groupId);
+            groupDAO.getById(groupId);
         } catch (EmptyResultDataAccessException ex) {
             throw new NotFoundEntityException("You try add lesson to group which not exists", ex);
         }
 
         try {
-            professorImpl.getById(professorId);
+            professorDAO.getById(professorId);
         } catch (EmptyResultDataAccessException ex) {
             throw new NotFoundEntityException("You try add lesson to professor which not exist", ex);
         }

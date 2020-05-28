@@ -1,6 +1,6 @@
 package com.foxminded.universitytimetable.services;
 
-import com.foxminded.universitytimetable.dao.impl.GroupImpl;
+import com.foxminded.universitytimetable.dao.GroupDAO;
 import com.foxminded.universitytimetable.exceptions.DAOException;
 import com.foxminded.universitytimetable.exceptions.EntityValidationException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
@@ -14,11 +14,11 @@ import java.util.List;
 
 @Service("groupServiceBean")
 public class GroupService {
-    private final GroupImpl groupImpl;
+    private final GroupDAO groupDAO;
 
     @Autowired
-    public GroupService(GroupImpl groupImpl) {
-        this.groupImpl = groupImpl;
+    public GroupService(GroupDAO groupDAO) {
+        this.groupDAO = groupDAO;
     }
 
     public int add(Group group) {
@@ -32,7 +32,7 @@ public class GroupService {
                         "If you want update group you have to use update method");
             }
 
-            groupIdInTable = groupImpl.add(group);
+            groupIdInTable = groupDAO.add(group);
         } catch (DataAccessException ex) {
             throw new DAOException("Cant add group", ex);
         }
@@ -44,7 +44,7 @@ public class GroupService {
         List<Group> groups;
 
         try {
-            groups = groupImpl.getAll();
+            groups = groupDAO.getAll();
 
             if (groups.isEmpty()) {
                 throw new NotFoundEntityException("Table groups is empty");
@@ -64,7 +64,7 @@ public class GroupService {
                 throw new EntityValidationException("Group id cant be 0");
             }
 
-            group = groupImpl.getById(id);
+            group = groupDAO.getById(id);
         } catch (EmptyResultDataAccessException ex) {
             throw new NotFoundEntityException("Table groups have not rows with input id", ex);
         } catch (DataAccessException ex) {
@@ -86,7 +86,7 @@ public class GroupService {
                 throw new EntityValidationException("Group name must not be empty");
             }
 
-            groups = groupImpl.getByName(name);
+            groups = groupDAO.getByName(name);
         } catch (EmptyResultDataAccessException ex) {
             throw new NotFoundEntityException("Table groups have not rows with input name", ex);
         } catch (DataAccessException ex) {
@@ -107,7 +107,7 @@ public class GroupService {
                         "If you want add new group you have to use add method");
             }
 
-            status = groupImpl.update(group);
+            status = groupDAO.update(group);
 
             if (status != 1) {
                 throw new NotFoundEntityException("Group with input id doesnt exist");
@@ -123,7 +123,7 @@ public class GroupService {
         int status;
 
         try {
-            status = groupImpl.remove(groupId);
+            status = groupDAO.remove(groupId);
 
             if (status != 1) {
                 throw new NotFoundEntityException("Group with input id doesnt exist");

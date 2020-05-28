@@ -1,8 +1,6 @@
 package com.foxminded.universitytimetable.services;
 
-import com.foxminded.universitytimetable.dao.impl.GroupImpl;
-import com.foxminded.universitytimetable.dao.impl.ProfessorImpl;
-import com.foxminded.universitytimetable.dao.impl.TimetableImpl;
+import com.foxminded.universitytimetable.dao.TimetableDAO;
 import com.foxminded.universitytimetable.exceptions.DAOException;
 import com.foxminded.universitytimetable.exceptions.EntityValidationException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
@@ -17,13 +15,13 @@ import java.util.List;
 
 @Service("timetableServiceBean")
 public class TimetableService {
-    private final TimetableImpl timetableImpl;
+    private final TimetableDAO timetableDAO;
     private final GroupService groupService;
     private final ProfessorService professorService;
 
     @Autowired
-    public TimetableService(TimetableImpl timetableImpl, GroupService groupService, ProfessorService professorService) {
-        this.timetableImpl = timetableImpl;
+    public TimetableService(TimetableDAO timetableDAO, GroupService groupService, ProfessorService professorService) {
+        this.timetableDAO = timetableDAO;
         this.groupService = groupService;
         this.professorService = professorService;
     }
@@ -38,7 +36,7 @@ public class TimetableService {
         }
 
         try {
-            lessons = timetableImpl.getGroupTimetable(groupId, from, till);
+            lessons = timetableDAO.getGroupTimetable(groupId, from, till);
         } catch (DataAccessException ex) {
             throw new DAOException("Cant get group timetable", ex);
         }
@@ -60,7 +58,7 @@ public class TimetableService {
         }
 
         try {
-            lessons = timetableImpl.getProfessorTimetable(professorId, from, till);
+            lessons = timetableDAO.getProfessorTimetable(professorId, from, till);
         } catch (DataAccessException ex) {
             throw new DAOException("Cant get professor timetable", ex);
         }

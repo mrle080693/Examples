@@ -1,6 +1,6 @@
 package com.foxminded.universitytimetable.services;
 
-import com.foxminded.universitytimetable.dao.impl.StatisticsImpl;
+import com.foxminded.universitytimetable.dao.StatisticsDAO;
 import com.foxminded.universitytimetable.exceptions.DAOException;
 import com.foxminded.universitytimetable.exceptions.EntityValidationException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
@@ -13,13 +13,13 @@ import java.util.Date;
 
 @Service("statisticsServiceBean")
 public class StatisticsService {
-    private final StatisticsImpl statisticsImpl;
+    private final StatisticsDAO statisticsDAO;
     private final GroupService groupService;
     private final ProfessorService professorService;
 
     @Autowired
-    public StatisticsService(StatisticsImpl statisticsImpl, GroupService groupService, ProfessorService professorService) {
-        this.statisticsImpl = statisticsImpl;
+    public StatisticsService(StatisticsDAO statisticsDAO, GroupService groupService, ProfessorService professorService) {
+        this.statisticsDAO = statisticsDAO;
         this.groupService = groupService;
         this.professorService = professorService;
     }
@@ -34,7 +34,7 @@ public class StatisticsService {
         }
 
         try {
-            lessonsQuantity = statisticsImpl.getGroupEmployment(groupId, from, till);
+            lessonsQuantity = statisticsDAO.getGroupEmployment(groupId, from, till);
         } catch (DataAccessException ex) {
             throw new DAOException("Cant get group employment", ex);
         }
@@ -56,7 +56,7 @@ public class StatisticsService {
         }
 
         try {
-            lessonsQuantity = statisticsImpl.getProfessorEmployment(professorId, from, till);
+            lessonsQuantity = statisticsDAO.getProfessorEmployment(professorId, from, till);
         } catch (DataAccessException ex) {
             throw new DAOException("Cant get professor employment", ex);
         }
