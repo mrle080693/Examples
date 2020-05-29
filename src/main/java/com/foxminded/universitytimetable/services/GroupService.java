@@ -9,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 @Service("groupServiceBean")
 public class GroupService {
     private final GroupDAO groupDAO;
+    private static Logger LOGGER = LoggerFactory.getLogger(GroupService.class);
 
     @Autowired
     public GroupService(GroupDAO groupDAO) {
@@ -23,10 +26,13 @@ public class GroupService {
 
     public int add(Group group) {
         int groupIdInTable;
+        checkGroup(group);
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to add group with id = " + group.getId());
+        }
 
         try {
-            checkGroup(group);
-
             if (group.getId() != 0) {
                 throw new EntityValidationException("New group id must be 0. \n" +
                         "If you want update group you have to use update method");
@@ -34,7 +40,13 @@ public class GroupService {
 
             groupIdInTable = groupDAO.add(group);
         } catch (DataAccessException ex) {
-            throw new DAOException("Cant add group", ex);
+            String exMessage = "Cant add group";
+            LOGGER.error(exMessage);
+            throw new DAOException(exMessage, ex);
+        }
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Successful");
         }
 
         return groupIdInTable;
@@ -43,6 +55,10 @@ public class GroupService {
     public List<Group> getAll() {
         List<Group> groups;
 
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to get all from table groups");
+        }
+
         try {
             groups = groupDAO.getAll();
 
@@ -50,7 +66,13 @@ public class GroupService {
                 throw new NotFoundEntityException("Table groups is empty");
             }
         } catch (DataAccessException ex) {
-            throw new DAOException("Cant get all from table groups", ex);
+            String exMessage = "Cant get all from table groups";
+            LOGGER.error(exMessage);
+            throw new DAOException(exMessage, ex);
+        }
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Successful");
         }
 
         return groups;
@@ -59,6 +81,10 @@ public class GroupService {
     public Group getById(int id) {
         Group group;
 
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to get group by id = " + id);
+        }
+
         try {
             if (id == 0) {
                 throw new EntityValidationException("Group id cant be 0");
@@ -66,9 +92,17 @@ public class GroupService {
 
             group = groupDAO.getById(id);
         } catch (EmptyResultDataAccessException ex) {
-            throw new NotFoundEntityException("Table groups have not rows with input id", ex);
+            String exMessage = "Table groups have not groups with id = " + id;
+            LOGGER.warn(exMessage);
+            throw new NotFoundEntityException(exMessage, ex);
         } catch (DataAccessException ex) {
-            throw new DAOException("Cant get by id from table groups", ex);
+            String exMessage = "Cant get group from DB with id = " + id;
+            LOGGER.error(exMessage);
+            throw new DAOException(exMessage, ex);
+        }
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Successful");
         }
 
         return group;
@@ -76,6 +110,10 @@ public class GroupService {
 
     public List<Group> getByName(String name) {
         List<Group> groups;
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to get group by name = " + name);
+        }
 
         try {
             if (name == null) {
@@ -88,9 +126,17 @@ public class GroupService {
 
             groups = groupDAO.getByName(name);
         } catch (EmptyResultDataAccessException ex) {
-            throw new NotFoundEntityException("Table groups have not rows with input name", ex);
+            String exMessage = "Table groups have not groups with name = " + name;
+            LOGGER.warn(exMessage);
+            throw new NotFoundEntityException(exMessage, ex);
         } catch (DataAccessException ex) {
-            throw new DAOException("Cant get by name from table groups", ex);
+            String exMessage = "Cant get group from DB with name = " + name;
+            LOGGER.error(exMessage);
+            throw new DAOException(exMessage, ex);
+        }
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Successful");
         }
 
         return groups;
@@ -98,9 +144,13 @@ public class GroupService {
 
     public int update(Group group) {
         int status;
+        checkGroup(group);
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to update group with id = " + group.getId());
+        }
 
         try {
-            checkGroup(group);
 
             if (group.getId() == 0) {
                 throw new EntityValidationException("New group id must not be 0. \n" +
@@ -113,7 +163,13 @@ public class GroupService {
                 throw new NotFoundEntityException("Group with input id doesnt exist");
             }
         } catch (DataAccessException ex) {
-            throw new DAOException("Cant update table groups", ex);
+            String exMessage = "Cant update table groups";
+            LOGGER.error(exMessage);
+            throw new DAOException(exMessage, ex);
+        }
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Successful");
         }
 
         return status;
@@ -122,6 +178,10 @@ public class GroupService {
     public int remove(int groupId) {
         int status;
 
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to remove group with id = " + groupId);
+        }
+
         try {
             status = groupDAO.remove(groupId);
 
@@ -129,7 +189,13 @@ public class GroupService {
                 throw new NotFoundEntityException("Group with input id doesnt exist");
             }
         } catch (DataAccessException ex) {
-            throw new DAOException("Cant remove element of table groups", ex);
+            String exMessage = "Cant remove from table groups";
+            LOGGER.error(exMessage);
+            throw new DAOException(exMessage, ex);
+        }
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Successful");
         }
 
         return status;
