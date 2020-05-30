@@ -34,19 +34,21 @@ public class GroupService {
 
         try {
             if (group.getId() != 0) {
-                throw new EntityValidationException("New group id must be 0. \n" +
-                        "If you want update group you have to use update method");
+                String exMessage = "New group id is not 0.";
+                EntityValidationException ex = new EntityValidationException(exMessage);
+                LOGGER.error(exMessage, ex);
+                throw ex;
             }
 
             groupIdInTable = groupDAO.add(group);
         } catch (DataAccessException ex) {
             String exMessage = "Cant add group";
-            LOGGER.error(exMessage);
+            LOGGER.error(exMessage, ex);
             throw new DAOException(exMessage, ex);
         }
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successful");
+            LOGGER.debug("Successfully added group: " + group);
         }
 
         return groupIdInTable;
@@ -63,16 +65,19 @@ public class GroupService {
             groups = groupDAO.getAll();
 
             if (groups.isEmpty()) {
-                throw new NotFoundEntityException("Table groups is empty");
+                String exMessage = "Table groups is empty";
+                NotFoundEntityException ex = new NotFoundEntityException(exMessage);
+                LOGGER.error(exMessage, ex);
+                throw ex;
             }
         } catch (DataAccessException ex) {
             String exMessage = "Cant get all from table groups";
-            LOGGER.error(exMessage);
+            LOGGER.error(exMessage, ex);
             throw new DAOException(exMessage, ex);
         }
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successful");
+            LOGGER.debug("Result is: " + groups);
         }
 
         return groups;
@@ -87,22 +92,25 @@ public class GroupService {
 
         try {
             if (id == 0) {
-                throw new EntityValidationException("Group id cant be 0");
+                String exMessage = "Group id is 0";
+                EntityValidationException ex = new EntityValidationException(exMessage);
+                LOGGER.error(exMessage, ex);
+                throw ex;
             }
 
             group = groupDAO.getById(id);
         } catch (EmptyResultDataAccessException ex) {
             String exMessage = "Table groups have not groups with id = " + id;
-            LOGGER.warn(exMessage);
+            LOGGER.warn(exMessage, ex);
             throw new NotFoundEntityException(exMessage, ex);
         } catch (DataAccessException ex) {
             String exMessage = "Cant get group from DB with id = " + id;
-            LOGGER.error(exMessage);
+            LOGGER.error(exMessage, ex);
             throw new DAOException(exMessage, ex);
         }
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successful");
+            LOGGER.debug("Result is: " + group);
         }
 
         return group;
@@ -117,26 +125,32 @@ public class GroupService {
 
         try {
             if (name == null) {
-                throw new EntityValidationException("Group must have name");
+                String exMessage = "Group isn't have name";
+                EntityValidationException ex = new EntityValidationException(exMessage);
+                LOGGER.error(exMessage, ex);
+                throw ex;
             }
 
             if (name.trim().isEmpty()) {
-                throw new EntityValidationException("Group name must not be empty");
+                String exMessage = "Group name  is empty";
+                EntityValidationException ex = new EntityValidationException(exMessage);
+                LOGGER.error(exMessage, ex);
+                throw ex;
             }
 
             groups = groupDAO.getByName(name);
         } catch (EmptyResultDataAccessException ex) {
             String exMessage = "Table groups have not groups with name = " + name;
-            LOGGER.warn(exMessage);
+            LOGGER.warn(exMessage, ex);
             throw new NotFoundEntityException(exMessage, ex);
         } catch (DataAccessException ex) {
             String exMessage = "Cant get group from DB with name = " + name;
-            LOGGER.error(exMessage);
+            LOGGER.error(exMessage, ex);
             throw new DAOException(exMessage, ex);
         }
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successful");
+            LOGGER.debug("Result is: " + groups);
         }
 
         return groups;
@@ -153,23 +167,28 @@ public class GroupService {
         try {
 
             if (group.getId() == 0) {
-                throw new EntityValidationException("New group id must not be 0. \n" +
-                        "If you want add new group you have to use add method");
+                String exMessage = "Group id is 0";
+                EntityValidationException ex = new EntityValidationException(exMessage);
+                LOGGER.error(exMessage, ex);
+                throw ex;
             }
 
             status = groupDAO.update(group);
 
             if (status != 1) {
-                throw new NotFoundEntityException("Group with input id doesnt exist");
+                String exMessage = "Group with input id doesnt exist";
+                NotFoundEntityException ex = new NotFoundEntityException(exMessage);
+                LOGGER.error(exMessage, ex);
+                throw ex;
             }
         } catch (DataAccessException ex) {
             String exMessage = "Cant update table groups";
-            LOGGER.error(exMessage);
+            LOGGER.error(exMessage, ex);
             throw new DAOException(exMessage, ex);
         }
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successful");
+            LOGGER.debug("Successfully update group: " + group);
         }
 
         return status;
@@ -186,16 +205,19 @@ public class GroupService {
             status = groupDAO.remove(groupId);
 
             if (status != 1) {
-                throw new NotFoundEntityException("Group with input id doesnt exist");
+                String exMessage = "Group with input id does not exist";
+                NotFoundEntityException ex = new NotFoundEntityException(exMessage);
+                LOGGER.error(exMessage, ex);
+                throw ex;
             }
         } catch (DataAccessException ex) {
             String exMessage = "Cant remove from table groups";
-            LOGGER.error(exMessage);
+            LOGGER.error(exMessage, ex);
             throw new DAOException(exMessage, ex);
         }
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successful");
+            LOGGER.debug("Successfully remove group with id: " + groupId);
         }
 
         return status;
@@ -203,17 +225,27 @@ public class GroupService {
 
     private void checkGroup(Group group) {
         if (group == null) {
-            throw new IllegalArgumentException("Group for add or update cant be null");
+            String exMessage = "Group is null";
+            IllegalArgumentException ex = new IllegalArgumentException(exMessage);
+            LOGGER.error(exMessage, ex);
+            throw ex;
         }
 
         String name = group.getName();
 
         if (name == null) {
-            throw new EntityValidationException("Group must have name");
+            String exMessage = "Group is not have name";
+            EntityValidationException ex = new EntityValidationException(exMessage);
+            LOGGER.error(exMessage, ex);
+            throw ex;
+
         }
 
         if (name.trim().isEmpty()) {
-            throw new EntityValidationException("Group name must not be empty");
+            String exMessage = "Group name is empty";
+            EntityValidationException ex = new EntityValidationException(exMessage);
+            LOGGER.error(exMessage, ex);
+            throw ex;
         }
     }
 }
