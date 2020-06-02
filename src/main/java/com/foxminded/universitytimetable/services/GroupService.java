@@ -28,6 +28,10 @@ public class GroupService {
     public int add(Group group) {
         int groupIdInTable;
 
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to add group: " + group);
+        }
+
         if (group == null) {
             String exMessage = "Group is null";
             IllegalArgumentException ex = new IllegalArgumentException(exMessage);
@@ -35,13 +39,9 @@ public class GroupService {
             throw ex;
         }
 
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Try to add group with id = " + group.getId());
-        }
-
-        checkGroup(group);
-
         try {
+            checkGroup(group);
+
             if (group.getId() != 0) {
                 String exMessage = "New group id is not 0. Actual value is: " + group.getId();
                 EntityValidationException ex = new EntityValidationException(exMessage);
@@ -175,17 +175,15 @@ public class GroupService {
             throw ex;
         }
 
-        checkGroup(group);
-
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to update group: " + group);
         }
 
         try {
+            checkGroup(group);
 
             if (group.getId() == 0) {
-                String exMessage = "Group id is 0";
+                String exMessage = "Group id is 0." + group;
                 EntityValidationException ex = new EntityValidationException(exMessage);
                 LOGGER.error(exMessage);
                 throw ex;
@@ -194,7 +192,7 @@ public class GroupService {
             status = groupDAO.update(group);
 
             if (status != 1) {
-                String exMessage = "Group with input id doesnt exist. Id is: " + group.getId();
+                String exMessage = "Group with input id doesnt exist. " + group;
                 NotFoundEntityException ex = new NotFoundEntityException(exMessage);
                 LOGGER.error(exMessage);
                 throw ex;
