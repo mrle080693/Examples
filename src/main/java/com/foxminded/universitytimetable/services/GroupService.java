@@ -51,13 +51,13 @@ public class GroupService {
 
             groupIdInTable = groupDAO.add(group);
         } catch (DataAccessException ex) {
-            String exMessage = "Cant add group with id: " + group;
+            String exMessage = "Cant add group: " + group;
             LOGGER.error(exMessage);
             throw new DAOException(exMessage, ex);
         }
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successfully added group: " + group);
+            LOGGER.debug("Successfully add group: " + group);
         }
 
         return groupIdInTable;
@@ -93,7 +93,7 @@ public class GroupService {
     }
 
     public Group getById(int id) {
-        Group group;
+        Group group = null;
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to get group by id = " + id);
@@ -101,7 +101,7 @@ public class GroupService {
 
         try {
             if (id == 0) {
-                String exMessage = "Group id is 0";
+                String exMessage = "Group id is 0. " + group;
                 EntityValidationException ex = new EntityValidationException(exMessage);
                 LOGGER.error(exMessage);
                 throw ex;
@@ -179,7 +179,7 @@ public class GroupService {
 
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Try to update group with id = " + group.getId());
+            LOGGER.debug("Try to update group: " + group);
         }
 
         try {
@@ -249,7 +249,6 @@ public class GroupService {
             EntityValidationException ex = new EntityValidationException(exMessage);
             LOGGER.error(exMessage);
             throw ex;
-
         }
 
         if (name.trim().isEmpty()) {
