@@ -17,7 +17,7 @@ import java.util.List;
 @Service("groupServiceBean")
 public class GroupService {
     private final GroupDAO groupDAO;
-    private static Logger LOGGER;
+    private Logger LOGGER;
 
     @Autowired
     public GroupService(GroupDAO groupDAO) {
