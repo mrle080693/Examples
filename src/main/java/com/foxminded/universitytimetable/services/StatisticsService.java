@@ -27,11 +27,11 @@ public class StatisticsService {
     }
 
     public int getGroupEmployment(int groupId, Date from, Date till) {
-        int lessonsQuantity;
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to get group employment. Group id: " + groupId + "from: " + from + "till: " + till);
         }
+
+        int lessonsQuantity;
 
         // For check if group exists
         groupService.getById(groupId);
@@ -59,12 +59,12 @@ public class StatisticsService {
     }
 
     public int getProfessorEmployment(int professorId, Date from, Date till) {
-        int lessonsQuantity;
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to get professor employment. Professor id: " + professorId + " from: " + from + "till: "
                     + till);
         }
+
+        int lessonsQuantity;
 
         // For check if professor exists
         professorService.getById(professorId);

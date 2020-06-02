@@ -26,18 +26,11 @@ public class ProfessorService {
     }
 
     public int add(Professor professor) {
-        int professorIdInTable;
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to add professor: " + professor);
         }
 
-        if (professor == null) {
-            String exMessage = "Professor is null";
-            IllegalArgumentException ex = new IllegalArgumentException(exMessage);
-            LOGGER.error(exMessage);
-            throw ex;
-        }
+        int professorIdInTable;
 
         try {
             checkProfessor(professor);
@@ -64,11 +57,11 @@ public class ProfessorService {
     }
 
     public List<Professor> getAll() {
-        List<Professor> professors;
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to get all from table professors");
         }
+
+        List<Professor> professors;
 
         try {
             professors = professorDAO.getAll();
@@ -93,11 +86,11 @@ public class ProfessorService {
     }
 
     public Professor getById(int id) {
-        Professor professor;
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to get professor by id = " + id);
         }
+
+        Professor professor;
 
         try {
             if (id == 0) {
@@ -126,11 +119,11 @@ public class ProfessorService {
     }
 
     public List<Professor> getBySurname(String surname) {
-        List<Professor> professors;
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to get professor by surname = " + surname);
         }
+
+        List<Professor> professors;
 
         try {
             if (surname == null) {
@@ -166,18 +159,11 @@ public class ProfessorService {
     }
 
     public int update(Professor professor) {
-        int status;
-
-        if (professor == null) {
-            String exMessage = "Professor is null ";
-            IllegalArgumentException ex = new IllegalArgumentException(exMessage);
-            LOGGER.error(exMessage);
-            throw ex;
-        }
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to update professor: " + professor);
         }
+
+        int status;
 
         try {
             checkProfessor(professor);
@@ -211,11 +197,11 @@ public class ProfessorService {
     }
 
     public int remove(int professorId) {
-        int status;
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to remove professor with id = " + professorId);
         }
+
+        int status;
 
         try {
             status = professorDAO.remove(professorId);
@@ -240,6 +226,13 @@ public class ProfessorService {
     }
 
     private void checkProfessor(Professor professor) {
+        if (professor == null) {
+            String exMessage = "Professor is null";
+            IllegalArgumentException ex = new IllegalArgumentException(exMessage);
+            LOGGER.error(exMessage);
+            throw ex;
+        }
+
         String name = professor.getName();
         String surname = professor.getSurname();
         String patronymic = professor.getPatronymic();

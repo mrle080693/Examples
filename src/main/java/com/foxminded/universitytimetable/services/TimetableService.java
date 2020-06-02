@@ -29,11 +29,11 @@ public class TimetableService {
     }
 
     public List<Lesson> getGroupTimetable(int groupId, Date from, Date till) {
-        List<Lesson> lessons;
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to get group timetable. Group id: " + groupId + "from: " + from + "till: " + till);
         }
+
+        List<Lesson> lessons;
 
         // For check if group exists
         groupService.getById(groupId);
@@ -61,12 +61,12 @@ public class TimetableService {
     }
 
     public List<Lesson> getProfessorTimetable(int professorId, Date from, Date till) {
-        List<Lesson> lessons;
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to get professor timetable. Professor id: " + professorId + " from: " + from + "till: "
                     + till);
         }
+
+        List<Lesson> lessons;
 
         // For check if professor exists
         professorService.getById(professorId);

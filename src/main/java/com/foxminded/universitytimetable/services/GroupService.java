@@ -26,18 +26,11 @@ public class GroupService {
     }
 
     public int add(Group group) {
-        int groupIdInTable;
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to add group: " + group);
         }
 
-        if (group == null) {
-            String exMessage = "Group is null";
-            IllegalArgumentException ex = new IllegalArgumentException(exMessage);
-            LOGGER.error(exMessage);
-            throw ex;
-        }
+        int groupIdInTable;
 
         try {
             checkGroup(group);
@@ -64,11 +57,11 @@ public class GroupService {
     }
 
     public List<Group> getAll() {
-        List<Group> groups;
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to get all from table groups");
         }
+
+        List<Group> groups;
 
         try {
             groups = groupDAO.getAll();
@@ -93,11 +86,11 @@ public class GroupService {
     }
 
     public Group getById(int id) {
-        Group group = null;
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to get group by id = " + id);
         }
+
+        Group group = null;
 
         try {
             if (id == 0) {
@@ -126,11 +119,11 @@ public class GroupService {
     }
 
     public List<Group> getByName(String name) {
-        List<Group> groups;
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to get group by name = " + name);
         }
+
+        List<Group> groups;
 
         try {
             if (name == null) {
@@ -166,18 +159,11 @@ public class GroupService {
     }
 
     public int update(Group group) {
-        int status;
-
-        if (group == null) {
-            String exMessage = "Group is null ";
-            IllegalArgumentException ex = new IllegalArgumentException(exMessage);
-            LOGGER.error(exMessage);
-            throw ex;
-        }
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to update group: " + group);
         }
+
+        int status;
 
         try {
             checkGroup(group);
@@ -211,11 +197,11 @@ public class GroupService {
     }
 
     public int remove(int groupId) {
-        int status;
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to remove group with id = " + groupId);
         }
+
+        int status;
 
         try {
             status = groupDAO.remove(groupId);
@@ -240,16 +226,23 @@ public class GroupService {
     }
 
     private void checkGroup(Group group) {
-        String name = group.getName();
+        if (group == null) {
+            String exMessage = "Group is null";
+            IllegalArgumentException ex = new IllegalArgumentException(exMessage);
+            LOGGER.error(exMessage);
+            throw ex;
+        }
 
-        if (name == null) {
+        String groupName = group.getName();
+
+        if (groupName == null) {
             String exMessage = "Group is not have name";
             EntityValidationException ex = new EntityValidationException(exMessage);
             LOGGER.error(exMessage);
             throw ex;
         }
 
-        if (name.trim().isEmpty()) {
+        if (groupName.trim().isEmpty()) {
             String exMessage = "Group name is empty";
             EntityValidationException ex = new EntityValidationException(exMessage);
             LOGGER.error(exMessage);

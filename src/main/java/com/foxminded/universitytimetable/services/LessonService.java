@@ -34,18 +34,11 @@ public class LessonService {
     }
 
     public int add(Lesson lesson) {
-        int lessonIdInTable;
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to add lesson " + lesson);
         }
 
-        if (lesson == null) {
-            String exMessage = "Lesson is null";
-            IllegalArgumentException ex = new IllegalArgumentException(exMessage);
-            LOGGER.error(exMessage);
-            throw ex;
-        }
+        int lessonIdInTable;
 
         try {
             checkLesson(lesson);
@@ -72,11 +65,11 @@ public class LessonService {
     }
 
     public List<Lesson> getAll() {
-        List<Lesson> lessons = null;
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to get all from table lessons");
         }
+
+        List<Lesson> lessons = null;
 
         try {
             lessons = lessonDAO.getAll();
@@ -101,11 +94,11 @@ public class LessonService {
     }
 
     public Lesson getById(int id) {
-        Lesson lesson = null;
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to get lesson by id = " + id);
         }
+
+        Lesson lesson = null;
 
         try {
             if (id == 0) {
@@ -134,18 +127,11 @@ public class LessonService {
     }
 
     public int update(Lesson lesson) {
-        int status;
-
-        if (lesson == null) {
-            String exMessage = "Lesson is null ";
-            IllegalArgumentException ex = new IllegalArgumentException(exMessage);
-            LOGGER.error(exMessage);
-            throw ex;
-        }
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to update lesson: " + lesson);
         }
+
+        int status;
 
         try {
             checkLesson(lesson);
@@ -179,11 +165,11 @@ public class LessonService {
     }
 
     public int remove(int lessonId) {
-        int status;
-
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to remove lesson with id = " + lessonId);
         }
+
+        int status;
 
         try {
             status = lessonDAO.remove(lessonId);
@@ -208,6 +194,13 @@ public class LessonService {
     }
 
     private void checkLesson(Lesson lesson) {
+        if (lesson == null) {
+            String exMessage = "Lesson is null";
+            IllegalArgumentException ex = new IllegalArgumentException(exMessage);
+            LOGGER.error(exMessage);
+            throw ex;
+        }
+
         Date date = lesson.getDate();
         int lessonNumber = lesson.getLessonNumber();
         int groupId = lesson.getGroupId();
