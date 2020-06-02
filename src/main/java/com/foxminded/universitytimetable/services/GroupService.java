@@ -17,11 +17,12 @@ import java.util.List;
 @Service("groupServiceBean")
 public class GroupService {
     private final GroupDAO groupDAO;
-    private static Logger LOGGER = LoggerFactory.getLogger(GroupService.class);
+    private static Logger LOGGER;
 
     @Autowired
     public GroupService(GroupDAO groupDAO) {
         this.groupDAO = groupDAO;
+        LOGGER = LoggerFactory.getLogger(GroupService.class);
     }
 
     public int add(Group group) {
