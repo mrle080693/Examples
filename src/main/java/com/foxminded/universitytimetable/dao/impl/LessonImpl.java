@@ -4,6 +4,8 @@ import com.foxminded.universitytimetable.dao.LessonDAO;
 import com.foxminded.universitytimetable.dao.impl.queries.Queries;
 import com.foxminded.universitytimetable.dao.impl.rowmappers.LessonMapper;
 import com.foxminded.universitytimetable.models.Lesson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -18,8 +20,13 @@ import java.util.List;
 public class LessonImpl implements LessonDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    private Logger LOGGER = LoggerFactory.getLogger(LessonImpl.class);
 
     public int add(Lesson lesson) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to add lesson " + lesson);
+        }
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(con -> {
@@ -35,26 +42,51 @@ public class LessonImpl implements LessonDAO {
                 , keyHolder);
 
         Number id = keyHolder.getKey();
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Successfully add lesson: " + lesson);
+        }
+
         return (int) id;
     }
 
     public List<Lesson> getAll() {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to get all from table lessons");
+        }
+
         List<Lesson> lessons;
 
         lessons = jdbcTemplate.query(Queries.GET_ALL_LESSONS_QUERY, new LessonMapper());
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Result is: " + lessons);
+        }
 
         return lessons;
     }
 
     public Lesson getById(int id) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to get lesson by id = " + id);
+        }
+
         Lesson lesson;
 
         lesson = jdbcTemplate.queryForObject(Queries.GET_LESSON_BY_ID_QUERY, new Object[]{id}, new LessonMapper());
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Result is: " + lesson);
+        }
 
         return lesson;
     }
 
     public int update(Lesson lesson) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to update lesson: " + lesson);
+        }
+
         int id = lesson.getId();
         Date date = lesson.getDate();
         int lessonNumber = lesson.getLessonNumber();
@@ -70,14 +102,26 @@ public class LessonImpl implements LessonDAO {
             throw new IllegalArgumentException("Row with input id doesnt exist");
         }
 
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Successfully update lesson: " + lesson);
+        }
+
         return status;
     }
 
     public int remove(int lessonId) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to remove lesson with id = " + lessonId);
+        }
+
         int status = jdbcTemplate.update(Queries.REMOVE_LESSON_QUERY, lessonId);
 
         if (status != 1) {
             throw new IllegalArgumentException("Row with input id doesnt exist");
+        }
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Successfully remove lesson with id: " + lessonId);
         }
 
         return status;

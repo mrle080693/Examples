@@ -19,9 +19,13 @@ import java.util.List;
 public class GroupImpl implements GroupDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    private Logger LOGGER= LoggerFactory.getLogger(GroupImpl.class);
+    private Logger LOGGER = LoggerFactory.getLogger(GroupImpl.class);
 
     public int add(Group group) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to add group: " + group);
+        }
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(con -> {
@@ -33,37 +37,85 @@ public class GroupImpl implements GroupDAO {
 
         Number id = keyHolder.getKey();
 
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Successfully add group: " + group);
+        }
+
         return (int) id;
     }
 
     public List<Group> getAll() {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to get all from table groups");
+        }
+
         List<Group> groups;
         groups = jdbcTemplate.query(Queries.GET_ALL_GROUPS_QUERY, new GroupMapper());
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Result is: " + groups);
+        }
+
         return groups;
     }
 
     public Group getById(int id) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to get group by id = " + id);
+        }
+
         Group group;
         group = jdbcTemplate.queryForObject(Queries.GET_GROUP_BY_ID_QUERY, new Object[]{id},
                 new GroupMapper());
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Result is: " + group);
+        }
 
         return group;
     }
 
     public List<Group> getByName(String name) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to get group by name = " + name);
+        }
+
         List<Group> groups;
         groups = jdbcTemplate.query(Queries.GET_GROUP_BY_NAME_QUERY, new Object[]{name},
                 new GroupMapper());
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Result is: " + groups);
+        }
+
         return groups;
     }
 
     public int update(Group group) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to update group: " + group);
+        }
+
         int status = jdbcTemplate.update(Queries.UPDATE_GROUP_QUERY, group.getName(), group.getId());
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Successfully update group: " + group);
+        }
+
         return status;
     }
 
     public int remove(int groupId) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to remove group with id = " + groupId);
+        }
+
         int status = jdbcTemplate.update(Queries.REMOVE_GROUP_QUERY, groupId);
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Successfully remove group with id: " + groupId);
+        }
+
         return status;
     }
 }

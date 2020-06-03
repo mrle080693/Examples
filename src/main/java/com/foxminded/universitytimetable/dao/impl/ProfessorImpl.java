@@ -4,6 +4,8 @@ import com.foxminded.universitytimetable.dao.ProfessorDAO;
 import com.foxminded.universitytimetable.dao.impl.queries.Queries;
 import com.foxminded.universitytimetable.dao.impl.rowmappers.ProfessorMapper;
 import com.foxminded.universitytimetable.models.Professor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -17,8 +19,13 @@ import java.util.List;
 public class ProfessorImpl implements ProfessorDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    private Logger LOGGER = LoggerFactory.getLogger(ProfessorImpl.class);
 
     public int add(Professor professor) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to add professor: " + professor);
+        }
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(con -> {
@@ -32,36 +39,69 @@ public class ProfessorImpl implements ProfessorDAO {
                 , keyHolder);
 
         Number id = keyHolder.getKey();
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Successfully add professor: " + professor);
+        }
+
         return (int) id;
     }
 
     public List<Professor> getAll() {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to get all from table professors");
+        }
+
         List<Professor> professors;
 
         professors = jdbcTemplate.query(Queries.GET_ALL_PROFESSORS_QUERY, new ProfessorMapper());
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Result is: " + professors);
+        }
 
         return professors;
     }
 
     public Professor getById(int id) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to get professor by id = " + id);
+        }
+
         Professor professor;
 
         professor = jdbcTemplate.queryForObject(Queries.GET_PROFESSOR_BY_ID_QUERY, new Object[]{id},
                 new ProfessorMapper());
 
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Result is: " + professor);
+        }
+
         return professor;
     }
 
     public List<Professor> getBySurname(String surname) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to get professor by surname = " + surname);
+        }
+
         List<Professor> professors;
 
         professors = jdbcTemplate.query(Queries.GET_PROFESSOR_BY_SURNAME_QUERY, new Object[]{surname},
                 new ProfessorMapper());
 
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Result is: " + professors);
+        }
+
         return professors;
     }
 
     public int update(Professor professor) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to update professor: " + professor);
+        }
+
         int id = professor.getId();
         String name = professor.getName();
         String surName = professor.getSurname();
@@ -74,14 +114,26 @@ public class ProfessorImpl implements ProfessorDAO {
             throw new IllegalArgumentException("Row with input id doesnt exist");
         }
 
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Successfully update professor: " + professor);
+        }
+
         return status;
     }
 
     public int remove(int professorId) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Try to remove professor with id = " + professorId);
+        }
+
         int status = jdbcTemplate.update(Queries.REMOVE_PROFESSOR_QUERY, professorId);
 
         if (status != 1) {
             throw new IllegalArgumentException("Row with input id doesnt exist");
+        }
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Successfully remove professor with id: " + professorId);
         }
 
         return status;
