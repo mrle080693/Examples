@@ -25,9 +25,7 @@ public class TimetableImpl implements TimetableDAO {
             LOGGER.debug("Try to get group timetable. Group id: " + groupId + "from: " + from + "till: " + till);
         }
 
-        List<Lesson> lessons;
-
-        lessons = jdbcTemplate.query(Queries.GET_GROUP_TIMETABLE_QUERY, new Object[]{groupId, from, till},
+        List<Lesson> lessons = jdbcTemplate.query(Queries.GET_GROUP_TIMETABLE_QUERY, new Object[]{groupId, from, till},
                 new LessonMapper());
 
         if (LOGGER.isDebugEnabled()) {
@@ -44,9 +42,7 @@ public class TimetableImpl implements TimetableDAO {
                     + till);
         }
 
-        List<Lesson> lessons;
-
-        lessons = jdbcTemplate.query(Queries.GET_PROFESSOR_TIMETABLE_QUERY, new Object[]{professorId, from, till},
+        List<Lesson> lessons = jdbcTemplate.query(Queries.GET_PROFESSOR_TIMETABLE_QUERY, new Object[]{professorId, from, till},
                 new LessonMapper());
 
         if (LOGGER.isDebugEnabled()) {

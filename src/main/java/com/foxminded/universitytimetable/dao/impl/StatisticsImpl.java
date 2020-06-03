@@ -21,9 +21,7 @@ public class StatisticsImpl implements StatisticsDAO {
             LOGGER.debug("Try to get group employment. Group id: " + groupId + "from: " + from + "till: " + till);
         }
 
-        int lessonsQuantity;
-
-        lessonsQuantity = jdbcTemplate.queryForObject(Queries.GET_GROUP_EMPLOYMENT,
+        int lessonsQuantity = jdbcTemplate.queryForObject(Queries.GET_GROUP_EMPLOYMENT,
                 new Object[]{groupId, from, till}, Integer.class);
 
         if (LOGGER.isDebugEnabled()) {
@@ -40,9 +38,7 @@ public class StatisticsImpl implements StatisticsDAO {
                     + till);
         }
 
-        int lessonsQuantity;
-
-        lessonsQuantity = jdbcTemplate.queryForObject(Queries.GET_PROFESSOR_EMPLOYMENT,
+        int lessonsQuantity = jdbcTemplate.queryForObject(Queries.GET_PROFESSOR_EMPLOYMENT,
                 new Object[]{professorId, from, till}, Integer.class);
 
         if (LOGGER.isDebugEnabled()) {

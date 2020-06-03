@@ -44,7 +44,7 @@ public class LessonImpl implements LessonDAO {
         Number id = keyHolder.getKey();
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successfully add lesson: " + lesson);
+            LOGGER.debug("Successfully add lesson with id = " + id);
         }
 
         return (int) id;
@@ -55,9 +55,7 @@ public class LessonImpl implements LessonDAO {
             LOGGER.debug("Try to get all from table lessons");
         }
 
-        List<Lesson> lessons;
-
-        lessons = jdbcTemplate.query(Queries.GET_ALL_LESSONS_QUERY, new LessonMapper());
+        List<Lesson> lessons = jdbcTemplate.query(Queries.GET_ALL_LESSONS_QUERY, new LessonMapper());
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Result is: " + lessons);
@@ -71,9 +69,7 @@ public class LessonImpl implements LessonDAO {
             LOGGER.debug("Try to get lesson by id = " + id);
         }
 
-        Lesson lesson;
-
-        lesson = jdbcTemplate.queryForObject(Queries.GET_LESSON_BY_ID_QUERY, new Object[]{id}, new LessonMapper());
+        Lesson lesson = jdbcTemplate.queryForObject(Queries.GET_LESSON_BY_ID_QUERY, new Object[]{id}, new LessonMapper());
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Result is: " + lesson);
@@ -103,7 +99,7 @@ public class LessonImpl implements LessonDAO {
         }
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successfully update lesson: " + lesson);
+            LOGGER.debug("Successfully update lesson with status = " + status);
         }
 
         return status;

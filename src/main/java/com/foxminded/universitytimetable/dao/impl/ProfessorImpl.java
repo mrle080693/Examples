@@ -41,7 +41,7 @@ public class ProfessorImpl implements ProfessorDAO {
         Number id = keyHolder.getKey();
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successfully add professor: " + professor);
+            LOGGER.debug("Successfully add professor with id = " + id);
         }
 
         return (int) id;
@@ -52,9 +52,7 @@ public class ProfessorImpl implements ProfessorDAO {
             LOGGER.debug("Try to get all from table professors");
         }
 
-        List<Professor> professors;
-
-        professors = jdbcTemplate.query(Queries.GET_ALL_PROFESSORS_QUERY, new ProfessorMapper());
+        List<Professor> professors = jdbcTemplate.query(Queries.GET_ALL_PROFESSORS_QUERY, new ProfessorMapper());
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Result is: " + professors);
@@ -68,9 +66,7 @@ public class ProfessorImpl implements ProfessorDAO {
             LOGGER.debug("Try to get professor by id = " + id);
         }
 
-        Professor professor;
-
-        professor = jdbcTemplate.queryForObject(Queries.GET_PROFESSOR_BY_ID_QUERY, new Object[]{id},
+        Professor professor = jdbcTemplate.queryForObject(Queries.GET_PROFESSOR_BY_ID_QUERY, new Object[]{id},
                 new ProfessorMapper());
 
         if (LOGGER.isDebugEnabled()) {
@@ -85,9 +81,7 @@ public class ProfessorImpl implements ProfessorDAO {
             LOGGER.debug("Try to get professor by surname = " + surname);
         }
 
-        List<Professor> professors;
-
-        professors = jdbcTemplate.query(Queries.GET_PROFESSOR_BY_SURNAME_QUERY, new Object[]{surname},
+        List<Professor> professors = jdbcTemplate.query(Queries.GET_PROFESSOR_BY_SURNAME_QUERY, new Object[]{surname},
                 new ProfessorMapper());
 
         if (LOGGER.isDebugEnabled()) {
@@ -115,7 +109,7 @@ public class ProfessorImpl implements ProfessorDAO {
         }
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successfully update professor: " + professor);
+            LOGGER.debug("Successfully update professor with status = " + status);
         }
 
         return status;

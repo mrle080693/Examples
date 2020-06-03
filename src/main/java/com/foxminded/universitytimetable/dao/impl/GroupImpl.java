@@ -38,7 +38,7 @@ public class GroupImpl implements GroupDAO {
         Number id = keyHolder.getKey();
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successfully add group: " + group);
+            LOGGER.debug("Successfully add group with id = " + id);
         }
 
         return (int) id;
@@ -49,8 +49,7 @@ public class GroupImpl implements GroupDAO {
             LOGGER.debug("Try to get all from table groups");
         }
 
-        List<Group> groups;
-        groups = jdbcTemplate.query(Queries.GET_ALL_GROUPS_QUERY, new GroupMapper());
+        List<Group> groups = jdbcTemplate.query(Queries.GET_ALL_GROUPS_QUERY, new GroupMapper());
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Result is: " + groups);
@@ -64,8 +63,7 @@ public class GroupImpl implements GroupDAO {
             LOGGER.debug("Try to get group by id = " + id);
         }
 
-        Group group;
-        group = jdbcTemplate.queryForObject(Queries.GET_GROUP_BY_ID_QUERY, new Object[]{id},
+        Group group = jdbcTemplate.queryForObject(Queries.GET_GROUP_BY_ID_QUERY, new Object[]{id},
                 new GroupMapper());
 
         if (LOGGER.isDebugEnabled()) {
@@ -80,8 +78,7 @@ public class GroupImpl implements GroupDAO {
             LOGGER.debug("Try to get group by name = " + name);
         }
 
-        List<Group> groups;
-        groups = jdbcTemplate.query(Queries.GET_GROUP_BY_NAME_QUERY, new Object[]{name},
+        List<Group> groups = jdbcTemplate.query(Queries.GET_GROUP_BY_NAME_QUERY, new Object[]{name},
                 new GroupMapper());
 
         if (LOGGER.isDebugEnabled()) {
@@ -99,7 +96,7 @@ public class GroupImpl implements GroupDAO {
         int status = jdbcTemplate.update(Queries.UPDATE_GROUP_QUERY, group.getName(), group.getId());
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successfully update group: " + group);
+            LOGGER.debug("Successfully update group with status = " + status);
         }
 
         return status;
