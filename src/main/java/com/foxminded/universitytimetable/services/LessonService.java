@@ -46,7 +46,7 @@ public class LessonService {
             if (lesson.getId() != 0) {
                 String exMessage = "New lesson id is not 0. Actual value is: " + lesson.getId();
                 EntityValidationException ex = new EntityValidationException(exMessage);
-                LOGGER.error(exMessage);
+                LOGGER.warn(exMessage);
                 throw ex;
             }
 
@@ -77,7 +77,7 @@ public class LessonService {
             if (lessons.isEmpty()) {
                 String exMessage = "Table lessons is empty";
                 NotFoundEntityException ex = new NotFoundEntityException(exMessage);
-                LOGGER.error(exMessage);
+                LOGGER.warn(exMessage);
                 throw ex;
             }
         } catch (DataAccessException ex) {
@@ -104,7 +104,7 @@ public class LessonService {
             if (id == 0) {
                 String exMessage = "Lesson id is 0. " + lesson;
                 EntityValidationException ex = new EntityValidationException(exMessage);
-                LOGGER.error(exMessage);
+                LOGGER.warn(exMessage);
                 throw ex;
             }
 
@@ -139,7 +139,7 @@ public class LessonService {
             if (lesson.getId() == 0) {
                 String exMessage = "Lesson id is 0. " + lesson;
                 EntityValidationException ex = new EntityValidationException(exMessage);
-                LOGGER.error(exMessage);
+                LOGGER.warn(exMessage);
                 throw ex;
             }
 
@@ -148,7 +148,7 @@ public class LessonService {
             if (status != 1) {
                 String exMessage = "Lesson with input id doesnt exist. Id is: " + lesson.getId();
                 NotFoundEntityException ex = new NotFoundEntityException(exMessage);
-                LOGGER.error(exMessage);
+                LOGGER.warn(exMessage);
                 throw ex;
             }
         } catch (DataAccessException ex) {
@@ -177,7 +177,7 @@ public class LessonService {
             if (status != 1) {
                 String exMessage = "Lesson with id: " + lessonId + " does not exist";
                 NotFoundEntityException ex = new NotFoundEntityException(exMessage);
-                LOGGER.error(exMessage);
+                LOGGER.warn(exMessage);
                 throw ex;
             }
         } catch (DataAccessException ex) {
@@ -197,7 +197,7 @@ public class LessonService {
         if (lesson == null) {
             String exMessage = "Lesson is null";
             IllegalArgumentException ex = new IllegalArgumentException(exMessage);
-            LOGGER.error(exMessage);
+            LOGGER.warn(exMessage);
             throw ex;
         }
 
@@ -213,28 +213,28 @@ public class LessonService {
         if (date == null || building == null || classroom == null) {
             String exMessage = "Lesson date, building or classroom is null: " + lesson;
             EntityValidationException ex = new EntityValidationException(exMessage);
-            LOGGER.error(exMessage);
+            LOGGER.warn(exMessage);
             throw ex;
         }
 
         if (building.trim().isEmpty() || classroom.trim().isEmpty()) {
             String exMessage = "Lesson building or classroom is empty: " + lesson;
             EntityValidationException ex = new EntityValidationException(exMessage);
-            LOGGER.error(exMessage);
+            LOGGER.warn(exMessage);
             throw ex;
         }
 
         if (lessonNumber == 0 || groupId == 0 || professorId == 0) {
             String exMessage = "lessonNumber, groupId or professorId is zero: " + lesson;
             EntityValidationException ex = new EntityValidationException(exMessage);
-            LOGGER.error(exMessage);
+            LOGGER.warn(exMessage);
             throw ex;
         }
 
         if (date.after(todayDate)) {
             String exMessage = "Lesson date is earlier then today: " + lesson;
             EntityValidationException ex = new EntityValidationException(exMessage);
-            LOGGER.error(exMessage);
+            LOGGER.warn(exMessage);
             throw ex;
         }
 
@@ -242,7 +242,7 @@ public class LessonService {
             groupDAO.getById(groupId);
         } catch (EmptyResultDataAccessException ex) {
             String exMessage = "Try add lesson to group which not exists: " + lesson;
-            LOGGER.error(exMessage);
+            LOGGER.warn(exMessage);
             throw new NotFoundEntityException(exMessage, ex);
         }
 
@@ -250,7 +250,7 @@ public class LessonService {
             professorDAO.getById(professorId);
         } catch (EmptyResultDataAccessException ex) {
             String exMessage = "Try add lesson to professor which not exists: " + lesson;
-            LOGGER.error(exMessage);
+            LOGGER.warn(exMessage);
             throw new NotFoundEntityException(exMessage, ex);
         }
     }

@@ -38,7 +38,7 @@ public class GroupService {
             if (group.getId() != 0) {
                 String exMessage = "New group id is not 0. Actual value is: " + group.getId();
                 EntityValidationException ex = new EntityValidationException(exMessage);
-                LOGGER.error(exMessage);
+                LOGGER.warn(exMessage);
                 throw ex;
             }
 
@@ -69,7 +69,7 @@ public class GroupService {
             if (groups.isEmpty()) {
                 String exMessage = "Table groups is empty";
                 NotFoundEntityException ex = new NotFoundEntityException(exMessage);
-                LOGGER.error(exMessage);
+                LOGGER.warn(exMessage);
                 throw ex;
             }
         } catch (DataAccessException ex) {
@@ -96,7 +96,7 @@ public class GroupService {
             if (id == 0) {
                 String exMessage = "Group id is 0. " + group;
                 EntityValidationException ex = new EntityValidationException(exMessage);
-                LOGGER.error(exMessage);
+                LOGGER.warn(exMessage);
                 throw ex;
             }
 
@@ -129,14 +129,14 @@ public class GroupService {
             if (name == null) {
                 String exMessage = "Group isn't have name";
                 EntityValidationException ex = new EntityValidationException(exMessage);
-                LOGGER.error(exMessage);
+                LOGGER.warn(exMessage);
                 throw ex;
             }
 
             if (name.trim().isEmpty()) {
                 String exMessage = "Group name  is empty";
                 EntityValidationException ex = new EntityValidationException(exMessage);
-                LOGGER.error(exMessage);
+                LOGGER.warn(exMessage);
                 throw ex;
             }
 
@@ -171,7 +171,7 @@ public class GroupService {
             if (group.getId() == 0) {
                 String exMessage = "Group id is 0." + group;
                 EntityValidationException ex = new EntityValidationException(exMessage);
-                LOGGER.error(exMessage);
+                LOGGER.warn(exMessage);
                 throw ex;
             }
 
@@ -180,7 +180,7 @@ public class GroupService {
             if (status != 1) {
                 String exMessage = "Group with input id doesnt exist. " + group;
                 NotFoundEntityException ex = new NotFoundEntityException(exMessage);
-                LOGGER.error(exMessage);
+                LOGGER.warn(exMessage);
                 throw ex;
             }
         } catch (DataAccessException ex) {
@@ -209,7 +209,7 @@ public class GroupService {
             if (status != 1) {
                 String exMessage = "Group with input id: " + groupId + " does not exist";
                 NotFoundEntityException ex = new NotFoundEntityException(exMessage);
-                LOGGER.error(exMessage);
+                LOGGER.warn(exMessage);
                 throw ex;
             }
         } catch (DataAccessException ex) {
@@ -229,7 +229,7 @@ public class GroupService {
         if (group == null) {
             String exMessage = "Group is null";
             IllegalArgumentException ex = new IllegalArgumentException(exMessage);
-            LOGGER.error(exMessage);
+            LOGGER.warn(exMessage);
             throw ex;
         }
 
@@ -238,14 +238,14 @@ public class GroupService {
         if (groupName == null) {
             String exMessage = "Group is not have name";
             EntityValidationException ex = new EntityValidationException(exMessage);
-            LOGGER.error(exMessage);
+            LOGGER.warn(exMessage);
             throw ex;
         }
 
         if (groupName.trim().isEmpty()) {
             String exMessage = "Group name is empty";
             EntityValidationException ex = new EntityValidationException(exMessage);
-            LOGGER.error(exMessage);
+            LOGGER.warn(exMessage);
             throw ex;
         }
     }

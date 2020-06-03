@@ -3,8 +3,9 @@ package com.foxminded.universitytimetable.dao.impl;
 import com.foxminded.universitytimetable.dao.GroupDAO;
 import com.foxminded.universitytimetable.dao.impl.queries.Queries;
 import com.foxminded.universitytimetable.dao.impl.rowmappers.GroupMapper;
-import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.models.Group;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -18,6 +19,7 @@ import java.util.List;
 public class GroupImpl implements GroupDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    private Logger LOGGER= LoggerFactory.getLogger(GroupImpl.class);
 
     public int add(Group group) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -30,6 +32,7 @@ public class GroupImpl implements GroupDAO {
                 , keyHolder);
 
         Number id = keyHolder.getKey();
+
         return (int) id;
     }
 

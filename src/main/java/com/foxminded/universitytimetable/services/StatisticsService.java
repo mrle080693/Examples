@@ -40,14 +40,14 @@ public class StatisticsService {
             lessonsQuantity = statisticsDAO.getGroupEmployment(groupId, from, till);
         } catch (DataAccessException ex) {
             String exMessage = "Cant get group employment. Group id = " + groupId + "from: " + from + " till: " + till;
-            LOGGER.warn(exMessage);
+            LOGGER.error(exMessage);
             throw new DAOException(exMessage, ex);
         }
 
         if (from == null || till == null) {
             String exMessage = "Date is null. from = " + from + " till = " + till;
             EntityValidationException ex = new EntityValidationException(exMessage);
-            LOGGER.error(exMessage);
+            LOGGER.warn(exMessage);
             throw ex;
         }
 
@@ -74,14 +74,14 @@ public class StatisticsService {
         } catch (DataAccessException ex) {
             String exMessage = "Cant get professor employment. Professor id = " + professorId + " from: " + from
                     + "till: " + till;
-            LOGGER.warn(exMessage);
+            LOGGER.error(exMessage);
             throw new DAOException(exMessage, ex);
         }
 
         if (from == null || till == null) {
             String exMessage = "Date is null.  from = " + from + " till = " + till;
             EntityValidationException ex = new EntityValidationException(exMessage);
-            LOGGER.error(exMessage);
+            LOGGER.warn(exMessage);
             throw ex;
         }
 
