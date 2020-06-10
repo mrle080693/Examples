@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>Welcome :)</title>
+    <style>
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <nav class="header">
+        <div class="navbar navbar-expand-md">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/groups">Group</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/professors">Professors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/lessons">Lessons</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/statistics">Statistics</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/timetable">Timetable</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="mainContent">
+        <div class="row">
+            <div class="col-md-4">
+                <a href="/groups">
+                    <img id="e" src="/professor-picture">
+                </a>
+            </div>
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <a href="/professors">
+                    <img src="../images/professor.jpg">
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-4">
+                <a href="/lessons">
+                    <img src="../images/lesson.jpg">
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <a href="/statistics">
+                    <img src="../images/statistics.jpg">
+                </a>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-4">
+                <a href="/timetable">
+                    <img src="../images/timetable.jpg">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
