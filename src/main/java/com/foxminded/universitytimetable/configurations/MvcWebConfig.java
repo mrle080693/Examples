@@ -52,8 +52,8 @@ public class MvcWebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
-                .addResourceHandler("/images/**", "/styles/**")
-                .addResourceLocations("/images/", "/styles/")
+                .addResourceHandler("/images/**", "/styles/**", "/scripts/**")
+                .addResourceLocations("/images/", "/styles/", "/scripts/")
                 .setCachePeriod(3600)
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver());
