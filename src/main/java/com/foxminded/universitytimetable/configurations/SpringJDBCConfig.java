@@ -26,7 +26,7 @@ public class SpringJDBCConfig {
     private String password;
 
     @Bean
-    public JdbcTemplate jdbcTemplate(@Qualifier("h2DataSource") DataSource dataSource) {
+    public JdbcTemplate jdbcTemplate(@Qualifier("postgreSQLDataSource") DataSource dataSource) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource);
 

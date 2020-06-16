@@ -17,9 +17,13 @@ import java.util.List;
 
 @Repository("groupImplBean")
 public class GroupImpl implements GroupDAO {
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
     private Logger LOGGER = LoggerFactory.getLogger(GroupImpl.class);
+
+    @Autowired
+    public GroupImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public int add(Group group) {
         if (LOGGER.isDebugEnabled()) {
