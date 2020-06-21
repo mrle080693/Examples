@@ -15,9 +15,8 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
-@Configuration
 @EnableWebMvc
-@ComponentScan("com.foxminded.universitytimetable.controllers")
+@ComponentScan("com.foxminded.universitytimetable")
 public class MvcWebConfig implements WebMvcConfigurer {
 
     @Autowired

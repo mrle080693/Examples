@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="../styles/groups.css/">
+    <link rel="script" href="../scripts/groups.js/">
 
     <title>Groups</title>
 </head>
@@ -38,17 +39,15 @@
                     <input type="text" class="form-control" placeholder="Enter group name">
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-success">Search</button>
+                    <button type="button" class="btn btn-success" onclick="loadDoc()">Search</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="groupMainContent">
-        <ol id="groupsList">
+        <li id="groupMainContent">
 
-        </ol>
-    </div>
+        </li>
 
     <footer class="page-footer font-small mdb-color lighten-3 pt-4">
         <div class="container text-center text-md-left">
@@ -109,7 +108,5 @@
         </div>
     </footer>
 </div>
-
-<link rel="script" href="../scripts/groups.js/">
 </body>
 </html>

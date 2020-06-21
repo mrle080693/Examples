@@ -19,6 +19,9 @@ import java.util.List;
 
 @Controller
 public class GroupController {
+    @Autowired
+    GroupService groupService;
+
     @GetMapping("/groups")
     public String getGroupsPage() {
         return "groups";
@@ -35,8 +38,8 @@ public class GroupController {
             gson = new Gson();
             System.out.println("TRY ))))))))))))))))))))))))))))))))))");
 
-            //list = groupServiceBean.getAll();
-            list = new ArrayList<>();
+            list = groupService.getAll();
+            //list = new ArrayList<>();
             System.out.println("DONE ))))))))))))))))))))))))))))))))))");
 
             result = gson.toJson(list);
