@@ -4,7 +4,7 @@ import com.foxminded.universitytimetable.dao.impl.GroupImpl;
 import com.foxminded.universitytimetable.dao.impl.LessonImpl;
 import com.foxminded.universitytimetable.dao.impl.ProfessorImpl;
 import com.foxminded.universitytimetable.exceptions.DAOException;
-import com.foxminded.universitytimetable.exceptions.EntityValidationException;
+import com.foxminded.universitytimetable.exceptions.ValidationException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.models.Lesson;
 import org.junit.jupiter.api.Assertions;
@@ -50,67 +50,67 @@ class LessonServiceTest {
     @Test
     void addMustThrowEntityValidationExceptionIfInputLessonDateIsNull() {
         lesson.setDate(null);
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.add(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.add(lesson));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfInputLessonBuildingIsNull() {
         lesson.setBuilding(null);
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.add(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.add(lesson));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfInputLessonClassroomIsNull() {
         lesson.setClassroom(null);
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.add(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.add(lesson));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfInputLessonBuildingIsEmpty() {
         lesson.setBuilding("");
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.add(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.add(lesson));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfInputLessonClassroomIsEmpty() {
         lesson.setClassroom("");
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.add(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.add(lesson));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfInputLessonBuildingIsOnlySeparators() {
         lesson.setBuilding("    ");
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.add(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.add(lesson));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfInputLessonClassroomIsOnlySeparators() {
         lesson.setClassroom("    ");
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.add(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.add(lesson));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfInputLessonNumberIsZero() {
         lesson.setLessonNumber(0);
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.add(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.add(lesson));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfInputLessonGroupIdIsZero() {
         lesson.setGroupId(0);
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.add(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.add(lesson));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfInputLessonProfessorIdIsZero() {
         lesson.setProfessorId(0);
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.add(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.add(lesson));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfInputLessonDateIsEarlierThenToday() {
         lesson.setDate(new Date(1993, 12, 11));
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.add(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.add(lesson));
     }
 
     @Test
@@ -130,7 +130,7 @@ class LessonServiceTest {
     @Test
     void addMustThrowEntityValidationExceptionIfLessonIdIsNotZero() {
         lesson.setId(7);
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.add(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.add(lesson));
     }
 
     @Test
@@ -170,7 +170,7 @@ class LessonServiceTest {
 
     @Test
     void getByIdMustThrowEntityValidationExceptionIfInputLessonIdIsZero() {
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.getById(0));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.getById(0));
     }
 
     @Test
@@ -208,67 +208,67 @@ class LessonServiceTest {
     @Test
     void updateMustThrowEntityValidationExceptionIfInputLessonDateIsNull() {
         lesson.setDate(null);
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.update(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.update(lesson));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfInputLessonBuildingIsNull() {
         lesson.setBuilding(null);
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.update(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.update(lesson));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfInputLessonClassroomIsNull() {
         lesson.setClassroom(null);
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.update(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.update(lesson));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfInputLessonBuildingIsEmpty() {
         lesson.setBuilding("");
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.update(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.update(lesson));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfInputLessonClassroomIsEmpty() {
         lesson.setClassroom("");
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.update(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.update(lesson));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfInputLessonBuildingIsOnlySeparators() {
         lesson.setBuilding("    ");
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.update(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.update(lesson));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfInputLessonClassroomIsOnlySeparators() {
         lesson.setClassroom("    ");
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.update(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.update(lesson));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfInputLessonNumberIsZero() {
         lesson.setLessonNumber(0);
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.update(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.update(lesson));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfInputLessonGroupIdIsZero() {
         lesson.setGroupId(0);
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.update(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.update(lesson));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfInputLessonProfessorIdIsZero() {
         lesson.setProfessorId(0);
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.update(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.update(lesson));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfInputLessonDateIsEarlierThenToday() {
         lesson.setDate(new Date(1993, 12, 11));
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.update(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.update(lesson));
     }
 
     @Test
@@ -288,7 +288,7 @@ class LessonServiceTest {
     @Test
     void updateMustThrowEntityValidationExceptionIfLessonIdIsZero() {
         lesson.setId(0);
-        Assertions.assertThrows(EntityValidationException.class, () -> lessonService.update(lesson));
+        Assertions.assertThrows(ValidationException.class, () -> lessonService.update(lesson));
     }
 
     @Test

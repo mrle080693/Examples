@@ -2,7 +2,7 @@ package com.foxminded.universitytimetable.services;
 
 import com.foxminded.universitytimetable.dao.impl.StatisticsImpl;
 import com.foxminded.universitytimetable.exceptions.DAOException;
-import com.foxminded.universitytimetable.exceptions.EntityValidationException;
+import com.foxminded.universitytimetable.exceptions.ValidationException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,14 +53,14 @@ class StatisticsServiceTest {
     @Test
     void getGroupEmploymentMustThrowEntityValidationExceptionIfInputDataWithNameFromIsNull() {
         from = null;
-        Assertions.assertThrows(EntityValidationException.class, () -> statisticsService.getGroupEmployment(7,
+        Assertions.assertThrows(ValidationException.class, () -> statisticsService.getGroupEmployment(7,
                 from, till));
     }
 
     @Test
     void getGroupEmploymentMustThrowEntityValidationExceptionIfInputDataWithNameTillIsNull() {
         till = null;
-        Assertions.assertThrows(EntityValidationException.class, () -> statisticsService.getGroupEmployment(7,
+        Assertions.assertThrows(ValidationException.class, () -> statisticsService.getGroupEmployment(7,
                 from, till));
     }
 
@@ -81,14 +81,14 @@ class StatisticsServiceTest {
     @Test
     void getProfessorEmploymentMustThrowEntityValidationExceptionIfInputDataWithNameFromIsNull() {
         from = null;
-        Assertions.assertThrows(EntityValidationException.class, () -> statisticsService.getProfessorEmployment(7,
+        Assertions.assertThrows(ValidationException.class, () -> statisticsService.getProfessorEmployment(7,
                 from, till));
     }
 
     @Test
     void getProfessorEmploymentMustThrowEntityValidationExceptionIfInputDataWithNameTillIsNull() {
         till = null;
-        Assertions.assertThrows(EntityValidationException.class, () -> statisticsService.getProfessorEmployment(7,
+        Assertions.assertThrows(ValidationException.class, () -> statisticsService.getProfessorEmployment(7,
                 from, till));
     }
 }

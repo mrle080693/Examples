@@ -2,7 +2,7 @@ package com.foxminded.universitytimetable.services;
 
 import com.foxminded.universitytimetable.dao.GroupDAO;
 import com.foxminded.universitytimetable.exceptions.DAOException;
-import com.foxminded.universitytimetable.exceptions.EntityValidationException;
+import com.foxminded.universitytimetable.exceptions.ValidationException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.models.Group;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class GroupService {
 
             if (group.getId() != 0) {
                 String exMessage = "New group id is not 0. Actual value is: " + group.getId();
-                EntityValidationException ex = new EntityValidationException(exMessage);
+                ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;
             }
@@ -95,7 +95,7 @@ public class GroupService {
         try {
             if (id == 0) {
                 String exMessage = "Group id is 0. " + group;
-                EntityValidationException ex = new EntityValidationException(exMessage);
+                ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;
             }
@@ -128,14 +128,14 @@ public class GroupService {
         try {
             if (name == null) {
                 String exMessage = "Group isn't have name";
-                EntityValidationException ex = new EntityValidationException(exMessage);
+                ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;
             }
 
             if (name.trim().isEmpty()) {
                 String exMessage = "Group name  is empty";
-                EntityValidationException ex = new EntityValidationException(exMessage);
+                ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;
             }
@@ -170,7 +170,7 @@ public class GroupService {
 
             if (group.getId() == 0) {
                 String exMessage = "Group id is 0." + group;
-                EntityValidationException ex = new EntityValidationException(exMessage);
+                ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;
             }
@@ -237,14 +237,14 @@ public class GroupService {
 
         if (groupName == null) {
             String exMessage = "Group is not have name";
-            EntityValidationException ex = new EntityValidationException(exMessage);
+            ValidationException ex = new ValidationException(exMessage);
             LOGGER.warn(exMessage);
             throw ex;
         }
 
         if (groupName.trim().isEmpty()) {
             String exMessage = "Group name is empty";
-            EntityValidationException ex = new EntityValidationException(exMessage);
+            ValidationException ex = new ValidationException(exMessage);
             LOGGER.warn(exMessage);
             throw ex;
         }

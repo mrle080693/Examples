@@ -2,7 +2,7 @@ package com.foxminded.universitytimetable.services;
 
 import com.foxminded.universitytimetable.dao.StatisticsDAO;
 import com.foxminded.universitytimetable.exceptions.DAOException;
-import com.foxminded.universitytimetable.exceptions.EntityValidationException;
+import com.foxminded.universitytimetable.exceptions.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,7 @@ public class StatisticsService {
 
         if (from == null || till == null) {
             String exMessage = "Date is null. from = " + from + " till = " + till;
-            EntityValidationException ex = new EntityValidationException(exMessage);
+            ValidationException ex = new ValidationException(exMessage);
             LOGGER.warn(exMessage);
             throw ex;
         }
@@ -80,7 +80,7 @@ public class StatisticsService {
 
         if (from == null || till == null) {
             String exMessage = "Date is null.  from = " + from + " till = " + till;
-            EntityValidationException ex = new EntityValidationException(exMessage);
+            ValidationException ex = new ValidationException(exMessage);
             LOGGER.warn(exMessage);
             throw ex;
         }

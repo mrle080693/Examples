@@ -3,19 +3,13 @@ package com.foxminded.universitytimetable.controllers;
 import com.foxminded.universitytimetable.models.Group;
 import com.foxminded.universitytimetable.services.GroupService;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/*
-I want to see SRD ))
-Not CRUD!!!
- */
 @Controller
 public class GroupController {
     @Autowired
@@ -27,14 +21,23 @@ public class GroupController {
         return "groups";
     }
 
-    @GetMapping("/groups/add")
+    /*
+    @RequestMapping(value = "/groups/add", method = RequestMethod.POST)
     @ResponseBody
-    public String add(JsonObject jsonObject) {
-        Group group = gson.fromJson(jsonObject, Group.class);
+    public String add(@RequestParam String groupInJson) {
+        Group group = gson.fromJson(groupInJson, Group.class);
         int newGroupId = groupService.add(group);
         String result = String.valueOf(newGroupId);
 
         return result;
+    }
+    */
+
+    @RequestMapping(value = "/groups/add", method = RequestMethod.GET)
+    public @ResponseBody
+    int add(@RequestBody @RequestParam Group group) {
+        int newGroupId = groupService.add(group);
+        return newGroupId;
     }
 
     @GetMapping("/groups/getall")
@@ -61,12 +64,24 @@ public class GroupController {
         return result;
     }
 
-    @GetMapping("/groups/getByName")
+    @RequestMapping(value = "/groups/getByName", method = RequestMethod.GET)
     @ResponseBody
-    public String getByName(String inputGroupName) {
-        List<Group> groupsWithInputName = groupService.getByName(inputGroupName);
+    public String getByName(@RequestParam String name) {
+        List<Group> groupsWithInputName = groupService.getByName(name);
         String result = gson.toJson(groupsWithInputName);
 
         return result;
     }
+
+    @GetMapping("/groups/getById")
+    @ResponseBody
+    public String getById(@RequestParam String inputId) {
+        int parsedInputId = Integer.valueOf(inputId);
+        Group group = groupService.getById(parsedInputId);
+        String result = gson.toJson(group);
+
+        return result;
+    }
+
+
 }

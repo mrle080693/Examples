@@ -2,7 +2,7 @@ package com.foxminded.universitytimetable.services;
 
 import com.foxminded.universitytimetable.dao.TimetableDAO;
 import com.foxminded.universitytimetable.exceptions.DAOException;
-import com.foxminded.universitytimetable.exceptions.EntityValidationException;
+import com.foxminded.universitytimetable.exceptions.ValidationException;
 import com.foxminded.universitytimetable.models.Lesson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,7 +48,7 @@ public class TimetableService {
 
         if (from == null || till == null) {
             String exMessage = " Date is null. from = " + from + " till = " + till;
-            EntityValidationException ex = new EntityValidationException(exMessage);
+            ValidationException ex = new ValidationException(exMessage);
             LOGGER.warn(exMessage);
             throw ex;
         }
@@ -82,7 +82,7 @@ public class TimetableService {
 
         if (from == null || till == null) {
             String exMessage = "Date is null.from = " + from + " till = " + till;
-            EntityValidationException ex = new EntityValidationException(exMessage);
+            ValidationException ex = new ValidationException(exMessage);
             LOGGER.warn(exMessage);
             throw ex;
         }

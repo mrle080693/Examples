@@ -2,7 +2,7 @@ package com.foxminded.universitytimetable.services;
 
 import com.foxminded.universitytimetable.dao.impl.ProfessorImpl;
 import com.foxminded.universitytimetable.exceptions.DAOException;
-import com.foxminded.universitytimetable.exceptions.EntityValidationException;
+import com.foxminded.universitytimetable.exceptions.ValidationException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.models.Professor;
 import org.junit.jupiter.api.Assertions;
@@ -39,7 +39,7 @@ class ProfessorServiceTest {
     @Test
     void addMustThrowEntityValidationExceptionIfInputProfessorIdIsNotZero() {
         professor.setId(7);
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.add(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.add(professor));
     }
 
     @Test
@@ -52,73 +52,73 @@ class ProfessorServiceTest {
     @Test
     void addMustThrowEntityValidationExceptionIfProfessorNameIsNull() {
         professor.setName(null);
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.add(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.add(professor));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfProfessorSurnameIsNull() {
         professor.setSurname(null);
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.add(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.add(professor));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfProfessorPatronymicIsNull() {
         professor.setPatronymic(null);
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.add(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.add(professor));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfProfessorSubjectIsNull() {
         professor.setSubject(null);
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.add(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.add(professor));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfProfessorNameIsEmpty() {
         professor.setName("");
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.add(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.add(professor));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfProfessorSurnameIsEmpty() {
         professor.setSurname("");
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.add(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.add(professor));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfProfessorPatronymicIsEmpty() {
         professor.setPatronymic("");
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.add(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.add(professor));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfProfessorSubjectIsEmpty() {
         professor.setSurname("");
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.add(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.add(professor));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfProfessorNameIsOnlySeparators() {
         professor.setName("     ");
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.add(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.add(professor));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfProfessorSurnameOnlySeparators() {
         professor.setSurname("    ");
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.add(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.add(professor));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfProfessorPatronymicOnlySeparators() {
         professor.setPatronymic("    ");
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.add(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.add(professor));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfProfessorSubjectOnlySeparators() {
         professor.setSurname("     ");
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.add(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.add(professor));
     }
 
     @Test
@@ -161,7 +161,7 @@ class ProfessorServiceTest {
 
     @Test
     void getByIdMustThrowEntityValidationExceptionIfInputProfessorIdIsZero() {
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.getById(0));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.getById(0));
     }
 
     @Test
@@ -193,19 +193,19 @@ class ProfessorServiceTest {
     @Test
     void getBySurnameMustThrowEntityValidationExceptionIfInputProfessorSurnameIsNull() {
         String professorSurname = null;
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.getBySurname(professorSurname));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.getBySurname(professorSurname));
     }
 
     @Test
     void getBySurnameMustThrowEntityValidationExceptionIfInputProfessorSurnameIsEmpty() {
         String professorSurname = "";
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.getBySurname(professorSurname));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.getBySurname(professorSurname));
     }
 
     @Test
     void getBySurnameMustThrowEntityValidationExceptionIfInputProfessorSurnameIsSeparators() {
         String groupName = "     ";
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.getBySurname(groupName));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.getBySurname(groupName));
     }
 
     @Test
@@ -237,7 +237,7 @@ class ProfessorServiceTest {
 
     @Test
     void updateMustThrowEntityValidationExceptionIfInputProfessorIdIsZero() {
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.update(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.update(professor));
     }
 
     @Test
@@ -259,73 +259,73 @@ class ProfessorServiceTest {
     @Test
     void updateMustThrowEntityValidationExceptionIfProfessorNameIsNull() {
         professor.setName(null);
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.update(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.update(professor));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfProfessorSurnameIsNull() {
         professor.setSurname(null);
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.update(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.update(professor));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfProfessorPatronymicIsNull() {
         professor.setPatronymic(null);
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.update(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.update(professor));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfProfessorSubjectIsNull() {
         professor.setSubject(null);
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.update(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.update(professor));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfProfessorNameIsEmpty() {
         professor.setName("");
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.update(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.update(professor));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfProfessorSurnameIsEmpty() {
         professor.setSurname("");
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.update(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.update(professor));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfProfessorPatronymicIsEmpty() {
         professor.setPatronymic("");
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.update(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.update(professor));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfProfessorSubjectIsEmpty() {
         professor.setSurname("");
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.update(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.update(professor));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfProfessorNameIsOnlySeparators() {
         professor.setName("     ");
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.update(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.update(professor));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfProfessorSurnameOnlySeparators() {
         professor.setSurname("    ");
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.update(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.update(professor));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfProfessorPatronymicOnlySeparators() {
         professor.setPatronymic("    ");
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.update(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.update(professor));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfProfessorSubjectOnlySeparators() {
         professor.setSurname("     ");
-        Assertions.assertThrows(EntityValidationException.class, () -> professorService.update(professor));
+        Assertions.assertThrows(ValidationException.class, () -> professorService.update(professor));
     }
 
     @Test

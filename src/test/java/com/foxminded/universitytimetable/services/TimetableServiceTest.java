@@ -2,7 +2,7 @@ package com.foxminded.universitytimetable.services;
 
 import com.foxminded.universitytimetable.dao.impl.TimetableImpl;
 import com.foxminded.universitytimetable.exceptions.DAOException;
-import com.foxminded.universitytimetable.exceptions.EntityValidationException;
+import com.foxminded.universitytimetable.exceptions.ValidationException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,14 +53,14 @@ class TimetableServiceTest {
     @Test
     void getGroupTimetableMustThrowEntityValidationExceptionIfInputDataWithNameFromIsNull() {
         from = null;
-        Assertions.assertThrows(EntityValidationException.class, () -> timetableService.getGroupTimetable(7,
+        Assertions.assertThrows(ValidationException.class, () -> timetableService.getGroupTimetable(7,
                 from, till));
     }
 
     @Test
     void getGroupTimetableMustThrowEntityValidationExceptionIfInputDataWithNameTillIsNull() {
         till = null;
-        Assertions.assertThrows(EntityValidationException.class, () -> timetableService.getGroupTimetable(7,
+        Assertions.assertThrows(ValidationException.class, () -> timetableService.getGroupTimetable(7,
                 from, till));
     }
 
@@ -81,14 +81,14 @@ class TimetableServiceTest {
     @Test
     void getProfessorTimetableMustThrowEntityValidationExceptionIfInputDataWithNameFromIsNull() {
         from = null;
-        Assertions.assertThrows(EntityValidationException.class, () -> timetableService.getProfessorTimetable(7,
+        Assertions.assertThrows(ValidationException.class, () -> timetableService.getProfessorTimetable(7,
                 from, till));
     }
 
     @Test
     void getProfessorTimetableMustThrowEntityValidationExceptionIfInputDataWithNameTillIsNull() {
         till = null;
-        Assertions.assertThrows(EntityValidationException.class, () -> timetableService.getProfessorTimetable(7,
+        Assertions.assertThrows(ValidationException.class, () -> timetableService.getProfessorTimetable(7,
                 from, till));
     }
 }

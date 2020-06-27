@@ -4,7 +4,7 @@ import com.foxminded.universitytimetable.dao.GroupDAO;
 import com.foxminded.universitytimetable.dao.LessonDAO;
 import com.foxminded.universitytimetable.dao.ProfessorDAO;
 import com.foxminded.universitytimetable.exceptions.DAOException;
-import com.foxminded.universitytimetable.exceptions.EntityValidationException;
+import com.foxminded.universitytimetable.exceptions.ValidationException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.models.Lesson;
 import org.slf4j.Logger;
@@ -45,7 +45,7 @@ public class LessonService {
 
             if (lesson.getId() != 0) {
                 String exMessage = "New lesson id is not 0. Actual value is: " + lesson.getId();
-                EntityValidationException ex = new EntityValidationException(exMessage);
+                ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;
             }
@@ -103,7 +103,7 @@ public class LessonService {
         try {
             if (id == 0) {
                 String exMessage = "Lesson id is 0. " + lesson;
-                EntityValidationException ex = new EntityValidationException(exMessage);
+                ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;
             }
@@ -138,7 +138,7 @@ public class LessonService {
 
             if (lesson.getId() == 0) {
                 String exMessage = "Lesson id is 0. " + lesson;
-                EntityValidationException ex = new EntityValidationException(exMessage);
+                ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;
             }
@@ -212,28 +212,28 @@ public class LessonService {
 
         if (date == null || building == null || classroom == null) {
             String exMessage = "Lesson date, building or classroom is null: " + lesson;
-            EntityValidationException ex = new EntityValidationException(exMessage);
+            ValidationException ex = new ValidationException(exMessage);
             LOGGER.warn(exMessage);
             throw ex;
         }
 
         if (building.trim().isEmpty() || classroom.trim().isEmpty()) {
             String exMessage = "Lesson building or classroom is empty: " + lesson;
-            EntityValidationException ex = new EntityValidationException(exMessage);
+            ValidationException ex = new ValidationException(exMessage);
             LOGGER.warn(exMessage);
             throw ex;
         }
 
         if (lessonNumber == 0 || groupId == 0 || professorId == 0) {
             String exMessage = "lessonNumber, groupId or professorId is zero: " + lesson;
-            EntityValidationException ex = new EntityValidationException(exMessage);
+            ValidationException ex = new ValidationException(exMessage);
             LOGGER.warn(exMessage);
             throw ex;
         }
 
         if (date.after(todayDate)) {
             String exMessage = "Lesson date is earlier then today: " + lesson;
-            EntityValidationException ex = new EntityValidationException(exMessage);
+            ValidationException ex = new ValidationException(exMessage);
             LOGGER.warn(exMessage);
             throw ex;
         }

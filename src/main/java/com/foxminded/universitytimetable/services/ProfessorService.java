@@ -2,7 +2,7 @@ package com.foxminded.universitytimetable.services;
 
 import com.foxminded.universitytimetable.dao.ProfessorDAO;
 import com.foxminded.universitytimetable.exceptions.DAOException;
-import com.foxminded.universitytimetable.exceptions.EntityValidationException;
+import com.foxminded.universitytimetable.exceptions.ValidationException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.models.Professor;
 import org.slf4j.Logger;
@@ -37,7 +37,7 @@ public class ProfessorService {
 
             if (professor.getId() != 0) {
                 String exMessage = "New professor id is not 0. Actual value is: " + professor.getId();
-                EntityValidationException ex = new EntityValidationException(exMessage);
+                ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;
             }
@@ -95,7 +95,7 @@ public class ProfessorService {
         try {
             if (id == 0) {
                 String exMessage = "Professor id is 0.";
-                EntityValidationException ex = new EntityValidationException(exMessage);
+                ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;
             }
@@ -128,14 +128,14 @@ public class ProfessorService {
         try {
             if (surname == null) {
                 String exMessage = "Surname is null";
-                EntityValidationException ex = new EntityValidationException(exMessage);
+                ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;
             }
 
             if (surname.trim().isEmpty()) {
                 String exMessage = "Surname is empty";
-                EntityValidationException ex = new EntityValidationException(exMessage);
+                ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;
             }
@@ -170,7 +170,7 @@ public class ProfessorService {
 
             if (professor.getId() == 0) {
                 String exMessage = "Professor id is 0. " + professor;
-                EntityValidationException ex = new EntityValidationException(exMessage);
+                ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;
             }
@@ -240,14 +240,14 @@ public class ProfessorService {
 
         if (name == null || surname == null || patronymic == null || subject == null) {
             String exMessage = "Professor name, surname, patronymic or subject is null. " + professor;
-            EntityValidationException ex = new EntityValidationException(exMessage);
+            ValidationException ex = new ValidationException(exMessage);
             LOGGER.warn(exMessage);
             throw ex;
         }
 
         if (name.trim().isEmpty() || surname.trim().isEmpty() || patronymic.trim().isEmpty() || subject.trim().isEmpty()) {
             String exMessage = "Professor name, surname, patronymic or subject is empty";
-            EntityValidationException ex = new EntityValidationException(exMessage);
+            ValidationException ex = new ValidationException(exMessage);
             LOGGER.warn(exMessage);
             throw ex;
         }

@@ -2,7 +2,7 @@ package com.foxminded.universitytimetable.services;
 
 import com.foxminded.universitytimetable.dao.impl.GroupImpl;
 import com.foxminded.universitytimetable.exceptions.DAOException;
-import com.foxminded.universitytimetable.exceptions.EntityValidationException;
+import com.foxminded.universitytimetable.exceptions.ValidationException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.models.Group;
 import org.junit.jupiter.api.Assertions;
@@ -33,7 +33,7 @@ class GroupServiceTest {
     @Test
     void addMustThrowEntityValidationExceptionIfInputGroupIdIsNotZero() {
         group.setId(7);
-        Assertions.assertThrows(EntityValidationException.class, () -> groupService.add(group));
+        Assertions.assertThrows(ValidationException.class, () -> groupService.add(group));
     }
 
     @Test
@@ -52,19 +52,19 @@ class GroupServiceTest {
     @Test
     void addMustThrowEntityValidationExceptionIfGroupNameIsNull() {
         group.setName(null);
-        Assertions.assertThrows(EntityValidationException.class, () -> groupService.add(group));
+        Assertions.assertThrows(ValidationException.class, () -> groupService.add(group));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfGroupNameIsEmpty() {
         group.setName("");
-        Assertions.assertThrows(EntityValidationException.class, () -> groupService.add(group));
+        Assertions.assertThrows(ValidationException.class, () -> groupService.add(group));
     }
 
     @Test
     void addMustThrowEntityValidationExceptionIfGroupNameIsSeparators() {
         group.setName("   ");
-        Assertions.assertThrows(EntityValidationException.class, () -> groupService.add(group));
+        Assertions.assertThrows(ValidationException.class, () -> groupService.add(group));
     }
 
     @Test
@@ -107,7 +107,7 @@ class GroupServiceTest {
 
     @Test
     void getByIdMustThrowEntityValidationExceptionIfInputGroupIdIsZero() {
-        Assertions.assertThrows(EntityValidationException.class, () -> groupService.getById(0));
+        Assertions.assertThrows(ValidationException.class, () -> groupService.getById(0));
     }
 
     @Test
@@ -139,19 +139,19 @@ class GroupServiceTest {
     @Test
     void getByNameMustThrowEntityValidationExceptionIfInputGroupNameIsNull() {
         String groupName = null;
-        Assertions.assertThrows(EntityValidationException.class, () -> groupService.getByName(groupName));
+        Assertions.assertThrows(ValidationException.class, () -> groupService.getByName(groupName));
     }
 
     @Test
     void getByNameMustThrowEntityValidationExceptionIfInputGroupNameIsEmpty() {
         String groupName = "";
-        Assertions.assertThrows(EntityValidationException.class, () -> groupService.getByName(groupName));
+        Assertions.assertThrows(ValidationException.class, () -> groupService.getByName(groupName));
     }
 
     @Test
     void getByNameMustThrowEntityValidationExceptionIfInputGroupNameIsSeparators() {
         String groupName = "     ";
-        Assertions.assertThrows(EntityValidationException.class, () -> groupService.getByName(groupName));
+        Assertions.assertThrows(ValidationException.class, () -> groupService.getByName(groupName));
     }
 
     @Test
@@ -183,7 +183,7 @@ class GroupServiceTest {
 
     @Test
     void updateMustThrowEntityValidationExceptionIfInputGroupIdIsZero() {
-        Assertions.assertThrows(EntityValidationException.class, () -> groupService.update(group));
+        Assertions.assertThrows(ValidationException.class, () -> groupService.update(group));
     }
 
     @Test
@@ -205,19 +205,19 @@ class GroupServiceTest {
     @Test
     void updateMustThrowEntityValidationExceptionIfGroupNameIsNull() {
         group.setName(null);
-        Assertions.assertThrows(EntityValidationException.class, () -> groupService.update(group));
+        Assertions.assertThrows(ValidationException.class, () -> groupService.update(group));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfGroupNameIsEmpty() {
         group.setName("");
-        Assertions.assertThrows(EntityValidationException.class, () -> groupService.update(group));
+        Assertions.assertThrows(ValidationException.class, () -> groupService.update(group));
     }
 
     @Test
     void updateMustThrowEntityValidationExceptionIfGroupNameIsSeparators() {
         group.setName("   ");
-        Assertions.assertThrows(EntityValidationException.class, () -> groupService.update(group));
+        Assertions.assertThrows(ValidationException.class, () -> groupService.update(group));
     }
 
     @Test
