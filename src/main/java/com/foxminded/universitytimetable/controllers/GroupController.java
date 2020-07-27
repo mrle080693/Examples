@@ -21,17 +21,17 @@ public class GroupController {
         return "groups";
     }
 
-    /*
     @RequestMapping(value = "/groups/add", method = RequestMethod.POST)
     @ResponseBody
-    public String add(@RequestParam String groupInJson) {
-        Group group = gson.fromJson(groupInJson, Group.class);
+    public String add(@RequestParam String groupName) {
+        Group group = new Group(groupName);
         int newGroupId = groupService.add(group);
-        String result = String.valueOf(newGroupId);
 
-        return result;
+        return String.valueOf(newGroupId);
     }
-    */
+
+    /*
+    ITS WORK BUT WE NEED POST
 
     @RequestMapping(value = "/groups/add", method = RequestMethod.GET)
     public @ResponseBody
@@ -39,6 +39,7 @@ public class GroupController {
         int newGroupId = groupService.add(group);
         return newGroupId;
     }
+    */
 
     @GetMapping("/groups/getall")
     @ResponseBody

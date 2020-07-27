@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="en" xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -32,22 +32,46 @@
                 </ul>
             </div>
         </nav>
-
-        <div class="searchGroup">
-            <div class="row">
-                <div class="col-md-10">
-                    <input type="text" class="form-control" placeholder="Enter group name">
-                </div>
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-success" onclick="loadDoc()">Search</button>
-                </div>
-            </div>
-        </div>
     </div>
 
-        <li id="groupMainContent">
+    <hr>
 
-        </li>
+    <div id="groupsMainContent">
+        <div id="divNewGroup">
+            <h3>New Group</h3>
+            <form method="post" action="/groups/add">
+                <label>Group Name</label>
+                <br>
+                <input type="text" name="groupName">
+                <input type="submit" value="Save">
+            </form>
+        </div>
+
+        <div id="divFindGroup">
+            <h3>Find Group</h3>
+            <form method="post" action="/groups/add">
+                <label>Group Name</label>
+                <br>
+                <input type="text" name="groupName">
+                <input type="submit" value="Find">
+            </form>
+
+            <table style="width:100%">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td>Smith</td>
+                </tr>
+                <tr>
+                    <td>87</td>
+                    <td>Doe</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 
     <footer class="page-footer font-small mdb-color lighten-3 pt-4">
         <div class="container text-center text-md-left">
