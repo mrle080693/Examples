@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:form="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:form="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -47,27 +47,40 @@
             </form>
         </div>
 
-        <div id="divFindGroup">
-            <h3>Find Group</h3>
-            <form method="post" action="/groups/add">
-                <label>Group Name</label>
-                <br>
-                <input type="text" name="groupName">
-                <input type="submit" value="Find">
-            </form>
+        <br>
+        <br>
 
-            <table style="width:100%">
+        <div id="divUpdateGroup">
+            <h3>Change Group Name</h3>
+            <form method="post" action="/groups/update">
+                <label>Group Id</label>
+                <br>
+                <input type="text" name="id">
+                <br>
+                <label>New Group Name</label>
+                <br>
+                <input type="text" name="newName">
+                <input type="submit" value="Update">
+            </form>
+        </div>
+
+
+        <div id="groups">
+            <table>
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
+                    <th></th>
                 </tr>
-                <tr>
-                    <td>100</td>
-                    <td>Smith</td>
-                </tr>
-                <tr>
-                    <td>87</td>
-                    <td>Doe</td>
+                <tr th:each="group : ${groups}">
+                    <td th:text="${group.id}"></td>
+                    <td th:text="${group.name}"></td>
+                    <td>
+                        <form method="post" action="/groups/remove">
+                            <input type="text" name="id" th:value="${group.id}" hidden>
+                            <button type="submit" value="Submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             </table>
         </div>
