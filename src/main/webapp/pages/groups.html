@@ -37,30 +37,17 @@
     <hr>
 
     <div id="groupsMainContent">
-        <div id="divNewGroup">
-            <h3>New Group</h3>
-            <form method="post" action="/groups/add">
-                <label>Group Name</label>
-                <br>
-                <input type="text" name="groupName">
-                <input type="submit" value="Save">
-            </form>
-        </div>
-
-        <br>
-        <br>
-
-        <div id="divUpdateGroup">
-            <h3>Change Group Name</h3>
-            <form method="post" action="/groups/update">
-                <label>Group Id</label>
+        <div id="divSaveGroup">
+            <h3>Save Group</h3>
+            <form method="post" action="/groups/save">
+                <label>Group Id (Only if you want to update existing group)</label>
                 <br>
                 <input type="text" name="id">
                 <br>
-                <label>New Group Name</label>
+                <label>Group Name</label>
                 <br>
                 <input type="text" name="newName">
-                <input type="submit" value="Update">
+                <input type="submit" value="Save">
             </form>
         </div>
 
