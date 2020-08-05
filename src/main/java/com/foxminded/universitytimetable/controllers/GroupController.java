@@ -27,12 +27,21 @@ public class GroupController {
     public ModelAndView getAll() {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get groups.html with all groups");
 
-        List<Group> groups = groupService.getAll();
-
         ModelAndView modelAndView = new ModelAndView("groups");
-        modelAndView.addObject("groups", groups);
+        List<Group> groups = null;
 
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("groups.html successfully got with groups: " + groups.size());
+        try {
+            groups = groupService.getAll();
+            modelAndView.addObject("groups", groups);
+        } catch (NotFoundEntityException e) {
+            // Do nothing
+        }
+
+        if (groups != null) {
+            if (LOGGER.isDebugEnabled()) LOGGER.debug("groups.html successfully got with groups: " + groups.size());
+        } else {
+            LOGGER.debug("groups.html successfully got without groups");
+        }
 
         return modelAndView;
     }
