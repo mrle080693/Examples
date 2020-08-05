@@ -1,15 +1,109 @@
 package com.foxminded.universitytimetable.controllers;
 
+import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
+import com.foxminded.universitytimetable.exceptions.ValidationException;
+import com.foxminded.universitytimetable.models.Group;
+import com.foxminded.universitytimetable.models.Lesson;
+import com.foxminded.universitytimetable.services.LessonService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.sql.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/lessons")
 public class LessonController {
-    @GetMapping
-    public String getLessonsPage() {
-        return "lessons";
+    private static final Logger LOGGER = LoggerFactory.getLogger(LessonController.class);
+
+    @Autowired
+    private LessonService lessonService;
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView getAll() {
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get lessons.html with all lessons");
+
+        ModelAndView modelAndView = new ModelAndView("lessons");
+        List<Lesson> lessons = null;
+
+        try {
+            lessons = lessonService.getAll();
+            modelAndView.addObject("lessons", lessons);
+        } catch (NotFoundEntityException e) {
+            // Do nothing
+        }
+
+        if (lessons != null) {
+            if (LOGGER.isDebugEnabled()) LOGGER.debug("lessons.html successfully got with lessons: " + lessons.size());
+        } else {
+            LOGGER.debug("lessons.html successfully got without lessons");
+        }
+
+        return modelAndView;
     }
 
+    @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
+    public ModelAndView getById(@PathVariable("id") int id) {
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get lessons.html with lesson with id = " + id);
+
+        ModelAndView modelAndView = new ModelAndView("lessons");
+
+        try {
+            Lesson lesson = lessonService.getById(id);
+            modelAndView.addObject("lesson", lesson);
+        } catch (NotFoundEntityException e) {
+            modelAndView.setStatus(HttpStatus.BAD_REQUEST);
+            LOGGER.warn("Try to get lesson with not existing id = " + id);
+        }
+
+        LOGGER.debug("lessons.html successfully got with lesson with id = : " + id);
+
+        return modelAndView;
+    }
+
+    @PostMapping("/save")
+    public String save(@RequestParam(value = "id", defaultValue = "0") int id, @RequestParam Date date,
+                       @RequestParam int lessonNumber, @RequestParam int groupId, @RequestParam int professorId,
+                       @RequestParam String building, @RequestParam String classroom) {
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try save lesson with: " + "id = " + id + " date = " + date
+                + " lesson number = " + lessonNumber + " group id = " + groupId + " professor id = " + professorId
+                + " building = " + building + " classroom = " + classroom);
+
+        Lesson lesson = new Lesson(date, lessonNumber, groupId, professorId, building, classroom);
+        if (id != 0) {
+            try {
+                lesson.setId(id);
+                lessonService.update(lesson);
+            } catch (ValidationException | NotFoundEntityException e) {
+                lesson.setId(0);
+                lessonService.add(lesson);
+            }
+        } else {
+            lessonService.add(lesson);
+        }
+
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully add lesson with id = " + id);
+
+        return "redirect:/lessons";
+    }
+
+    @PostMapping("/remove")
+    public String remove(@RequestParam int id) {
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to remove lesson with id = " + id);
+
+        try {
+            lessonService.remove(id);
+        } catch (NotFoundEntityException e) {
+            // Do nothing
+        }
+
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully remove lesson with id: " + id);
+
+        return "redirect:/lessons";
+    }
 }

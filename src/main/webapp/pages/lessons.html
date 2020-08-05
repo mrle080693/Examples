@@ -44,41 +44,58 @@
                 <br>
                 <input type="text" name="id">
                 <br>
-                <label>Professor Name</label>
-                <input type="text" name="newName">
-                <label>Professor Surname</label>
+                <label>Lesson Date</label>
                 <br>
-                <input type="text" name="newSurname">
-                <label>Professor Patronymic</label>
+                <input type="date" name="newDate">
                 <br>
-                <input type="text" name="newPatronymic">
-                <label>Professor Subject</label>
+                <label>Lesson Number</label>
                 <br>
-                <input type="text" name="newSubject">
+                <input type="number" name="newLessonNumber">
+                <br>
+                <label>Group Id</label>
+                <br>
+                <input type="number" name="newGroupId">
+                <br>
+                <label>Professor Id</label>
+                <br>
+                <input type="number" name="newGroupId">
+                <br>
+                <label>Building</label>
+                <br>
+                <input type="text" name="building">
+                <br>
+                <label>Classroom</label>
+                <br>
+                <input type="text" name="classroom">
                 <input type="submit" value="Save">
             </form>
         </div>
 
+        <br>
 
-        <div id="professors">
+        <div id="lessons">
             <table>
                 <tr>
                     <th>Id</th>
-                    <th>Name</th>
-                    <th>Surname</th>
-                    <th>Patronymic</th>
-                    <th>Subject</th>
+                    <th>Date</th>
+                    <th>Lesson Number</th>
+                    <th>Group Id</th>
+                    <th>Professor Id</th>
+                    <th>Building</th>
+                    <th>Classroom</th>
                     <th></th>
                 </tr>
-                <tr th:each="professor : ${professors}">
-                    <td th:text="${professor.id}"></td>
-                    <td th:text="${professor.name}"></td>
-                    <td th:text="${professor.surname}"></td>
-                    <td th:text="${professor.patronymic}"></td>
-                    <td th:text="${professor.subject}"></td>
+                <tr th:each="lesson : ${lessons}">
+                    <td th:text="${lesson.id}"></td>
+                    <td th:text="${lesson.date}"></td>
+                    <td th:text="${lesson.lessonNumber}"></td>
+                    <td th:text="${lesson.groupId}"></td>
+                    <td th:text="${lesson.professorId}"></td>
+                    <td th:text="${lesson.building}"></td>
+                    <td th:text="${lesson.classroom}"></td>
                     <td>
-                        <form method="post" action="/professors/remove">
-                            <input type="text" name="id" th:value="${professor.id}" hidden>
+                        <form method="post" action="/lessons/remove">
+                            <input type="text" name="id" th:value="${lesson.id}" hidden>
                             <button type="submit" value="Submit" class="btn btn-danger">Delete</button>
                         </form>
                     </td>
