@@ -15,9 +15,10 @@ import java.util.List;
 
 @Repository("timetableImplBean")
 public class TimetableImpl implements TimetableDAO {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TimetableImpl.class);
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    private Logger LOGGER = LoggerFactory.getLogger(TimetableImpl.class);
 
     @Override
     public List<Lesson> getGroupTimetable(int groupId, Date from, Date till) {

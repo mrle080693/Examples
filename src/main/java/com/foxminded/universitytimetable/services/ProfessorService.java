@@ -16,13 +16,12 @@ import java.util.List;
 
 @Service("professorServiceBean")
 public class ProfessorService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProfessorService.class);
     private final ProfessorDAO professorDAO;
-    private Logger LOGGER;
 
     @Autowired
     public ProfessorService(ProfessorDAO professorDAO) {
         this.professorDAO = professorDAO;
-        LOGGER = LoggerFactory.getLogger(ProfessorService.class);
     }
 
     public int add(Professor professor) {

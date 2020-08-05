@@ -15,17 +15,16 @@ import java.util.List;
 
 @Service("timetableServiceBean")
 public class TimetableService {
+    private final static Logger LOGGER = LoggerFactory.getLogger(TimetableService.class);
     private final TimetableDAO timetableDAO;
     private final GroupService groupService;
     private final ProfessorService professorService;
-    private Logger LOGGER;
 
     @Autowired
     public TimetableService(TimetableDAO timetableDAO, GroupService groupService, ProfessorService professorService) {
         this.timetableDAO = timetableDAO;
         this.groupService = groupService;
         this.professorService = professorService;
-        LOGGER = LoggerFactory.getLogger(TimetableService.class);
     }
 
     public List<Lesson> getGroupTimetable(int groupId, Date from, Date till) {

@@ -12,9 +12,10 @@ import java.util.Date;
 
 @Repository("statisticsImplBean")
 public class StatisticsImpl implements StatisticsDAO {
+    private static final Logger LOGGER = LoggerFactory.getLogger(StatisticsImpl.class);
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    private Logger LOGGER = LoggerFactory.getLogger(StatisticsImpl.class);
 
     public int getGroupEmployment(int groupId, Date from, Date till) {
         if (LOGGER.isDebugEnabled()) {

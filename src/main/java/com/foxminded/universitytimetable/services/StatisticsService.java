@@ -13,17 +13,16 @@ import java.util.Date;
 
 @Service("statisticsServiceBean")
 public class StatisticsService {
+    private Logger LOGGER = LoggerFactory.getLogger(StatisticsService.class);
     private final StatisticsDAO statisticsDAO;
     private final GroupService groupService;
     private final ProfessorService professorService;
-    private Logger LOGGER;
 
     @Autowired
     public StatisticsService(StatisticsDAO statisticsDAO, GroupService groupService, ProfessorService professorService) {
         this.statisticsDAO = statisticsDAO;
         this.groupService = groupService;
         this.professorService = professorService;
-        LOGGER = LoggerFactory.getLogger(StatisticsService.class);
     }
 
     public int getGroupEmployment(int groupId, Date from, Date till) {

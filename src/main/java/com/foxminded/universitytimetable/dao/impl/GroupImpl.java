@@ -17,8 +17,8 @@ import java.util.List;
 
 @Repository("groupImplBean")
 public class GroupImpl implements GroupDAO {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GroupImpl.class);
     private final JdbcTemplate jdbcTemplate;
-    private Logger LOGGER = LoggerFactory.getLogger(GroupImpl.class);
 
     @Autowired
     public GroupImpl(JdbcTemplate jdbcTemplate) {

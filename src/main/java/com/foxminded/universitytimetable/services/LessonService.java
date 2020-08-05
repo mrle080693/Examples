@@ -20,17 +20,16 @@ import java.util.List;
 
 @Service("lessonServiceBean")
 public class LessonService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LessonService.class);
     private final LessonDAO lessonDAO;
     private final GroupDAO groupDAO;
     private final ProfessorDAO professorDAO;
-    private Logger LOGGER;
 
     @Autowired
     public LessonService(LessonDAO lessonDAO, GroupDAO groupDAO, ProfessorDAO professorDAO) {
         this.lessonDAO = lessonDAO;
         this.groupDAO = groupDAO;
         this.professorDAO = professorDAO;
-        LOGGER = LoggerFactory.getLogger(LessonService.class);
     }
 
     public int add(Lesson lesson) {

@@ -17,9 +17,10 @@ import java.util.List;
 
 @Repository("professorImplBean")
 public class ProfessorImpl implements ProfessorDAO {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProfessorImpl.class);
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    private Logger LOGGER = LoggerFactory.getLogger(ProfessorImpl.class);
 
     public int add(Professor professor) {
         if (LOGGER.isDebugEnabled()) {
