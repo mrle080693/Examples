@@ -26,7 +26,7 @@ public class LessonController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getAll() {
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get lessons.html with all lessons");
+        LOGGER.debug("Try get lessons.html with all lessons");
 
         ModelAndView modelAndView = new ModelAndView("lessons");
         List<Lesson> lessons = null;
@@ -35,11 +35,11 @@ public class LessonController {
             lessons = lessonService.getAll();
             modelAndView.addObject("lessons", lessons);
         } catch (NotFoundEntityException e) {
-            // Do nothing
+            LOGGER.warn(e.getEmptyResultExceptionMessage());
         }
 
         if (lessons != null) {
-            if (LOGGER.isDebugEnabled()) LOGGER.debug("lessons.html successfully got with lessons: " + lessons.size());
+            LOGGER.debug("lessons.html successfully got with lessons: " + lessons.size());
         } else {
             LOGGER.debug("lessons.html successfully got without lessons");
         }
@@ -49,13 +49,19 @@ public class LessonController {
 
     @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
     public ModelAndView getById(@PathVariable("id") int id) {
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get lessons.html with lesson with id = " + id);
+        LOGGER.debug("Try get lessons.html with lesson with id = " + id);
 
         ModelAndView modelAndView = new ModelAndView("lessons");
 
         try {
             Lesson lesson = lessonService.getById(id);
-            modelAndView.addObject("lesson", lesson);
+            modelAndView.addObject("id", lesson.getId());
+            modelAndView.addObject("date", lesson.getDate());
+            modelAndView.addObject("lessonNumber", lesson.getLessonNumber());
+            modelAndView.addObject("groupId", lesson.getGroupId());
+            modelAndView.addObject("professorId", lesson.getProfessorId());
+            modelAndView.addObject("building", lesson.getBuilding());
+            modelAndView.addObject("classroom", lesson.getClassroom());
         } catch (NotFoundEntityException e) {
             modelAndView.setStatus(HttpStatus.BAD_REQUEST);
             LOGGER.warn("Try to get lesson with not existing id = " + id);
@@ -70,7 +76,7 @@ public class LessonController {
     public String save(@RequestParam(value = "id", defaultValue = "0") int id, @RequestParam Date date,
                        @RequestParam int lessonNumber, @RequestParam int groupId, @RequestParam int professorId,
                        @RequestParam String building, @RequestParam String classroom) {
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try save lesson with: " + "id = " + id + " date = " + date
+        LOGGER.debug("Try save lesson with: " + "id = " + id + " date = " + date
                 + " lesson number = " + lessonNumber + " group id = " + groupId + " professor id = " + professorId
                 + " building = " + building + " classroom = " + classroom);
 
@@ -87,22 +93,22 @@ public class LessonController {
             lessonService.add(lesson);
         }
 
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully add lesson with id = " + id);
+        LOGGER.debug("Successfully add lesson with id = " + id);
 
         return "redirect:/lessons";
     }
 
     @PostMapping("/remove")
     public String remove(@RequestParam int id) {
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to remove lesson with id = " + id);
+        LOGGER.debug("Try to remove lesson with id = " + id);
 
         try {
             lessonService.remove(id);
         } catch (NotFoundEntityException e) {
-            // Do nothing
+            LOGGER.warn(e.getEmptyResultExceptionMessage());
         }
 
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully remove lesson with id: " + id);
+        LOGGER.debug("Successfully remove lesson with id: " + id);
 
         return "redirect:/lessons";
     }

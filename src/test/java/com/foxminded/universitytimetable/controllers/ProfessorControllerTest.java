@@ -88,4 +88,22 @@ class ProfessorControllerTest {
         mockMvc.perform(get("/professors/getById/{id}", 1))
                 .andExpect(view().name("professors"));
     }
+
+    @Test
+    void getByIdHaveToReturnCorrectModelParameters() throws Exception {
+        int id = professorImpl.add(new Professor("Test", "Test", "Test", "Test"));
+
+        mockMvc.perform(get("/professors/getById/{id}", id))
+                .andExpect(model().attributeExists("id"))
+                .andExpect(model().attributeExists("name"))
+                .andExpect(model().attributeExists("surname"))
+                .andExpect(model().attributeExists("patronymic"))
+                .andExpect(model().attributeExists("subject"))
+
+                .andExpect(model().attribute("id", id))
+                .andExpect(model().attribute("name", "Test"))
+                .andExpect(model().attribute("surname", "Test"))
+                .andExpect(model().attribute("patronymic", "Test"))
+                .andExpect(model().attribute("subject", "Test"));
+    }
 }

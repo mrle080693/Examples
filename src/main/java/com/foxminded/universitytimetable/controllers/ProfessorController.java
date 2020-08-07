@@ -24,7 +24,7 @@ public class ProfessorController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getAll() {
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get professors.html with all professors");
+        LOGGER.debug("Try get professors.html with all professors");
 
         ModelAndView modelAndView = new ModelAndView("professors");
         List<Professor> professors = null;
@@ -33,15 +33,13 @@ public class ProfessorController {
             professors = professorService.getAll();
             modelAndView.addObject("professors", professors);
 
-            if (LOGGER.isDebugEnabled())
-                LOGGER.debug("professors.html successfully got with professors: " + professors.size());
+            LOGGER.debug("professors.html successfully got with professors: " + professors.size());
         } catch (NotFoundEntityException e) {
-            // Do nothing
+            LOGGER.warn(e.getEmptyResultExceptionMessage());
         }
 
         if (professors != null) {
-            if (LOGGER.isDebugEnabled())
-                LOGGER.debug("groups.html successfully got with professors: " + professors.size());
+            LOGGER.debug("groups.html successfully got with professors: " + professors.size());
         } else {
             LOGGER.debug("groups.html successfully got without professors");
         }
@@ -51,13 +49,17 @@ public class ProfessorController {
 
     @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
     public ModelAndView getById(@PathVariable("id") int id) {
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get professors.html with professor with id = " + id);
+        LOGGER.debug("Try get professors.html with professor with id = " + id);
 
         ModelAndView modelAndView = new ModelAndView("professors");
 
         try {
             Professor professor = professorService.getById(id);
-            modelAndView.addObject("professor", professor);
+            modelAndView.addObject("id", professor.getId());
+            modelAndView.addObject("name", professor.getName());
+            modelAndView.addObject("surname", professor.getSurname());
+            modelAndView.addObject("patronymic", professor.getPatronymic());
+            modelAndView.addObject("subject", professor.getSubject());
         } catch (NotFoundEntityException e) {
             modelAndView.setStatus(HttpStatus.BAD_REQUEST);
             LOGGER.warn("Try to get professor with not existing id = " + id);
@@ -71,7 +73,7 @@ public class ProfessorController {
     @PostMapping("/save")
     public String save(@RequestParam(value = "id", defaultValue = "0") int id, @RequestParam String newName,
                        @RequestParam String newSurname, @RequestParam String newPatronymic, @RequestParam String newSubject) {
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try save professor with: " + "id = " + id + " name = " + newName
+        LOGGER.debug("Try save professor with: " + "id = " + id + " name = " + newName
                 + " Surname = " + newSurname + " Patronymic = " + newPatronymic + " Subject = " + newSubject);
 
         try {
@@ -88,10 +90,10 @@ public class ProfessorController {
                 professorService.add(professor);
             }
         } catch (ValidationException e) {
-            // Do nothing but only till task 15
+            LOGGER.warn(e.getEntityValidationExceptionMessage());
         }
 
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully add professor with id = " + id);
+        LOGGER.debug("Successfully add professor with id = " + id);
 
         return "redirect:/professors";
     }
@@ -103,7 +105,7 @@ public class ProfessorController {
         try {
             professorService.remove(id);
         } catch (NotFoundEntityException e) {
-            // Do nothing but only till task 15
+            LOGGER.warn(e.getEmptyResultExceptionMessage());
         }
 
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully remove professor with id: " + id);

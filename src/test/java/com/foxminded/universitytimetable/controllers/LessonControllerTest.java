@@ -110,4 +110,33 @@ class LessonControllerTest {
         mockMvc.perform(get("/lessons/getById/{id}", 1))
                 .andExpect(view().name("lessons"));
     }
+
+    @Test
+    void getByIdHaveToReturnCorrectModelParameters() throws Exception {
+        Group group = new Group("Test");
+        Professor professor = new Professor("Test", "Test", "Test", "Test");
+        int groupId = groupImpl.add(group);
+        int professorId = professorImpl.add(professor);
+
+        lesson = new Lesson(new Date(Calendar.getInstance().getTime().getTime()), 1,
+                groupId, professorId, "Building", "Classroom");
+
+        int id = lessonImpl.add(lesson);
+
+        mockMvc.perform(get("/lessons/getById/{id}", id))
+                .andExpect(model().attributeExists("id"))
+                .andExpect(model().attributeExists("date"))
+                .andExpect(model().attributeExists("lessonNumber"))
+                .andExpect(model().attributeExists("groupId"))
+                .andExpect(model().attributeExists("professorId"))
+                .andExpect(model().attributeExists("building"))
+                .andExpect(model().attributeExists("classroom"))
+
+                .andExpect(model().attribute("id", id))
+                .andExpect(model().attribute("lessonNumber", lesson.getLessonNumber()))
+                .andExpect(model().attribute("groupId", lesson.getGroupId()))
+                .andExpect(model().attribute("professorId", lesson.getProfessorId()))
+                .andExpect(model().attribute("building", lesson.getBuilding()))
+                .andExpect(model().attribute("classroom", lesson.getClassroom()));
+    }
 }

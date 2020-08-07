@@ -25,7 +25,7 @@ public class GroupController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getAll() {
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get groups.html with all groups");
+        LOGGER.debug("Try get groups.html with all groups");
 
         ModelAndView modelAndView = new ModelAndView("groups");
         List<Group> groups = null;
@@ -34,11 +34,11 @@ public class GroupController {
             groups = groupService.getAll();
             modelAndView.addObject("groups", groups);
         } catch (NotFoundEntityException e) {
-            // Do nothing
+            LOGGER.warn(e.getEmptyResultExceptionMessage());
         }
 
         if (groups != null) {
-            if (LOGGER.isDebugEnabled()) LOGGER.debug("groups.html successfully got with groups: " + groups.size());
+            LOGGER.debug("groups.html successfully got with groups: " + groups.size());
         } else {
             LOGGER.debug("groups.html successfully got without groups");
         }
@@ -48,13 +48,14 @@ public class GroupController {
 
     @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
     public ModelAndView getById(@PathVariable("id") int id) {
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get groups.html with group with id = " + id);
+        LOGGER.debug("Try get groups.html with group with id = " + id);
 
         ModelAndView modelAndView = new ModelAndView("groups");
 
         try {
             Group group = groupService.getById(id);
-            modelAndView.addObject("group", group);
+            modelAndView.addObject("id", group.getId());
+            modelAndView.addObject("name", group.getName());
         } catch (NotFoundEntityException e) {
             modelAndView.setStatus(HttpStatus.BAD_REQUEST);
             LOGGER.warn("Try to get group with not existing id = " + id);
@@ -67,7 +68,7 @@ public class GroupController {
 
     @PostMapping("/save")
     public String save(@RequestParam(value = "id", defaultValue = "0") int id, @RequestParam String newName) {
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try save group with: " + "id = " + id + " name = " + newName);
+        LOGGER.debug("Try save group with: " + "id = " + id + " name = " + newName);
 
         Group group = new Group(newName);
         if (id != 0) {
@@ -82,22 +83,22 @@ public class GroupController {
             groupService.add(group);
         }
 
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully add group with id = " + id);
+        LOGGER.debug("Successfully save group with id = " + id);
 
         return "redirect:/groups";
     }
 
     @PostMapping("/remove")
     public String remove(@RequestParam int id) {
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to remove group with id = " + id);
+        LOGGER.debug("Try to remove group with id = " + id);
 
         try {
             groupService.remove(id);
         } catch (NotFoundEntityException e) {
-            // Do nothing
+            LOGGER.warn(e.getEmptyResultExceptionMessage());
         }
 
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully remove group with id: " + id);
+        LOGGER.debug("Successfully remove group with id: " + id);
 
         return "redirect:/groups";
     }
