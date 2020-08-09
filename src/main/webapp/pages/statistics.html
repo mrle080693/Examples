@@ -42,7 +42,7 @@
         <div class="row">
             <div class="col-md-6">
                 <h2>Groups</h2>
-                <form method="get" action="/statistics/group/{id, from, till}">
+                <form method="get">
                     <label>Group Id</label>
                     <br>
                     <input type="number" name="id">
@@ -55,12 +55,13 @@
                     <br>
                     <input type="date" name="till">
                     <input type="submit" value="Get Statistic">
+                    <p id="result">Result will be here</p>
                 </form>
             </div>
 
             <div class="col-md-6">
                 <h2>Professors</h2>
-                <form method="get" action="/statistics/professor/{id, from, till}">
+                <form method="get">
                     <label>Professor Id</label>
                     <br>
                     <input type="number" name="id">
@@ -76,7 +77,6 @@
                 </form>
             </div>
         </div>
-        <p th: value=""></p>
     </div>
 
     <hr>

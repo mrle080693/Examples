@@ -6,47 +6,66 @@ import com.foxminded.universitytimetable.services.StatisticsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping("/statistics/groups/{id, from, till}")
+@RequestMapping("/statistics")
 public class StatisticsController {
     private static final Logger LOGGER = LoggerFactory.getLogger(GroupController.class);
 
     @Autowired
     private StatisticsService statisticsService;
 
-    //
+    @GetMapping
+    public String getStatisticsPage() {
+        LOGGER.debug("Get statistics.html page");
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView getGroupEmployment(@RequestParam int id, @RequestParam Date from, @RequestParam Date till) {
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get statistic of group with id = " + id + " from: " + from
-                + " till: " + till);
+        return "statistics";
+    }
 
-        ModelAndView modelAndView = new ModelAndView("statistics");
-        Integer lessonsQuantity = null;
+    @GetMapping("/getGroupEmployment")
+    @ResponseBody
+    public int getGroupEmployment(@RequestParam int id,
+                                  @RequestParam("from") Date from,
+                                  @RequestParam("till") Date till) {
+        LOGGER.debug("Try get group employment with id = " + id + " from: " + from + " till: " + till);
+
+        int lessonsQuantity = 0;
 
         try {
             lessonsQuantity = statisticsService.getGroupEmployment(id, from, till);
-            modelAndView.addObject("lessonsQuantity", lessonsQuantity);
-        } catch (NotFoundEntityException e) {
-            // Do nothing
+        } catch (Exception e) {
+            LOGGER.warn(e.getMessage());
         }
 
-        if (lessonsQuantity != null) {
-            if (LOGGER.isDebugEnabled())
-                LOGGER.debug("statistics.html successfully got with lessons quantity: " + lessonsQuantity);
-        } else {
-            LOGGER.debug("statistics.html successfully got without lessons quantity");
+        LOGGER.debug("Successfully got with lessons quantity: " + lessonsQuantity);
+
+        return lessonsQuantity;
+    }
+
+    @GetMapping("/getProfessorEmployment")
+    @ResponseBody
+    public int getProfessorEmployment(@RequestParam int id,
+                                      @RequestParam("from") Date from,
+                                      @RequestParam("till") Date till) {
+        LOGGER.debug("Try get professor employment with id = " + id + " from: " + from + " till: " + till);
+
+        int lessonsQuantity = 0;
+
+        try {
+            lessonsQuantity = statisticsService.getProfessorEmployment(id, from, till);
+        } catch (Exception e) {
+            LOGGER.warn(e.getMessage());
         }
 
-        return modelAndView;
+        LOGGER.debug("Successfully got with lessons quantity: " + lessonsQuantity);
+
+        return lessonsQuantity;
     }
 }
