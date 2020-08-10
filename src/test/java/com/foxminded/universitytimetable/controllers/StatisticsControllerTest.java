@@ -12,11 +12,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -24,8 +27,8 @@ import java.sql.Date;
 import java.util.Calendar;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {MvcWebConfig.class, SpringTestJdbcConfig.class})
@@ -33,23 +36,39 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class StatisticsControllerTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
-
     @Autowired
     private LessonImpl lessonImpl;
-
     @Autowired
     private GroupImpl groupImpl;
-
     @Autowired
     private ProfessorImpl professorImpl;
 
-    private Lesson lesson;
-
     private MockMvc mockMvc;
+
+    private Lesson lesson;
+    private Group group;
+    private Professor professor;
+    private int groupId;
+    private int professorId;
+    private Date from;
+    private Date till;
 
     @BeforeEach
     void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+
+        group = new Group("Test");
+        professor = new Professor("Test", "Test", "Test", "Test");
+        groupId = groupImpl.add(group);
+        professorId = professorImpl.add(professor);
+
+        lesson = new Lesson(new Date(Calendar.getInstance().getTime().getTime()), 1,
+                groupId, professorId, "Building", "Classroom");
+
+        lessonImpl.add(lesson);
+
+        from = new Date(Calendar.getInstance().getTime().getTime());
+        till = new Date(Calendar.getInstance().getTime().getTime());
     }
 
     @Test
@@ -72,20 +91,7 @@ class StatisticsControllerTest {
 
     @Test
     void getGroupEmploymentHaveToReturnOkStatus() throws Exception {
-        Group group = new Group("Test");
-        Professor professor = new Professor("Test", "Test", "Test", "Test");
-        int groupId = groupImpl.add(group);
-        int professorId = professorImpl.add(professor);
-
-        lesson = new Lesson(new Date(Calendar.getInstance().getTime().getTime()), 1,
-                groupId, professorId, "Building", "Classroom");
-
-        lessonImpl.add(lesson);
-
-        Date from = new Date(Calendar.getInstance().getTime().getTime());
-        Date till = new Date(Calendar.getInstance().getTime().getTime());
-
-        mockMvc.perform(get("/statistics/getGroupEmployment")
+        mockMvc.perform(get("/statistics/get_group_employment")
                 .param("id", String.valueOf(groupId))
                 .param("from", String.valueOf(from))
                 .param("till", String.valueOf(till)))
@@ -93,24 +99,49 @@ class StatisticsControllerTest {
     }
 
     @Test
+    void getGroupEmploymentHaveToReturnCorrectContentType() throws Exception {
+        mockMvc.perform(get("/statistics/get_group_employment")
+                .param("id", String.valueOf(groupId))
+                .param("from", String.valueOf(from))
+                .param("till", String.valueOf(till)))
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andDo(print()).andReturn();
+    }
+
+    @Test
+    void getGroupEmploymentHaveToReturnCorrectResult() throws Exception {
+        mockMvc.perform(get("/statistics/get_group_employment")
+                .param("id", String.valueOf(groupId))
+                .param("from", String.valueOf(from))
+                .param("till", String.valueOf(till)))
+                .andExpect(content().string("1"));
+    }
+
+    @Test
     void getProfessorEmploymentHaveToReturnOkStatus() throws Exception {
-        Group group = new Group("Test");
-        Professor professor = new Professor("Test", "Test", "Test", "Test");
-        int groupId = groupImpl.add(group);
-        int professorId = professorImpl.add(professor);
-
-        lesson = new Lesson(new Date(Calendar.getInstance().getTime().getTime()), 1,
-                groupId, professorId, "Building", "Classroom");
-
-        lessonImpl.add(lesson);
-
-        Date from = new Date(Calendar.getInstance().getTime().getTime());
-        Date till = new Date(Calendar.getInstance().getTime().getTime());
-
-        mockMvc.perform(get("/statistics/getProfessorEmployment")
+        mockMvc.perform(get("/statistics/get_professor_employment")
                 .param("id", String.valueOf(professorId))
                 .param("from", String.valueOf(from))
                 .param("till", String.valueOf(till)))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void getProfessorEmploymentHaveToReturnCorrectContentType() throws Exception {
+        mockMvc.perform(get("/statistics/get_professor_employment")
+                .param("id", String.valueOf(professorId))
+                .param("from", String.valueOf(from))
+                .param("till", String.valueOf(till)))
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andDo(print()).andReturn();
+    }
+
+    @Test
+    void getProfessorEmploymentHaveToReturnCorrectResult() throws Exception {
+        mockMvc.perform(get("/statistics/get_professor_employment")
+                .param("id", String.valueOf(professorId))
+                .param("from", String.valueOf(from))
+                .param("till", String.valueOf(till)))
+                .andExpect(content().string("1"));
     }
 }

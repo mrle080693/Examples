@@ -33,8 +33,8 @@ public class Queries {
     public static final String REMOVE_PROFESSOR_QUERY = "delete from professors where id = ?";
 
     // StatisticImpl class queries
-    public static final String GET_PROFESSOR_EMPLOYMENT = "select count(*) from lessons where professorId = ? " +
-            " and date >= ? and date <= ?";
+    public static final String GET_PROFESSOR_EMPLOYMENT = "select count(*) from lessons where professorId = ? and date >= ? " +
+            "and date <= ?";
     public static final String GET_GROUP_EMPLOYMENT = "select count(*) from lessons where groupId = ? and date >= ? " +
             "and date <= ?";
 

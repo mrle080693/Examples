@@ -29,12 +29,13 @@ public class StatisticsController {
         return "statistics";
     }
 
-    @GetMapping("/getGroupEmployment")
+    @GetMapping("/get_group_employment")
     @ResponseBody
     public int getGroupEmployment(@RequestParam int id,
                                   @RequestParam("from") Date from,
                                   @RequestParam("till") Date till) {
         LOGGER.debug("Try get group employment with id = " + id + " from: " + from + " till: " + till);
+        System.out.println("work" + id + from + till);
 
         int lessonsQuantity = 0;
 
@@ -49,12 +50,13 @@ public class StatisticsController {
         return lessonsQuantity;
     }
 
-    @GetMapping("/getProfessorEmployment")
+    @GetMapping("/get_professor_employment")
     @ResponseBody
     public int getProfessorEmployment(@RequestParam int id,
                                       @RequestParam("from") Date from,
                                       @RequestParam("till") Date till) {
         LOGGER.debug("Try get professor employment with id = " + id + " from: " + from + " till: " + till);
+        System.out.println("Professor work" + id + from + till);
 
         int lessonsQuantity = 0;
 

@@ -1,6 +1,7 @@
 package com.foxminded.universitytimetable.dao;
 
 import com.foxminded.universitytimetable.configurations.SpringJDBCConfig;
+import com.foxminded.universitytimetable.configurations.SpringTestJdbcConfig;
 import com.foxminded.universitytimetable.dao.impl.GroupImpl;
 import com.foxminded.universitytimetable.dao.impl.LessonImpl;
 import com.foxminded.universitytimetable.dao.impl.ProfessorImpl;
@@ -40,7 +41,7 @@ class StatisticsImplTest {
 
     @BeforeAll
     static void initialize() {
-        context = new AnnotationConfigApplicationContext(SpringJDBCConfig.class);
+        context = new AnnotationConfigApplicationContext(SpringTestJdbcConfig.class);
 
         statisticsImpl = context.getBean("statisticsImplBean", StatisticsImpl.class);
         lessonImpl = context.getBean("lessonImplBean", LessonImpl.class);
