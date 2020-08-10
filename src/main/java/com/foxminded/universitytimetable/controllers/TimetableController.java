@@ -2,7 +2,6 @@ package com.foxminded.universitytimetable.controllers;
 
 import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.services.TimetableService;
-import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ import java.util.List;
 @RequestMapping("/timetable")
 public class TimetableController {
     private static final Logger LOGGER = LoggerFactory.getLogger(StatisticsController.class);
-    Gson gson = new Gson();
 
     @Autowired
     private TimetableService timetableService;
@@ -33,9 +31,9 @@ public class TimetableController {
 
     @GetMapping("/get_group_timetable")
     @ResponseBody
-    public String getGroupEmployment(@RequestParam int id,
-                                     @RequestParam("from") Date from,
-                                     @RequestParam("till") Date till) {
+    public List<Lesson> getGroupEmployment(@RequestParam int id,
+                                           @RequestParam("from") Date from,
+                                           @RequestParam("till") Date till) {
         LOGGER.debug("Try get group timetable with id = " + id + " from: " + from + " till: " + till);
 
         List<Lesson> lessons = null;
@@ -52,14 +50,14 @@ public class TimetableController {
             LOGGER.debug("Group have not lessons");
         }
 
-        return gson.toJson(lessons);
+        return lessons;
     }
 
     @GetMapping("/get_professor_timetable")
     @ResponseBody
-    public String getProfessorEmployment(@RequestParam int id,
-                                         @RequestParam("from") Date from,
-                                         @RequestParam("till") Date till) {
+    public List<Lesson> getProfessorEmployment(@RequestParam int id,
+                                               @RequestParam("from") Date from,
+                                               @RequestParam("till") Date till) {
         LOGGER.debug("Try get professor timetable with id = " + id + " from: " + from + " till: " + till);
 
         List<Lesson> lessons = null;
@@ -76,6 +74,6 @@ public class TimetableController {
             LOGGER.debug("Professor have not lessons");
         }
 
-        return gson.toJson(lessons);
+        return lessons;
     }
 }

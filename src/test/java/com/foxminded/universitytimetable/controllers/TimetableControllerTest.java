@@ -106,7 +106,7 @@ class TimetableControllerTest {
                 .param("id", String.valueOf(groupId))
                 .param("from", String.valueOf(from))
                 .param("till", String.valueOf(till)))
-                .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andDo(print()).andReturn();
     }
 
@@ -120,7 +120,7 @@ class TimetableControllerTest {
                 .param("id", String.valueOf(professorId))
                 .param("from", String.valueOf(from))
                 .param("till", String.valueOf(till)))
-                .andExpect(content().string("[{"id":7,"date":"??? 10, 2020","lessonNumber":1,"groupId":7,"professorId":7,"building":"Building","classroom":"Classroom"}]"));
+                .andExpect(content().string(gson.toJson(expected)));
     }
 
     @Test
@@ -138,7 +138,7 @@ class TimetableControllerTest {
                 .param("id", String.valueOf(professorId))
                 .param("from", String.valueOf(from))
                 .param("till", String.valueOf(till)))
-                .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andDo(print()).andReturn();
     }
 

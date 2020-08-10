@@ -10,7 +10,7 @@ function getGroupTimetable() {
 
             },
             success: function (data) {
-                var lessons = JSON.parse(data)
+                var lessons = data
                     , body = '';
 
                 for (variable in lessons) {
@@ -37,7 +37,7 @@ function getProfessorTimetable() {
 
             },
             success: function (data) {
-                var lessons = JSON.parse(data)
+                var lessons = data
                     , body = '';
 
                 for (variable in lessons) {
