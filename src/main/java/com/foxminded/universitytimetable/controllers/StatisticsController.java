@@ -17,7 +17,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/statistics")
 public class StatisticsController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GroupController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StatisticsController.class);
 
     @Autowired
     private StatisticsService statisticsService;
@@ -35,7 +35,6 @@ public class StatisticsController {
                                   @RequestParam("from") Date from,
                                   @RequestParam("till") Date till) {
         LOGGER.debug("Try get group employment with id = " + id + " from: " + from + " till: " + till);
-        System.out.println("work" + id + from + till);
 
         int lessonsQuantity = 0;
 
@@ -56,7 +55,6 @@ public class StatisticsController {
                                       @RequestParam("from") Date from,
                                       @RequestParam("till") Date till) {
         LOGGER.debug("Try get professor employment with id = " + id + " from: " + from + " till: " + till);
-        System.out.println("Professor work" + id + from + till);
 
         int lessonsQuantity = 0;
 

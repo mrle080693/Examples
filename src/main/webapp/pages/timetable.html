@@ -42,73 +42,107 @@
         <div class="row">
             <div class="col-md-6">
                 <h2>Groups</h2>
+                <form method="get" id="groupTimetableForm">
+                    <label>Group Id</label>
+                    <br>
+                    <input type="number" name="id">
+                    <br>
+                    <label>From</label>
+                    <br>
+                    <input type="date" name="from">
+                    <br>
+                    <label>Till</label>
+                    <br>
+                    <input type="date" name="till">
+                    <input type="button" onclick="return getGroupTimetable()" value="Get Timetable">
+                </form>
             </div>
+
             <div class="col-md-6">
                 <h2>Professors</h2>
+                <form method="get" id="professorTimetableForm">
+                    <label>Professor Id</label>
+                    <br>
+                    <input type="number" name="id">
+                    <br>
+                    <label>From</label>
+                    <br>
+                    <input type="date" name="from">
+                    <br>
+                    <label>Till</label>
+                    <br>
+                    <input type="date" name="till">
+                    <input type="button" onclick="return getProfessorTimetable()" value="Get Timetable">
+                </form>
             </div>
+            <hr>
+            <ul id="result"></ul>
         </div>
+
+        <hr>
+
+        <footer class="page-footer font-small mdb-color lighten-3 pt-4">
+            <div class="container text-center text-md-left">
+                <div class="row">
+                    <div class="col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1">
+                        <h5 class="font-weight-bold text-uppercase mb-4">SOME INFORMATION</h5>
+                        <p>Here you can use rows and columns to organize your footer content.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit amet numquam iure provident
+                            voluptate
+                            esse
+                            quasi, veritatis totam voluptas nostrum.</p>
+                    </div>
+
+                    <hr class="clearfix w-100 d-md-none">
+                    <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
+                        <h5 class="font-weight-bold text-uppercase mb-4">LINKS</h5>
+                        <ul class="list-unstyled">
+                            <li>
+                                <p>
+                                    <a href="https://github.com/mrle080693">GITHUB</a>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <hr class="clearfix w-100 d-md-none">
+                    <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+                        <h5 class="font-weight-bold text-uppercase mb-4">CONTACTS</h5>
+
+                        <ul class="list-unstyled">
+                            <li>
+                                <p>
+                                    mrle080693@gmail.com
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    + 38 099 531 20 01
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1">
+                        <h5 class="font-weight-bold text-uppercase mb-4">SOME INFORMATION</h5>
+                        <p>Here you can use rows and columns to organize your footer content.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit amet numquam iure provident
+                            voluptate
+                            esse
+                            quasi, veritatis totam voluptas nostrum.</p>
+                    </div>
+                    <hr class="clearfix w-100 d-md-none">
+
+                </div>
+                <div class="footer-copyright text-center py-3">?© 2020 Developed by:
+                    <a href="https://github.com/mrle080693"> Mr.Le </a>
+                </div>
+            </div>
+        </footer>
     </div>
-
-    <hr>
-
-    <footer class="page-footer font-small mdb-color lighten-3 pt-4">
-        <div class="container text-center text-md-left">
-            <div class="row">
-                <div class="col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1">
-                    <h5 class="font-weight-bold text-uppercase mb-4">SOME INFORMATION</h5>
-                    <p>Here you can use rows and columns to organize your footer content.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit amet numquam iure provident
-                        voluptate
-                        esse
-                        quasi, veritatis totam voluptas nostrum.</p>
-                </div>
-
-                <hr class="clearfix w-100 d-md-none">
-                <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
-                    <h5 class="font-weight-bold text-uppercase mb-4">LINKS</h5>
-                    <ul class="list-unstyled">
-                        <li>
-                            <p>
-                                <a href="https://github.com/mrle080693">GITHUB</a>
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-
-                <hr class="clearfix w-100 d-md-none">
-                <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
-                    <h5 class="font-weight-bold text-uppercase mb-4">CONTACTS</h5>
-
-                    <ul class="list-unstyled">
-                        <li>
-                            <p>
-                                mrle080693@gmail.com
-                            </p>
-                        </li>
-                        <li>
-                            <p>
-                                + 38 099 531 20 01
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1">
-                    <h5 class="font-weight-bold text-uppercase mb-4">SOME INFORMATION</h5>
-                    <p>Here you can use rows and columns to organize your footer content.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit amet numquam iure provident
-                        voluptate
-                        esse
-                        quasi, veritatis totam voluptas nostrum.</p>
-                </div>
-                <hr class="clearfix w-100 d-md-none">
-
-            </div>
-            <div class="footer-copyright text-center py-3">?© 2020 Developed by:
-                <a href="https://github.com/mrle080693"> Mr.Le </a>
-            </div>
-        </div>
-    </footer>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="/scripts/timetable.js"></script>
 </body>
 </html>
