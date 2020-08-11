@@ -94,7 +94,7 @@ class TimetableControllerTest {
     @Test
     void getGroupTimetableHaveToReturnOkStatus() throws Exception {
         mockMvc.perform(get("/timetable/get_group_timetable")
-                .param("id", String.valueOf(groupId))
+                .param("groupId", String.valueOf(groupId))
                 .param("from", String.valueOf(from))
                 .param("till", String.valueOf(till)))
                 .andExpect(status().isOk());
@@ -103,7 +103,7 @@ class TimetableControllerTest {
     @Test
     void getGroupTimetableHaveToReturnCorrectContentType() throws Exception {
         mockMvc.perform(get("/timetable/get_group_timetable")
-                .param("id", String.valueOf(groupId))
+                .param("groupId", String.valueOf(groupId))
                 .param("from", String.valueOf(from))
                 .param("till", String.valueOf(till)))
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
@@ -117,7 +117,7 @@ class TimetableControllerTest {
         expected.add(lesson);
 
         mockMvc.perform(get("/timetable/get_group_timetable")
-                .param("id", String.valueOf(professorId))
+                .param("groupId", String.valueOf(professorId))
                 .param("from", String.valueOf(from))
                 .param("till", String.valueOf(till)))
                 .andExpect(content().string(gson.toJson(expected)));
@@ -126,7 +126,7 @@ class TimetableControllerTest {
     @Test
     void getProfessorEmploymentHaveToReturnOkStatus() throws Exception {
         mockMvc.perform(get("/timetable/get_professor_timetable")
-                .param("id", String.valueOf(professorId))
+                .param("professorId", String.valueOf(professorId))
                 .param("from", String.valueOf(from))
                 .param("till", String.valueOf(till)))
                 .andExpect(status().isOk());
@@ -135,7 +135,7 @@ class TimetableControllerTest {
     @Test
     void getProfessorEmploymentHaveToReturnCorrectContentType() throws Exception {
         mockMvc.perform(get("/timetable/get_professor_timetable")
-                .param("id", String.valueOf(professorId))
+                .param("professorId", String.valueOf(professorId))
                 .param("from", String.valueOf(from))
                 .param("till", String.valueOf(till)))
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
@@ -149,7 +149,7 @@ class TimetableControllerTest {
         expected.add(lesson);
 
         mockMvc.perform(get("/timetable/get_professor_timetable")
-                .param("id", String.valueOf(professorId))
+                .param("professorId", String.valueOf(professorId))
                 .param("from", String.valueOf(from))
                 .param("till", String.valueOf(till)))
                 .andExpect(content().string(gson.toJson(expected)));

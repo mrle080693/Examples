@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -31,23 +32,23 @@ public class TimetableController {
 
     @GetMapping("/get_group_timetable")
     @ResponseBody
-    public List<Lesson> getGroupEmployment(@RequestParam int id,
+    public List<Lesson> getGroupEmployment(@RequestParam int groupId,
                                            @RequestParam("from") Date from,
                                            @RequestParam("till") Date till) {
-        LOGGER.debug("Try get group timetable with id = " + id + " from: " + from + " till: " + till);
+        LOGGER.debug("Try get group timetable with id = " + groupId + " from: " + from + " till: " + till);
 
-        List<Lesson> lessons = null;
+        List<Lesson> lessons = new ArrayList<>();
 
         try {
-            lessons = timetableService.getGroupTimetable(id, from, till);
+            lessons = timetableService.getGroupTimetable(groupId, from, till);
         } catch (Exception e) {
             LOGGER.warn(e.getMessage());
         }
 
-        if (lessons != null) {
-            LOGGER.debug("Successfully got group timetable with " + lessons.size() + " lessons");
-        } else {
+        if (lessons.isEmpty()) {
             LOGGER.debug("Group have not lessons");
+        } else {
+            LOGGER.debug("Successfully got group timetable with " + lessons.size() + " lessons");
         }
 
         return lessons;
@@ -55,23 +56,23 @@ public class TimetableController {
 
     @GetMapping("/get_professor_timetable")
     @ResponseBody
-    public List<Lesson> getProfessorEmployment(@RequestParam int id,
+    public List<Lesson> getProfessorEmployment(@RequestParam int professorId,
                                                @RequestParam("from") Date from,
                                                @RequestParam("till") Date till) {
-        LOGGER.debug("Try get professor timetable with id = " + id + " from: " + from + " till: " + till);
+        LOGGER.debug("Try get professor timetable with id = " + professorId + " from: " + from + " till: " + till);
 
-        List<Lesson> lessons = null;
+        List<Lesson> lessons = new ArrayList<>();
 
         try {
-            lessons = timetableService.getProfessorTimetable(id, from, till);
+            lessons = timetableService.getProfessorTimetable(professorId, from, till);
         } catch (Exception e) {
             LOGGER.warn(e.getMessage());
         }
 
-        if (lessons != null) {
-            LOGGER.debug("Successfully got professor timetable with " + lessons.size() + " lessons");
-        } else {
+        if (lessons.isEmpty()) {
             LOGGER.debug("Professor have not lessons");
+        } else {
+            LOGGER.debug("Successfully got professor timetable with " + lessons.size() + " lessons");
         }
 
         return lessons;

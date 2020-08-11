@@ -4,7 +4,7 @@ function getGroupTimetable() {
             type: 'GET',
             url: 'http://localhost:8080/timetable/get_group_timetable',
             data: {
-                id: $('#groupTimetableForm input[name="id"]').val(),
+                groupId: $('#groupTimetableForm input[name="id"]').val(),
                 from: $('#groupTimetableForm input[name="from"]').val(),
                 till: $('#groupTimetableForm input[name="till"]').val()
 
@@ -31,7 +31,7 @@ function getProfessorTimetable() {
             type: 'GET',
             url: 'http://localhost:8080/timetable/get_professor_timetable',
             data: {
-                id: $('#professorTimetableForm input[name="id"]').val(),
+                professorId: $('#professorTimetableForm input[name="id"]').val(),
                 from: $('#professorTimetableForm input[name="from"]').val(),
                 till: $('#professorTimetableForm input[name="till"]').val()
 

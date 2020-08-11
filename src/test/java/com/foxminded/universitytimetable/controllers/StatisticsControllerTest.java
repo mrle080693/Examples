@@ -92,7 +92,7 @@ class StatisticsControllerTest {
     @Test
     void getGroupEmploymentHaveToReturnOkStatus() throws Exception {
         mockMvc.perform(get("/statistics/get_group_employment")
-                .param("id", String.valueOf(groupId))
+                .param("groupId", String.valueOf(groupId))
                 .param("from", String.valueOf(from))
                 .param("till", String.valueOf(till)))
                 .andExpect(status().isOk());
@@ -101,7 +101,7 @@ class StatisticsControllerTest {
     @Test
     void getGroupEmploymentHaveToReturnCorrectContentType() throws Exception {
         mockMvc.perform(get("/statistics/get_group_employment")
-                .param("id", String.valueOf(groupId))
+                .param("groupId", String.valueOf(groupId))
                 .param("from", String.valueOf(from))
                 .param("till", String.valueOf(till)))
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
@@ -111,7 +111,7 @@ class StatisticsControllerTest {
     @Test
     void getGroupEmploymentHaveToReturnCorrectResult() throws Exception {
         mockMvc.perform(get("/statistics/get_group_employment")
-                .param("id", String.valueOf(groupId))
+                .param("groupId", String.valueOf(groupId))
                 .param("from", String.valueOf(from))
                 .param("till", String.valueOf(till)))
                 .andExpect(content().string("1"));
@@ -120,7 +120,7 @@ class StatisticsControllerTest {
     @Test
     void getProfessorEmploymentHaveToReturnOkStatus() throws Exception {
         mockMvc.perform(get("/statistics/get_professor_employment")
-                .param("id", String.valueOf(professorId))
+                .param("professorId", String.valueOf(professorId))
                 .param("from", String.valueOf(from))
                 .param("till", String.valueOf(till)))
                 .andExpect(status().isOk());
@@ -129,7 +129,7 @@ class StatisticsControllerTest {
     @Test
     void getProfessorEmploymentHaveToReturnCorrectContentType() throws Exception {
         mockMvc.perform(get("/statistics/get_professor_employment")
-                .param("id", String.valueOf(professorId))
+                .param("professorId", String.valueOf(professorId))
                 .param("from", String.valueOf(from))
                 .param("till", String.valueOf(till)))
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
@@ -139,7 +139,7 @@ class StatisticsControllerTest {
     @Test
     void getProfessorEmploymentHaveToReturnCorrectResult() throws Exception {
         mockMvc.perform(get("/statistics/get_professor_employment")
-                .param("id", String.valueOf(professorId))
+                .param("professorId", String.valueOf(professorId))
                 .param("from", String.valueOf(from))
                 .param("till", String.valueOf(till)))
                 .andExpect(content().string("1"));
