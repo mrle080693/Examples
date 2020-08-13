@@ -50,12 +50,12 @@ public class MvcWebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // По умолчанию идея так форматирует. По другому не получается.
         registry
                 .addResourceHandler("/images/**", "/styles/**", "/scripts/**")
                 .addResourceLocations("/images/", "/styles/", "/scripts/")
                 .setCachePeriod(3600)
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver());
-
     }
 }

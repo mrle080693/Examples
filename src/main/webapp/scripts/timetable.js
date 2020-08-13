@@ -14,9 +14,9 @@ function getGroupTimetable() {
                     , body = '';
 
                 for (variable in lessons) {
-                    body = body + '<li>' + "id " + lessons[variable].id + "date " + lessons[variable].date +
-                        "lessonNumber" + lessons[variable].lessonNumber + "building " + lessons[variable].building +
-                        "classroom " + lessons[variable].classroom + '</li>';
+                    body = body + '<li>' + "***id: " + lessons[variable].id + "***date: " + lessons[variable].date +
+                        "***lessonNumber: " + lessons[variable].lessonNumber + "***building: " + lessons[variable].building +
+                        "***classroom: " + lessons[variable].classroom + '</li>';
                 }
                 $('#result').html(body);
             }

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles/professors.css">
 
     <title>Professors</title>
 </head>
@@ -37,57 +38,118 @@
     <hr>
 
     <div id="professorsMainContent">
-        <div id="divSaveProfessor">
-            <h3>Save Professor</h3>
-            <form method="post" action="/professors/save">
-                <label>Professor Id (Only if you want to update existing group)</label>
-                <br>
-                <input type="text" name="id">
-                <br>
-                <label>Professor Name</label>
-                <br>
-                <input type="text" name="newName">
-                <br>
-                <label>Professor Surname</label>
-                <br>
-                <input type="text" name="newSurname">
-                <br>
-                <label>Professor Patronymic</label>
-                <br>
-                <input type="text" name="newPatronymic">
-                <br>
-                <label>Professor Subject</label>
-                <br>
-                <input type="text" name="newSubject">
-                <input type="submit" value="Save">
-            </form>
+        <h3>Professors</h3>
+        <br>
+        <table>
+            <tr>
+                <th class="table-cell">Id</th>
+                <th class="table-cell">Name</th>
+                <th class="table-cell">Surname</th>
+                <th class="table-cell">Patronymic</th>
+                <th class="table-cell">Subject</th>
+                <th class="table-cell">Update</th>
+                <th class="table-cell">Delete</th>
+                <th>
+                    <button id="newBtn" type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target="#modalNewBtn">New
+                    </button>
+                </th>
+            </tr>
+            <tr th:each="professor : ${professors}">
+                <td class="table-cell" th:text="${professor.id}"></td>
+                <td class="table-cell" th:text="${professor.name}"></td>
+                <td class="table-cell" th:text="${professor.surname}"></td>
+                <td class="table-cell" th:text="${professor.patronymic}"></td>
+                <td class="table-cell" th:text="${professor.subject}"></td>
+                <td>
+                    <a data-toggle="modal" data-target="#modalUpdateBtn">
+                        <img alt=":(" src="../images/update.jpeg">
+                    </a>
+                </td>
+                <td>
+                    <a><img alt=":(" src="../images/delete.jpeg"></a>
+                </td>
+            </tr>
+        </table>
+
+        <div class="modal" id="modalNewBtn">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">New Professor</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form method="post" action="/professors/add">
+                            <label>Professor Name</label>
+                            <br>
+                            <input type="text" name="newName">
+                            <br>
+                            <label>Professor Surname</label>
+                            <br>
+                            <input type="text" name="newSurname">
+                            <br>
+                            <label>Professor Patronymic</label>
+                            <br>
+                            <input type="text" name="newPatronymic">
+                            <br>
+                            <label>Professor Subject</label>
+                            <br>
+                            <input type="text" name="newSubject">
+                        </form>
+
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" data-dismiss="modal">Save</button>
+                    </div>
+
+                </div>
+            </div>
         </div>
 
-
-        <div id="professors">
-            <table>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Surname</th>
-                    <th>Patronymic</th>
-                    <th>Subject</th>
-                    <th></th>
-                </tr>
-                <tr th:each="professor : ${professors}">
-                    <td th:text="${professor.id}"></td>
-                    <td th:text="${professor.name}"></td>
-                    <td th:text="${professor.surname}"></td>
-                    <td th:text="${professor.patronymic}"></td>
-                    <td th:text="${professor.subject}"></td>
-                    <td>
-                        <form method="post" action="/professors/remove">
-                            <input type="text" name="id" th:value="${professor.id}" hidden>
-                            <button type="submit" value="Submit" class="btn btn-danger">Delete</button>
+        <div class="modal" id="modalUpdateBtn">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Update Professor</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form method="post" action="/professors/update">
+                            <label>Professor Id</label>
+                            <br>
+                            <input type="text" name="id">
+                            <br>
+                            <label>Professor Name</label>
+                            <br>
+                            <input type="text" name="newName">
+                            <br>
+                            <label>Professor Surname</label>
+                            <br>
+                            <input type="text" name="newSurname">
+                            <br>
+                            <label>Professor Patronymic</label>
+                            <br>
+                            <input type="text" name="newPatronymic">
+                            <br>
+                            <label>Professor Subject</label>
+                            <br>
+                            <input type="text" name="newSubject">
                         </form>
-                    </td>
-                </tr>
-            </table>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" data-dismiss="modal">Save</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -153,4 +215,7 @@
     </footer>
 </div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </html>
