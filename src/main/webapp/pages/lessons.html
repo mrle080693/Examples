@@ -38,7 +38,7 @@
     <hr>
 
     <div id="lessonsMainContent">
-        <h3>Save Lesson</h3>
+        <h3>Lessons</h3>
         <br>
         <div id="lessons">
             <table>
@@ -72,102 +72,102 @@
                         </a>
                     </td>
                     <td>
-                        <a><img alt=":(" src="../images/delete.jpeg"></a>
+                        <form method="post" action="/lessons/remove">
+                            <input type="text" name="id" th:value="${lesson.id}" hidden>
+                            <input type="image" src="../images/delete.jpeg" alt="Submit">
+                        </form>
                     </td>
                 </tr>
             </table>
+        </div>
 
-            <div class="modal" id="modalNewBtn">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">New Lesson</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                            <form method="post" action="/lessons/add">
-                                <label>Lesson Date</label>
-                                <br>
-                                <input type="date" name="date">
-                                <br>
-                                <label>Lesson Number</label>
-                                <br>
-                                <input type="number" name="lessonNumber">
-                                <br>
-                                <label>Group Id</label>
-                                <br>
-                                <input type="number" name="groupId">
-                                <br>
-                                <label>Professor Id</label>
-                                <br>
-                                <input type="number" name="professorId">
-                                <br>
-                                <label>Building</label>
-                                <br>
-                                <input type="text" name="building">
-                                <br>
-                                <label>Classroom</label>
-                                <br>
-                                <input type="text" name="classroom">
-                            </form>
-                        </div>
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success" data-dismiss="modal">Save</button>
-                        </div>
-
+        <div class="modal" id="modalNewBtn">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">New Lesson</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form method="post" action="/lessons/save">
+                            <label>Lesson Date</label>
+                            <br>
+                            <input type="date" name="date">
+                            <br>
+                            <label>Lesson Number</label>
+                            <br>
+                            <input type="number" name="lessonNumber">
+                            <br>
+                            <label>Group</label>
+                            <br>
+                            <select id="selectGroupAdd"></select>
+                            <br>
+                            <label>Professor</label>
+                            <br>
+                            <select id="selectProfessorAdd"></select>
+                            <br>
+                            <label>Building</label>
+                            <br>
+                            <input type="text" name="building">
+                            <br>
+                            <label>Classroom</label>
+                            <br>
+                            <input type="text" name="classroom">
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="modal" id="modalUpdateBtn">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">Update Lesson</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                            <form method="post" action="/lessons/update">
-                                <label>Lesson Id</label>
-                                <br>
-                                <input type="text" name="id">
-                                <br>
-                                <label>Lesson Date</label>
-                                <br>
-                                <input type="date" name="date">
-                                <br>
-                                <label>Lesson Number</label>
-                                <br>
-                                <input type="number" name="lessonNumber">
-                                <br>
-                                <label>Group Id</label>
-                                <br>
-                                <input type="number" name="groupId">
-                                <br>
-                                <label>Professor Id</label>
-                                <br>
-                                <input type="number" name="professorId">
-                                <br>
-                                <label>Building</label>
-                                <br>
-                                <input type="text" name="building">
-                                <br>
-                                <label>Classroom</label>
-                                <br>
-                                <input type="text" name="classroom">
-                            </form>
-                        </div>
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success" data-dismiss="modal">Save</button>
-                        </div>
+        <div class="modal" id="modalUpdateBtn">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Update Lesson</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form method="post" action="/lessons/save">
+                            <input type="text" name="id" th:each="lesson : ${lessons}" th:value="${lesson.id}"
+                                   hidden>
+                            <label>Lesson Date</label>
+                            <br>
+                            <input type="date" name="date">
+                            <br>
+                            <label>Lesson Number</label>
+                            <br>
+                            <input type="number" name="lessonNumber">
+                            <br>
+                            <label>Group</label>
+                            <br>
+                            <select id="selectGroupUpdate"></select>
+                            <br>
+                            <label>Professor</label>
+                            <br>
+                            <select id="selectProfessorUpdate"></select>
+                            <br>
+                            <label>Building</label>
+                            <br>
+                            <input type="text" name="building">
+                            <br>
+                            <label>Classroom</label>
+                            <br>
+                            <input type="text" name="classroom">
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -239,4 +239,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/scripts/lessons.js"></script>
 </html>

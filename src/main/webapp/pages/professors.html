@@ -67,7 +67,10 @@
                     </a>
                 </td>
                 <td>
-                    <a><img alt=":(" src="../images/delete.jpeg"></a>
+                    <form method="post" action="/professors/remove">
+                        <input type="text" name="id" th:value="${professor.id}" hidden>
+                        <input type="image" src="../images/delete.jpeg" alt="Submit">
+                    </form>
                 </td>
             </tr>
         </table>
@@ -82,7 +85,7 @@
                     </div>
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <form method="post" action="/professors/add">
+                        <form method="post" action="/professors/save">
                             <label>Professor Name</label>
                             <br>
                             <input type="text" name="newName">
@@ -98,15 +101,13 @@
                             <label>Professor Subject</label>
                             <br>
                             <input type="text" name="newSubject">
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
                         </form>
-
                     </div>
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success" data-dismiss="modal">Save</button>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -121,11 +122,9 @@
                     </div>
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <form method="post" action="/professors/update">
-                            <label>Professor Id</label>
-                            <br>
-                            <input type="text" name="id">
-                            <br>
+                        <form method="post" action="/professors/save">
+                            <input type="text" name="id" th:each="professor : ${professors}" th:value="${professor.id}"
+                                   hidden>
                             <label>Professor Name</label>
                             <br>
                             <input type="text" name="newName">
@@ -141,12 +140,12 @@
                             <label>Professor Subject</label>
                             <br>
                             <input type="text" name="newSubject">
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
                         </form>
-                    </div>
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success" data-dismiss="modal">Save</button>
                     </div>
                 </div>
             </div>

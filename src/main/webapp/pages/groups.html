@@ -53,16 +53,21 @@
                     </button>
                 </th>
             </tr>
+
             <tr th:each="group : ${groups}">
                 <td class="table-cell" th:text="${group.id}"></td>
                 <td class="table-cell" th:text="${group.name}"></td>
                 <td>
-                    <a data-toggle="modal" data-target="#modalUpdateBtn">
+                    <a data-toggle="modal" data-target="#modalUpdateBtn" data-groupId="${group.id}">
+                        <input type="text" name="id" th:value="${group.id}">
                         <img alt=":(" src="../images/update.jpeg">
                     </a>
                 </td>
                 <td>
-                    <a><img alt=":(" src="../images/delete.jpeg"></a>
+                    <form method="post" action="/groups/remove">
+                        <input type="text" name="id" th:value="${group.id}">
+                        <input type="image" src="../images/delete.jpeg" alt="Submit">
+                    </form>
                 </td>
             </tr>
         </table>
@@ -81,14 +86,16 @@
                             <label>Group Name</label>
                             <br>
                             <input type="text" name="newName">
+                            <br>
+                            <br>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close
+                                </button>
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
                         </form>
                     </div>
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success" data-dismiss="modal">Save</button>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -103,22 +110,20 @@
                     </div>
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <form method="post" action="/groups/save">
-                            <label>Group Id</label>
-                            <br>
-                            <input type="text" name="id">
-                            <br>
+                        <form method="post" action="/groups/update">
+                            <input id="groupId" type="text" name="id">
                             <label>Group Name</label>
                             <br>
                             <input type="text" name="newName">
+                            <br>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close
+                                </button>
+                                <button type="submit" class="btn btn-success">Update</button>
+                            </div>
                         </form>
                     </div>
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success" data-dismiss="modal">Save</button>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -186,6 +191,7 @@
     </footer>
 </div>
 </body>
+<script src="/scripts/groups.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

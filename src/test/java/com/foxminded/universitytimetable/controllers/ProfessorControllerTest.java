@@ -42,7 +42,7 @@ class ProfessorControllerTest {
     }
 
     @Test
-    void getAllHaveToReturnOkStatusIfUrlIsCorrect() throws Exception {
+    void getProfessorsViewAndAllProfessorsHaveToReturnOkStatusIfUrlIsCorrect() throws Exception {
         professorImpl.add(new Professor("Test", "Test", "Test", "Test"));
 
         mockMvc.perform(get("/professors"))
@@ -50,16 +50,15 @@ class ProfessorControllerTest {
     }
 
     @Test
-    void getAllHaveToReturnCorrectView() throws Exception {
+    void getProfessorsViewAndAllProfessorsHaveToReturnCorrectView() throws Exception {
         professorImpl.add(new Professor("Test", "Test", "Test", "Test"));
 
         mockMvc.perform(get("/professors"))
                 .andExpect(view().name("professors"));
     }
 
-
     @Test
-    void getAllHaveToReturnCorrectModel() throws Exception {
+    void getProfessorsViewAndAllProfessorsHaveToReturnCorrectModel() throws Exception {
         professorImpl.add(new Professor("Test", "Test", "Test", "Test"));
 
         mockMvc.perform(get("/professors"))

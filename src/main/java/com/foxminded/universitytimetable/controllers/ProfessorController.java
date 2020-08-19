@@ -2,6 +2,7 @@ package com.foxminded.universitytimetable.controllers;
 
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.exceptions.ValidationException;
+import com.foxminded.universitytimetable.models.Group;
 import com.foxminded.universitytimetable.models.Professor;
 import com.foxminded.universitytimetable.services.ProfessorService;
 import org.slf4j.Logger;
@@ -23,7 +24,7 @@ public class ProfessorController {
     private ProfessorService professorService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView getAll() {
+    public ModelAndView getProfessorsViewAndAllProfessors() {
         LOGGER.debug("Try get professors.html with all professors");
 
         ModelAndView modelAndView = new ModelAndView("professors");
@@ -46,6 +47,29 @@ public class ProfessorController {
 
         return modelAndView;
     }
+
+    @GetMapping("/get_all")
+    @ResponseBody
+    public List<Professor> getAll() {
+        LOGGER.debug("Try get all professors");
+
+        List<Professor> professors = null;
+
+        try {
+            professors = professorService.getAll();
+        } catch (NotFoundEntityException e) {
+            LOGGER.warn(e.getEmptyResultExceptionMessage());
+        }
+
+        if (professors != null) {
+            LOGGER.debug("Successfully got with professors: " + professors.size());
+        } else {
+            LOGGER.debug("Successfully got without professors");
+        }
+
+        return professors;
+    }
+
 
     @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
     public ModelAndView getById(@PathVariable("id") int id) {

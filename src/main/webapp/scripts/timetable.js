@@ -13,10 +13,10 @@ function getGroupTimetable() {
                 var lessons = data
                     , body = '';
 
-                for (variable in lessons) {
-                    body = body + '<li>' + "***id: " + lessons[variable].id + "***date: " + lessons[variable].date +
-                        "***lessonNumber: " + lessons[variable].lessonNumber + "***building: " + lessons[variable].building +
-                        "***classroom: " + lessons[variable].classroom + '</li>';
+                for (name in lessons) {
+                    body = body + '<li>' + "***id: " + lessons[name].id + "***date: " + lessons[name].date +
+                        "***lessonNumber: " + lessons[name].lessonNumber + "***building: " + lessons[name].building +
+                        "***classroom: " + lessons[name].classroom + '</li>';
                 }
                 $('#result').html(body);
             }
@@ -40,10 +40,10 @@ function getProfessorTimetable() {
                 var lessons = data
                     , body = '';
 
-                for (variable in lessons) {
-                    body = body + '<li>' + "id " + lessons[variable].id + "date " + lessons[variable].date +
-                        "lessonNumber" + lessons[variable].lessonNumber + "building " + lessons[variable].building +
-                        "classroom " + lessons[variable].classroom + '</li>';
+                for (name in lessons) {
+                    body = body + '<li>' + "id " + lessons[name].id + "date " + lessons[name].date +
+                        "lessonNumber" + lessons[name].lessonNumber + "building " + lessons[name].building +
+                        "classroom " + lessons[name].classroom + '</li>';
                 }
                 $('#result').html(body);
             }

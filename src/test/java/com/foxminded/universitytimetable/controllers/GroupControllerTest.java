@@ -50,7 +50,7 @@ class GroupControllerTest {
     }
 
     @Test
-    void getAllHaveToReturnOkStatusIfUrlIsCorrect() throws Exception {
+    void getGroupsViewAndAllGroupsHaveToReturnOkStatusIfUrlIsCorrect() throws Exception {
         groupImpl.add(new Group("Test"));
 
         mockMvc.perform(get("/groups"))
@@ -58,7 +58,7 @@ class GroupControllerTest {
     }
 
     @Test
-    void getAllHaveToReturnCorrectView() throws Exception {
+    void getGroupsViewAndAllGroupsHaveToReturnCorrectView() throws Exception {
         groupImpl.add(new Group("Test"));
 
         mockMvc.perform(get("/groups"))
@@ -67,7 +67,7 @@ class GroupControllerTest {
 
 
     @Test
-    void getAllHaveToReturnCorrectModel() throws Exception {
+    void getGroupsViewAndAllGroupsHaveToReturnCorrectModel() throws Exception {
         groupImpl.add(new Group("Test"));
 
         mockMvc.perform(get("/groups"))
