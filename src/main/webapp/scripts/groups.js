@@ -1,6 +1,7 @@
-$(document).ready(function () {
-    $('#modalUpdateBtn').on('show.bs.modal', function (event) {
-        var id = $(event.relatedTarget).attr("groupId");
-        $("#groupId").val(22);
-    });
+$('#modalUpdateBtn').on('shown.bs.modal', function (event) {
+    var groupId = $(event.relatedTarget).data('group-id');
+    var groupName = $(event.relatedTarget).data('group-name');
+
+    $('#group-id').val(groupId);
+    $('#group-name').val(groupName);
 });

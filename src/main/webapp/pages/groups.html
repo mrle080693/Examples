@@ -58,14 +58,12 @@
                 <td class="table-cell" th:text="${group.id}"></td>
                 <td class="table-cell" th:text="${group.name}"></td>
                 <td>
-                    <a data-toggle="modal" data-target="#modalUpdateBtn" data-groupId="${group.id}">
-                        <input type="text" name="id" th:value="${group.id}">
-                        <img alt=":(" src="../images/update.jpeg">
-                    </a>
+                    <img alt=":(" src="../images/update.jpeg" data-toggle="modal" data-target="#modalUpdateBtn"
+                         th:data-group-id="${group.id}" th:data-group-name="${group.name}">
                 </td>
                 <td>
                     <form method="post" action="/groups/remove">
-                        <input type="text" name="id" th:value="${group.id}">
+                        <input type="text" name="id" th:value="${group.id}" hidden>
                         <input type="image" src="../images/delete.jpeg" alt="Submit">
                     </form>
                 </td>
@@ -100,7 +98,6 @@
             </div>
         </div>
 
-        
         <div class="modal" id="modalUpdateBtn">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -112,10 +109,11 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         <form method="post" action="/groups/update">
-                            <input id="groupId" type="text" name="id">
+                            <input id="group-id" type="text" name="id" hidden>
                             <label>Group Name</label>
                             <br>
-                            <input type="text" name="newName">
+                            <input id="group-name" type="text" name="newName">
+                            <br>
                             <br>
                             <!-- Modal footer -->
                             <div class="modal-footer">
@@ -192,8 +190,8 @@
     </footer>
 </div>
 </body>
-<script src="/scripts/groups.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/scripts/groups.js"></script>
 </html>
