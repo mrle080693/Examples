@@ -23,6 +23,19 @@ public class ProfessorController {
     @Autowired
     private ProfessorService professorService;
 
+    @PostMapping("/add")
+    public String save(@RequestParam String newName, @RequestParam String newSurname,
+                       @RequestParam String newPatronymic, @RequestParam String newSubject) {
+        LOGGER.debug("Try to add professor with: " + " name = " + newName);
+
+        Professor professor = new Professor(newName, newSurname, newPatronymic, newSubject);
+        int id = professorService.add(professor);
+
+        LOGGER.debug("Successfully add professor with id = " + id);
+
+        return "redirect:/professors";
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getProfessorsViewAndAllProfessors() {
         LOGGER.debug("Try get professors.html with all professors");
@@ -94,30 +107,22 @@ public class ProfessorController {
         return modelAndView;
     }
 
-    @PostMapping("/save")
-    public String save(@RequestParam(value = "id", defaultValue = "0") int id, @RequestParam String newName,
-                       @RequestParam String newSurname, @RequestParam String newPatronymic, @RequestParam String newSubject) {
-        LOGGER.debug("Try save professor with: " + "id = " + id + " name = " + newName
+    @PostMapping("/update")
+    public String update(@RequestParam(value = "id", defaultValue = "0") int id, @RequestParam String newName,
+                         @RequestParam String newSurname, @RequestParam String newPatronymic, @RequestParam String newSubject) {
+        LOGGER.debug("Try to update professor with: " + "id = " + id + " name = " + newName
                 + " Surname = " + newSurname + " Patronymic = " + newPatronymic + " Subject = " + newSubject);
 
         try {
             Professor professor = new Professor(newName, newSurname, newPatronymic, newSubject);
-            if (id != 0) {
-                try {
-                    professor.setId(id);
-                    professorService.update(professor);
-                } catch (ValidationException | NotFoundEntityException e) {
-                    professor.setId(0);
-                    professorService.add(professor);
-                }
-            } else {
-                professorService.add(professor);
-            }
-        } catch (ValidationException e) {
-            LOGGER.warn(e.getEntityValidationExceptionMessage());
+            professor.setId(id);
+
+            professorService.update(professor);
+        } catch (NotFoundEntityException e) {
+            LOGGER.warn(e.getEmptyResultExceptionMessage());
         }
 
-        LOGGER.debug("Successfully add professor with id = " + id);
+        LOGGER.debug("Successfully update professor with new name: " + newName);
 
         return "redirect:/professors";
     }

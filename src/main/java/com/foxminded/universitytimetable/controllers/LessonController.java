@@ -24,6 +24,22 @@ public class LessonController {
     @Autowired
     private LessonService lessonService;
 
+    @PostMapping("/add")
+    public String save(@RequestParam Date date, @RequestParam int lessonNumber, @RequestParam int groupId,
+                       @RequestParam int professorId, @RequestParam String building, @RequestParam String classroom) {
+
+        LOGGER.debug("Try to add lesson with: " + "date = " + date
+                + " lesson number = " + lessonNumber + " group id = " + groupId + " professor id = " + professorId
+                + " building = " + building + " classroom = " + classroom);
+
+        Lesson lesson = new Lesson(date, lessonNumber, groupId, professorId, building, classroom);
+        int id = lessonService.add(lesson);
+
+        LOGGER.debug("Successfully add lesson with id = " + id);
+
+        return "redirect:/lessons";
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getAll() {
         LOGGER.debug("Try get lessons.html with all lessons");
@@ -72,28 +88,25 @@ public class LessonController {
         return modelAndView;
     }
 
-    @PostMapping("/save")
-    public String save(@RequestParam(value = "id", defaultValue = "0") int id, @RequestParam Date date,
-                       @RequestParam int lessonNumber, @RequestParam int groupId, @RequestParam int professorId,
-                       @RequestParam String building, @RequestParam String classroom) {
-        LOGGER.debug("Try save lesson with: " + "id = " + id + " date = " + date
+    @PostMapping("/update")
+    public String update(@RequestParam(value = "id", defaultValue = "0") int id, @RequestParam Date date,
+                         @RequestParam int lessonNumber, @RequestParam int groupId, @RequestParam int professorId,
+                         @RequestParam String building, @RequestParam String classroom) {
+
+        LOGGER.debug("Try to update lesson with: id = " + id + " date = " + date
                 + " lesson number = " + lessonNumber + " group id = " + groupId + " professor id = " + professorId
                 + " building = " + building + " classroom = " + classroom);
 
-        Lesson lesson = new Lesson(date, lessonNumber, groupId, professorId, building, classroom);
-        if (id != 0) {
-            try {
-                lesson.setId(id);
-                lessonService.update(lesson);
-            } catch (ValidationException | NotFoundEntityException e) {
-                lesson.setId(0);
-                lessonService.add(lesson);
-            }
-        } else {
-            lessonService.add(lesson);
+        try {
+            Lesson lesson = new Lesson(date, lessonNumber, groupId, professorId, building, classroom);
+            lesson.setId(id);
+
+            lessonService.update(lesson);
+        } catch (NotFoundEntityException e) {
+            LOGGER.warn(e.getEmptyResultExceptionMessage());
         }
 
-        LOGGER.debug("Successfully add lesson with id = " + id);
+        LOGGER.debug("Successfully update lesson with id: " + id);
 
         return "redirect:/lessons";
     }
