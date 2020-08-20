@@ -1,8 +1,6 @@
 package com.foxminded.universitytimetable.controllers;
 
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
-import com.foxminded.universitytimetable.exceptions.ValidationException;
-import com.foxminded.universitytimetable.models.Group;
 import com.foxminded.universitytimetable.models.Professor;
 import com.foxminded.universitytimetable.services.ProfessorService;
 import org.slf4j.Logger;

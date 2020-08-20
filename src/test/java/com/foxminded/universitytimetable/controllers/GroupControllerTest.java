@@ -172,15 +172,13 @@ class GroupControllerTest {
     @Test
     void removeHaveToRemove() throws Exception {
         mockMvc.perform(post("/groups/add")
-                .param("id", "0")
-                .param("newName", "updatedGroup"));
+                .param("id", "0"));
 
         mockMvc.perform(get("/groups/getById/{id}", 1))
                 .andExpect(status().isOk());
 
         mockMvc.perform(post("/groups/remove")
-                .param("id", "1")
-                .param("newName", "updatedGroup"));
+                .param("id", "1"));
 
         mockMvc.perform(get("/groups/getById/{id}", 1))
                 .andExpect(status().is4xxClientError());
@@ -188,10 +186,6 @@ class GroupControllerTest {
 
     @Test
     void removeHaveToReturnRedirectionStatusIfRemovedGroupDoesNotExist() throws Exception {
-        mockMvc.perform(post("/groups/add")
-                .param("id", "0")
-                .param("newName", "updatedGroup"));
-
         mockMvc.perform(post("/groups/remove")
                 .param("id", "190000000")
                 .param("newNam", "updatedGroup"))

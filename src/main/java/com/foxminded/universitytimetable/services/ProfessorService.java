@@ -186,6 +186,8 @@ public class ProfessorService {
             String exMessage = "Cant update table professors. Input group: " + professor;
             LOGGER.error(exMessage);
             throw new DAOException(exMessage, ex);
+        } catch (IllegalArgumentException e) {
+            throw new NotFoundEntityException(e.getMessage());
         }
 
         if (LOGGER.isDebugEnabled()) {
@@ -215,6 +217,8 @@ public class ProfessorService {
             String exMessage = "Cant remove from table professors. Professor id: " + professorId;
             LOGGER.error(exMessage);
             throw new DAOException(exMessage, ex);
+        } catch (IllegalArgumentException e) {
+            throw new NotFoundEntityException(e.getMessage());
         }
 
         if (LOGGER.isDebugEnabled()) {
