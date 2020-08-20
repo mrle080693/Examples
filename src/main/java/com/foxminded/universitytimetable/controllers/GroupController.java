@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,11 +24,16 @@ public class GroupController {
     private GroupService groupService;
 
     @PostMapping("/add")
-    public String save(@RequestParam String newName) {
+    public String add(@RequestParam String newName) {
         LOGGER.debug("Try save group with: " + " name = " + newName);
+        int id = 0;
 
-        Group group = new Group(newName);
-        int id = groupService.add(group);
+        try {
+            Group group = new Group(newName);
+            id = groupService.add(group);
+        } catch (ValidationException e) {
+            LOGGER.warn(e.getEntityValidationExceptionMessage());
+        }
 
         LOGGER.debug("Successfully save group with id = " + id);
 
