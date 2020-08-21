@@ -32,7 +32,7 @@ public class LessonService {
         this.professorDAO = professorDAO;
     }
 
-    public int add(Lesson lesson) {
+    public int add(Lesson lesson) throws NotFoundEntityException {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to add lesson " + lesson);
         }
@@ -154,6 +154,8 @@ public class LessonService {
             String exMessage = "Cant update table lessons. Input lesson: " + lesson;
             LOGGER.error(exMessage);
             throw new DAOException(exMessage, ex);
+        } catch (IllegalArgumentException e) {
+            throw new NotFoundEntityException(e.getMessage());
         }
 
         if (LOGGER.isDebugEnabled()) {
@@ -183,6 +185,8 @@ public class LessonService {
             String exMessage = "Cant remove from table lessons. Group id: " + lessonId;
             LOGGER.error(exMessage);
             throw new DAOException(exMessage, ex);
+        } catch (IllegalArgumentException e) {
+            throw new NotFoundEntityException(e.getMessage());
         }
 
         if (LOGGER.isDebugEnabled()) {

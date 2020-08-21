@@ -25,15 +25,21 @@ public class LessonController {
     private LessonService lessonService;
 
     @PostMapping("/add")
-    public String save(@RequestParam Date date, @RequestParam int lessonNumber, @RequestParam int groupId,
-                       @RequestParam int professorId, @RequestParam String building, @RequestParam String classroom) {
+    public String add(@RequestParam Date date, @RequestParam int lessonNumber, @RequestParam int groupId,
+                      @RequestParam int professorId, @RequestParam String building, @RequestParam String classroom) {
 
         LOGGER.debug("Try to add lesson with: " + "date = " + date
                 + " lesson number = " + lessonNumber + " group id = " + groupId + " professor id = " + professorId
                 + " building = " + building + " classroom = " + classroom);
 
-        Lesson lesson = new Lesson(date, lessonNumber, groupId, professorId, building, classroom);
-        int id = lessonService.add(lesson);
+        int id = 0;
+
+        try {
+            Lesson lesson = new Lesson(date, lessonNumber, groupId, professorId, building, classroom);
+            id = lessonService.add(lesson);
+        } catch (NotFoundEntityException e) {
+            LOGGER.warn(e.getEmptyResultExceptionMessage());
+        }
 
         LOGGER.debug("Successfully add lesson with id = " + id);
 
