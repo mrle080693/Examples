@@ -28,6 +28,9 @@ public class LessonController {
     public String add(@RequestParam Date date, @RequestParam int lessonNumber, @RequestParam int groupId,
                       @RequestParam int professorId, @RequestParam String building, @RequestParam String classroom) {
 
+        System.out.println(date + "     " + lessonNumber + "     " + groupId + "     " + professorId + "     "
+                + building + "     " + classroom);
+
         LOGGER.debug("Try to add lesson with: " + "date = " + date
                 + " lesson number = " + lessonNumber + " group id = " + groupId + " professor id = " + professorId
                 + " building = " + building + " classroom = " + classroom);
@@ -39,6 +42,9 @@ public class LessonController {
             id = lessonService.add(lesson);
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getEmptyResultExceptionMessage());
+        } catch (ValidationException e) {
+            LOGGER.warn(e.getEntityValidationExceptionMessage());
+            System.out.println(e.getEntityValidationExceptionMessage());
         }
 
         LOGGER.debug("Successfully add lesson with id = " + id);
@@ -110,6 +116,9 @@ public class LessonController {
             lessonService.update(lesson);
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getEmptyResultExceptionMessage());
+        } catch (ValidationException e) {
+            LOGGER.warn(e.getEntityValidationExceptionMessage());
+            System.out.println(e.getEntityValidationExceptionMessage());
         }
 
         LOGGER.debug("Successfully update lesson with id: " + id);

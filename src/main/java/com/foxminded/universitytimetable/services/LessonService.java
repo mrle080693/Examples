@@ -234,7 +234,7 @@ public class LessonService {
             throw ex;
         }
 
-        if (date.after(todayDate)) {
+        if (date.before(todayDate)) {
             String exMessage = "Lesson date is earlier then today: " + lesson;
             ValidationException ex = new ValidationException(exMessage);
             LOGGER.warn(exMessage);

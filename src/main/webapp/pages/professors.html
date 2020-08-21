@@ -62,9 +62,10 @@
                 <td class="table-cell" th:text="${professor.patronymic}"></td>
                 <td class="table-cell" th:text="${professor.subject}"></td>
                 <td>
-                    <a data-toggle="modal" data-target="#modalUpdateBtn">
-                        <img alt=":(" src="../images/update.jpeg">
-                    </a>
+                    <img alt=":(" src="../images/update.jpeg" data-toggle="modal" data-target="#modalUpdateBtn"
+                         th:data-id="${professor.id}" th:data-name="${professor.name}"
+                         th:data-surname="${professor.surname}" th:data-patronymic="${professor.patronymic}"
+                         th:data-subject="${professor.subject}">
                 </td>
                 <td>
                     <form method="post" action="/professors/remove">
@@ -85,7 +86,7 @@
                     </div>
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <form method="post" action="/professors/save">
+                        <form method="post" action="/professors/add">
                             <label>Professor Name</label>
                             <br>
                             <input type="text" name="newName">
@@ -104,7 +105,7 @@
                             <!-- Modal footer -->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-success">Save</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </form>
                     </div>
@@ -122,28 +123,29 @@
                     </div>
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <form method="post" action="/professors/save">
-                            <input type="text" name="id" th:each="professor : ${professors}" th:value="${professor.id}"
-                                   hidden>
+                        <form method="post" action="/professors/update">
+                            <input id="id" type="text" name="id" hidden>
                             <label>Professor Name</label>
                             <br>
-                            <input type="text" name="newName">
+                            <input id="name" type="text" name="newName">
                             <br>
                             <label>Professor Surname</label>
                             <br>
-                            <input type="text" name="newSurname">
+                            <input id="surname" type="text" name="newSurname">
                             <br>
                             <label>Professor Patronymic</label>
                             <br>
-                            <input type="text" name="newPatronymic">
+                            <input id="patronymic" type="text" name="newPatronymic">
                             <br>
                             <label>Professor Subject</label>
                             <br>
-                            <input type="text" name="newSubject">
+                            <input id="subject" type="text" name="newSubject">
+                            <br>
+                            <br>
                             <!-- Modal footer -->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-success">Save</button>
+                                <button type="submit" class="btn btn-primary">Update</button>
                             </div>
                         </form>
                     </div>
@@ -217,4 +219,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/scripts/professors.js"></script>
 </html>

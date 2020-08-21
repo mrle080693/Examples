@@ -67,9 +67,11 @@
                     <td class="table-cell" th:text="${lesson.building}"></td>
                     <td class="table-cell" th:text="${lesson.classroom}"></td>
                     <td>
-                        <a data-toggle="modal" data-target="#modalUpdateBtn">
-                            <img alt=":(" src="../images/update.jpeg">
-                        </a>
+                        <img alt=":(" src="../images/update.jpeg" data-toggle="modal" data-target="#modalUpdateBtn"
+                             th:data-id="${lesson.id}" th:data-date="${lesson.date}"
+                             th:data-lesson-number="${lesson.lessonNumber}" th:data-group-id="${lesson.groupId}"
+                             th:data-professor-id="${lesson.professorId}" th:data-building="${lesson.building}"
+                             th:data-classroom="${lesson.classroom}">
                     </td>
                     <td>
                         <form method="post" action="/lessons/remove">
@@ -91,7 +93,7 @@
                     </div>
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <form method="post" action="/lessons/save">
+                        <form method="post" action="/lessons/add">
                             <label>Lesson Date</label>
                             <br>
                             <input type="date" name="date">
@@ -102,11 +104,13 @@
                             <br>
                             <label>Group</label>
                             <br>
-                            <select id="selectGroupAdd"></select>
+                            <select id="select-group-add"></select>
+                            <input id="group-id-form" type="number" name="groupId" hidden>
                             <br>
                             <label>Professor</label>
                             <br>
-                            <select id="selectProfessorAdd"></select>
+                            <select id="select-professor-add"></select>
+                            <input id="professor-id-form" type="number" name="professorId" hidden>
                             <br>
                             <label>Building</label>
                             <br>
@@ -118,7 +122,7 @@
                             <!-- Modal footer -->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-success">Save</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </form>
                     </div>
@@ -136,36 +140,37 @@
                     </div>
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <form method="post" action="/lessons/save">
-                            <input type="text" name="id" th:each="lesson : ${lessons}" th:value="${lesson.id}"
-                                   hidden>
+                        <form method="post" action="/lessons/update">
+                            <input id="id" type="text" name="id" hidden>
                             <label>Lesson Date</label>
                             <br>
-                            <input type="date" name="date">
+                            <input id="date" type="date" name="date">
                             <br>
                             <label>Lesson Number</label>
                             <br>
-                            <input type="number" name="lessonNumber">
+                            <input id="lesson-number" type="number" name="lessonNumber">
                             <br>
                             <label>Group</label>
                             <br>
-                            <select id="selectGroupUpdate"></select>
+                            <select id="select-group-update"></select>
+                            <input id="group-id-update" type="number" name="groupId">
                             <br>
                             <label>Professor</label>
                             <br>
-                            <select id="selectProfessorUpdate"></select>
+                            <select id="select-professor-update"></select>
+                            <input id="professor-id-update" type="number" name="professorId">
                             <br>
                             <label>Building</label>
                             <br>
-                            <input type="text" name="building">
+                            <input id="building" type="text" name="building">
                             <br>
                             <label>Classroom</label>
                             <br>
-                            <input type="text" name="classroom">
+                            <input id="classroom" type="text" name="classroom">
                             <!-- Modal footer -->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-success">Save</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </form>
                     </div>
