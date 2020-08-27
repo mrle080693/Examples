@@ -1,5 +1,7 @@
 package com.foxminded.universitytimetable.configurations;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -8,13 +10,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jndi.JndiTemplate;
 
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan("com.foxminded.universitytimetable")
 @PropertySource("classpath:postgres.properties")
 public class SpringJDBCConfig {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SpringJDBCConfig.class);
+
 
     @Value("${spring.datasource.driver}")
     private String postgresDriverClassName;
@@ -26,7 +32,7 @@ public class SpringJDBCConfig {
     private String password;
 
     @Bean
-    public JdbcTemplate jdbcTemplate(@Qualifier("postgreSQLDataSource") DataSource dataSource) {
+    public JdbcTemplate jdbcTemplate(@Qualifier("postgreSQLDataSourceFromJndi") DataSource dataSource) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource);
 
@@ -40,6 +46,20 @@ public class SpringJDBCConfig {
         dataSource.setUrl(url);
         dataSource.setUsername(username);
         dataSource.setPassword(password);
+
+        return dataSource;
+    }
+
+    @Bean
+    public DataSource postgreSQLDataSourceFromJndi() {
+        DataSource dataSource = null;
+        JndiTemplate jndi = new JndiTemplate();
+
+        try {
+            dataSource = jndi.lookup("java:comp/env/jdbc/MyLocalDB", DataSource.class);
+        } catch (NamingException e) {
+            LOGGER.error("Try to get DataSource for PostgreSQL from JNDI was failed");
+        }
 
         return dataSource;
     }
