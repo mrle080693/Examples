@@ -51,7 +51,7 @@ public class SpringJDBCConfig {
     }
 
     @Bean
-    public DataSource postgreSQLDataSourceFromJndi() {
+    public DataSource postgreSQLDataSourceFromJndi() throws NamingException {
         DataSource dataSource = null;
         JndiTemplate jndi = new JndiTemplate();
 
@@ -59,6 +59,7 @@ public class SpringJDBCConfig {
             dataSource = jndi.lookup("java:comp/env/jdbc/MyLocalDB", DataSource.class);
         } catch (NamingException e) {
             LOGGER.error("Try to get DataSource for PostgreSQL from JNDI was failed");
+            throw e;
         }
 
         return dataSource;

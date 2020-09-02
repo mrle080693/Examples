@@ -170,7 +170,7 @@ class GroupControllerTest {
 
     // Single running test
     @Test
-    void removeHaveToRemove() throws Exception {
+    void removeHaveToRemoveGroupWithInputId() throws Exception {
         mockMvc.perform(post("/groups/add")
                 .param("id", "0"));
 

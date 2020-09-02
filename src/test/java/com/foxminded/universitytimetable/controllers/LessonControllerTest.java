@@ -204,7 +204,7 @@ class LessonControllerTest {
 
     // Single running test
     @Test
-    void updateHaveToRedirectToLessons() throws Exception {
+    void updateHaveToRedirectToLessonsPage() throws Exception {
         mockMvc.perform(post("/lessons/update")
                 .param("date", String.valueOf(lesson.getDate()))
                 .param("lessonNumber", String.valueOf(lesson.getLessonNumber()))
@@ -258,7 +258,7 @@ class LessonControllerTest {
 
     // Single running test
     @Test
-    void removeHaveToRemove() throws Exception {
+    void removeHaveToRemoveLessonWithInputId() throws Exception {
         mockMvc.perform(post("/groups/add")
                 .param("id", "1")
                 .param("newName", "updatedGroup"));

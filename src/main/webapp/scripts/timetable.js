@@ -11,13 +11,33 @@ function getGroupTimetable() {
             },
             success: function (data) {
                 var lessons = data
-                    , body = '';
+                    , body =
+                    '<br>' +
+                    '<tr>' +
+                    '<th class="table-cell">Id</th>' +
+                    '<th class="table-cell">Date</th>' +
+                    '<th class="table-cell">Lesson Number</th>' +
+                    '<th class="table-cell">Group Id</th>' +
+                    '<th class="table-cell">Professor Id</th>' +
+                    '<th class="table-cell">Building</th>' +
+                    '<th class="table-cell">Classroom</th>' +
+                    '</tr>';
+
+                body = body + '<tr>';
 
                 for (name in lessons) {
-                    body = body + '<li>' + "***id: " + lessons[name].id + "***date: " + lessons[name].date +
-                        "***lessonNumber: " + lessons[name].lessonNumber + "***building: " + lessons[name].building +
-                        "***classroom: " + lessons[name].classroom + '</li>';
+                    body = body
+                        + '<td class="table-cell">' + lessons[name].id + '</td>'
+                        + '<td class="table-cell">' + lessons[name].date + '</td>'
+                        + '<td class="table-cell">' + lessons[name].lessonNumber + '</td>'
+                        + '<td class="table-cell">' + lessons[name].groupId + '</td>'
+                        + '<td class="table-cell">' + lessons[name].professorId + '</td>'
+                        + '<td class="table-cell">' + lessons[name].building + '</td>'
+                        + '<td class="table-cell">' + lessons[name].classroom + '</td>';
                 }
+
+                body = body + '</tr>';
+
                 $('#result').html(body);
             }
         });
@@ -38,13 +58,33 @@ function getProfessorTimetable() {
             },
             success: function (data) {
                 var lessons = data
-                    , body = '';
+                    , body =
+                    '<br>' +
+                    '<tr>' +
+                    '<th class="table-cell">Id</th>' +
+                    '<th class="table-cell">Date</th>' +
+                    '<th class="table-cell">Lesson Number</th>' +
+                    '<th class="table-cell">Group Id</th>' +
+                    '<th class="table-cell">Professor Id</th>' +
+                    '<th class="table-cell">Building</th>' +
+                    '<th class="table-cell">Classroom</th>' +
+                    '</tr>';
+
+                body = body + '<tr>';
 
                 for (name in lessons) {
-                    body = body + '<li>' + "id " + lessons[name].id + "date " + lessons[name].date +
-                        "lessonNumber" + lessons[name].lessonNumber + "building " + lessons[name].building +
-                        "classroom " + lessons[name].classroom + '</li>';
+                    body = body
+                        + '<td class="table-cell">' + lessons[name].id + '</td>'
+                        + '<td class="table-cell">' + lessons[name].date + '</td>'
+                        + '<td class="table-cell">' + lessons[name].lessonNumber + '</td>'
+                        + '<td class="table-cell">' + lessons[name].groupId + '</td>'
+                        + '<td class="table-cell">' + lessons[name].professorId + '</td>'
+                        + '<td class="table-cell">' + lessons[name].building + '</td>'
+                        + '<td class="table-cell">' + lessons[name].classroom + '</td>';
                 }
+
+                body = body + '</tr>';
+
                 $('#result').html(body);
             }
         });

@@ -189,7 +189,7 @@ class ProfessorControllerTest {
     }
 
     @Test
-    void removeHaveToReturnRedirectToProfessors() throws Exception {
+    void removeHaveToReturnRedirectToProfessorsPage() throws Exception {
         mockMvc.perform(post("/professors/remove")
                 .param("id", "1"))
                 .andExpect(redirectedUrl("/professors"));
@@ -204,7 +204,7 @@ class ProfessorControllerTest {
 
     // Single running test
     @Test
-    void removeHaveToRemove() throws Exception {
+    void removeHaveToRemoveProfessorWithInputId() throws Exception {
         mockMvc.perform(post("/professors/add")
                 .param("newName", professor.getName())
                 .param("newSurname", professor.getSurname())
