@@ -108,7 +108,6 @@ public class GroupController {
     @PostMapping("/update")
     public String update(@RequestParam int id, @RequestParam String newName) {
         LOGGER.debug("Try to update group with id = " + id);
-        System.out.println(id);
         try {
             Group group = new Group(newName);
             group.setId(id);

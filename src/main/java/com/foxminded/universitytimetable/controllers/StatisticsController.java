@@ -1,18 +1,13 @@
 package com.foxminded.universitytimetable.controllers;
 
-import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
-import com.foxminded.universitytimetable.models.Group;
 import com.foxminded.universitytimetable.services.StatisticsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
-import java.util.List;
 
 @Controller
 @RequestMapping("/statistics")
