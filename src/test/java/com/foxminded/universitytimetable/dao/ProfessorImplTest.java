@@ -4,7 +4,6 @@ import com.foxminded.universitytimetable.configurations.SpringJDBCConfig;
 import com.foxminded.universitytimetable.dao.impl.GroupImpl;
 import com.foxminded.universitytimetable.dao.impl.LessonImpl;
 import com.foxminded.universitytimetable.dao.impl.ProfessorImpl;
-import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.models.Group;
 import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.models.Professor;

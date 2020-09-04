@@ -1,12 +1,13 @@
 package com.foxminded.universitytimetable.dao;
 
 import com.foxminded.universitytimetable.configurations.SpringJDBCConfig;
-import com.foxminded.universitytimetable.dao.impl.*;
-import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
+import com.foxminded.universitytimetable.dao.impl.GroupImpl;
+import com.foxminded.universitytimetable.dao.impl.LessonImpl;
+import com.foxminded.universitytimetable.dao.impl.ProfessorImpl;
+import com.foxminded.universitytimetable.dao.impl.TimetableImpl;
 import com.foxminded.universitytimetable.models.Group;
 import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.models.Professor;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

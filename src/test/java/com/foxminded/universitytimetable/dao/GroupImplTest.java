@@ -1,18 +1,15 @@
 package com.foxminded.universitytimetable.dao;
 
-import com.foxminded.universitytimetable.configurations.SpringJDBCConfig;
 import com.foxminded.universitytimetable.configurations.SpringTestJdbcConfig;
 import com.foxminded.universitytimetable.dao.impl.GroupImpl;
 import com.foxminded.universitytimetable.dao.impl.LessonImpl;
 import com.foxminded.universitytimetable.dao.impl.ProfessorImpl;
-import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.models.Group;
 import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.models.Professor;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
