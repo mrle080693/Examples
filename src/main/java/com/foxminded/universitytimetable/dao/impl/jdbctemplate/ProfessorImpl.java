@@ -1,7 +1,7 @@
 package com.foxminded.universitytimetable.dao.impl.jdbctemplate;
 
 import com.foxminded.universitytimetable.dao.ProfessorDAO;
-import com.foxminded.universitytimetable.dao.queries.Queries;
+import com.foxminded.universitytimetable.dao.queries.SQLQueries;
 import com.foxminded.universitytimetable.dao.impl.jdbctemplate.rowmappers.ProfessorMapper;
 import com.foxminded.universitytimetable.models.Professor;
 import org.slf4j.Logger;
@@ -30,7 +30,7 @@ public class ProfessorImpl implements ProfessorDAO {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(con -> {
-                    PreparedStatement ps = con.prepareStatement(Queries.ADD_PROFESSOR_QUERY, new String[]{"id"});
+                    PreparedStatement ps = con.prepareStatement(SQLQueries.ADD_PROFESSOR, new String[]{"id"});
                     ps.setString(1, professor.getName());
                     ps.setString(2, professor.getSurname());
                     ps.setString(3, professor.getPatronymic());
@@ -53,7 +53,7 @@ public class ProfessorImpl implements ProfessorDAO {
             LOGGER.debug("Try to get all from table professors");
         }
 
-        List<Professor> professors = jdbcTemplate.query(Queries.GET_ALL_PROFESSORS_QUERY, new ProfessorMapper());
+        List<Professor> professors = jdbcTemplate.query(SQLQueries.GET_ALL_PROFESSORS, new ProfessorMapper());
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Result is: " + professors);
@@ -67,7 +67,7 @@ public class ProfessorImpl implements ProfessorDAO {
             LOGGER.debug("Try to get professor by id = " + id);
         }
 
-        Professor professor = jdbcTemplate.queryForObject(Queries.GET_PROFESSOR_BY_ID_QUERY, new Object[]{id},
+        Professor professor = jdbcTemplate.queryForObject(SQLQueries.GET_PROFESSOR_BY_ID, new Object[]{id},
                 new ProfessorMapper());
 
         if (LOGGER.isDebugEnabled()) {
@@ -82,7 +82,7 @@ public class ProfessorImpl implements ProfessorDAO {
             LOGGER.debug("Try to get professor by surname = " + surname);
         }
 
-        List<Professor> professors = jdbcTemplate.query(Queries.GET_PROFESSOR_BY_SURNAME_QUERY, new Object[]{surname},
+        List<Professor> professors = jdbcTemplate.query(SQLQueries.GET_PROFESSORS_BY_SURNAME, new Object[]{surname},
                 new ProfessorMapper());
 
         if (LOGGER.isDebugEnabled()) {
@@ -103,7 +103,7 @@ public class ProfessorImpl implements ProfessorDAO {
         String patronymic = professor.getPatronymic();
         String subject = professor.getSubject();
 
-        int status = jdbcTemplate.update(Queries.UPDATE_PROFESSOR_QUERY, name, surName, patronymic, subject, id);
+        int status = jdbcTemplate.update(SQLQueries.UPDATE_PROFESSOR, name, surName, patronymic, subject, id);
 
         if (status != 1) {
             throw new IllegalArgumentException("Row with input id doesnt exist");
@@ -121,7 +121,7 @@ public class ProfessorImpl implements ProfessorDAO {
             LOGGER.debug("Try to remove professor with id = " + professorId);
         }
 
-        int status = jdbcTemplate.update(Queries.REMOVE_PROFESSOR_QUERY, professorId);
+        int status = jdbcTemplate.update(SQLQueries.DELETE_PROFESSOR, professorId);
 
         if (status != 1) {
             throw new IllegalArgumentException("Row with input id doesnt exist");

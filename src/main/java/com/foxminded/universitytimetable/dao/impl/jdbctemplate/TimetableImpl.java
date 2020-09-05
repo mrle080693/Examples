@@ -1,7 +1,7 @@
 package com.foxminded.universitytimetable.dao.impl.jdbctemplate;
 
 import com.foxminded.universitytimetable.dao.TimetableDAO;
-import com.foxminded.universitytimetable.dao.queries.Queries;
+import com.foxminded.universitytimetable.dao.queries.SQLQueries;
 import com.foxminded.universitytimetable.dao.impl.jdbctemplate.rowmappers.LessonMapper;
 import com.foxminded.universitytimetable.models.Lesson;
 import org.slf4j.Logger;
@@ -26,7 +26,7 @@ public class TimetableImpl implements TimetableDAO {
             LOGGER.debug("Try to get group timetable. Group id: " + groupId + "from: " + from + "till: " + till);
         }
 
-        List<Lesson> lessons = jdbcTemplate.query(Queries.GET_GROUP_TIMETABLE_QUERY, new Object[]{groupId, from, till},
+        List<Lesson> lessons = jdbcTemplate.query(SQLQueries.GET_GROUP_TIMETABLE_QUERY, new Object[]{groupId, from, till},
                 new LessonMapper());
 
         if (LOGGER.isDebugEnabled()) {
@@ -43,7 +43,7 @@ public class TimetableImpl implements TimetableDAO {
                     + till);
         }
 
-        List<Lesson> lessons = jdbcTemplate.query(Queries.GET_PROFESSOR_TIMETABLE_QUERY, new Object[]{professorId, from, till},
+        List<Lesson> lessons = jdbcTemplate.query(SQLQueries.GET_PROFESSOR_TIMETABLE_QUERY, new Object[]{professorId, from, till},
                 new LessonMapper());
 
         if (LOGGER.isDebugEnabled()) {

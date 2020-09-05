@@ -1,7 +1,7 @@
 package com.foxminded.universitytimetable.dao.impl.jdbctemplate;
 
 import com.foxminded.universitytimetable.dao.GroupDAO;
-import com.foxminded.universitytimetable.dao.queries.Queries;
+import com.foxminded.universitytimetable.dao.queries.SQLQueries;
 import com.foxminded.universitytimetable.dao.impl.jdbctemplate.rowmappers.GroupMapper;
 import com.foxminded.universitytimetable.models.Group;
 import org.slf4j.Logger;
@@ -30,7 +30,7 @@ public class GroupImpl implements GroupDAO {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(con -> {
-                    PreparedStatement ps = con.prepareStatement(Queries.ADD_GROUP_QUERY, new String[]{"id"});
+                    PreparedStatement ps = con.prepareStatement(SQLQueries.ADD_GROUP, new String[]{"id"});
                     ps.setString(1, group.getName());
                     return ps;
                 }
@@ -50,7 +50,7 @@ public class GroupImpl implements GroupDAO {
             LOGGER.debug("Try to get all from table groups");
         }
 
-        List<Group> groups = jdbcTemplate.query(Queries.GET_ALL_GROUPS_QUERY, new GroupMapper());
+        List<Group> groups = jdbcTemplate.query(SQLQueries.GET_ALL_GROUPS, new GroupMapper());
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Result is: " + groups);
@@ -64,7 +64,7 @@ public class GroupImpl implements GroupDAO {
             LOGGER.debug("Try to get group by id = " + id);
         }
 
-        Group group = jdbcTemplate.queryForObject(Queries.GET_GROUP_BY_ID_QUERY, new Object[]{id},
+        Group group = jdbcTemplate.queryForObject(SQLQueries.GET_GROUP_BY_ID, new Object[]{id},
                 new GroupMapper());
 
         if (LOGGER.isDebugEnabled()) {
@@ -79,7 +79,7 @@ public class GroupImpl implements GroupDAO {
             LOGGER.debug("Try to get group by name = " + name);
         }
 
-        List<Group> groups = jdbcTemplate.query(Queries.GET_GROUP_BY_NAME_QUERY, new Object[]{name},
+        List<Group> groups = jdbcTemplate.query(SQLQueries.GET_GROUPS_BY_NAME, new Object[]{name},
                 new GroupMapper());
 
         if (LOGGER.isDebugEnabled()) {
@@ -94,7 +94,7 @@ public class GroupImpl implements GroupDAO {
             LOGGER.debug("Try to update group: " + group);
         }
 
-        int status = jdbcTemplate.update(Queries.UPDATE_GROUP_QUERY, group.getName(), group.getId());
+        int status = jdbcTemplate.update(SQLQueries.UPDATE_GROUP, group.getName(), group.getId());
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Successfully update group with status = " + status);
@@ -108,7 +108,7 @@ public class GroupImpl implements GroupDAO {
             LOGGER.debug("Try to remove group with id = " + groupId);
         }
 
-        int status = jdbcTemplate.update(Queries.REMOVE_GROUP_QUERY, groupId);
+        int status = jdbcTemplate.update(SQLQueries.DELETE_GROUP, groupId);
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Successfully remove group with id: " + groupId);

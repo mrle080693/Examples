@@ -1,7 +1,7 @@
 package com.foxminded.universitytimetable.dao.impl.jdbctemplate;
 
 import com.foxminded.universitytimetable.dao.LessonDAO;
-import com.foxminded.universitytimetable.dao.queries.Queries;
+import com.foxminded.universitytimetable.dao.queries.SQLQueries;
 import com.foxminded.universitytimetable.dao.impl.jdbctemplate.rowmappers.LessonMapper;
 import com.foxminded.universitytimetable.models.Lesson;
 import org.slf4j.Logger;
@@ -31,7 +31,7 @@ public class LessonImpl implements LessonDAO {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(con -> {
-                    PreparedStatement ps = con.prepareStatement(Queries.ADD_LESSON_QUERY, new String[]{"id"});
+                    PreparedStatement ps = con.prepareStatement(SQLQueries.ADD_LESSON, new String[]{"id"});
                     ps.setDate(1, lesson.getDate());
                     ps.setInt(2, lesson.getLessonNumber());
                     ps.setInt(3, lesson.getGroupId());
@@ -56,7 +56,7 @@ public class LessonImpl implements LessonDAO {
             LOGGER.debug("Try to get all from table lessons");
         }
 
-        List<Lesson> lessons = jdbcTemplate.query(Queries.GET_ALL_LESSONS_QUERY, new LessonMapper());
+        List<Lesson> lessons = jdbcTemplate.query(SQLQueries.GET_ALL_LESSONS, new LessonMapper());
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Result is: " + lessons);
@@ -70,7 +70,7 @@ public class LessonImpl implements LessonDAO {
             LOGGER.debug("Try to get lesson by id = " + id);
         }
 
-        Lesson lesson = jdbcTemplate.queryForObject(Queries.GET_LESSON_BY_ID_QUERY, new Object[]{id}, new LessonMapper());
+        Lesson lesson = jdbcTemplate.queryForObject(SQLQueries.GET_LESSON_BY_ID, new Object[]{id}, new LessonMapper());
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Result is: " + lesson);
@@ -92,7 +92,7 @@ public class LessonImpl implements LessonDAO {
         String building = lesson.getBuilding();
         String classroom = lesson.getClassroom();
 
-        int status = jdbcTemplate.update(Queries.UPDATE_LESSON_QUERY, date, lessonNumber, groupId, professorId,
+        int status = jdbcTemplate.update(SQLQueries.UPDATE_LESSON, date, lessonNumber, groupId, professorId,
                 building, classroom, id);
 
         if (status != 1) {
@@ -111,7 +111,7 @@ public class LessonImpl implements LessonDAO {
             LOGGER.debug("Try to remove lesson with id = " + lessonId);
         }
 
-        int status = jdbcTemplate.update(Queries.REMOVE_LESSON_QUERY, lessonId);
+        int status = jdbcTemplate.update(SQLQueries.DELETE_LESSON, lessonId);
 
         if (status != 1) {
             throw new IllegalArgumentException("Row with input id doesnt exist");

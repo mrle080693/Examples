@@ -2,7 +2,8 @@ package com.foxminded.universitytimetable.dao.impl.hibernate;
 
 import com.foxminded.universitytimetable.dao.GroupDAO;
 import com.foxminded.universitytimetable.dao.impl.jdbctemplate.GroupImpl;
-import com.foxminded.universitytimetable.dao.queries.Queries;
+import com.foxminded.universitytimetable.dao.queries.JPQLQueries;
+import com.foxminded.universitytimetable.dao.queries.SQLQueries;
 import com.foxminded.universitytimetable.models.Group;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +51,7 @@ public class GroupImplHibernate implements GroupDAO {
         }
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Query query = entityManager.createQuery("from com.foxminded.universitytimetable.models.Group");
+        Query query = entityManager.createQuery(JPQLQueries.GET_ALL_GROUPS);
         List groups = query.getResultList();
         entityManager.close();
 
@@ -68,7 +69,8 @@ public class GroupImplHibernate implements GroupDAO {
         }
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Query query = entityManager.createQuery("from com.foxminded.universitytimetable.models.Group where id = " + id);
+        Query query = entityManager.createQuery(JPQLQueries.GET_GROUP_BY_ID);
+        query.setParameter("id", id);
         Group group = (Group) query.getSingleResult();
         entityManager.close();
 
@@ -86,7 +88,8 @@ public class GroupImplHibernate implements GroupDAO {
         }
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Query query = entityManager.createQuery("from com.foxminded.universitytimetable.models.Group where name = " + name);
+        Query query = entityManager.createQuery(JPQLQueries.GET_GROUPS_BY_NAME);
+        query.setParameter("name", name);
         List groups = query.getResultList();
         entityManager.close();
 
@@ -105,15 +108,15 @@ public class GroupImplHibernate implements GroupDAO {
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        int status = entityManager.merge(group).getId();
+        int id = entityManager.merge(group).getId();
         entityManager.getTransaction().commit();
         entityManager.close();
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successfully update group with status = " + status);
+            LOGGER.debug("Successfully update group with id = " + id);
         }
 
-        return status;
+        return id;
     }
 
     @Override
@@ -124,8 +127,8 @@ public class GroupImplHibernate implements GroupDAO {
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        Query query = entityManager.createNativeQuery(Queries.REMOVE_GROUP_QUERY);
-        query.setParameter(1, groupId);
+        Query query = entityManager.createQuery(JPQLQueries.DELETE_GROUP);
+        query.setParameter("id", groupId);
         int status = query.executeUpdate();
         entityManager.getTransaction().commit();
         entityManager.close();

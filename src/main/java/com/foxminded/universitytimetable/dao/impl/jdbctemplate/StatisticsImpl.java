@@ -1,7 +1,7 @@
 package com.foxminded.universitytimetable.dao.impl.jdbctemplate;
 
 import com.foxminded.universitytimetable.dao.StatisticsDAO;
-import com.foxminded.universitytimetable.dao.queries.Queries;
+import com.foxminded.universitytimetable.dao.queries.SQLQueries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class StatisticsImpl implements StatisticsDAO {
             LOGGER.debug("Try to get group employment. Group id: " + groupId + "from: " + from + "till: " + till);
         }
 
-        int lessonsQuantity = jdbcTemplate.queryForObject(Queries.GET_GROUP_EMPLOYMENT,
+        int lessonsQuantity = jdbcTemplate.queryForObject(SQLQueries.GET_GROUP_EMPLOYMENT,
                 new Object[]{groupId, from, till}, Integer.class);
 
         if (LOGGER.isDebugEnabled()) {
@@ -39,7 +39,7 @@ public class StatisticsImpl implements StatisticsDAO {
                     + till);
         }
 
-        int lessonsQuantity = jdbcTemplate.queryForObject(Queries.GET_PROFESSOR_EMPLOYMENT,
+        int lessonsQuantity = jdbcTemplate.queryForObject(SQLQueries.GET_PROFESSOR_EMPLOYMENT,
                 new Object[]{professorId, from, till}, Integer.class);
 
         if (LOGGER.isDebugEnabled()) {
