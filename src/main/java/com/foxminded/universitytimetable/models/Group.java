@@ -1,7 +1,15 @@
 package com.foxminded.universitytimetable.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "groups")
 public class Group {
-    private int id = 0;
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(name = "name")
     private String name = "";
 
     public Group() {

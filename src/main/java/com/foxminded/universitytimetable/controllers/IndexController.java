@@ -12,6 +12,7 @@ public class IndexController {
     @GetMapping("/")
     public String getIndexPage() {
         LOGGER.debug("Get index.html page");
+        System.out.println("+++");
         return "index";
     }
 }

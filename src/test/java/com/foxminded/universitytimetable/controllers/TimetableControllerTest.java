@@ -2,9 +2,9 @@ package com.foxminded.universitytimetable.controllers;
 
 import com.foxminded.universitytimetable.configurations.MvcWebConfig;
 import com.foxminded.universitytimetable.configurations.SpringTestJdbcConfig;
-import com.foxminded.universitytimetable.dao.impl.GroupImpl;
-import com.foxminded.universitytimetable.dao.impl.LessonImpl;
-import com.foxminded.universitytimetable.dao.impl.ProfessorImpl;
+import com.foxminded.universitytimetable.dao.impl.jdbctemplate.GroupImpl;
+import com.foxminded.universitytimetable.dao.impl.jdbctemplate.LessonImpl;
+import com.foxminded.universitytimetable.dao.impl.jdbctemplate.ProfessorImpl;
 import com.foxminded.universitytimetable.models.Group;
 import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.models.Professor;

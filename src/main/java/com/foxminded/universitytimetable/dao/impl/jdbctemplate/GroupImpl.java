@@ -1,8 +1,8 @@
-package com.foxminded.universitytimetable.dao.impl;
+package com.foxminded.universitytimetable.dao.impl.jdbctemplate;
 
 import com.foxminded.universitytimetable.dao.GroupDAO;
-import com.foxminded.universitytimetable.dao.impl.queries.Queries;
-import com.foxminded.universitytimetable.dao.impl.rowmappers.GroupMapper;
+import com.foxminded.universitytimetable.dao.queries.Queries;
+import com.foxminded.universitytimetable.dao.impl.jdbctemplate.rowmappers.GroupMapper;
 import com.foxminded.universitytimetable.models.Group;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -32,7 +32,7 @@ public class SpringJDBCConfig {
     private String password;
 
     @Bean
-    public JdbcTemplate jdbcTemplate(@Qualifier("postgreSQLDataSourceFromJndi") DataSource dataSource) {
+    public JdbcTemplate jdbcTemplate(@Qualifier("postgreSQLDataSource") DataSource dataSource) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource);
 
@@ -50,6 +50,7 @@ public class SpringJDBCConfig {
         return dataSource;
     }
 
+    /*
     @Bean
     public DataSource postgreSQLDataSourceFromJndi() throws NamingException {
         DataSource dataSource = null;
@@ -64,4 +65,5 @@ public class SpringJDBCConfig {
 
         return dataSource;
     }
+*/
 }

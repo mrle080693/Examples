@@ -10,6 +10,7 @@ import com.foxminded.universitytimetable.models.Lesson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -22,13 +23,13 @@ import java.util.List;
 public class LessonService {
     private static final Logger LOGGER = LoggerFactory.getLogger(LessonService.class);
     private final LessonDAO lessonDAO;
-    private final GroupDAO groupDAO;
+    @Qualifier("groupImplBean")
+    private GroupDAO groupDAO;
     private final ProfessorDAO professorDAO;
 
     @Autowired
-    public LessonService(LessonDAO lessonDAO, GroupDAO groupDAO, ProfessorDAO professorDAO) {
+    public LessonService(LessonDAO lessonDAO, ProfessorDAO professorDAO) {
         this.lessonDAO = lessonDAO;
-        this.groupDAO = groupDAO;
         this.professorDAO = professorDAO;
     }
 

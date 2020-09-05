@@ -1,4 +1,4 @@
-package com.foxminded.universitytimetable.dao.impl.rowmappers;
+package com.foxminded.universitytimetable.dao.impl.jdbctemplate.rowmappers;
 
 import com.foxminded.universitytimetable.models.Professor;
 import org.springframework.jdbc.core.RowMapper;

@@ -1,4 +1,4 @@
-package com.foxminded.universitytimetable.dao.impl.queries;
+package com.foxminded.universitytimetable.dao.queries;
 
 public class Queries {
     // groups table queries

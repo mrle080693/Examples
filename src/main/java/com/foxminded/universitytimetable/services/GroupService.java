@@ -6,21 +6,24 @@ import com.foxminded.universitytimetable.exceptions.ValidationException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.models.Group;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Transient;
 import java.util.List;
 
 @Service("groupServiceBean")
 public class GroupService {
     private static final Logger LOGGER = LoggerFactory.getLogger(GroupService.class);
+
     private final GroupDAO groupDAO;
 
-    @Autowired
-    public GroupService(GroupDAO groupDAO) {
+    public GroupService(@Qualifier("groupImplHibernateBean") GroupDAO groupDAO) {
         this.groupDAO = groupDAO;
     }
 
