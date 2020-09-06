@@ -19,7 +19,7 @@ import java.util.List;
 
 @Repository("groupImplHibernateBean")
 public class GroupImplHibernate implements GroupDAO {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GroupImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GroupImplHibernate.class);
     private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("mr");
 
     @Autowired

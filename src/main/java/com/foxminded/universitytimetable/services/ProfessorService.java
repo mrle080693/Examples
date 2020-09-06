@@ -8,6 +8,7 @@ import com.foxminded.universitytimetable.models.Professor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,7 @@ public class ProfessorService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProfessorService.class);
     private final ProfessorDAO professorDAO;
 
-    @Autowired
-    public ProfessorService(ProfessorDAO professorDAO) {
+    public ProfessorService(@Qualifier("professorImplHibernateBean") ProfessorDAO professorDAO) {
         this.professorDAO = professorDAO;
     }
 

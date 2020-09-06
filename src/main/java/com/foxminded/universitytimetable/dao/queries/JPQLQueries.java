@@ -8,30 +8,25 @@ public class JPQLQueries {
     public static final String DELETE_GROUP = "delete from Group e where e.id = :id";
 
     // lessons table queries
-    public static final String GET_ALL_LESSONS = "select id, date, lessonNumber, groupId, professorId," +
-            "building, classroom from lessons";
-    public static final String GET_LESSON_BY_ID = "select id, date, lessonNumber, groupId, professorId," +
-            "building, classroom from lessons where id = ?";
-    public static final String DELETE_LESSON = "delete from lessons where id = ?";
+    public static final String GET_ALL_LESSONS = "select e from Lesson e";
+    public static final String GET_LESSON_BY_ID = "select e from Lesson e where e.id = :id";
+    public static final String DELETE_LESSON = "delete from Lesson e where e.id = :id";
 
     // professors table queries
-    public static final String GET_ALL_PROFESSORS = "select id, name, surName, patronymic, subject from professors";
-    public static final String GET_PROFESSOR_BY_ID = "select id, name, surName, patronymic, subject " +
-            "from professors where id = ?";
-    public static final String GET_PROFESSORS_BY_SURNAME = "select id, name, surName, patronymic, subject " +
-            "from professors where surName = ?";
-    public static final String DELETE_PROFESSOR = "delete from professors where id = ?";
+    public static final String GET_ALL_PROFESSORS = "select e from Professor e";
+    public static final String GET_PROFESSOR_BY_ID = "select e from Professor e where e.id = :id";
+    public static final String GET_PROFESSORS_BY_SURNAME = "select e from Professor e where e.surname = :surname";
+    public static final String DELETE_PROFESSOR = "delete from Professor e where e.id = :id";
 
-    // StatisticImpl class queries
-    public static final String GET_PROFESSOR_EMPLOYMENT = "select count(*) from lessons where professorId = ? and date >= ? " +
-            "and date <= ?";
-    public static final String GET_GROUP_EMPLOYMENT = "select count(*) from lessons where groupId = ? and date >= ? " +
-            "and date <= ?";
+    // StatisticImplHibernate class queries
+    public static final String GET_PROFESSOR_EMPLOYMENT = "select count(*) from Lesson e " +
+            "where e.professorId = :professorId and e.date >= :from and e.date <= :till";
+    public static final String GET_GROUP_EMPLOYMENT = "select count(*) from Lesson e " +
+            "where e.groupId = :groupId and e.date >= :from and e.date <= :till";
 
-    // SQLQueries for TimetableImpl class but for table lessons
-    public static final String GET_GROUP_TIMETABLE_QUERY =
-            "select * from lessons where groupId = ? and date >= ? and date <= ?";
-    public static final String GET_PROFESSOR_TIMETABLE_QUERY =
-            "select * from lessons where professorId = ? and date >= ? and date <= ?";
-
+    // TimetableImplHibernate class queries
+    public static final String GET_GROUP_TIMETABLE = "select e from Lesson e" +
+            "where e.groupId = :groupId and e.date >= :from and e.date <= :till";
+    public static final String GET_PROFESSOR_TIMETABLE = "select e from Lesson e" +
+            "where e.professorId = :professorId and e.date >= :from and e.date <= :till";
 }

@@ -39,8 +39,8 @@ public class SQLQueries {
             "and date <= ?";
 
     // SQLQueries for TimetableImpl class but for table lessons
-    public static final String GET_GROUP_TIMETABLE_QUERY =
+    public static final String GET_GROUP_TIMETABLE =
             "select * from lessons where groupId = ? and date >= ? and date <= ?";
-    public static final String GET_PROFESSOR_TIMETABLE_QUERY =
+    public static final String GET_PROFESSOR_TIMETABLE =
             "select * from lessons where professorId = ? and date >= ? and date <= ?";
 }

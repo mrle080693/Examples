@@ -69,8 +69,8 @@ class StatisticsImplTest {
 
     @Test
     void getGroupEmploymentMustReturnZeroIfGroupHaveNotLessons() {
-        int expected = 0;
-        int actual = statisticsImpl.getGroupEmployment(1, from, till);
+        long expected = 0;
+        long actual = statisticsImpl.getGroupEmployment(1, from, till);
 
         assertEquals(expected, actual);
     }
@@ -80,8 +80,8 @@ class StatisticsImplTest {
         lesson.setDate(new Date(1, 1, 1));
         lessonImpl.add(lesson);
 
-        int expected = 0;
-        int actual = statisticsImpl.getGroupEmployment(1, from, till);
+        long expected = 0;
+        long actual = statisticsImpl.getGroupEmployment(1, from, till);
 
         assertEquals(expected, actual);
     }
@@ -90,8 +90,8 @@ class StatisticsImplTest {
     void getGroupEmploymentMustReturnCorrectLessonsQuantity() {
         Date dateFrom = new Date(1819, 11, 11);
 
-        int expected = 1;
-        int actual = statisticsImpl.getGroupEmployment(1, dateFrom, till);
+        long expected = 1;
+        long actual = statisticsImpl.getGroupEmployment(1, dateFrom, till);
 
         assertEquals(expected, actual);
     }
@@ -104,16 +104,16 @@ class StatisticsImplTest {
             lessonImpl.add(lesson);
         }
 
-        int expected = 1000;
-        int actual = statisticsImpl.getGroupEmployment(1, dateFrom, till);
+        long expected = 1000;
+        long actual = statisticsImpl.getGroupEmployment(1, dateFrom, till);
 
         assertEquals(expected, actual);
     }
 
     @Test
     void getProfessorEmploymentMustReturnZeroIfProfessorHaveNotLessons() {
-        int expected = 0;
-        int actual = statisticsImpl.getProfessorEmployment(1, from, till);
+        long expected = 0;
+        long actual = statisticsImpl.getProfessorEmployment(1, from, till);
 
         assertEquals(expected, actual);
     }
@@ -123,8 +123,8 @@ class StatisticsImplTest {
         lesson.setDate(new Date(1, 1, 1));
         lessonImpl.add(lesson);
 
-        int expected = 0;
-        int actual = statisticsImpl.getProfessorEmployment(1, from, till);
+        long expected = 0;
+        long actual = statisticsImpl.getProfessorEmployment(1, from, till);
 
         assertEquals(expected, actual);
     }
@@ -133,8 +133,8 @@ class StatisticsImplTest {
     void getProfessorEmploymentMustReturnCorrectLessonsQuantity() {
         Date dateFrom = new Date(1819, 11, 11);
 
-        int expected = 1;
-        int actual = statisticsImpl.getProfessorEmployment(1, dateFrom, till);
+        long expected = 1;
+        long actual = statisticsImpl.getProfessorEmployment(1, dateFrom, till);
 
         assertEquals(expected, actual);
     }
@@ -148,7 +148,7 @@ class StatisticsImplTest {
         }
 
         int expected = 1000;
-        int actual = statisticsImpl.getProfessorEmployment(1, dateFrom, till);
+        long actual = statisticsImpl.getProfessorEmployment(1, dateFrom, till);
 
         assertEquals(expected, actual);
     }

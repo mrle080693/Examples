@@ -26,12 +26,12 @@ public class StatisticsController {
 
     @GetMapping("/get_group_employment")
     @ResponseBody
-    public int getGroupEmployment(@RequestParam int groupId,
-                                  @RequestParam("from") Date from,
-                                  @RequestParam("till") Date till) {
+    public long getGroupEmployment(@RequestParam int groupId,
+                                   @RequestParam("from") Date from,
+                                   @RequestParam("till") Date till) {
         LOGGER.debug("Try get group employment with id = " + groupId + " from: " + from + " till: " + till);
 
-        int lessonsQuantity = 0;
+        long lessonsQuantity = 0;
 
         try {
             lessonsQuantity = statisticsService.getGroupEmployment(groupId, from, till);
@@ -46,12 +46,12 @@ public class StatisticsController {
 
     @GetMapping("/get_professor_employment")
     @ResponseBody
-    public int getProfessorEmployment(@RequestParam int professorId,
-                                      @RequestParam("from") Date from,
-                                      @RequestParam("till") Date till) {
+    public long getProfessorEmployment(@RequestParam int professorId,
+                                       @RequestParam("from") Date from,
+                                       @RequestParam("till") Date till) {
         LOGGER.debug("Try get professor employment with id = " + professorId + " from: " + from + " till: " + till);
 
-        int lessonsQuantity = 0;
+        long lessonsQuantity = 0;
 
         try {
             lessonsQuantity = statisticsService.getProfessorEmployment(professorId, from, till);

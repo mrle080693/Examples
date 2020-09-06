@@ -30,7 +30,7 @@ class TimetableServiceTest {
         groupService = Mockito.mock(GroupService.class);
         professorService = Mockito.mock(ProfessorService.class);
 
-        timetableService = new TimetableService(timetableImpl, groupService, professorService);
+        //timetableService = new TimetableService(timetableImpl, groupService, professorService);
 
         from = new Date(2019, 11, 11);
         till = new Date(2020, 5, 11);

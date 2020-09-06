@@ -6,6 +6,7 @@ import com.foxminded.universitytimetable.exceptions.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -14,23 +15,23 @@ import java.util.Date;
 @Service("statisticsServiceBean")
 public class StatisticsService {
     private Logger LOGGER = LoggerFactory.getLogger(StatisticsService.class);
-    private final StatisticsDAO statisticsDAO;
+    @Qualifier("statisticsImplHibernateBean")
+    private StatisticsDAO statisticsDAO;
     private final GroupService groupService;
     private final ProfessorService professorService;
 
     @Autowired
-    public StatisticsService(StatisticsDAO statisticsDAO, GroupService groupService, ProfessorService professorService) {
-        this.statisticsDAO = statisticsDAO;
+    public StatisticsService(GroupService groupService, ProfessorService professorService) {
         this.groupService = groupService;
         this.professorService = professorService;
     }
 
-    public int getGroupEmployment(int groupId, Date from, Date till) {
+    public long getGroupEmployment(int groupId, Date from, Date till) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to get group employment. Group id: " + groupId + "from: " + from + "till: " + till);
         }
 
-        int lessonsQuantity;
+        long lessonsQuantity;
 
         // For check if group exists
         groupService.getById(groupId);
@@ -57,13 +58,13 @@ public class StatisticsService {
         return lessonsQuantity;
     }
 
-    public int getProfessorEmployment(int professorId, Date from, Date till) {
+    public long getProfessorEmployment(int professorId, Date from, Date till) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to get professor employment. Professor id: " + professorId + " from: " + from + "till: "
                     + till);
         }
 
-        int lessonsQuantity;
+        long lessonsQuantity;
 
         // For check if professor exists
         professorService.getById(professorId);

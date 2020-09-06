@@ -27,7 +27,7 @@ class GroupServiceTest {
     void dataSet() {
         group = new Group("Test");
         groupImpl = Mockito.mock(GroupImpl.class);
-        groupService = new GroupService(groupImpl);
+        //groupService = new GroupService(groupImpl);
     }
 
     @Test

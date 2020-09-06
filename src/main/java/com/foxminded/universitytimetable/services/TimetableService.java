@@ -7,6 +7,7 @@ import com.foxminded.universitytimetable.models.Lesson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +17,14 @@ import java.util.List;
 @Service("timetableServiceBean")
 public class TimetableService {
     private final static Logger LOGGER = LoggerFactory.getLogger(TimetableService.class);
-    private final TimetableDAO timetableDAO;
+    @Qualifier("timetableImplHibernateBean")
+    private TimetableDAO timetableDAO;
     private final GroupService groupService;
     private final ProfessorService professorService;
 
     @Autowired
-    public TimetableService(TimetableDAO timetableDAO, GroupService groupService, ProfessorService professorService) {
-        this.timetableDAO = timetableDAO;
-        this.groupService = groupService;
+     public TimetableService(GroupService groupService, ProfessorService professorService) {
+       this.groupService = groupService;
         this.professorService = professorService;
     }
 

@@ -1,14 +1,26 @@
 package com.foxminded.universitytimetable.models;
 
+import javax.persistence.*;
 import java.sql.Date;
 
+@Entity
+@Table(name = "lessons")
 public class Lesson {
-    private int id = 0;
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(name = "date")
     private Date date = null;
+    @Column(name = "lessonNumber")
     private int lessonNumber = 0;
+    @Column(name = "groupId")
     private int groupId = 0;
+    @Column(name = "professorId")
     private int professorId = 0;
+    @Column(name = "building")
     private String building = "";
+    @Column(name = "classroom")
     private String classroom = "";
 
     public Lesson() {

@@ -17,7 +17,7 @@ public class StatisticsImpl implements StatisticsDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public int getGroupEmployment(int groupId, Date from, Date till) {
+    public long getGroupEmployment(int groupId, Date from, Date till) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to get group employment. Group id: " + groupId + "from: " + from + "till: " + till);
         }
@@ -33,7 +33,7 @@ public class StatisticsImpl implements StatisticsDAO {
     }
 
     @Override
-    public int getProfessorEmployment(int professorId, Date from, Date till) {
+    public long getProfessorEmployment(int professorId, Date from, Date till) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to get professor employment. Professor id: " + professorId + " from: " + from + "till: "
                     + till);

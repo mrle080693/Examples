@@ -23,14 +23,15 @@ import java.util.List;
 public class LessonService {
     private static final Logger LOGGER = LoggerFactory.getLogger(LessonService.class);
     private final LessonDAO lessonDAO;
-    @Qualifier("groupImplBean")
     private GroupDAO groupDAO;
-    private final ProfessorDAO professorDAO;
+    private ProfessorDAO professorDAO;
 
-    @Autowired
-    public LessonService(LessonDAO lessonDAO, ProfessorDAO professorDAO) {
+    public LessonService(@Qualifier("lessonImplHibernateBean") LessonDAO lessonDAO,
+                         @Qualifier("professorImplHibernateBean") ProfessorDAO professorDAO,
+                         @Qualifier("groupImplHibernateBean") GroupDAO groupDAO) {
         this.lessonDAO = lessonDAO;
         this.professorDAO = professorDAO;
+        this.groupDAO = groupDAO;
     }
 
     public int add(Lesson lesson) throws NotFoundEntityException {

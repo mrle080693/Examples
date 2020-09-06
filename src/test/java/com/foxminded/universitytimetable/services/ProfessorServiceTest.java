@@ -27,7 +27,7 @@ class ProfessorServiceTest {
     void dataSet() {
         professor = new Professor("Name", "Surname", "Patronymic", "Math");
         professorImpl = Mockito.mock(ProfessorImpl.class);
-        professorService = new ProfessorService(professorImpl);
+       // professorService = new ProfessorService(professorImpl);
     }
 
     @Test

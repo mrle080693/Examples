@@ -30,7 +30,7 @@ class StatisticsServiceTest {
         groupService = Mockito.mock(GroupService.class);
         professorService = Mockito.mock(ProfessorService.class);
 
-        statisticsService = new StatisticsService(statisticsImpl, groupService, professorService);
+        //statisticsService = new StatisticsService(statisticsImpl, groupService, professorService);
 
         from = new Date(2019, 11, 11);
         till = new Date(2020, 5, 11);

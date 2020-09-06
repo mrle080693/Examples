@@ -1,10 +1,21 @@
 package com.foxminded.universitytimetable.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "professors")
 public class Professor {
-    private int id = 0;
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(name = "name")
     private String name = "";
+    @Column(name = "surname")
     private String surname = "";
+    @Column(name = "patronymic")
     private String patronymic = "";
+    @Column(name = "subject")
     private String subject = "";
 
     public Professor() {
