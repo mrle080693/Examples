@@ -25,8 +25,8 @@ public class JPQLQueries {
             "where e.groupId = :groupId and e.date >= :from and e.date <= :till";
 
     // TimetableImplHibernate class queries
-    public static final String GET_GROUP_TIMETABLE = "select e from Lesson e" +
+    public static final String GET_GROUP_TIMETABLE = "select e from Lesson e " +
             "where e.groupId = :groupId and e.date >= :from and e.date <= :till";
-    public static final String GET_PROFESSOR_TIMETABLE = "select e from Lesson e" +
+    public static final String GET_PROFESSOR_TIMETABLE = "select e from Lesson e " +
             "where e.professorId = :professorId and e.date >= :from and e.date <= :till";
 }

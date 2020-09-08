@@ -42,6 +42,7 @@ public class TimetableController {
         try {
             lessons = timetableService.getGroupTimetable(groupId, from, till);
         } catch (Exception e) {
+            e.printStackTrace();
             LOGGER.warn(e.getMessage());
         }
 

@@ -15,13 +15,14 @@ import java.util.Date;
 @Service("statisticsServiceBean")
 public class StatisticsService {
     private Logger LOGGER = LoggerFactory.getLogger(StatisticsService.class);
-    @Qualifier("statisticsImplHibernateBean")
     private StatisticsDAO statisticsDAO;
     private final GroupService groupService;
     private final ProfessorService professorService;
 
     @Autowired
-    public StatisticsService(GroupService groupService, ProfessorService professorService) {
+    public StatisticsService(@Qualifier("statisticsImplHibernateBean") StatisticsDAO statisticsDAO, GroupService groupService,
+                             ProfessorService professorService) {
+        this.statisticsDAO = statisticsDAO;
         this.groupService = groupService;
         this.professorService = professorService;
     }

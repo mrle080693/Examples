@@ -25,12 +25,14 @@ public class TimetableImplHibernate implements TimetableDAO {
             LOGGER.debug("Try to get group timetable. Group id: " + groupId + "from: " + from + "till: " + till);
         }
 
+        List lessons = null;
+
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         Query query = entityManager.createQuery(JPQLQueries.GET_GROUP_TIMETABLE);
         query.setParameter("groupId", groupId);
         query.setParameter("from", from);
         query.setParameter("till", till);
-        List<Lesson> lessons = query.getResultList();
+        lessons = query.getResultList();
         entityManager.close();
 
         if (LOGGER.isDebugEnabled()) {

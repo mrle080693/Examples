@@ -17,15 +17,16 @@ import java.util.List;
 @Service("timetableServiceBean")
 public class TimetableService {
     private final static Logger LOGGER = LoggerFactory.getLogger(TimetableService.class);
-    @Qualifier("timetableImplHibernateBean")
     private TimetableDAO timetableDAO;
     private final GroupService groupService;
     private final ProfessorService professorService;
 
     @Autowired
-     public TimetableService(GroupService groupService, ProfessorService professorService) {
-       this.groupService = groupService;
+    public TimetableService(@Qualifier("timetableImplBean") TimetableDAO timetableDAO,
+                            GroupService groupService, ProfessorService professorService) {
+        this.groupService = groupService;
         this.professorService = professorService;
+        this.timetableDAO = timetableDAO;
     }
 
     public List<Lesson> getGroupTimetable(int groupId, Date from, Date till) {

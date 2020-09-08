@@ -23,20 +23,18 @@ function getGroupTimetable() {
                     '<th class="table-cell">Classroom</th>' +
                     '</tr>';
 
-                body = body + '<tr>';
-
                 for (name in lessons) {
                     body = body
+                        + '<tr>'
                         + '<td class="table-cell">' + lessons[name].id + '</td>'
                         + '<td class="table-cell">' + lessons[name].date + '</td>'
                         + '<td class="table-cell">' + lessons[name].lessonNumber + '</td>'
                         + '<td class="table-cell">' + lessons[name].groupId + '</td>'
                         + '<td class="table-cell">' + lessons[name].professorId + '</td>'
                         + '<td class="table-cell">' + lessons[name].building + '</td>'
-                        + '<td class="table-cell">' + lessons[name].classroom + '</td>';
+                        + '<td class="table-cell">' + lessons[name].classroom + '</td>'
+                        + '</tr>';
                 }
-
-                body = body + '</tr>';
 
                 $('#result').html(body);
             }
@@ -70,20 +68,18 @@ function getProfessorTimetable() {
                     '<th class="table-cell">Classroom</th>' +
                     '</tr>';
 
-                body = body + '<tr>';
-
                 for (name in lessons) {
                     body = body
+                        + '<tr>'
                         + '<td class="table-cell">' + lessons[name].id + '</td>'
                         + '<td class="table-cell">' + lessons[name].date + '</td>'
                         + '<td class="table-cell">' + lessons[name].lessonNumber + '</td>'
                         + '<td class="table-cell">' + lessons[name].groupId + '</td>'
                         + '<td class="table-cell">' + lessons[name].professorId + '</td>'
                         + '<td class="table-cell">' + lessons[name].building + '</td>'
-                        + '<td class="table-cell">' + lessons[name].classroom + '</td>';
+                        + '<td class="table-cell">' + lessons[name].classroom + '</td>'
+                        + '</tr>';
                 }
-
-                body = body + '</tr>';
 
                 $('#result').html(body);
             }
