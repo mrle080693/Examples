@@ -19,8 +19,12 @@ import java.util.List;
 public class ProfessorImpl implements ProfessorDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProfessorImpl.class);
 
+    private final JdbcTemplate jdbcTemplate;
+
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    public ProfessorImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public int add(Professor professor) {
         if (LOGGER.isDebugEnabled()) {

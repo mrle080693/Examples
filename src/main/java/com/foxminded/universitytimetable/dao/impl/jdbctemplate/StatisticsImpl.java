@@ -14,8 +14,12 @@ import java.util.Date;
 public class StatisticsImpl implements StatisticsDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(StatisticsImpl.class);
 
+    private final JdbcTemplate jdbcTemplate;
+
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    public StatisticsImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public long getGroupEmployment(int groupId, Date from, Date till) {
         if (LOGGER.isDebugEnabled()) {

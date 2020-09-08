@@ -1,6 +1,6 @@
-package com.foxminded.universitytimetable.dao;
+package com.foxminded.universitytimetable.dao.jdbctemplate;
 
-import com.foxminded.universitytimetable.configurations.SpringJDBCConfig;
+import com.foxminded.universitytimetable.configurations.SpringTestJdbcConfig;
 import com.foxminded.universitytimetable.dao.impl.jdbctemplate.GroupImpl;
 import com.foxminded.universitytimetable.dao.impl.jdbctemplate.LessonImpl;
 import com.foxminded.universitytimetable.dao.impl.jdbctemplate.ProfessorImpl;
@@ -8,10 +8,9 @@ import com.foxminded.universitytimetable.dao.impl.jdbctemplate.TimetableImpl;
 import com.foxminded.universitytimetable.models.Group;
 import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.models.Professor;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
@@ -22,46 +21,35 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TimetableImplTest {
-    private DataSource dataSource;
-    private static AnnotationConfigApplicationContext context;
-
-    private static TimetableImpl timetableImpl;
-    private static LessonImpl lessonImpl;
-    private static ProfessorImpl professorImpl;
-    private static GroupImpl groupImpl;
-
+    private TimetableImpl timetableImpl;
+    private LessonImpl lessonImpl;
     private Lesson lesson;
-    private Professor professor;
-    private Group group;
-
-    private static Date from;
-    private static Date till;
-
-    @BeforeAll
-    static void initialize() {
-        context = new AnnotationConfigApplicationContext(SpringJDBCConfig.class);
-
-        timetableImpl = context.getBean("timetableImplBean", TimetableImpl.class);
-        lessonImpl = context.getBean("lessonImplBean", LessonImpl.class);
-        professorImpl = context.getBean("professorImplBean", ProfessorImpl.class);
-        groupImpl = context.getBean("groupImplBean", GroupImpl.class);
-
-        from = new Date(1919, 11, 11);
-        till = new Date(2020, 11, 11);
-    }
+    private Date from;
+    private Date till;
 
     @BeforeEach
     void dataSet() {
-        dataSource = new EmbeddedDatabaseBuilder()
+        DataSource dataSource = new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
                 .setScriptEncoding("UTF-8")
                 .addScript("test.sql")
                 .build();
 
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        jdbcTemplate.setDataSource(dataSource);
+
+        timetableImpl = new TimetableImpl(jdbcTemplate);
+        lessonImpl = new LessonImpl(jdbcTemplate);
+        ProfessorImpl professorImpl = new ProfessorImpl(jdbcTemplate);
+        GroupImpl groupImpl = new GroupImpl(jdbcTemplate);
+
+        from = new Date(1919, 11, 11);
+        till = new Date(2020, 11, 11);
+
         lesson = new Lesson(new Date(1912, 12, 12), 1, 1, 1,
                 "Building", "Classroom");
-        professor = new Professor("Name", "Surname", "Patronymic", "Subject");
-        group = new Group("Group");
+        Professor professor = new Professor("Name", "Surname", "Patronymic", "Subject");
+        Group group = new Group("Group");
 
         professorImpl.add(professor);
         groupImpl.add(group);

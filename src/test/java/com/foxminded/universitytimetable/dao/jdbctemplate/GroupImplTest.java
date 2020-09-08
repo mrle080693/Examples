@@ -1,16 +1,14 @@
-package com.foxminded.universitytimetable.dao;
+package com.foxminded.universitytimetable.dao.jdbctemplate;
 
-import com.foxminded.universitytimetable.configurations.SpringTestJdbcConfig;
 import com.foxminded.universitytimetable.dao.impl.jdbctemplate.GroupImpl;
 import com.foxminded.universitytimetable.dao.impl.jdbctemplate.LessonImpl;
 import com.foxminded.universitytimetable.dao.impl.jdbctemplate.ProfessorImpl;
 import com.foxminded.universitytimetable.models.Group;
 import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.models.Professor;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.junit.jupiter.api.Test;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
@@ -22,25 +20,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GroupImplTest {
-    private DataSource dataSource;
-    private static AnnotationConfigApplicationContext context;
-
-    private static GroupImpl groupImpl;
-    private static Group group;
-
-    @BeforeAll
-    static void initialize() {
-        context = new AnnotationConfigApplicationContext(SpringTestJdbcConfig.class);
-        groupImpl = context.getBean("groupImplBean", GroupImpl.class);
-    }
+    private JdbcTemplate jdbcTemplate;
+    private GroupImpl groupImpl;
+    private Group group;
 
     @BeforeEach
     void dataSet() {
-        dataSource = new EmbeddedDatabaseBuilder()
+        DataSource dataSource = new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
                 .setScriptEncoding("UTF-8")
                 .addScript("test.sql")
                 .build();
+
+        jdbcTemplate = new JdbcTemplate();
+        jdbcTemplate.setDataSource(dataSource);
+
+        groupImpl = new GroupImpl(jdbcTemplate);
 
         group = new Group("test");
         groupImpl.add(group);
@@ -159,8 +154,8 @@ class GroupImplTest {
         Lesson lesson = new Lesson(new Date(1212, 12, 12), 1, 1,
                 1, "Building", "Classroom");
         Professor professor = new Professor("Name", "Surname", "Patronymic", "Math");
-        LessonImpl lessonImpl = context.getBean("lessonImplBean", LessonImpl.class);
-        ProfessorImpl professorImpl = context.getBean("professorImplBean", ProfessorImpl.class);
+        LessonImpl lessonImpl = new LessonImpl(jdbcTemplate);
+        ProfessorImpl professorImpl = new ProfessorImpl(jdbcTemplate);
 
         professorImpl.add(professor);
         lessonImpl.add(lesson);

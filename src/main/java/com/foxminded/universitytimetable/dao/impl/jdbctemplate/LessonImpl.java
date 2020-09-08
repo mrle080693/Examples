@@ -20,8 +20,12 @@ import java.util.List;
 public class LessonImpl implements LessonDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(LessonImpl.class);
 
+    private final JdbcTemplate jdbcTemplate;
+
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    public LessonImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public int add(Lesson lesson) {
         if (LOGGER.isDebugEnabled()) {

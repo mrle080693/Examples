@@ -1,4 +1,4 @@
-package com.foxminded.universitytimetable.dao.impl.hibernate;
+package com.foxminded.universitytimetable.dao.impl.hibernatejpa;
 
 import com.foxminded.universitytimetable.dao.ProfessorDAO;
 import com.foxminded.universitytimetable.dao.queries.JPQLQueries;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.util.List;
 

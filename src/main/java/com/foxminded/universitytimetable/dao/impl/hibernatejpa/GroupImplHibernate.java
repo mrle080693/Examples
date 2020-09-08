@@ -1,27 +1,27 @@
-package com.foxminded.universitytimetable.dao.impl.hibernate;
+package com.foxminded.universitytimetable.dao.impl.hibernatejpa;
 
 import com.foxminded.universitytimetable.dao.GroupDAO;
-import com.foxminded.universitytimetable.dao.impl.jdbctemplate.GroupImpl;
 import com.foxminded.universitytimetable.dao.queries.JPQLQueries;
-import com.foxminded.universitytimetable.dao.queries.SQLQueries;
 import com.foxminded.universitytimetable.models.Group;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.util.List;
 
 @Repository("groupImplHibernateBean")
 public class GroupImplHibernate implements GroupDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(GroupImplHibernate.class);
+    private final EntityManagerFactory entityManagerFactory;
+
     @Autowired
-    private EntityManagerFactory entityManagerFactory;
+    public GroupImplHibernate(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+    }
 
     @Override
     public int add(Group group) {

@@ -1,5 +1,6 @@
 package com.foxminded.universitytimetable.services;
 
+import com.foxminded.universitytimetable.configurations.SpringTestJdbcConfig;
 import com.foxminded.universitytimetable.dao.impl.jdbctemplate.GroupImpl;
 import com.foxminded.universitytimetable.exceptions.DAOException;
 import com.foxminded.universitytimetable.exceptions.ValidationException;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 
@@ -20,6 +22,7 @@ import static org.mockito.Mockito.when;
 
 class GroupServiceTest {
     private GroupImpl groupImpl;
+    @Autowired
     private GroupService groupService;
     private Group group;
 
