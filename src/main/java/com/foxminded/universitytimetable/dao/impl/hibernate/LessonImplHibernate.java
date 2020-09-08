@@ -5,6 +5,7 @@ import com.foxminded.universitytimetable.dao.queries.JPQLQueries;
 import com.foxminded.universitytimetable.models.Lesson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -16,7 +17,8 @@ import java.util.List;
 @Repository("lessonImplHibernateBean")
 public class LessonImplHibernate implements LessonDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(LessonImplHibernate.class);
-    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("mr");
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
 
     @Override
     public int add(Lesson lesson) {

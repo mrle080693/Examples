@@ -20,10 +20,8 @@ import java.util.List;
 @Repository("groupImplHibernateBean")
 public class GroupImplHibernate implements GroupDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(GroupImplHibernate.class);
-    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("mr");
-
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private EntityManagerFactory entityManagerFactory;
 
     @Override
     public int add(Group group) {
