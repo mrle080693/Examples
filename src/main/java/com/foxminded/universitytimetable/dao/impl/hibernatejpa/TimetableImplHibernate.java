@@ -17,8 +17,12 @@ import java.util.List;
 @Repository("timetableImplHibernateBean")
 public class TimetableImplHibernate implements TimetableDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(TimetableImplHibernate.class);
+    private final EntityManagerFactory entityManagerFactory;
+
     @Autowired
-    private EntityManagerFactory entityManagerFactory;
+    public TimetableImplHibernate(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+    }
 
 
     @Override

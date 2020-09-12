@@ -16,8 +16,12 @@ import java.util.List;
 @Repository("lessonImplHibernateBean")
 public class LessonImplHibernate implements LessonDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(LessonImplHibernate.class);
+    private final EntityManagerFactory entityManagerFactory;
+
     @Autowired
-    private EntityManagerFactory entityManagerFactory;
+    public LessonImplHibernate(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+    }
 
     @Override
     public int add(Lesson lesson) {

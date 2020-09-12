@@ -1,46 +1,37 @@
-package com.foxminded.universitytimetable.dao.jdbctemplate;
+package com.foxminded.universitytimetable.dao.hibernatejpa;
 
-import com.foxminded.universitytimetable.dao.impl.jdbctemplate.GroupImpl;
-import com.foxminded.universitytimetable.dao.impl.jdbctemplate.LessonImpl;
-import com.foxminded.universitytimetable.dao.impl.jdbctemplate.ProfessorImpl;
-import com.foxminded.universitytimetable.dao.impl.jdbctemplate.TimetableImpl;
+import com.foxminded.universitytimetable.dao.impl.hibernatejpa.GroupImplHibernate;
+import com.foxminded.universitytimetable.dao.impl.hibernatejpa.LessonImplHibernate;
+import com.foxminded.universitytimetable.dao.impl.hibernatejpa.ProfessorImplHibernate;
+import com.foxminded.universitytimetable.dao.impl.hibernatejpa.TimetableImplHibernate;
 import com.foxminded.universitytimetable.models.Group;
 import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.models.Professor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
-import javax.sql.DataSource;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.sql.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class TimetableImplTest {
-    private TimetableImpl timetableImpl;
-    private LessonImpl lessonImpl;
+class TimetableImplHibernateTest {
+    private TimetableImplHibernate timetableImplHibernate;
+    private LessonImplHibernate lessonImplHibernate;
     private Lesson lesson;
     private Date from;
     private Date till;
 
     @BeforeEach
     void dataSet() {
-        DataSource dataSource = new EmbeddedDatabaseBuilder()
-                .setType(EmbeddedDatabaseType.H2)
-                .setScriptEncoding("UTF-8")
-                .addScript("test.sql")
-                .build();
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("test");
 
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-        jdbcTemplate.setDataSource(dataSource);
-
-        timetableImpl = new TimetableImpl(jdbcTemplate);
-        lessonImpl = new LessonImpl(jdbcTemplate);
-        ProfessorImpl professorImpl = new ProfessorImpl(jdbcTemplate);
-        GroupImpl groupImpl = new GroupImpl(jdbcTemplate);
+        timetableImplHibernate = new TimetableImplHibernate(entityManagerFactory);
+        lessonImplHibernate = new LessonImplHibernate(entityManagerFactory);
+        ProfessorImplHibernate professorImplHibernate = new ProfessorImplHibernate(entityManagerFactory);
+        GroupImplHibernate groupImplHibernate = new GroupImplHibernate(entityManagerFactory);
 
         from = new Date(1919, 11, 11);
         till = new Date(2020, 11, 11);
@@ -50,15 +41,15 @@ class TimetableImplTest {
         Professor professor = new Professor("Name", "Surname", "Patronymic", "Subject");
         Group group = new Group("Group");
 
-        professorImpl.add(professor);
-        groupImpl.add(group);
-        lessonImpl.add(lesson);
+        professorImplHibernate.add(professor);
+        groupImplHibernate.add(group);
+        lessonImplHibernate.add(lesson);
     }
 
     @Test
     void getGroupTimetableMustReturnZeroIfGroupHaveNotLessons() {
         int expected = 0;
-        int actual = timetableImpl.getGroupTimetable(1, from, till).size();
+        int actual = timetableImplHibernate.getGroupTimetable(1, from, till).size();
 
         assertEquals(expected, actual);
     }
@@ -66,10 +57,10 @@ class TimetableImplTest {
     @Test
     void getGroupTimetableMustReturnZeroIfGroupHaveNotLessonsInInputPeriod() {
         lesson.setDate(new Date(1, 1, 1));
-        lessonImpl.add(lesson);
+        lessonImplHibernate.add(lesson);
 
         int expected = 0;
-        int actual = timetableImpl.getGroupTimetable(1, from, till).size();
+        int actual = timetableImplHibernate.getGroupTimetable(1, from, till).size();
 
         assertEquals(expected, actual);
     }
@@ -79,7 +70,7 @@ class TimetableImplTest {
         Date dateFrom = new Date(1819, 11, 11);
 
         int expected = 1;
-        int actual = timetableImpl.getGroupTimetable(1, dateFrom, till).size();
+        int actual = timetableImplHibernate.getGroupTimetable(1, dateFrom, till).size();
 
         assertEquals(expected, actual);
     }
@@ -89,11 +80,11 @@ class TimetableImplTest {
         Date dateFrom = new Date(1819, 11, 11);
 
         for (int index = 1; index < 1000; index++) {
-            lessonImpl.add(lesson);
+            lessonImplHibernate.add(lesson);
         }
 
         int expected = 1000;
-        int actual = timetableImpl.getGroupTimetable(1, dateFrom, till).size();
+        int actual = timetableImplHibernate.getGroupTimetable(1, dateFrom, till).size();
 
         assertEquals(expected, actual);
     }
@@ -101,10 +92,10 @@ class TimetableImplTest {
     @Test
     void getGroupTimetableMustReturnCorrectLessons() {
         for (int index = 0; index < 1000; index++) {
-            lessonImpl.add(lesson);
+            lessonImplHibernate.add(lesson);
         }
 
-        List<Lesson> lessons = timetableImpl.getGroupTimetable(1, from, till);
+        List<Lesson> lessons = timetableImplHibernate.getGroupTimetable(1, from, till);
 
         for (Lesson lessonFromDB : lessons) {
             Date expectedDate = lesson.getDate();
@@ -136,7 +127,7 @@ class TimetableImplTest {
     @Test
     void getProfessorTimetableMustReturnZeroIfProfessorHaveNotLessons() {
         int expected = 0;
-        int actual = timetableImpl.getProfessorTimetable(1, from, till).size();
+        int actual = timetableImplHibernate.getProfessorTimetable(1, from, till).size();
 
         assertEquals(expected, actual);
     }
@@ -144,10 +135,10 @@ class TimetableImplTest {
     @Test
     void getProfessorTimetableMustReturnZeroIfProfessorHaveNotLessonsInInputPeriod() {
         lesson.setDate(new Date(1, 1, 1));
-        lessonImpl.add(lesson);
+        lessonImplHibernate.add(lesson);
 
         int expected = 0;
-        int actual = timetableImpl.getProfessorTimetable(1, from, till).size();
+        int actual = timetableImplHibernate.getProfessorTimetable(1, from, till).size();
 
         assertEquals(expected, actual);
     }
@@ -157,7 +148,7 @@ class TimetableImplTest {
         Date dateFrom = new Date(1819, 11, 11);
 
         int expected = 1;
-        int actual = timetableImpl.getProfessorTimetable(1, dateFrom, till).size();
+        int actual = timetableImplHibernate.getProfessorTimetable(1, dateFrom, till).size();
 
         assertEquals(expected, actual);
     }
@@ -167,11 +158,11 @@ class TimetableImplTest {
         Date dateFrom = new Date(1819, 11, 11);
 
         for (int index = 1; index < 1000; index++) {
-            lessonImpl.add(lesson);
+            lessonImplHibernate.add(lesson);
         }
 
         int expected = 1000;
-        int actual = timetableImpl.getProfessorTimetable(1, dateFrom, till).size();
+        int actual = timetableImplHibernate.getProfessorTimetable(1, dateFrom, till).size();
 
         assertEquals(expected, actual);
     }
@@ -179,10 +170,10 @@ class TimetableImplTest {
     @Test
     void getProfessorTimetableMustReturnCorrectLessons() {
         for (int index = 0; index < 1000; index++) {
-            lessonImpl.add(lesson);
+            lessonImplHibernate.add(lesson);
         }
 
-        List<Lesson> lessons = timetableImpl.getProfessorTimetable(1, from, till);
+        List<Lesson> lessons = timetableImplHibernate.getProfessorTimetable(1, from, till);
 
         for (Lesson lessonFromDB : lessons) {
             Date expectedDate = lesson.getDate();

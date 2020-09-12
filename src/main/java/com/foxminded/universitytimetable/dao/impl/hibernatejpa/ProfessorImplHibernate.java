@@ -16,8 +16,12 @@ import java.util.List;
 @Repository("professorImplHibernateBean")
 public class ProfessorImplHibernate implements ProfessorDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProfessorImplHibernate.class);
+    private final EntityManagerFactory entityManagerFactory;
+
     @Autowired
-    private EntityManagerFactory entityManagerFactory;
+    public ProfessorImplHibernate(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+    }
 
 
     @Override

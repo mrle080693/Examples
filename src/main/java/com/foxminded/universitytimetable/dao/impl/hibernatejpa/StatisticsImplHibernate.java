@@ -15,8 +15,12 @@ import java.util.Date;
 @Repository("statisticsImplHibernateBean")
 public class StatisticsImplHibernate implements StatisticsDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(StatisticsImplHibernate.class);
+    private final EntityManagerFactory entityManagerFactory;
+
     @Autowired
-    private EntityManagerFactory entityManagerFactory;
+    public StatisticsImplHibernate(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+    }
 
 
     @Override
