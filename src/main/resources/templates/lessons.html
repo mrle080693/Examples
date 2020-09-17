@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="../styles/lessons.css">
+    <link rel="stylesheet" href="/css/lessons.css">
 
     <title>Lessons</title>
 </head>
@@ -67,7 +67,7 @@
                     <td class="table-cell" th:text="${lesson.building}"></td>
                     <td class="table-cell" th:text="${lesson.classroom}"></td>
                     <td>
-                        <img alt=":(" src="../images/update.jpeg" data-toggle="modal" data-target="#modalUpdateBtn"
+                        <img alt=":(" src="images/update.jpeg" data-toggle="modal" data-target="#modalUpdateBtn"
                              th:data-id="${lesson.id}" th:data-date="${lesson.date}"
                              th:data-lesson-number="${lesson.lessonNumber}" th:data-group-id="${lesson.groupId}"
                              th:data-professor-id="${lesson.professorId}" th:data-building="${lesson.building}"
@@ -76,7 +76,7 @@
                     <td>
                         <form method="post" action="/lessons/remove">
                             <input type="text" name="id" th:value="${lesson.id}" hidden>
-                            <input type="image" src="../images/delete.jpeg" alt="Submit">
+                            <input type="image" src="/images/delete.jpeg" alt="Submit">
                         </form>
                     </td>
                 </tr>
@@ -244,5 +244,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="/scripts/lessons.js"></script>
+<script src="/js/lessons.js"></script>
 </html>

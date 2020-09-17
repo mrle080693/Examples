@@ -4,11 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
@@ -50,12 +46,19 @@ public class MvcWebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // По умолчанию идея так форматирует. По другому не получается.
         registry
-                .addResourceHandler("/images/**", "/styles/**", "/scripts/**")
-                .addResourceLocations("/images/", "/styles/", "/scripts/")
+                .addResourceHandler("/images/**", "/css/**", "/js/**")
+                .addResourceLocations("/images/", "/css/", "/js/")
                 .setCachePeriod(3600)
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver());
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("pages/index.html");
+        registry.addViewController("/main").setViewName("main");
+        registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/registration").setViewName("registration");
     }
 }

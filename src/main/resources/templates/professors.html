@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="../styles/professors.css">
+    <link rel="stylesheet" href="/css/professors.css">
 
     <title>Professors</title>
 </head>
@@ -62,7 +62,7 @@
                 <td class="table-cell" th:text="${professor.patronymic}"></td>
                 <td class="table-cell" th:text="${professor.subject}"></td>
                 <td>
-                    <img alt=":(" src="../images/update.jpeg" data-toggle="modal" data-target="#modalUpdateBtn"
+                    <img alt=":(" src="/images/update.jpeg" data-toggle="modal" data-target="#modalUpdateBtn"
                          th:data-id="${professor.id}" th:data-name="${professor.name}"
                          th:data-surname="${professor.surname}" th:data-patronymic="${professor.patronymic}"
                          th:data-subject="${professor.subject}">
@@ -70,7 +70,7 @@
                 <td>
                     <form method="post" action="/professors/remove">
                         <input type="text" name="id" th:value="${professor.id}" hidden>
-                        <input type="image" src="../images/delete.jpeg" alt="Submit">
+                        <input type="image" src="/images/delete.jpeg" alt="Submit">
                     </form>
                 </td>
             </tr>
@@ -219,5 +219,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="/scripts/professors.js"></script>
+<script src="/js/professors.js"></script>
 </html>

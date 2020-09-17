@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
     private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
 
-    @GetMapping("/")
+    @GetMapping
     public String getIndexPage() {
         LOGGER.debug("Get index.html page");
         return "index";

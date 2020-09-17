@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="../styles/groups.css">
+    <link rel="stylesheet" href="/css/groups.css">
     <title>Groups</title>
 </head>
 
@@ -58,13 +58,13 @@
                 <td class="table-cell" th:text="${group.id}"></td>
                 <td class="table-cell" th:text="${group.name}"></td>
                 <td>
-                    <img alt=":(" src="../images/update.jpeg" data-toggle="modal" data-target="#modalUpdateBtn"
+                    <img alt=":(" src="/images/update.jpeg" data-toggle="modal" data-target="#modalUpdateBtn"
                          th:data-group-id="${group.id}" th:data-group-name="${group.name}">
                 </td>
                 <td>
                     <form method="post" action="/groups/remove">
                         <input type="text" name="id" th:value="${group.id}" hidden>
-                        <input type="image" src="../images/delete.jpeg" alt="Submit">
+                        <input type="image" src="/images/delete.jpeg" alt="Submit">
                     </form>
                 </td>
             </tr>
@@ -193,5 +193,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="/scripts/groups.js"></script>
+<script src="/js/groups.js"></script>
 </html>
