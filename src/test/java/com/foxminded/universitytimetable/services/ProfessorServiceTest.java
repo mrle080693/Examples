@@ -1,6 +1,6 @@
 package com.foxminded.universitytimetable.services;
 
-import com.foxminded.universitytimetable.dao.impl.jdbctemplate.ProfessorImpl;
+import com.foxminded.universitytimetable.dao.impl.ProfessorImpl;
 import com.foxminded.universitytimetable.exceptions.DAOException;
 import com.foxminded.universitytimetable.exceptions.ValidationException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;

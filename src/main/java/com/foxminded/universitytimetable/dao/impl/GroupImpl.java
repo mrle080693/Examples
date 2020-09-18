@@ -1,61 +1,47 @@
-package com.foxminded.universitytimetable.dao.impl.jdbctemplate;
+package com.foxminded.universitytimetable.dao.impl;
 
 import com.foxminded.universitytimetable.dao.GroupDAO;
-import com.foxminded.universitytimetable.dao.queries.SQLQueries;
-import com.foxminded.universitytimetable.dao.impl.jdbctemplate.rowmappers.GroupMapper;
+import com.foxminded.universitytimetable.dao.impl.repositories.GroupRepository;
 import com.foxminded.universitytimetable.models.Group;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
 import java.util.List;
 
 @Repository("groupImplBean")
 public class GroupImpl implements GroupDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(GroupImpl.class);
+    private static GroupRepository groupRepository;
 
-    private final JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    public GroupImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
+    @Override
     public int add(Group group) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to add group: " + group);
         }
 
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-
-        jdbcTemplate.update(con -> {
-                    PreparedStatement ps = con.prepareStatement(SQLQueries.ADD_GROUP, new String[]{"id"});
-                    ps.setString(1, group.getName());
-                    return ps;
-                }
-                , keyHolder);
-
-        Number id = keyHolder.getKey();
+        int id = groupRepository.save(group).getId();
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Successfully add group with id = " + id);
         }
 
-        return (int) id;
+        return id;
     }
 
+    @Override
     public List<Group> getAll() {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to get all from table groups");
         }
 
-        List<Group> groups = jdbcTemplate.query(SQLQueries.GET_ALL_GROUPS, new GroupMapper());
+        List<Group> groups = null;
 
+        try {
+            groups = groupRepository.findAll();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Result is: " + groups);
         }
@@ -63,13 +49,13 @@ public class GroupImpl implements GroupDAO {
         return groups;
     }
 
+    @Override
     public Group getById(int id) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to get group by id = " + id);
         }
 
-        Group group = jdbcTemplate.queryForObject(SQLQueries.GET_GROUP_BY_ID, new Object[]{id},
-                new GroupMapper());
+        Group group = groupRepository.getOne(id);
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Result is: " + group);
@@ -78,13 +64,13 @@ public class GroupImpl implements GroupDAO {
         return group;
     }
 
+    @Override
     public List<Group> getByName(String name) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to get group by name = " + name);
         }
 
-        List<Group> groups = jdbcTemplate.query(SQLQueries.GET_GROUPS_BY_NAME, new Object[]{name},
-                new GroupMapper());
+        List<Group> groups = groupRepository.getByName(name);
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Result is: " + groups);
@@ -93,26 +79,28 @@ public class GroupImpl implements GroupDAO {
         return groups;
     }
 
+    @Override
     public int update(Group group) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to update group: " + group);
         }
 
-        int status = jdbcTemplate.update(SQLQueries.UPDATE_GROUP, group.getName(), group.getId());
+        int id = groupRepository.save(group).getId();
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successfully update group with status = " + status);
+            LOGGER.debug("Successfully update group with id = " + id);
         }
 
-        return status;
+        return id;
     }
 
+    @Override
     public int remove(int groupId) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to remove group with id = " + groupId);
         }
 
-        int status = jdbcTemplate.update(SQLQueries.DELETE_GROUP, groupId);
+        int status = groupRepository.remove(groupId);
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Successfully remove group with id: " + groupId);

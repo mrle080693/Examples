@@ -1,8 +1,6 @@
 package com.foxminded.universitytimetable.controllers;
 
 import com.foxminded.universitytimetable.configurations.MvcWebConfig;
-import com.foxminded.universitytimetable.configurations.SpringTestJdbcConfig;
-import com.foxminded.universitytimetable.models.Group;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +17,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {MvcWebConfig.class, SpringTestJdbcConfig.class})
 @WebAppConfiguration
 class IndexControllerTest {
     @Autowired

@@ -20,7 +20,8 @@ public class ProfessorService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProfessorService.class);
     private final ProfessorDAO professorDAO;
 
-    public ProfessorService(@Qualifier("professorImplHibernateBean") ProfessorDAO professorDAO) {
+    @Autowired
+    public ProfessorService(ProfessorDAO professorDAO) {
         this.professorDAO = professorDAO;
     }
 

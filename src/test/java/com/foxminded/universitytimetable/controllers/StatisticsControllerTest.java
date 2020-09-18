@@ -1,10 +1,7 @@
 package com.foxminded.universitytimetable.controllers;
-
-import com.foxminded.universitytimetable.configurations.MvcWebConfig;
-import com.foxminded.universitytimetable.configurations.SpringTestJdbcConfig;
-import com.foxminded.universitytimetable.dao.impl.jdbctemplate.GroupImpl;
-import com.foxminded.universitytimetable.dao.impl.jdbctemplate.LessonImpl;
-import com.foxminded.universitytimetable.dao.impl.jdbctemplate.ProfessorImpl;
+import com.foxminded.universitytimetable.dao.impl.GroupImpl;
+import com.foxminded.universitytimetable.dao.impl.LessonImpl;
+import com.foxminded.universitytimetable.dao.impl.ProfessorImpl;
 import com.foxminded.universitytimetable.models.Group;
 import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.models.Professor;
@@ -12,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -27,7 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {MvcWebConfig.class, SpringTestJdbcConfig.class})
 @WebAppConfiguration
 class StatisticsControllerTest {
     @Autowired

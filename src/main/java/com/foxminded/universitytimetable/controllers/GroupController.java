@@ -20,8 +20,12 @@ import java.util.List;
 public class GroupController {
     private static final Logger LOGGER = LoggerFactory.getLogger(GroupController.class);
 
+    private final GroupService groupService;
+
     @Autowired
-    private GroupService groupService;
+    public GroupController(GroupService groupService) {
+        this.groupService = groupService;
+    }
 
     @PostMapping("/add")
     public String add(@RequestParam String newName) {

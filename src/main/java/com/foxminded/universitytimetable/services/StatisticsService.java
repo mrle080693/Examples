@@ -6,7 +6,6 @@ import com.foxminded.universitytimetable.exceptions.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +19,7 @@ public class StatisticsService {
     private final ProfessorService professorService;
 
     @Autowired
-    public StatisticsService(@Qualifier("statisticsImplHibernateBean") StatisticsDAO statisticsDAO, GroupService groupService,
-                             ProfessorService professorService) {
+    public StatisticsService(StatisticsDAO statisticsDAO, GroupService groupService, ProfessorService professorService) {
         this.statisticsDAO = statisticsDAO;
         this.groupService = groupService;
         this.professorService = professorService;

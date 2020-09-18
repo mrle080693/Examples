@@ -1,9 +1,9 @@
 package com.foxminded.universitytimetable.services;
 
-import com.foxminded.universitytimetable.dao.impl.jdbctemplate.TimetableImpl;
+import com.foxminded.universitytimetable.dao.impl.TimetableImpl;
 import com.foxminded.universitytimetable.exceptions.DAOException;
-import com.foxminded.universitytimetable.exceptions.ValidationException;
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
+import com.foxminded.universitytimetable.exceptions.ValidationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

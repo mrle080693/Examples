@@ -2,9 +2,9 @@ package com.foxminded.universitytimetable.dao.queries;
 
 public class JPQLQueries {
     // groups table queries
-    public static String GET_ALL_GROUPS = "select e from Group e";
-    public static String GET_GROUP_BY_ID = "select e from Group e where e.id = :id";
-    public static String GET_GROUPS_BY_NAME = "select e from Group e where e.name = :name";
+    public static final String GET_ALL_GROUPS = "select e from Group e";
+    public static final String GET_GROUP_BY_ID = "select e from Group e where e.id = :id";
+    public static final String GET_GROUPS_BY_NAME = "select e from Group e where e.name = :name";
     public static final String DELETE_GROUP = "delete from Group e where e.id = :id";
 
     // lessons table queries

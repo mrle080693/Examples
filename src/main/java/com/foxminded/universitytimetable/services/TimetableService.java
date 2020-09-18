@@ -7,7 +7,6 @@ import com.foxminded.universitytimetable.models.Lesson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +21,7 @@ public class TimetableService {
     private final ProfessorService professorService;
 
     @Autowired
-    public TimetableService(@Qualifier("timetableImplBean") TimetableDAO timetableDAO,
-                            GroupService groupService, ProfessorService professorService) {
+    public TimetableService(TimetableDAO timetableDAO, GroupService groupService, ProfessorService professorService) {
         this.groupService = groupService;
         this.professorService = professorService;
         this.timetableDAO = timetableDAO;
