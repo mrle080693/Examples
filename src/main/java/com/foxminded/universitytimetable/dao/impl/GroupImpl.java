@@ -5,6 +5,7 @@ import com.foxminded.universitytimetable.dao.impl.repositories.GroupRepository;
 import com.foxminded.universitytimetable.models.Group;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +13,12 @@ import java.util.List;
 @Repository("groupImplBean")
 public class GroupImpl implements GroupDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(GroupImpl.class);
-    private static GroupRepository groupRepository;
+    private GroupRepository groupRepository;
+
+    @Autowired
+    public GroupImpl(GroupRepository groupRepository) {
+        this.groupRepository = groupRepository;
+    }
 
     @Override
     public int add(Group group) {
@@ -39,7 +45,7 @@ public class GroupImpl implements GroupDAO {
 
         try {
             groups = groupRepository.findAll();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         if (LOGGER.isDebugEnabled()) {

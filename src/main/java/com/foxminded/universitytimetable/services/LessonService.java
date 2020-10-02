@@ -51,7 +51,9 @@ public class LessonService {
 
             lessonIdInTable = lessonDAO.add(lesson);
         } catch (DataAccessException ex) {
-            String exMessage = "Cant add lesson: " + lesson;
+            // ТУТ ПОПРАВЬ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            System.err.println(ex.getStackTrace());
+            String exMessage = "Cant add lesson: " + ex;
             LOGGER.error(exMessage);
             throw new DAOException(exMessage, ex);
         }

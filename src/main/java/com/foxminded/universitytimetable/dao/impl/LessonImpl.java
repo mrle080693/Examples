@@ -5,6 +5,7 @@ import com.foxminded.universitytimetable.dao.impl.repositories.LessonRepository;
 import com.foxminded.universitytimetable.models.Lesson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +13,12 @@ import java.util.List;
 @Repository("lessonImplBean")
 public class LessonImpl implements LessonDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(LessonImpl.class);
-    private static LessonRepository lessonRepository;
+    private LessonRepository lessonRepository;
+
+    @Autowired
+    public LessonImpl(LessonRepository lessonRepository) {
+        this.lessonRepository = lessonRepository;
+    }
 
     @Override
     public int add(Lesson lesson) {

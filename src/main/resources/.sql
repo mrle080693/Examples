@@ -1,8 +1,8 @@
 drop database university_timetable;
 
-drop table if exists professors cascade;
-drop table if exists groups cascade;
-drop table if exists lessons cascade;
+drop table if exists professors;
+drop table if exists groups;
+drop table if exists lessons;
 
 create database university_timetable;
 
@@ -29,7 +29,5 @@ create table lessons
   groupId      integer,
   professorId  integer,
   building     char(100),
-  classroom    char(100),
-  foreign key (groupId) references groups (id) on delete cascade,
-  foreign key (professorId) references professors (id) on delete set null
+  classroom    char(100)
 );
