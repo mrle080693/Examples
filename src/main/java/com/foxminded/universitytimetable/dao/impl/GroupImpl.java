@@ -6,6 +6,7 @@ import com.foxminded.universitytimetable.models.Group;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -43,11 +44,8 @@ public class GroupImpl implements GroupDAO {
 
         List<Group> groups = null;
 
-        try {
-            groups = groupRepository.findAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        groups = groupRepository.findAll();
+
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Result is: " + groups);
         }
