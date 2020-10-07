@@ -18,8 +18,12 @@ import java.util.List;
 public class ProfessorController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProfessorController.class);
 
+    private final ProfessorService professorService;
+
     @Autowired
-    private ProfessorService professorService;
+    public ProfessorController(ProfessorService professorService) {
+        this.professorService = professorService;
+    }
 
     @PostMapping("/add")
     public String save(@RequestParam String newName, @RequestParam String newSurname,

@@ -1,9 +1,12 @@
 package com.foxminded.universitytimetable.models;
 
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "professors")
+@Proxy(lazy =false)
 public class Professor {
     @Id
     @Column(name = "id")

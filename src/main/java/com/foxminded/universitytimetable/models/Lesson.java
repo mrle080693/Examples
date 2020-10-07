@@ -1,10 +1,13 @@
 package com.foxminded.universitytimetable.models;
 
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
 @Table(name = "lessons")
+@Proxy(lazy =false)
 public class Lesson {
     @Id
     @Column(name = "id")

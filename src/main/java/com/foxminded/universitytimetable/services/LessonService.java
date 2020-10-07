@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.Calendar;
@@ -32,6 +33,7 @@ public class LessonService {
         this.groupDAO = groupDAO;
     }
 
+    @Transactional
     public int add(Lesson lesson) throws NotFoundEntityException {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to add lesson " + lesson);
@@ -51,8 +53,6 @@ public class LessonService {
 
             lessonIdInTable = lessonDAO.add(lesson);
         } catch (DataAccessException ex) {
-            // ТУТ ПОПРАВЬ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            System.err.println(ex.getStackTrace());
             String exMessage = "Cant add lesson: " + ex;
             LOGGER.error(exMessage);
             throw new DAOException(exMessage, ex);
