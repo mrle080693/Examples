@@ -10,18 +10,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jndi.JndiTemplate;
 
-import javax.naming.NamingException;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan("com.foxminded.universitytimetable")
 @PropertySource("classpath:application.properties")
-public class SpringJDBCConfig {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SpringJDBCConfig.class);
+public class PostgreSqlConfig {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PostgreSqlConfig.class);
 
 
     @Value("${spring.datasource.driver}")
