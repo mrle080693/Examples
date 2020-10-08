@@ -70,4 +70,10 @@ public class Professor {
     public void setPatronymic(String patronymic) {
         this.patronymic = patronymic;
     }
+
+    @Override
+    public String toString() {
+        return " Id = " + id + " name = " + name + " surname = " + surname + " patronymic = " + patronymic
+                + " subject = " + subject;
+    }
 }

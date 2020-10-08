@@ -93,4 +93,10 @@ public class Lesson {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "Id = " + id + " date = " + date + " lesson number = " + lessonNumber + " group id = " + groupId
+                + " professor id = " + professorId + " building = " + building + " classroom = " + classroom;
+    }
 }

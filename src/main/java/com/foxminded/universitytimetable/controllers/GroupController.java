@@ -91,9 +91,9 @@ public class GroupController {
 
     @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
     public ModelAndView getById(@PathVariable("id") int id) {
-        LOGGER.debug("Try get groups.html with group with id = " + id);
 
         ModelAndView modelAndView = new ModelAndView("groups");
+        LOGGER.debug("Try get groups.html with group with id = " + id);
 
         try {
             Group group = groupService.getById(id);
