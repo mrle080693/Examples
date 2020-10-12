@@ -127,16 +127,16 @@ public class GroupService {
 
         try {
             if (name == null) {
-                String exMessage = "Group isn't have name";
+                String exMessage = "Input name is null";
                 ValidationException ex = new ValidationException(exMessage);
-                LOGGER.warn(exMessage);
+                LOGGER.warn("ValidationException \n {}", exMessage);
                 throw ex;
             }
 
             if (name.trim().isEmpty()) {
                 String exMessage = "Group name  is empty";
                 ValidationException ex = new ValidationException(exMessage);
-                LOGGER.warn(exMessage);
+                LOGGER.warn("ValidationException \n {}", exMessage);
                 throw ex;
             }
 
