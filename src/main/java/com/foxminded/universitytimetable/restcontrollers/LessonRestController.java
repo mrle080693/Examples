@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 
 import java.util.List;
 
@@ -35,6 +37,10 @@ public class LessonRestController {
             id = lessonService.add(lesson);
         } catch (ValidationException e) {
             LOGGER.warn(e.getEntityValidationExceptionMessage());
+        } catch (HttpClientErrorException e){
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e){
+            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully add lesson with id = " + id);
@@ -51,6 +57,10 @@ public class LessonRestController {
             lessons = lessonService.getAll();
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getEmptyResultExceptionMessage());
+        } catch (HttpClientErrorException e){
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e){
+            LOGGER.error(e.getMessage());
         }
 
         if (lessons != null) {
@@ -71,6 +81,10 @@ public class LessonRestController {
             lesson = lessonService.getById(id);
         } catch (NotFoundEntityException e) {
             LOGGER.warn("Try to get lesson with not existing id = " + id);
+        } catch (HttpClientErrorException e){
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e){
+            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully got lesson: " + lesson.toString());
@@ -89,6 +103,10 @@ public class LessonRestController {
             LOGGER.warn(e.getEmptyResultExceptionMessage());
         } catch (ValidationException e) {
             LOGGER.warn(e.getEntityValidationExceptionMessage());
+        } catch (HttpClientErrorException e){
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e){
+            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully update lesson: " + lesson.toString());
@@ -105,6 +123,10 @@ public class LessonRestController {
             status = lessonService.remove(lessonId);
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getEmptyResultExceptionMessage());
+        } catch (HttpClientErrorException e){
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e){
+            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully remove lesson with id: " + lessonId);

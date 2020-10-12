@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 
 import java.util.List;
 
@@ -35,6 +37,10 @@ public class ProfessorRestController {
             id = professorService.add(professor);
         } catch (ValidationException e) {
             LOGGER.warn(e.getEntityValidationExceptionMessage());
+        } catch (HttpClientErrorException e){
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e){
+            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully add professor with id = " + id);
@@ -52,6 +58,10 @@ public class ProfessorRestController {
             professors = professorService.getAll();
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getEmptyResultExceptionMessage());
+        } catch (HttpClientErrorException e){
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e){
+            LOGGER.error(e.getMessage());
         }
 
         if (professors != null) {
@@ -72,6 +82,10 @@ public class ProfessorRestController {
             professor = professorService.getById(id);
         } catch (NotFoundEntityException e) {
             LOGGER.warn("Try to get professor with not existing id = " + id);
+        } catch (HttpClientErrorException e){
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e){
+            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully got with professor: " + professor.toString());
@@ -88,6 +102,10 @@ public class ProfessorRestController {
             professors = professorService.getBySurname(surname);
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getEmptyResultExceptionMessage());
+        } catch (HttpClientErrorException e){
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e){
+            LOGGER.error(e.getMessage());
         }
 
         if (professors != null) {
@@ -108,6 +126,10 @@ public class ProfessorRestController {
             status = professorService.update(professor);
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getEmptyResultExceptionMessage());
+        } catch (HttpClientErrorException e){
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e){
+            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully update professor with status:" + status);
@@ -124,6 +146,10 @@ public class ProfessorRestController {
             status = professorService.remove(professorId);
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getEmptyResultExceptionMessage());
+        } catch (HttpClientErrorException e){
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e){
+            LOGGER.error(e.getMessage());
         }
 
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully remove professor with id: " + professorId);

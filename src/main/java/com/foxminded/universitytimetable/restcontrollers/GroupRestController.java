@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -33,6 +35,10 @@ public class GroupRestController {
             id = groupService.add(group);
         } catch (ValidationException e) {
             LOGGER.warn(e.getEntityValidationExceptionMessage());
+        } catch (HttpClientErrorException e){
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e){
+            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully save group " + group.toString());
@@ -50,7 +56,12 @@ public class GroupRestController {
             groups = groupService.getAll();
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getEmptyResultExceptionMessage());
+        } catch (HttpClientErrorException e){
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e){
+            LOGGER.error(e.getMessage());
         }
+
 
         if (groups != null) {
             LOGGER.debug("Successfully got with groups: " + groups.size());
@@ -70,6 +81,10 @@ public class GroupRestController {
             group = groupService.getById(id);
         } catch (NotFoundEntityException e) {
             LOGGER.warn("Try to get group with not existing id = " + id);
+        } catch (HttpClientErrorException e){
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e){
+            LOGGER.error(e.getMessage());
         }
 
         if (group != null) {
@@ -88,6 +103,10 @@ public class GroupRestController {
             groups = groupService.getByName(name);
         } catch (NotFoundEntityException e) {
             LOGGER.warn("No groups with name = " + name);
+        } catch (HttpClientErrorException e){
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e){
+            LOGGER.error(e.getMessage());
         }
 
         return groups;
@@ -102,6 +121,10 @@ public class GroupRestController {
             status = groupService.update(group);
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getEmptyResultExceptionMessage());
+        } catch (HttpClientErrorException e){
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e){
+            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully updated");
@@ -117,6 +140,10 @@ public class GroupRestController {
             groupService.remove(groupId);
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getEmptyResultExceptionMessage());
+        } catch (HttpClientErrorException e){
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e){
+            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully remove group with id: " + groupId);

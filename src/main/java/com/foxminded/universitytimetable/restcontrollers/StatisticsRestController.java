@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 
 import java.sql.Date;
 
@@ -29,8 +31,10 @@ public class StatisticsRestController {
 
         try {
             lessonsQuantity = statisticsService.getGroupEmployment(groupId, from, till);
-        } catch (Exception e) {
+        } catch (HttpClientErrorException e) {
             LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e) {
+            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully got with lessons quantity: " + lessonsQuantity);
@@ -48,8 +52,10 @@ public class StatisticsRestController {
 
         try {
             lessonsQuantity = statisticsService.getProfessorEmployment(professorId, from, till);
-        } catch (Exception e) {
+        } catch (HttpClientErrorException e) {
             LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e) {
+            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully got with lessons quantity: " + lessonsQuantity);

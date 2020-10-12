@@ -1,11 +1,14 @@
 package com.foxminded.universitytimetable.restcontrollers;
 
+import com.foxminded.universitytimetable.exceptions.ValidationException;
 import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.services.TimetableService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -32,9 +35,10 @@ public class TimetableRestController {
 
         try {
             lessons = timetableService.getGroupTimetable(groupId, from, till);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (HttpClientErrorException e) {
             LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e) {
+            LOGGER.error(e.getMessage());
         }
 
         if (lessons.isEmpty()) {
@@ -56,8 +60,14 @@ public class TimetableRestController {
 
         try {
             lessons = timetableService.getProfessorTimetable(professorId, from, till);
-        } catch (Exception e) {
+        } catch (ValidationException e){
             LOGGER.warn(e.getMessage());
+            throw new HttpClientErrorException.BadRequest();
+        }
+        catch (HttpClientErrorException e) {
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e) {
+            LOGGER.error(e.getMessage());
         }
 
         if (lessons.isEmpty()) {
