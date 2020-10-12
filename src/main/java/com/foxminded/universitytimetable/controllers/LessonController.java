@@ -2,7 +2,6 @@ package com.foxminded.universitytimetable.controllers;
 
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.exceptions.ValidationException;
-import com.foxminded.universitytimetable.models.Group;
 import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.services.LessonService;
 import org.slf4j.Logger;
@@ -40,7 +39,7 @@ public class LessonController {
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getEmptyResultExceptionMessage());
         } catch (ValidationException e) {
-            LOGGER.warn(e.getEntityValidationExceptionMessage());
+            LOGGER.warn(e.getValidationExceptionMessage());
         }
 
         LOGGER.debug("Successfully add lesson with id = " + id);
@@ -113,7 +112,7 @@ public class LessonController {
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getEmptyResultExceptionMessage());
         } catch (ValidationException e) {
-            LOGGER.warn(e.getEntityValidationExceptionMessage());
+            LOGGER.warn(e.getValidationExceptionMessage());
         }
 
         LOGGER.debug("Successfully update lesson with id: " + id);

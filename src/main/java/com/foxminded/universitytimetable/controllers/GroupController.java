@@ -36,7 +36,7 @@ public class GroupController {
             Group group = new Group(newName);
             id = groupService.add(group);
         } catch (ValidationException e) {
-            LOGGER.warn(e.getEntityValidationExceptionMessage());
+            LOGGER.warn(e.getValidationExceptionMessage());
         }
 
         LOGGER.debug("Successfully save group with id = " + id);

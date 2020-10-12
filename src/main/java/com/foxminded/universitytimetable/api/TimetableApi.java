@@ -1,4 +1,4 @@
-package com.foxminded.universitytimetable.restcontrollers;
+package com.foxminded.universitytimetable.api;
 
 import com.foxminded.universitytimetable.exceptions.ValidationException;
 import com.foxminded.universitytimetable.models.Lesson;
@@ -6,22 +6,24 @@ import com.foxminded.universitytimetable.services.TimetableService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest_timetable")
-public class TimetableRestController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(StatisticsRestController.class);
+@RequestMapping("/api_timetable")
+public class TimetableApi {
+    private static final Logger LOGGER = LoggerFactory.getLogger(StatisticsApi.class);
     private final TimetableService timetableService;
 
     @Autowired
-    public TimetableRestController(TimetableService timetableService) {
+    public TimetableApi(TimetableService timetableService) {
         this.timetableService = timetableService;
     }
 
@@ -35,6 +37,10 @@ public class TimetableRestController {
 
         try {
             lessons = timetableService.getGroupTimetable(groupId, from, till);
+        } catch (ValidationException e) {
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (HttpClientErrorException e) {
             LOGGER.warn(e.getMessage());
         } catch (HttpServerErrorException e) {
@@ -60,11 +66,11 @@ public class TimetableRestController {
 
         try {
             lessons = timetableService.getProfessorTimetable(professorId, from, till);
-        } catch (ValidationException e){
+        } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-            throw new HttpClientErrorException.BadRequest();
-        }
-        catch (HttpClientErrorException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage());
+        } catch (HttpClientErrorException e) {
             LOGGER.warn(e.getMessage());
         } catch (HttpServerErrorException e) {
             LOGGER.error(e.getMessage());

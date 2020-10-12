@@ -1,4 +1,4 @@
-package com.foxminded.universitytimetable.restcontrollers;
+package com.foxminded.universitytimetable.api;
 
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.exceptions.ValidationException;
@@ -11,18 +11,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest_groups")
-public class GroupRestController {
+@RequestMapping("/api_groups")
+public class GroupApi {
     private final GroupService groupService;
-    private static final Logger LOGGER = LoggerFactory.getLogger(GroupRestController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GroupApi.class);
 
     @Autowired
-    public GroupRestController(GroupService groupService) {
+    public GroupApi(GroupService groupService) {
         this.groupService = groupService;
     }
 
@@ -34,10 +34,12 @@ public class GroupRestController {
         try {
             id = groupService.add(group);
         } catch (ValidationException e) {
-            LOGGER.warn(e.getEntityValidationExceptionMessage());
-        } catch (HttpClientErrorException e){
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage());
+        } catch (HttpClientErrorException e) {
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e) {
             LOGGER.error(e.getMessage());
         }
 
@@ -54,11 +56,17 @@ public class GroupRestController {
 
         try {
             groups = groupService.getAll();
-        } catch (NotFoundEntityException e) {
-            LOGGER.warn(e.getEmptyResultExceptionMessage());
-        } catch (HttpClientErrorException e){
+        } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage());
+        } catch (NotFoundEntityException e) {
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (HttpClientErrorException e) {
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e) {
             LOGGER.error(e.getMessage());
         }
 
@@ -79,11 +87,17 @@ public class GroupRestController {
 
         try {
             group = groupService.getById(id);
-        } catch (NotFoundEntityException e) {
-            LOGGER.warn("Try to get group with not existing id = " + id);
-        } catch (HttpClientErrorException e){
+        } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage());
+        } catch (NotFoundEntityException e) {
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (HttpClientErrorException e) {
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e) {
             LOGGER.error(e.getMessage());
         }
 
@@ -101,11 +115,17 @@ public class GroupRestController {
 
         try {
             groups = groupService.getByName(name);
-        } catch (NotFoundEntityException e) {
-            LOGGER.warn("No groups with name = " + name);
-        } catch (HttpClientErrorException e){
+        } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage());
+        } catch (NotFoundEntityException e) {
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (HttpClientErrorException e) {
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e) {
             LOGGER.error(e.getMessage());
         }
 
@@ -119,11 +139,17 @@ public class GroupRestController {
 
         try {
             status = groupService.update(group);
-        } catch (NotFoundEntityException e) {
-            LOGGER.warn(e.getEmptyResultExceptionMessage());
-        } catch (HttpClientErrorException e){
+        } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage());
+        } catch (NotFoundEntityException e) {
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (HttpClientErrorException e) {
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e) {
             LOGGER.error(e.getMessage());
         }
 
@@ -138,11 +164,17 @@ public class GroupRestController {
 
         try {
             groupService.remove(groupId);
-        } catch (NotFoundEntityException e) {
-            LOGGER.warn(e.getEmptyResultExceptionMessage());
-        } catch (HttpClientErrorException e){
+        } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage());
+        } catch (NotFoundEntityException e) {
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (HttpClientErrorException e) {
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e) {
             LOGGER.error(e.getMessage());
         }
 

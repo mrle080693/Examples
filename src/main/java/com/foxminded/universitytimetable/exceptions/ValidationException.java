@@ -1,17 +1,17 @@
 package com.foxminded.universitytimetable.exceptions;
 
 public class ValidationException extends RuntimeException {
-    private String entityValidationExceptionMessage = null;
+    private String validationExceptionMessage = null;
 
-    public ValidationException(String entityValidationExceptionMessage) {
-        this.entityValidationExceptionMessage = entityValidationExceptionMessage;
+    public ValidationException(String validationExceptionMessage) {
+        this.validationExceptionMessage = validationExceptionMessage;
     }
 
-    public String getEntityValidationExceptionMessage() {
-        return entityValidationExceptionMessage;
+    public String getValidationExceptionMessage() {
+        return validationExceptionMessage;
     }
 
-    public void setEntityValidationExceptionMessage(String entityValidationExceptionMessage) {
-        this.entityValidationExceptionMessage = entityValidationExceptionMessage;
+    public void setValidationExceptionMessage(String validationExceptionMessage) {
+        this.validationExceptionMessage = validationExceptionMessage;
     }
 }

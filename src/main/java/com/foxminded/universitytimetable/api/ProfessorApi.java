@@ -1,4 +1,4 @@
-package com.foxminded.universitytimetable.restcontrollers;
+package com.foxminded.universitytimetable.api;
 
 import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.exceptions.ValidationException;
@@ -7,24 +7,26 @@ import com.foxminded.universitytimetable.services.ProfessorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest_professors")
-public class ProfessorRestController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProfessorRestController.class);
+@RequestMapping("/api_professors")
+public class ProfessorApi {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProfessorApi.class);
 
     private final ProfessorService professorService;
 
     @Autowired
-    public ProfessorRestController(ProfessorService professorService) {
+    public ProfessorApi(ProfessorService professorService) {
         this.professorService = professorService;
     }
 
@@ -36,10 +38,12 @@ public class ProfessorRestController {
         try {
             id = professorService.add(professor);
         } catch (ValidationException e) {
-            LOGGER.warn(e.getEntityValidationExceptionMessage());
-        } catch (HttpClientErrorException e){
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage());
+        } catch (HttpClientErrorException e) {
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e) {
             LOGGER.error(e.getMessage());
         }
 
@@ -56,11 +60,17 @@ public class ProfessorRestController {
 
         try {
             professors = professorService.getAll();
-        } catch (NotFoundEntityException e) {
-            LOGGER.warn(e.getEmptyResultExceptionMessage());
-        } catch (HttpClientErrorException e){
+        } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage());
+        } catch (NotFoundEntityException e) {
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (HttpClientErrorException e) {
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e) {
             LOGGER.error(e.getMessage());
         }
 
@@ -80,11 +90,17 @@ public class ProfessorRestController {
 
         try {
             professor = professorService.getById(id);
-        } catch (NotFoundEntityException e) {
-            LOGGER.warn("Try to get professor with not existing id = " + id);
-        } catch (HttpClientErrorException e){
+        } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage());
+        } catch (NotFoundEntityException e) {
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (HttpClientErrorException e) {
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e) {
             LOGGER.error(e.getMessage());
         }
 
@@ -100,11 +116,17 @@ public class ProfessorRestController {
 
         try {
             professors = professorService.getBySurname(surname);
-        } catch (NotFoundEntityException e) {
-            LOGGER.warn(e.getEmptyResultExceptionMessage());
-        } catch (HttpClientErrorException e){
+        } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage());
+        } catch (NotFoundEntityException e) {
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (HttpClientErrorException e) {
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e) {
             LOGGER.error(e.getMessage());
         }
 
@@ -124,11 +146,17 @@ public class ProfessorRestController {
 
         try {
             status = professorService.update(professor);
-        } catch (NotFoundEntityException e) {
-            LOGGER.warn(e.getEmptyResultExceptionMessage());
-        } catch (HttpClientErrorException e){
+        } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage());
+        } catch (NotFoundEntityException e) {
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (HttpClientErrorException e) {
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e) {
             LOGGER.error(e.getMessage());
         }
 
@@ -145,10 +173,12 @@ public class ProfessorRestController {
         try {
             status = professorService.remove(professorId);
         } catch (NotFoundEntityException e) {
-            LOGGER.warn(e.getEmptyResultExceptionMessage());
-        } catch (HttpClientErrorException e){
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (HttpClientErrorException e) {
+            LOGGER.warn(e.getMessage());
+        } catch (HttpServerErrorException e) {
             LOGGER.error(e.getMessage());
         }
 
