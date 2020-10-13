@@ -1,8 +1,8 @@
 package com.foxminded.universitytimetable.services;
 
-import com.foxminded.universitytimetable.dao.TimetableDAO;
-import com.foxminded.universitytimetable.exceptions.DAOException;
-import com.foxminded.universitytimetable.exceptions.ValidationException;
+import com.foxminded.universitytimetable.database.TimetableDAO;
+import com.foxminded.universitytimetable.services.exceptions.DAOException;
+import com.foxminded.universitytimetable.services.exceptions.ValidationException;
 import com.foxminded.universitytimetable.models.Lesson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

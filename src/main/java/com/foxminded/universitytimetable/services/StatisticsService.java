@@ -1,8 +1,8 @@
 package com.foxminded.universitytimetable.services;
 
-import com.foxminded.universitytimetable.dao.StatisticsDAO;
-import com.foxminded.universitytimetable.exceptions.DAOException;
-import com.foxminded.universitytimetable.exceptions.ValidationException;
+import com.foxminded.universitytimetable.database.StatisticsDAO;
+import com.foxminded.universitytimetable.services.exceptions.DAOException;
+import com.foxminded.universitytimetable.services.exceptions.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

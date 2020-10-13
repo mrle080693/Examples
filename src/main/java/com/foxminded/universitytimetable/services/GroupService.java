@@ -1,9 +1,9 @@
 package com.foxminded.universitytimetable.services;
 
-import com.foxminded.universitytimetable.dao.GroupDAO;
-import com.foxminded.universitytimetable.exceptions.DAOException;
-import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
-import com.foxminded.universitytimetable.exceptions.ValidationException;
+import com.foxminded.universitytimetable.database.GroupDAO;
+import com.foxminded.universitytimetable.services.exceptions.DAOException;
+import com.foxminded.universitytimetable.services.exceptions.NotFoundEntityException;
+import com.foxminded.universitytimetable.services.exceptions.ValidationException;
 import com.foxminded.universitytimetable.models.Group;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +29,17 @@ public class GroupService {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to add group: " + group);
         }
+
+        /*
+        I think validation logic in service is bad idea because main logic have to be readable
+
+    public Group add(Group group) {
+        modelsDbValidator.checkGroup(group);  || group.checkValidationForDb();
+        Group group = groupDao.add(group);
+
+        return group;
+        }
+         */
 
         int groupIdInTable;
 

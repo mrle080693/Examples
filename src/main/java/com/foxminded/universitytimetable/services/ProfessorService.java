@@ -1,14 +1,13 @@
 package com.foxminded.universitytimetable.services;
 
-import com.foxminded.universitytimetable.dao.ProfessorDAO;
-import com.foxminded.universitytimetable.exceptions.DAOException;
-import com.foxminded.universitytimetable.exceptions.ValidationException;
-import com.foxminded.universitytimetable.exceptions.NotFoundEntityException;
+import com.foxminded.universitytimetable.database.ProfessorDAO;
+import com.foxminded.universitytimetable.services.exceptions.DAOException;
+import com.foxminded.universitytimetable.services.exceptions.ValidationException;
+import com.foxminded.universitytimetable.services.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.models.Professor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
