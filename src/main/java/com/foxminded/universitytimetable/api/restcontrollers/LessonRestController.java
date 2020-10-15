@@ -8,14 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -30,7 +28,7 @@ public class LessonRestController {
         this.lessonService = lessonService;
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/post", method = RequestMethod.POST)
     public int add(@RequestParam Lesson lesson) {
         LOGGER.debug("Try to add lesson: " + lesson.toString());
         int id = 0;
@@ -52,10 +50,10 @@ public class LessonRestController {
         return id;
     }
 
-    @RequestMapping("/get_all")
+    @RequestMapping
     public List<Lesson> getAll() {
         LOGGER.debug("Try get all lessons");
-        List<Lesson> lessons = null;
+        List<Lesson> lessons = new ArrayList<>();
 
         try {
             lessons = lessonService.getAll();
@@ -73,19 +71,15 @@ public class LessonRestController {
             LOGGER.error(e.getMessage());
         }
 
-        if (lessons != null) {
-            LOGGER.debug("Successfully got " + lessons.size() + " lessons");
-        } else {
-            LOGGER.debug("Successfully got without lessons");
-        }
+        LOGGER.debug("Successfully got " + lessons.size() + " lessons");
 
         return lessons;
     }
 
-    @RequestMapping("/get_by_id")
-    public Lesson getById(@RequestParam int id) {
+    @RequestMapping("/{id}")
+    public Lesson getById(@PathVariable int id) {
         LOGGER.debug("Try get lesson with id = " + id);
-        Lesson lesson = null;
+        Lesson lesson = new Lesson();
 
         try {
             lesson = lessonService.getById(id);
@@ -108,7 +102,7 @@ public class LessonRestController {
         return lesson;
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/put", method = RequestMethod.PUT)
     public int update(@RequestParam Lesson lesson) {
         LOGGER.debug("Try to update lesson: " + lesson.toString());
         int status = 0;

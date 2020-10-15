@@ -3,14 +3,17 @@ package com.foxminded.universitytimetable.api.controllers;
 import com.foxminded.universitytimetable.services.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.models.Professor;
 import com.foxminded.universitytimetable.services.ProfessorService;
+import com.foxminded.universitytimetable.services.exceptions.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,10 +33,18 @@ public class ProfessorController {
                        @RequestParam String newPatronymic, @RequestParam String newSubject) {
         LOGGER.debug("Try to add professor with: " + " name = " + newName);
 
-        Professor professor = new Professor(newName, newSurname, newPatronymic, newSubject);
-        int id = professorService.add(professor);
+        Professor professor;
 
-        LOGGER.debug("Successfully add professor with id = " + id);
+        try {
+            professor = new Professor(newName, newSurname, newPatronymic, newSubject);
+            professorService.add(professor);
+        } catch (ValidationException e) {
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+
+        LOGGER.debug("Successfully add professor with id = " + professor.toString());
 
         return "redirect:/professors";
     }
@@ -43,7 +54,7 @@ public class ProfessorController {
         LOGGER.debug("Try get professors.html with all professors");
 
         ModelAndView modelAndView = new ModelAndView("professors");
-        List<Professor> professors = null;
+        List<Professor> professors = new ArrayList<>();
 
         try {
             professors = professorService.getAll();
@@ -51,40 +62,15 @@ public class ProfessorController {
 
             LOGGER.debug("professors.html successfully got with professors: " + professors.size());
         } catch (NotFoundEntityException e) {
-            LOGGER.warn(e.getEmptyResultExceptionMessage());
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
         }
 
-        if (professors != null) {
-            LOGGER.debug("groups.html successfully got with professors: " + professors.size());
-        } else {
-            LOGGER.debug("groups.html successfully got without professors");
-        }
+        LOGGER.debug("Successfully got with groups quantity: " + professors.size());
 
         return modelAndView;
     }
-
-    @GetMapping("/get_all")
-    @ResponseBody
-    public List<Professor> getAll() {
-        LOGGER.debug("Try get all professors");
-
-        List<Professor> professors = null;
-
-        try {
-            professors = professorService.getAll();
-        } catch (NotFoundEntityException e) {
-            LOGGER.warn(e.getEmptyResultExceptionMessage());
-        }
-
-        if (professors != null) {
-            LOGGER.debug("Successfully got with professors: " + professors.size());
-        } else {
-            LOGGER.debug("Successfully got without professors");
-        }
-
-        return professors;
-    }
-
 
     @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
     public ModelAndView getById(@PathVariable("id") int id) {
@@ -100,8 +86,9 @@ public class ProfessorController {
             modelAndView.addObject("patronymic", professor.getPatronymic());
             modelAndView.addObject("subject", professor.getSubject());
         } catch (NotFoundEntityException e) {
-            modelAndView.setStatus(HttpStatus.BAD_REQUEST);
-            LOGGER.warn("Try to get professor with not existing id = " + id);
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
         }
 
         LOGGER.debug("professors.html successfully got with professor with id = : " + id);
@@ -121,7 +108,9 @@ public class ProfessorController {
 
             professorService.update(professor);
         } catch (NotFoundEntityException e) {
-            LOGGER.warn(e.getEmptyResultExceptionMessage());
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
         }
 
         LOGGER.debug("Successfully update professor with new name: " + newName);
@@ -136,7 +125,9 @@ public class ProfessorController {
         try {
             professorService.remove(id);
         } catch (NotFoundEntityException e) {
-            LOGGER.warn(e.getEmptyResultExceptionMessage());
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
         }
 
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully remove professor with id: " + id);

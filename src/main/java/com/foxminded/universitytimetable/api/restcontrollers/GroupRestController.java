@@ -13,6 +13,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -26,7 +27,7 @@ public class GroupRestController {
         this.groupService = groupService;
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/post", method = RequestMethod.POST)
     public int add(@RequestParam Group group) {
         LOGGER.debug("Try save group: " + group.toString());
         int id = 0;
@@ -48,11 +49,11 @@ public class GroupRestController {
         return id;
     }
 
-    @RequestMapping("/get_all")
+    @RequestMapping
     public List<Group> getAll() {
         LOGGER.debug("Try get all groups");
 
-        List<Group> groups = null;
+        List<Group> groups = new ArrayList<>();
 
         try {
             groups = groupService.getAll();
@@ -70,20 +71,15 @@ public class GroupRestController {
             LOGGER.error(e.getMessage());
         }
 
-
-        if (groups != null) {
-            LOGGER.debug("Successfully got with groups: " + groups.size());
-        } else {
-            LOGGER.debug("Successfully got without groups");
-        }
+        LOGGER.debug("Successfully got with groups: " + groups.size());
 
         return groups;
     }
 
-    @RequestMapping("/get_by_id")
-    public Group getById(@RequestParam int id) {
+    @RequestMapping("/{id}")
+    public Group getById(@PathVariable int id) {
         LOGGER.debug("Try get group with id = " + id);
-        Group group = null;
+        Group group = new Group();
 
         try {
             group = groupService.getById(id);
@@ -101,17 +97,15 @@ public class GroupRestController {
             LOGGER.error(e.getMessage());
         }
 
-        if (group != null) {
-            LOGGER.debug("Successfully got group: " + group.toString());
-        }
+        LOGGER.debug("Successfully got group: " + group.toString());
 
         return group;
     }
 
-    @RequestMapping("/get_by_name")
-    public List<Group> getByName(@RequestParam String name) {
+    @RequestMapping("/{name}")
+    public List<Group> getByName(@PathVariable String name) {
         LOGGER.debug("Try to get groups with name = " + name);
-        List<Group> groups = null;
+        List<Group> groups = new ArrayList<>();
 
         try {
             groups = groupService.getByName(name);
@@ -129,10 +123,12 @@ public class GroupRestController {
             LOGGER.error(e.getMessage());
         }
 
+        LOGGER.debug("Successfully got with groups quantity: " + groups.size());
+
         return groups;
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/put", method = RequestMethod.PUT)
     public int update(@RequestParam Group group) {
         LOGGER.debug("Try to update group" + group.toString());
         int status = 0;

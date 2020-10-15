@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
@@ -37,9 +38,13 @@ public class LessonController {
             Lesson lesson = new Lesson(date, lessonNumber, groupId, professorId, building, classroom);
             id = lessonService.add(lesson);
         } catch (NotFoundEntityException e) {
-            LOGGER.warn(e.getEmptyResultExceptionMessage());
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
         } catch (ValidationException e) {
-            LOGGER.warn(e.getValidationExceptionMessage());
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage());
         }
 
         LOGGER.debug("Successfully add lesson with id = " + id);
@@ -58,14 +63,12 @@ public class LessonController {
             lessons = lessonService.getAll();
             modelAndView.addObject("lessons", lessons);
         } catch (NotFoundEntityException e) {
-            LOGGER.warn(e.getEmptyResultExceptionMessage());
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
         }
 
-        if (lessons != null) {
-            LOGGER.debug("lessons.html successfully got with lessons: " + lessons.size());
-        } else {
-            LOGGER.debug("lessons.html successfully got without lessons");
-        }
+        LOGGER.debug("Successfully got with lessons quantity: " + lessons.size());
 
         return modelAndView;
     }
@@ -86,8 +89,9 @@ public class LessonController {
             modelAndView.addObject("building", lesson.getBuilding());
             modelAndView.addObject("classroom", lesson.getClassroom());
         } catch (NotFoundEntityException e) {
-            modelAndView.setStatus(HttpStatus.BAD_REQUEST);
-            LOGGER.warn("Try to get lesson with not existing id = " + id);
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
         }
 
         LOGGER.debug("lessons.html successfully got with lesson with id = : " + id);
@@ -110,9 +114,13 @@ public class LessonController {
 
             lessonService.update(lesson);
         } catch (NotFoundEntityException e) {
-            LOGGER.warn(e.getEmptyResultExceptionMessage());
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
         } catch (ValidationException e) {
-            LOGGER.warn(e.getValidationExceptionMessage());
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage());
         }
 
         LOGGER.debug("Successfully update lesson with id: " + id);
@@ -127,7 +135,9 @@ public class LessonController {
         try {
             lessonService.remove(id);
         } catch (NotFoundEntityException e) {
-            LOGGER.warn(e.getEmptyResultExceptionMessage());
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
         }
 
         LOGGER.debug("Successfully remove lesson with id: " + id);

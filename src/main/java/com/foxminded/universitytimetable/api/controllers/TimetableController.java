@@ -2,14 +2,17 @@ package com.foxminded.universitytimetable.api.controllers;
 
 import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.services.TimetableService;
+import com.foxminded.universitytimetable.services.exceptions.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -41,16 +44,13 @@ public class TimetableController {
 
         try {
             lessons = timetableService.getGroupTimetable(groupId, from, till);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage());
         }
 
-        if (lessons.isEmpty()) {
-            LOGGER.debug("Group have not lessons");
-        } else {
-            LOGGER.debug("Successfully got group timetable with " + lessons.size() + " lessons");
-        }
+        LOGGER.debug("Successfully got group timetable with " + lessons.size() + " lessons");
 
         return lessons;
     }
@@ -66,15 +66,13 @@ public class TimetableController {
 
         try {
             lessons = timetableService.getProfessorTimetable(professorId, from, till);
-        } catch (Exception e) {
+        } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage());
         }
 
-        if (lessons.isEmpty()) {
-            LOGGER.debug("Professor have not lessons");
-        } else {
-            LOGGER.debug("Successfully got professor timetable with " + lessons.size() + " lessons");
-        }
+        LOGGER.debug("Successfully got professor timetable with " + lessons.size() + " lessons");
 
         return lessons;
     }

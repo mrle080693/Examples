@@ -8,14 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -30,7 +28,7 @@ public class ProfessorRestController {
         this.professorService = professorService;
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/post", method = RequestMethod.POST)
     public int add(@RequestParam Professor professor) {
         LOGGER.debug("Try to add professor: " + professor.toString());
         int id = 0;
@@ -52,11 +50,11 @@ public class ProfessorRestController {
         return id;
     }
 
-    @RequestMapping("/get_all")
+    @RequestMapping
     public List<Professor> getAll() {
         LOGGER.debug("Try to get all professors");
 
-        List<Professor> professors = null;
+        List<Professor> professors = new ArrayList<>();
 
         try {
             professors = professorService.getAll();
@@ -74,19 +72,15 @@ public class ProfessorRestController {
             LOGGER.error(e.getMessage());
         }
 
-        if (professors != null) {
-            LOGGER.debug("Successfully got with professors: " + professors.size());
-        } else {
-            LOGGER.debug("Successfully got without professors");
-        }
+        LOGGER.debug("Successfully got with professors: " + professors.size());
 
         return professors;
     }
 
-    @RequestMapping("/get_by_id")
-    public Professor getById(@RequestParam int id) {
+    @RequestMapping("/{id}")
+    public Professor getById(@PathVariable int id) {
         LOGGER.debug("Try to get professor with id = " + id);
-        Professor professor = null;
+        Professor professor = new Professor();
 
         try {
             professor = professorService.getById(id);
@@ -109,10 +103,10 @@ public class ProfessorRestController {
         return professor;
     }
 
-    @RequestMapping("/get_by_surname")
-    public List<Professor> getBySurname(@RequestParam String surname) {
+    @RequestMapping("/{surname}")
+    public List<Professor> getBySurname(@PathVariable String surname) {
         LOGGER.debug("Try to get all professors with surname = " + surname);
-        List<Professor> professors = null;
+        List<Professor> professors = new ArrayList<>();
 
         try {
             professors = professorService.getBySurname(surname);
@@ -130,16 +124,12 @@ public class ProfessorRestController {
             LOGGER.error(e.getMessage());
         }
 
-        if (professors != null) {
-            LOGGER.debug("Successfully got with professors: " + professors.size());
-        }
-
-        LOGGER.debug("Successfully got without professors");
+        LOGGER.debug("Successfully got with professors: " + professors.size());
 
         return professors;
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/put", method = RequestMethod.PUT)
     public int update(@RequestParam Professor professor) {
         LOGGER.debug("Try to update professor: " + professor.toString());
         int status = 0;

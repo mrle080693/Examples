@@ -11,8 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -36,7 +38,9 @@ public class GroupController {
             Group group = new Group(newName);
             id = groupService.add(group);
         } catch (ValidationException e) {
-            LOGGER.warn(e.getValidationExceptionMessage());
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage());
         }
 
         LOGGER.debug("Successfully save group with id = " + id);
@@ -49,44 +53,20 @@ public class GroupController {
         LOGGER.debug("Try get groups.html with all groups");
 
         ModelAndView modelAndView = new ModelAndView("groups");
-        List<Group> groups = null;
+        List<Group> groups = new ArrayList<>();
 
         try {
             groups = groupService.getAll();
             modelAndView.addObject("groups", groups);
         } catch (NotFoundEntityException e) {
-            LOGGER.warn(e.getEmptyResultExceptionMessage());
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
         }
 
-        if (groups != null) {
-            LOGGER.debug("groups.html successfully got with groups: " + groups.size());
-        } else {
-            LOGGER.debug("groups.html successfully got without groups");
-        }
+        LOGGER.debug("Successfully got with groups quantity: " + groups.size());
 
         return modelAndView;
-    }
-
-    @GetMapping("/get_all")
-    @ResponseBody
-    public List<Group> getAll() {
-        LOGGER.debug("Try get all groups");
-
-        List<Group> groups = null;
-
-        try {
-            groups = groupService.getAll();
-        } catch (NotFoundEntityException e) {
-            LOGGER.warn(e.getEmptyResultExceptionMessage());
-        }
-
-        if (groups != null) {
-            LOGGER.debug("Successfully got with groups: " + groups.size());
-        } else {
-            LOGGER.debug("Successfully got without groups");
-        }
-
-        return groups;
     }
 
     @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
@@ -100,8 +80,9 @@ public class GroupController {
             modelAndView.addObject("id", group.getId());
             modelAndView.addObject("name", group.getName());
         } catch (NotFoundEntityException e) {
-            modelAndView.setStatus(HttpStatus.BAD_REQUEST);
-            LOGGER.warn("Try to get group with not existing id = " + id);
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
         }
 
         LOGGER.debug("groups.html successfully got with group with id = : " + id);
@@ -118,7 +99,9 @@ public class GroupController {
 
             groupService.update(group);
         } catch (NotFoundEntityException e) {
-            LOGGER.warn(e.getEmptyResultExceptionMessage());
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
         }
 
         LOGGER.debug("Successfully update group with new name: " + newName);
@@ -133,7 +116,9 @@ public class GroupController {
         try {
             groupService.remove(id);
         } catch (NotFoundEntityException e) {
-            LOGGER.warn(e.getEmptyResultExceptionMessage());
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage());
         }
 
         LOGGER.debug("Successfully remove group with id: " + id);

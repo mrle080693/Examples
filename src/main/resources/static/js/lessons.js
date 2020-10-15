@@ -2,7 +2,7 @@
 $(document).ready(function () {
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:8080/groups/get_all',
+        url: 'http://localhost:8080/rest/groups',
 
         success: function (data) {
             var groups = data
@@ -24,7 +24,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:8080/professors/get_all',
+        url: 'http://localhost:8080/rest/professors',
 
         success: function (data) {
             var professors = data

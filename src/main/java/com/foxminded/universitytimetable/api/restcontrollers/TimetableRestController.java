@@ -27,7 +27,7 @@ public class TimetableRestController {
         this.timetableService = timetableService;
     }
 
-    @RequestMapping("/get_group_timetable")
+    @RequestMapping("/group_timetable")
     public List<Lesson> getGroupEmployment(@RequestParam int groupId,
                                            @RequestParam("from") Date from,
                                            @RequestParam("till") Date till) {
@@ -47,16 +47,12 @@ public class TimetableRestController {
             LOGGER.error(e.getMessage());
         }
 
-        if (lessons.isEmpty()) {
-            LOGGER.debug("Group have not lessons");
-        } else {
-            LOGGER.debug("Successfully got group timetable with " + lessons.size() + " lessons");
-        }
+        LOGGER.debug("Successfully got group timetable with " + lessons.size() + " lessons");
 
         return lessons;
     }
 
-    @RequestMapping("/get_professor_timetable")
+    @RequestMapping("/professor_timetable")
     public List<Lesson> getProfessorEmployment(@RequestParam int professorId,
                                                @RequestParam("from") Date from,
                                                @RequestParam("till") Date till) {
@@ -76,11 +72,7 @@ public class TimetableRestController {
             LOGGER.error(e.getMessage());
         }
 
-        if (lessons.isEmpty()) {
-            LOGGER.debug("Professor have not lessons");
-        } else {
-            LOGGER.debug("Successfully got professor timetable with " + lessons.size() + " lessons");
-        }
+        LOGGER.debug("Successfully got professor timetable with " + lessons.size() + " lessons");
 
         return lessons;
     }
