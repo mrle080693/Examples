@@ -38,10 +38,8 @@ public class LessonRestController {
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully add lesson with id = " + returnedLesson);
@@ -62,10 +60,8 @@ public class LessonRestController {
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully got " + lessons.size() + " lessons");
@@ -86,10 +82,8 @@ public class LessonRestController {
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully got lesson: " + lesson);
@@ -110,10 +104,8 @@ public class LessonRestController {
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully update lesson: " + lesson);
@@ -134,10 +126,8 @@ public class LessonRestController {
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully remove lesson with id: " + lessonId);

@@ -40,10 +40,8 @@ public class TimetableRestController {
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully got group timetable with " + lessons.size() + " lessons");
@@ -64,10 +62,8 @@ public class TimetableRestController {
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully got professor timetable with " + lessons.size() + " lessons");

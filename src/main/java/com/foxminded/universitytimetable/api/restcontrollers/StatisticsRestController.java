@@ -37,10 +37,8 @@ public class StatisticsRestController {
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully got with lessons quantity: " + lessonsQuantity);
@@ -61,10 +59,8 @@ public class StatisticsRestController {
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully got with lessons quantity: " + lessonsQuantity);

@@ -38,10 +38,8 @@ public class ProfessorRestController {
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully add professor: " + returnedProfessor);
@@ -63,10 +61,8 @@ public class ProfessorRestController {
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully got with professors: " + professors.size());
@@ -87,10 +83,8 @@ public class ProfessorRestController {
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully got with professor: " + professor);
@@ -111,10 +105,8 @@ public class ProfessorRestController {
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully got with professors: " + professors.size());
@@ -135,10 +127,8 @@ public class ProfessorRestController {
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully update professor with status:" + returnedProfessor);
@@ -156,10 +146,8 @@ public class ProfessorRestController {
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully remove professor with id: " + professorId);

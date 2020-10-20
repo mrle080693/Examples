@@ -37,10 +37,9 @@ public class GroupRestController {
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        } catch (HttpClientErrorException e) {
+            // For logging troubles we dont know
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully save group " + returnedGroup);
@@ -62,10 +61,8 @@ public class GroupRestController {
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully got with groups: " + groups.size());
@@ -86,10 +83,8 @@ public class GroupRestController {
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully got group: " + group);
@@ -110,10 +105,8 @@ public class GroupRestController {
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully got with groups quantity: " + groups.size());
@@ -134,10 +127,8 @@ public class GroupRestController {
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully updated");
@@ -158,10 +149,8 @@ public class GroupRestController {
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn(e.getMessage());
-        } catch (HttpServerErrorException e) {
-            LOGGER.error(e.getMessage());
         }
 
         LOGGER.debug("Successfully remove group with id: " + groupId);
