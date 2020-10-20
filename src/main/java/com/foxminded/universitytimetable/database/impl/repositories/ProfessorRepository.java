@@ -18,5 +18,5 @@ public interface ProfessorRepository extends JpaRepository<Professor, Integer> {
     @Transactional
     @Modifying
     @Query(JPQLQueries.DELETE_PROFESSOR)
-    int remove(int id);
+    Professor remove(int id);
 }

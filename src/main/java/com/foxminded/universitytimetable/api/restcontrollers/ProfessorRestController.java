@@ -29,12 +29,12 @@ public class ProfessorRestController {
     }
 
     @RequestMapping(value = "/post", method = RequestMethod.POST)
-    public int add(@RequestParam Professor professor) {
+    public Professor add(@RequestParam Professor professor) {
         LOGGER.debug("Try to add professor: " + professor);
-        int id = 0;
+        Professor returnedProfessor = new Professor();
 
         try {
-            id = professorService.add(professor);
+            returnedProfessor = professorService.add(professor);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(
@@ -45,9 +45,9 @@ public class ProfessorRestController {
             LOGGER.error(e.getMessage());
         }
 
-        LOGGER.debug("Successfully add professor with id = " + id);
+        LOGGER.debug("Successfully add professor: " + returnedProfessor);
 
-        return id;
+        return returnedProfessor;
     }
 
     @RequestMapping
@@ -130,12 +130,12 @@ public class ProfessorRestController {
     }
 
     @RequestMapping(value = "/put", method = RequestMethod.PUT)
-    public int update(@RequestParam Professor professor) {
+    public Professor update(@RequestParam Professor professor) {
         LOGGER.debug("Try to update professor: " + professor);
-        int status = 0;
+        Professor returnedProfessor = new Professor();
 
         try {
-            status = professorService.update(professor);
+            returnedProfessor = professorService.update(professor);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(
@@ -150,18 +150,18 @@ public class ProfessorRestController {
             LOGGER.error(e.getMessage());
         }
 
-        LOGGER.debug("Successfully update professor with status:" + status);
+        LOGGER.debug("Successfully update professor with status:" + returnedProfessor);
 
-        return status;
+        return returnedProfessor;
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public int remove(@RequestParam int professorId) {
+    public Professor remove(@RequestParam int professorId) {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to remove professor with id = " + professorId);
-        int status = 0;
+        Professor returnedProfessor = new Professor();
 
         try {
-            status = professorService.remove(professorId);
+            returnedProfessor = professorService.remove(professorId);
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(
@@ -174,6 +174,6 @@ public class ProfessorRestController {
 
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully remove professor with id: " + professorId);
 
-        return status;
+        return returnedProfessor;
     }
 }

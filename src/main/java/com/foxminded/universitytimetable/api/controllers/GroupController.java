@@ -32,18 +32,18 @@ public class GroupController {
     @PostMapping("/add")
     public String add(@RequestParam String newName) {
         LOGGER.debug("Try save group with: " + " name = " + newName);
-        int id = 0;
+        Group returnedGroup;
 
         try {
             Group group = new Group(newName);
-            id = groupService.add(group);
+            returnedGroup = groupService.add(group);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, e.getMessage());
         }
 
-        LOGGER.debug("Successfully save group with id = " + id);
+        LOGGER.debug("Successfully save group with id = " + returnedGroup);
 
         return "redirect:/groups";
     }

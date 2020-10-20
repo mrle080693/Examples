@@ -21,18 +21,18 @@ public class ProfessorImpl implements ProfessorDAO {
     }
 
     @Override
-    public int add(Professor professor) {
+    public Professor add(Professor professor) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to add professor: " + professor);
         }
 
-        int id = professorRepository.save(professor).getId();
+        Professor returnedProfessor = professorRepository.save(professor);
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successfully add professor with id = " + id);
+            LOGGER.debug("Successfully add professor with id = " + returnedProfessor);
         }
 
-        return id;
+        return returnedProfessor;
     }
 
     @Override
@@ -81,27 +81,27 @@ public class ProfessorImpl implements ProfessorDAO {
     }
 
     @Override
-    public int update(Professor professor) {
+    public Professor update(Professor professor) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to update professor: " + professor);
         }
 
-        int id = professorRepository.save(professor).getId();
+        Professor returnedProfessor = professorRepository.save(professor);
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successfully update professor with id = " + id);
+            LOGGER.debug("Successfully update professor with id = " + returnedProfessor);
         }
 
-        return id;
+        return returnedProfessor;
     }
 
     @Override
-    public int remove(int professorId) {
+    public Professor remove(int professorId) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to remove professor with id = " + professorId);
         }
 
-        int status = professorRepository.remove(professorId);
+        Professor status = professorRepository.remove(professorId);
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Successfully remove professor with id: " + professorId);

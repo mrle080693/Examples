@@ -5,13 +5,13 @@ import com.foxminded.universitytimetable.models.Lesson;
 import java.util.List;
 
 public interface LessonDAO {
-    int add(Lesson lesson);
+    Lesson add(Lesson lesson);
 
     List<Lesson> getAll();
 
     Lesson getById(int id);
 
-    int update(Lesson lesson);
+    Lesson update(Lesson lesson);
 
     int remove(int lessonId);
 }

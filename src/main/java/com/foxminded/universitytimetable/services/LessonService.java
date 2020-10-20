@@ -34,12 +34,12 @@ public class LessonService {
     }
 
     @Transactional
-    public int add(Lesson lesson) throws NotFoundEntityException {
+    public Lesson add(Lesson lesson) throws NotFoundEntityException {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to add lesson " + lesson);
         }
 
-        int lessonIdInTable;
+        Lesson returnedLesson;
 
         try {
             checkLesson(lesson);
@@ -51,7 +51,7 @@ public class LessonService {
                 throw ex;
             }
 
-            lessonIdInTable = lessonDAO.add(lesson);
+            returnedLesson = lessonDAO.add(lesson);
         } catch (DataAccessException ex) {
             String exMessage = "Cant add lesson: " + ex;
             LOGGER.error(exMessage);
@@ -62,7 +62,7 @@ public class LessonService {
             LOGGER.debug("Successfully add lesson: " + lesson);
         }
 
-        return lessonIdInTable;
+        return returnedLesson;
     }
 
     public List<Lesson> getAll() {
@@ -127,12 +127,12 @@ public class LessonService {
         return lesson;
     }
 
-    public int update(Lesson lesson) {
+    public Lesson update(Lesson lesson) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to update lesson: " + lesson);
         }
 
-        int status;
+        Lesson returnedLesson;
 
         try {
             checkLesson(lesson);
@@ -144,9 +144,9 @@ public class LessonService {
                 throw ex;
             }
 
-            status = lessonDAO.update(lesson);
+            returnedLesson = lessonDAO.update(lesson);
 
-            if (status != 1) {
+            if (returnedLesson.getId() != 1) {
                 String exMessage = "Lesson with input id doesnt exist. Id is: " + lesson.getId();
                 NotFoundEntityException ex = new NotFoundEntityException(exMessage);
                 LOGGER.warn(exMessage);
@@ -164,7 +164,7 @@ public class LessonService {
             LOGGER.debug("Successfully update lesson: " + lesson);
         }
 
-        return status;
+        return returnedLesson;
     }
 
     public int remove(int lessonId) {

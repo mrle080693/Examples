@@ -29,12 +29,12 @@ public class LessonRestController {
     }
 
     @RequestMapping(value = "/post", method = RequestMethod.POST)
-    public int add(@RequestParam Lesson lesson) {
+    public Lesson add(@RequestParam Lesson lesson) {
         LOGGER.debug("Try to add lesson: " + lesson);
-        int id = 0;
+        Lesson returnedLesson = new Lesson();
 
         try {
-            id = lessonService.add(lesson);
+            returnedLesson = lessonService.add(lesson);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(
@@ -45,9 +45,9 @@ public class LessonRestController {
             LOGGER.error(e.getMessage());
         }
 
-        LOGGER.debug("Successfully add lesson with id = " + id);
+        LOGGER.debug("Successfully add lesson with id = " + returnedLesson);
 
-        return id;
+        return returnedLesson;
     }
 
     @RequestMapping
@@ -103,12 +103,12 @@ public class LessonRestController {
     }
 
     @RequestMapping(value = "/put", method = RequestMethod.PUT)
-    public int update(@RequestParam Lesson lesson) {
+    public Lesson update(@RequestParam Lesson lesson) {
         LOGGER.debug("Try to update lesson: " + lesson);
-        int status = 0;
+        Lesson returnedLesson = new Lesson();
 
         try {
-            status = lessonService.update(lesson);
+            returnedLesson = lessonService.update(lesson);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(
@@ -125,7 +125,7 @@ public class LessonRestController {
 
         LOGGER.debug("Successfully update lesson: " + lesson);
 
-        return status;
+        return returnedLesson;
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)

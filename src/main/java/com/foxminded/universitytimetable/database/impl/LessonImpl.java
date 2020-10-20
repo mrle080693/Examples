@@ -21,18 +21,18 @@ public class LessonImpl implements LessonDAO {
     }
 
     @Override
-    public int add(Lesson lesson) {
+    public Lesson add(Lesson lesson) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to add lesson " + lesson);
         }
 
-        int id = lessonRepository.save(lesson).getId();
+        Lesson returnedLesson = lessonRepository.save(lesson);
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successfully add lesson with id = " + id);
+            LOGGER.debug("Successfully add lesson with id = " + returnedLesson);
         }
 
-        return id;
+        return returnedLesson;
     }
 
     @Override
@@ -66,18 +66,18 @@ public class LessonImpl implements LessonDAO {
     }
 
     @Override
-    public int update(Lesson lesson) {
+    public Lesson update(Lesson lesson) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to update lesson: " + lesson);
         }
 
-        int id = lessonRepository.save(lesson).getId();
+        Lesson returnedLesson = lessonRepository.save(lesson);
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successfully update lesson with status = " + id);
+            LOGGER.debug("Successfully update lesson with status = " + returnedLesson);
         }
 
-        return id;
+        return returnedLesson;
     }
 
     @Override

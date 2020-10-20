@@ -21,18 +21,18 @@ public class GroupImpl implements GroupDAO {
     }
 
     @Override
-    public int add(Group group) {
+    public Group add(Group group) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to add group: " + group);
         }
 
-        int id = groupRepository.save(group).getId();
+        Group returnedGroup = groupRepository.save(group);
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successfully add group with id = " + id);
+            LOGGER.debug("Successfully add group: " + returnedGroup);
         }
 
-        return id;
+        return returnedGroup;
     }
 
     @Override
@@ -83,18 +83,18 @@ public class GroupImpl implements GroupDAO {
     }
 
     @Override
-    public int update(Group group) {
+    public Group update(Group group) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to update group: " + group);
         }
 
-        int id = groupRepository.save(group).getId();
+        Group returnedGroup = groupRepository.save(group);
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successfully update group with id = " + id);
+            LOGGER.debug("Successfully update group with id = " + returnedGroup);
         }
 
-        return id;
+        return returnedGroup;
     }
 
     @Override

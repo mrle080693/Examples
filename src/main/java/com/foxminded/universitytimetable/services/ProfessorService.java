@@ -24,12 +24,12 @@ public class ProfessorService {
         this.professorDAO = professorDAO;
     }
 
-    public int add(Professor professor) {
+    public Professor add(Professor professor) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to add professor: " + professor);
         }
 
-        int professorIdInTable;
+        Professor returnedProfessor;
 
         try {
             checkProfessor(professor);
@@ -41,7 +41,7 @@ public class ProfessorService {
                 throw ex;
             }
 
-            professorIdInTable = professorDAO.add(professor);
+            returnedProfessor = professorDAO.add(professor);
         } catch (DataAccessException ex) {
             String exMessage = "Cant add professor: " + professor;
             LOGGER.error(exMessage);
@@ -52,7 +52,7 @@ public class ProfessorService {
             LOGGER.debug("Successfully add professor: " + professor);
         }
 
-        return professorIdInTable;
+        return returnedProfessor;
     }
 
     public List<Professor> getAll() {
@@ -157,12 +157,12 @@ public class ProfessorService {
         return professors;
     }
 
-    public int update(Professor professor) {
+    public Professor update(Professor professor) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to update professor: " + professor);
         }
 
-        int status;
+        Professor returnedProfessor;
 
         try {
             checkProfessor(professor);
@@ -174,9 +174,9 @@ public class ProfessorService {
                 throw ex;
             }
 
-            status = professorDAO.update(professor);
+            returnedProfessor = professorDAO.update(professor);
 
-            if (status != 1) {
+            if (returnedProfessor.getId() != 1) {
                 String exMessage = "Professor with input id doesnt exist. " + professor;
                 NotFoundEntityException ex = new NotFoundEntityException(exMessage);
                 LOGGER.warn(exMessage);
@@ -194,20 +194,20 @@ public class ProfessorService {
             LOGGER.debug("Successfully update professor: " + professor);
         }
 
-        return status;
+        return returnedProfessor;
     }
 
-    public int remove(int professorId) {
+    public Professor remove(int professorId) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to remove professor with id = " + professorId);
         }
 
-        int status;
+        Professor returnedProfessor;
 
         try {
-            status = professorDAO.remove(professorId);
+            returnedProfessor = professorDAO.remove(professorId);
 
-            if (status != 1) {
+            if (returnedProfessor.getId() != 1) {
                 String exMessage = "Professor with input id: " + professorId + " does not exist";
                 NotFoundEntityException ex = new NotFoundEntityException(exMessage);
                 LOGGER.warn(exMessage);
@@ -225,7 +225,7 @@ public class ProfessorService {
             LOGGER.debug("Successfully remove professor with id: " + professorId);
         }
 
-        return status;
+        return returnedProfessor;
     }
 
     private void checkProfessor(Professor professor) {

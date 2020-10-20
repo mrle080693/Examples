@@ -74,7 +74,7 @@ class GroupServiceTest {
         when(groupImpl.add(group)).thenReturn(1);
 
         int expected = 1;
-        int actual = groupService.add(group);
+        Group actual = groupService.add(group);
 
         assertEquals(expected, actual);
     }
@@ -238,7 +238,7 @@ class GroupServiceTest {
         when(groupImpl.update(group)).thenReturn(1);
 
         int expected = 1;
-        int actual = groupService.update(group);
+        Group actual = groupService.update(group);
 
         assertEquals(expected, actual);
     }

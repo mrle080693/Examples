@@ -44,7 +44,7 @@ public class ProfessorController {
                     HttpStatus.BAD_REQUEST, e.getMessage());
         }
 
-        LOGGER.debug("Successfully add professor with id = " + professor.toString());
+        LOGGER.debug("Successfully add professor with id = " + professor);
 
         return "redirect:/professors";
     }

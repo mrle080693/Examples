@@ -25,7 +25,7 @@ public class GroupService {
         this.groupDAO = groupDAO;
     }
 
-    public int add(Group group) {
+    public Group add(Group group) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to add group: " + group);
         }
@@ -41,7 +41,7 @@ public class GroupService {
         }
          */
 
-        int groupIdInTable;
+        Group returnedGroup;
 
         try {
             checkGroup(group);
@@ -53,7 +53,7 @@ public class GroupService {
                 throw ex;
             }
 
-            groupIdInTable = groupDAO.add(group);
+            returnedGroup = groupDAO.add(group);
         } catch (DataAccessException ex) {
             String exMessage = "Cant add group: " + group;
             LOGGER.error(exMessage);
@@ -64,7 +64,7 @@ public class GroupService {
             LOGGER.debug("Successfully add group: " + group);
         }
 
-        return groupIdInTable;
+        return returnedGroup;
     }
 
     public List<Group> getAll() {
@@ -169,12 +169,12 @@ public class GroupService {
         return groups;
     }
 
-    public int update(Group group) {
+    public Group update(Group group) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to update group: " + group);
         }
 
-        int status;
+        Group returnedGroup;
 
         try {
             checkGroup(group);
@@ -186,9 +186,9 @@ public class GroupService {
                 throw ex;
             }
 
-            status = groupDAO.update(group);
+            returnedGroup = groupDAO.update(group);
 
-            if (status != 1) {
+            if (returnedGroup.getId() != 1) {
                 String exMessage = "Group with input id doesnt exist. " + group;
                 NotFoundEntityException ex = new NotFoundEntityException(exMessage);
                 LOGGER.warn(exMessage);
@@ -204,7 +204,7 @@ public class GroupService {
             LOGGER.debug("Successfully update group: " + group);
         }
 
-        return status;
+        return returnedGroup;
     }
 
     public int remove(int groupId) {

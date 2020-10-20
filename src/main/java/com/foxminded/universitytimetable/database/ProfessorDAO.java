@@ -5,7 +5,7 @@ import com.foxminded.universitytimetable.models.Professor;
 import java.util.List;
 
 public interface ProfessorDAO {
-    int add(Professor professor);
+    Professor add(Professor professor);
 
     List<Professor> getAll();
 
@@ -13,7 +13,7 @@ public interface ProfessorDAO {
 
     List<Professor> getBySurname(String surname);
 
-    int update(Professor professor);
+    Professor update(Professor professor);
 
-    int remove(int professorId);
+    Professor remove(int professorId);
 }

@@ -28,12 +28,12 @@ public class GroupRestController {
     }
 
     @RequestMapping(value = "/post", method = RequestMethod.POST)
-    public int add(@RequestParam Group group) {
+    public Group add(@RequestParam Group group) {
         LOGGER.debug("Try save group: " + group);
-        int id = 0;
+        Group returnedGroup = new Group();
 
         try {
-            id = groupService.add(group);
+            returnedGroup = groupService.add(group);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(
@@ -44,9 +44,9 @@ public class GroupRestController {
             LOGGER.error(e.getMessage());
         }
 
-        LOGGER.debug("Successfully save group " + group);
+        LOGGER.debug("Successfully save group " + returnedGroup);
 
-        return id;
+        return returnedGroup;
     }
 
     @RequestMapping
@@ -129,12 +129,12 @@ public class GroupRestController {
     }
 
     @RequestMapping(value = "/put", method = RequestMethod.PUT)
-    public int update(@RequestParam Group group) {
+    public Group update(@RequestParam Group group) {
         LOGGER.debug("Try to update group" + group);
-        int status = 0;
+        Group returnedGroup = new Group();
 
         try {
-            status = groupService.update(group);
+            returnedGroup = groupService.update(group);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(
@@ -151,7 +151,7 @@ public class GroupRestController {
 
         LOGGER.debug("Successfully updated");
 
-        return status;
+        return returnedGroup;
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)

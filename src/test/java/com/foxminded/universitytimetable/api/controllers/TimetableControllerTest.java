@@ -44,8 +44,8 @@ class TimetableControllerTest {
     private Lesson lesson;
     private Group group;
     private Professor professor;
-    private int groupId;
-    private int professorId;
+    private Group groupId;
+    private Professor professorId;
     private Date from;
     private Date till;
 

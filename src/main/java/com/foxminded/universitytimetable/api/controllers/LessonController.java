@@ -32,11 +32,11 @@ public class LessonController {
                 + " lesson number = " + lessonNumber + " group id = " + groupId + " professor id = " + professorId
                 + " building = " + building + " classroom = " + classroom);
 
-        int id = 0;
+        Lesson returnedLesson;
 
         try {
             Lesson lesson = new Lesson(date, lessonNumber, groupId, professorId, building, classroom);
-            id = lessonService.add(lesson);
+            returnedLesson = lessonService.add(lesson);
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(
@@ -47,7 +47,7 @@ public class LessonController {
                     HttpStatus.BAD_REQUEST, e.getMessage());
         }
 
-        LOGGER.debug("Successfully add lesson with id = " + id);
+        LOGGER.debug("Successfully add lesson with id = " + returnedLesson);
 
         return "redirect:/lessons";
     }

@@ -126,7 +126,7 @@ class ProfessorServiceTest {
         when(professorImpl.add(professor)).thenReturn(1);
 
         int expected = 1;
-        int actual = professorService.add(professor);
+        Professor actual = professorService.add(professor);
 
         assertEquals(expected, actual);
     }
@@ -344,7 +344,7 @@ class ProfessorServiceTest {
         when(professorImpl.update(professor)).thenReturn(1);
 
         int expected = 1;
-        int actual = professorService.update(professor);
+        Professor actual = professorService.update(professor);
 
         assertEquals(expected, actual);
     }
@@ -364,10 +364,10 @@ class ProfessorServiceTest {
 
     @Test
     void removeMustReturnStatusOneIfProfessorImplWasReturnStatusOne() {
-        int expected = 1;
+        Professor expected = 1;
         when(professorImpl.remove(1)).thenReturn(expected);
 
-        int actual = professorService.remove(1);
+        Professor actual = professorService.remove(1);
 
         assertEquals(expected, actual);
     }

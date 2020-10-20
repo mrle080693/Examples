@@ -5,7 +5,7 @@ import com.foxminded.universitytimetable.models.Group;
 import java.util.List;
 
 public interface GroupDAO {
-    int add(Group group);
+    Group add(Group group);
 
     List<Group> getAll();
 
@@ -13,7 +13,7 @@ public interface GroupDAO {
 
     List<Group> getByName(String name);
 
-    int update(Group group);
+    Group update(Group group);
 
     int remove(int groupId);
 }
