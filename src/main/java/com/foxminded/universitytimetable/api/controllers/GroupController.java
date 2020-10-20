@@ -39,8 +39,7 @@ public class GroupController {
             returnedGroup = groupService.add(group);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
 
         LOGGER.debug("Successfully save group with id = " + returnedGroup);
@@ -60,8 +59,7 @@ public class GroupController {
             modelAndView.addObject("groups", groups);
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
 
         LOGGER.debug("Successfully got with groups quantity: " + groups.size());
@@ -81,8 +79,7 @@ public class GroupController {
             modelAndView.addObject("name", group.getName());
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
 
         LOGGER.debug("groups.html successfully got with group with id = : " + id);
@@ -100,8 +97,7 @@ public class GroupController {
             groupService.update(group);
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
 
         LOGGER.debug("Successfully update group with new name: " + newName);
@@ -117,8 +113,7 @@ public class GroupController {
             groupService.remove(id);
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
 
         LOGGER.debug("Successfully remove group with id: " + id);

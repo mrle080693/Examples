@@ -40,8 +40,7 @@ public class ProfessorController {
             professorService.add(professor);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
 
         LOGGER.debug("Successfully add professor with id = " + professor);
@@ -63,8 +62,7 @@ public class ProfessorController {
             LOGGER.debug("professors.html successfully got with professors: " + professors.size());
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
 
         LOGGER.debug("Successfully got with groups quantity: " + professors.size());
@@ -87,8 +85,7 @@ public class ProfessorController {
             modelAndView.addObject("subject", professor.getSubject());
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
 
         LOGGER.debug("professors.html successfully got with professor with id = : " + id);
@@ -109,8 +106,7 @@ public class ProfessorController {
             professorService.update(professor);
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
 
         LOGGER.debug("Successfully update professor with new name: " + newName);
@@ -126,8 +122,7 @@ public class ProfessorController {
             professorService.remove(id);
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
 
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully remove professor with id: " + id);

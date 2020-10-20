@@ -36,8 +36,7 @@ public class StatisticsRestController {
             lessonsQuantity = statisticsService.getGroupEmployment(groupId, from, till);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (HttpClientErrorException e) {
             LOGGER.warn(e.getMessage());
         } catch (HttpServerErrorException e) {
@@ -61,8 +60,7 @@ public class StatisticsRestController {
             lessonsQuantity = statisticsService.getProfessorEmployment(professorId, from, till);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (HttpClientErrorException e) {
             LOGGER.warn(e.getMessage());
         } catch (HttpServerErrorException e) {

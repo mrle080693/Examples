@@ -46,8 +46,7 @@ public class TimetableController {
             lessons = timetableService.getGroupTimetable(groupId, from, till);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
 
         LOGGER.debug("Successfully got group timetable with " + lessons.size() + " lessons");
@@ -68,8 +67,7 @@ public class TimetableController {
             lessons = timetableService.getProfessorTimetable(professorId, from, till);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
 
         LOGGER.debug("Successfully got professor timetable with " + lessons.size() + " lessons");

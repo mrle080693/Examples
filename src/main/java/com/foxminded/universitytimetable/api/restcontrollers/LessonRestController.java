@@ -37,8 +37,7 @@ public class LessonRestController {
             returnedLesson = lessonService.add(lesson);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (HttpClientErrorException e) {
             LOGGER.warn(e.getMessage());
         } catch (HttpServerErrorException e) {
@@ -59,12 +58,10 @@ public class LessonRestController {
             lessons = lessonService.getAll();
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (HttpClientErrorException e) {
             LOGGER.warn(e.getMessage());
         } catch (HttpServerErrorException e) {
@@ -85,12 +82,10 @@ public class LessonRestController {
             lesson = lessonService.getById(id);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (HttpClientErrorException e) {
             LOGGER.warn(e.getMessage());
         } catch (HttpServerErrorException e) {
@@ -111,12 +106,10 @@ public class LessonRestController {
             returnedLesson = lessonService.update(lesson);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (HttpClientErrorException e) {
             LOGGER.warn(e.getMessage());
         } catch (HttpServerErrorException e) {
@@ -137,12 +130,10 @@ public class LessonRestController {
             status = lessonService.remove(lessonId);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (HttpClientErrorException e) {
             LOGGER.warn(e.getMessage());
         } catch (HttpServerErrorException e) {

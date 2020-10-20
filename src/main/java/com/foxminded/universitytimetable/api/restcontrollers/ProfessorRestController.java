@@ -37,8 +37,7 @@ public class ProfessorRestController {
             returnedProfessor = professorService.add(professor);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (HttpClientErrorException e) {
             LOGGER.warn(e.getMessage());
         } catch (HttpServerErrorException e) {
@@ -60,12 +59,10 @@ public class ProfessorRestController {
             professors = professorService.getAll();
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (HttpClientErrorException e) {
             LOGGER.warn(e.getMessage());
         } catch (HttpServerErrorException e) {
@@ -86,12 +83,10 @@ public class ProfessorRestController {
             professor = professorService.getById(id);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (HttpClientErrorException e) {
             LOGGER.warn(e.getMessage());
         } catch (HttpServerErrorException e) {
@@ -112,12 +107,10 @@ public class ProfessorRestController {
             professors = professorService.getBySurname(surname);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (HttpClientErrorException e) {
             LOGGER.warn(e.getMessage());
         } catch (HttpServerErrorException e) {
@@ -138,12 +131,10 @@ public class ProfessorRestController {
             returnedProfessor = professorService.update(professor);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (HttpClientErrorException e) {
             LOGGER.warn(e.getMessage());
         } catch (HttpServerErrorException e) {
@@ -164,8 +155,7 @@ public class ProfessorRestController {
             returnedProfessor = professorService.remove(professorId);
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (HttpClientErrorException e) {
             LOGGER.warn(e.getMessage());
         } catch (HttpServerErrorException e) {
