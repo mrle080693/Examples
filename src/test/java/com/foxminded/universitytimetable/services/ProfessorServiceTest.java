@@ -123,7 +123,7 @@ class ProfessorServiceTest {
 
     @Test
     void addMustReturnTheSameThatProfessorImplWasReturn() {
-        when(professorImpl.add(professor)).thenReturn(1);
+        when(professorImpl.add(professor)).thenReturn(new Professor());
 
         int expected = 1;
         Professor actual = professorService.add(professor);
@@ -329,19 +329,10 @@ class ProfessorServiceTest {
     }
 
     @Test
-    void updateMustThrowNotFoundEntityExceptionIfProfessorImplReturnStatusNotOne() {
-        professor.setId(8);
-
-        when(professorImpl.update(professor)).thenReturn(-1);
-
-        Assertions.assertThrows(NotFoundEntityException.class, () -> professorService.update(professor));
-    }
-
-    @Test
     void updateMustReturnTheSameThatProfessorImplWasReturn() {
         professor.setId(1);
 
-        when(professorImpl.update(professor)).thenReturn(1);
+        when(professorImpl.update(professor)).thenReturn(new Professor());
 
         int expected = 1;
         Professor actual = professorService.update(professor);
@@ -350,25 +341,9 @@ class ProfessorServiceTest {
     }
 
     @Test
-    void removeMustThrowNotFoundEntityExceptionIfProfessorImplReturnStatusNotOne() {
-        when(professorImpl.remove(7)).thenReturn(-1);
-        Assertions.assertThrows(NotFoundEntityException.class, () -> professorService.remove(1));
-    }
-
-    @Test
     void removeMustThrowDAOExceptionIfProfessorImplThrowsDataAccessException() {
         when(professorImpl.remove(7)).thenThrow(new DataAccessException("") {
         });
         Assertions.assertThrows(DAOException.class, () -> professorService.remove(7));
-    }
-
-    @Test
-    void removeMustReturnStatusOneIfProfessorImplWasReturnStatusOne() {
-        Professor expected = 1;
-        when(professorImpl.remove(1)).thenReturn(expected);
-
-        Professor actual = professorService.remove(1);
-
-        assertEquals(expected, actual);
     }
 }

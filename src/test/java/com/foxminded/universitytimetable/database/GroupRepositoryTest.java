@@ -26,7 +26,7 @@ class GroupRepositoryTest {
     @Test
     void addMustCreateIdNotEqualsZero() {
         Group group = groupRepository.save(new Group());
-        Group id = group.getId();
+        int id = group.getId();
 
         assertTrue(id > 0);
     }

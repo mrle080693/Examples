@@ -71,10 +71,10 @@ class GroupServiceTest {
 
     @Test
     void addMustReturnTheSameThatGroupImplWasReturn() {
-        when(groupImpl.add(group)).thenReturn(1);
+        when(groupImpl.add(group)).thenReturn(new Group());
 
         int expected = 1;
-        Group actual = groupService.add(group);
+        int actual = groupService.add(group).getId();
 
         assertEquals(expected, actual);
     }
@@ -223,22 +223,13 @@ class GroupServiceTest {
     }
 
     @Test
-    void updateMustThrowNotFoundEntityExceptionIfGroupImplReturnStatusNotOne() {
-        group.setId(8);
-
-        when(groupImpl.update(group)).thenReturn(-1);
-
-        Assertions.assertThrows(NotFoundEntityException.class, () -> groupService.update(group));
-    }
-
-    @Test
     void updateMustReturnTheSameThatGroupImplWasReturn() {
         group.setId(1);
 
-        when(groupImpl.update(group)).thenReturn(1);
+        when(groupImpl.update(group)).thenReturn(new Group());
 
         int expected = 1;
-        Group actual = groupService.update(group);
+        int actual = groupService.update(group).getId();
 
         assertEquals(expected, actual);
     }

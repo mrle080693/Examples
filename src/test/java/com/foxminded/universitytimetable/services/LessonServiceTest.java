@@ -295,21 +295,12 @@ class LessonServiceTest {
     void updateMustReturnTheSameThatLessonImplWasReturn() {
         lesson.setId(1);
 
-        when(lessonImpl.update(lesson)).thenReturn(1);
+        when(lessonImpl.update(lesson)).thenReturn(new Lesson());
 
         int expected = 1;
-        int actual = lessonService.update(lesson);
+        int actual = lessonService.update(lesson).getId();
 
         assertEquals(expected, actual);
-    }
-
-    @Test
-    void updateMustThrowNotFoundEntityExceptionIfGroupImplReturnStatusNotOne() {
-        lesson.setId(7);
-
-        when(lessonImpl.update(lesson)).thenReturn(-1);
-
-        Assertions.assertThrows(NotFoundEntityException.class, () -> lessonService.update(lesson));
     }
 
     @Test

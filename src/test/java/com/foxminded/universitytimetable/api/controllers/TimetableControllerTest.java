@@ -44,8 +44,8 @@ class TimetableControllerTest {
     private Lesson lesson;
     private Group group;
     private Professor professor;
-    private Group groupId;
-    private Professor professorId;
+    private int groupId;
+    private int professorId;
     private Date from;
     private Date till;
 
@@ -56,8 +56,8 @@ class TimetableControllerTest {
 
         group = new Group("Test");
         professor = new Professor("Test", "Test", "Test", "Test");
-        groupId = groupImpl.add(group);
-        professorId = professorImpl.add(professor);
+        groupId = groupImpl.add(group).getId();
+        professorId = professorImpl.add(professor).getId();
 
         lesson = new Lesson(new Date(Calendar.getInstance().getTime().getTime()), 1,
                 groupId, professorId, "Building", "Classroom");

@@ -69,7 +69,7 @@ class ProfessorRepositoryTest {
     @Test
     void addMustCreateIdNotEqualsZero() {
         Professor professor1 = professorRepository.save(professor);
-        Professor id = professor1.getId();
+        int id = professor1.getId();
 
         assertTrue(id > 0);
     }
