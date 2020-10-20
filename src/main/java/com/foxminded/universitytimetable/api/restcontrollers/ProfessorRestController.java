@@ -30,7 +30,7 @@ public class ProfessorRestController {
 
     @RequestMapping(value = "/post", method = RequestMethod.POST)
     public int add(@RequestParam Professor professor) {
-        LOGGER.debug("Try to add professor: " + professor.toString());
+        LOGGER.debug("Try to add professor: " + professor);
         int id = 0;
 
         try {
@@ -98,7 +98,7 @@ public class ProfessorRestController {
             LOGGER.error(e.getMessage());
         }
 
-        LOGGER.debug("Successfully got with professor: " + professor.toString());
+        LOGGER.debug("Successfully got with professor: " + professor);
 
         return professor;
     }
@@ -131,7 +131,7 @@ public class ProfessorRestController {
 
     @RequestMapping(value = "/put", method = RequestMethod.PUT)
     public int update(@RequestParam Professor professor) {
-        LOGGER.debug("Try to update professor: " + professor.toString());
+        LOGGER.debug("Try to update professor: " + professor);
         int status = 0;
 
         try {

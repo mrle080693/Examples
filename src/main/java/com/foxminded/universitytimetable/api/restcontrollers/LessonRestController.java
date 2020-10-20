@@ -30,7 +30,7 @@ public class LessonRestController {
 
     @RequestMapping(value = "/post", method = RequestMethod.POST)
     public int add(@RequestParam Lesson lesson) {
-        LOGGER.debug("Try to add lesson: " + lesson.toString());
+        LOGGER.debug("Try to add lesson: " + lesson);
         int id = 0;
 
         try {
@@ -97,14 +97,14 @@ public class LessonRestController {
             LOGGER.error(e.getMessage());
         }
 
-        LOGGER.debug("Successfully got lesson: " + lesson.toString());
+        LOGGER.debug("Successfully got lesson: " + lesson);
 
         return lesson;
     }
 
     @RequestMapping(value = "/put", method = RequestMethod.PUT)
     public int update(@RequestParam Lesson lesson) {
-        LOGGER.debug("Try to update lesson: " + lesson.toString());
+        LOGGER.debug("Try to update lesson: " + lesson);
         int status = 0;
 
         try {
@@ -123,7 +123,7 @@ public class LessonRestController {
             LOGGER.error(e.getMessage());
         }
 
-        LOGGER.debug("Successfully update lesson: " + lesson.toString());
+        LOGGER.debug("Successfully update lesson: " + lesson);
 
         return status;
     }
