@@ -30,17 +30,6 @@ public class GroupService {
             LOGGER.debug("Try to add group: " + group);
         }
 
-        /*
-        I think validation logic in service is bad idea because main logic have to be readable
-
-    public Group add(Group group) {
-        modelsDbValidator.checkGroup(group);  || group.checkValidationForDb();
-        Group group = groupDao.add(group);
-
-        return group;
-        }
-         */
-
         Group returnedGroup;
 
         try {
