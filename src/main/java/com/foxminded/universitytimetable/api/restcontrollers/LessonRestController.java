@@ -9,10 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,12 +28,17 @@ public class LessonRestController {
     }
 
     @RequestMapping(value = "/post", method = RequestMethod.POST)
-    public Lesson add(@RequestParam Lesson lesson) {
-        LOGGER.debug("Try to add lesson: " + lesson);
-        Lesson returnedLesson = new Lesson();
+    public Lesson add(@RequestParam Date date, @RequestParam int lessonNumber, @RequestParam int groupId,
+                      @RequestParam int professorId, @RequestParam String building, @RequestParam String classroom) {
+
+        LOGGER.debug("Try to add lesson with: " + "date = " + date
+                + " lesson number = " + lessonNumber + " group id = " + groupId + " professor id = " + professorId
+                + " building = " + building + " classroom = " + classroom);
+
+        Lesson lesson = new Lesson(date, lessonNumber, groupId, professorId, building, classroom);
 
         try {
-            returnedLesson = lessonService.add(lesson);
+            lesson = lessonService.add(lesson);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
@@ -42,9 +46,9 @@ public class LessonRestController {
             LOGGER.warn(e.getMessage());
         }
 
-        LOGGER.debug("Successfully add lesson with id = " + returnedLesson);
+        LOGGER.debug("Successfully add lesson with id = " + lesson);
 
-        return returnedLesson;
+        return lesson;
     }
 
     @RequestMapping
@@ -92,12 +96,20 @@ public class LessonRestController {
     }
 
     @RequestMapping(value = "/put", method = RequestMethod.PUT)
-    public Lesson update(@RequestParam Lesson lesson) {
-        LOGGER.debug("Try to update lesson: " + lesson);
-        Lesson returnedLesson = new Lesson();
+    public Lesson update(@RequestParam(value = "id", defaultValue = "0") int id, @RequestParam Date date,
+                         @RequestParam int lessonNumber, @RequestParam int groupId, @RequestParam int professorId,
+                         @RequestParam String building, @RequestParam String classroom) {
+
+        LOGGER.debug("Try to update lesson with: id = " + id + " date = " + date
+                + " lesson number = " + lessonNumber + " group id = " + groupId + " professor id = " + professorId
+                + " building = " + building + " classroom = " + classroom);
+
+        Lesson lesson = new Lesson(date, lessonNumber, groupId, professorId, building, classroom);
 
         try {
-            returnedLesson = lessonService.update(lesson);
+            lesson.setId(id);
+
+            lesson = lessonService.update(lesson);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
@@ -110,7 +122,7 @@ public class LessonRestController {
 
         LOGGER.debug("Successfully update lesson: " + lesson);
 
-        return returnedLesson;
+        return lesson;
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)

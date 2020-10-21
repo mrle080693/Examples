@@ -9,8 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -29,12 +27,15 @@ public class ProfessorRestController {
     }
 
     @RequestMapping(value = "/post", method = RequestMethod.POST)
-    public Professor add(@RequestParam Professor professor) {
-        LOGGER.debug("Try to add professor: " + professor);
-        Professor returnedProfessor = new Professor();
+    public Professor add(@RequestParam String name, @RequestParam String surname,
+                         @RequestParam String patronymic, @RequestParam String subject) {
+        LOGGER.debug("Try to add professor with: " + " name = " + name + " surname = " + surname + " patronymic = " +
+                patronymic + " subject = " + subject);
+
+        Professor professor = new Professor(name, surname, patronymic, subject);
 
         try {
-            returnedProfessor = professorService.add(professor);
+            professor = professorService.add(professor);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
@@ -42,9 +43,9 @@ public class ProfessorRestController {
             LOGGER.warn(e.getMessage());
         }
 
-        LOGGER.debug("Successfully add professor: " + returnedProfessor);
+        LOGGER.debug("Successfully add professor: " + professor);
 
-        return returnedProfessor;
+        return professor;
     }
 
     @RequestMapping
@@ -115,12 +116,17 @@ public class ProfessorRestController {
     }
 
     @RequestMapping(value = "/put", method = RequestMethod.PUT)
-    public Professor update(@RequestParam Professor professor) {
-        LOGGER.debug("Try to update professor: " + professor);
-        Professor returnedProfessor = new Professor();
+    public Professor update(@RequestParam int id, @RequestParam String name, @RequestParam String surname,
+                            @RequestParam String patronymic, @RequestParam String subject) {
+        LOGGER.debug("Try to update professor with: id = " + id + " name = " + name + " surname = " + surname + " patronymic = " +
+                patronymic + " subject = " + subject);
+
+        Professor professor = new Professor(name, surname, patronymic, subject);
 
         try {
-            returnedProfessor = professorService.update(professor);
+            professor.setId(id);
+
+            professor = professorService.update(professor);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
@@ -131,9 +137,9 @@ public class ProfessorRestController {
             LOGGER.warn(e.getMessage());
         }
 
-        LOGGER.debug("Successfully update professor with status:" + returnedProfessor);
+        LOGGER.debug("Successfully update professor with status:" + professor);
 
-        return returnedProfessor;
+        return professor;
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)

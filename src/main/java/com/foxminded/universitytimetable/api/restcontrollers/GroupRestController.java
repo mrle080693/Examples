@@ -9,8 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -28,12 +26,12 @@ public class GroupRestController {
     }
 
     @RequestMapping(value = "/post", method = RequestMethod.POST)
-    public Group add(@RequestParam Group group) {
-        LOGGER.debug("Try save group: " + group);
-        Group returnedGroup = new Group();
+    public Group add(@RequestParam String name) {
+        LOGGER.debug("Try save group with: " + " name = " + name);
+        Group group = new Group(name);
 
         try {
-            returnedGroup = groupService.add(group);
+            group = groupService.add(group);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
@@ -42,9 +40,9 @@ public class GroupRestController {
             LOGGER.warn(e.getMessage());
         }
 
-        LOGGER.debug("Successfully save group " + returnedGroup);
+        LOGGER.debug("Successfully save group " + group);
 
-        return returnedGroup;
+        return group;
     }
 
     @RequestMapping
@@ -115,12 +113,15 @@ public class GroupRestController {
     }
 
     @RequestMapping(value = "/put", method = RequestMethod.PUT)
-    public Group update(@RequestParam Group group) {
-        LOGGER.debug("Try to update group" + group);
-        Group returnedGroup = new Group();
+    public Group update(@RequestParam int id, @RequestParam String name) {
+        LOGGER.debug("Try to update group with id = " + id);
+        Group group = new Group();
 
         try {
-            returnedGroup = groupService.update(group);
+            group.setId(id);
+            group.setName(name);
+
+            group = groupService.update(group);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
@@ -133,7 +134,7 @@ public class GroupRestController {
 
         LOGGER.debug("Successfully updated");
 
-        return returnedGroup;
+        return group;
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
