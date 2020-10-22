@@ -16,6 +16,9 @@ import java.sql.Date;
 public class StatisticsRestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(StatisticsRestController.class);
     private final StatisticsService statisticsService;
+    private final ResponseStatusException responseStatusException = new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+            "                        SORRY :( \n" +
+                    "We know about this trouble and will correct it soon");
 
     @Autowired
     public StatisticsRestController(StatisticsService statisticsService) {
@@ -36,7 +39,8 @@ public class StatisticsRestController {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         LOGGER.debug("Successfully got with lessons quantity: " + lessonsQuantity);
@@ -58,7 +62,8 @@ public class StatisticsRestController {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         LOGGER.debug("Successfully got with lessons quantity: " + lessonsQuantity);

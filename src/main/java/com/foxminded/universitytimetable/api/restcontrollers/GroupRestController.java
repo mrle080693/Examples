@@ -19,6 +19,9 @@ import java.util.List;
 public class GroupRestController {
     private final GroupService groupService;
     private static final Logger LOGGER = LoggerFactory.getLogger(GroupRestController.class);
+    private final ResponseStatusException responseStatusException = new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+            "                        SORRY :( \n" +
+                    "We know about this trouble and will correct it soon");
 
     @Autowired
     public GroupRestController(GroupService groupService) {
@@ -37,7 +40,8 @@ public class GroupRestController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
             // For logging troubles we dont know
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         LOGGER.debug("Successfully save group " + group);
@@ -60,7 +64,8 @@ public class GroupRestController {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         LOGGER.debug("Successfully got with groups: " + groups.size());
@@ -82,7 +87,8 @@ public class GroupRestController {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         LOGGER.debug("Successfully got group: " + group);
@@ -104,7 +110,8 @@ public class GroupRestController {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         LOGGER.debug("Successfully got with groups quantity: " + groups.size());
@@ -129,7 +136,8 @@ public class GroupRestController {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         LOGGER.debug("Successfully updated");
@@ -151,7 +159,8 @@ public class GroupRestController {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         LOGGER.debug("Successfully remove group with id: " + groupId);

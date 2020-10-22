@@ -19,6 +19,9 @@ import java.util.List;
 public class TimetableRestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(StatisticsRestController.class);
     private final TimetableService timetableService;
+    private final ResponseStatusException responseStatusException = new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+            "                        SORRY :( \n" +
+                    "We know about this trouble and will correct it soon");
 
     @Autowired
     public TimetableRestController(TimetableService timetableService) {
@@ -39,7 +42,8 @@ public class TimetableRestController {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         LOGGER.debug("Successfully got group timetable with " + lessons.size() + " lessons");
@@ -61,7 +65,8 @@ public class TimetableRestController {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         LOGGER.debug("Successfully got professor timetable with " + lessons.size() + " lessons");

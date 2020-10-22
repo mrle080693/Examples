@@ -19,8 +19,10 @@ import java.util.List;
 @RequestMapping("/rest/lessons")
 public class LessonRestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(LessonRestController.class);
-
     private final LessonService lessonService;
+    private final ResponseStatusException responseStatusException = new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+            "                        SORRY :( \n" +
+                    "We know about this trouble and will correct it soon");
 
     @Autowired
     public LessonRestController(LessonService lessonService) {
@@ -43,7 +45,8 @@ public class LessonRestController {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         LOGGER.debug("Successfully add lesson with id = " + lesson);
@@ -65,7 +68,8 @@ public class LessonRestController {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         LOGGER.debug("Successfully got " + lessons.size() + " lessons");
@@ -87,7 +91,8 @@ public class LessonRestController {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         LOGGER.debug("Successfully got lesson: " + lesson);
@@ -117,7 +122,8 @@ public class LessonRestController {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         LOGGER.debug("Successfully update lesson: " + lesson);
@@ -139,7 +145,8 @@ public class LessonRestController {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         LOGGER.debug("Successfully remove lesson with id: " + lessonId);

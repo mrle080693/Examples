@@ -18,8 +18,10 @@ import java.util.List;
 @RequestMapping("/rest/professors")
 public class ProfessorRestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProfessorRestController.class);
-
     private final ProfessorService professorService;
+    private final ResponseStatusException responseStatusException = new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+            "                        SORRY :( \n" +
+                    "We know about this trouble and will correct it soon");
 
     @Autowired
     public ProfessorRestController(ProfessorService professorService) {
@@ -40,7 +42,8 @@ public class ProfessorRestController {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         LOGGER.debug("Successfully add professor: " + professor);
@@ -63,7 +66,8 @@ public class ProfessorRestController {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         LOGGER.debug("Successfully got with professors: " + professors.size());
@@ -85,7 +89,8 @@ public class ProfessorRestController {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         LOGGER.debug("Successfully got with professor: " + professor);
@@ -107,7 +112,8 @@ public class ProfessorRestController {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         LOGGER.debug("Successfully got with professors: " + professors.size());
@@ -134,7 +140,8 @@ public class ProfessorRestController {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         LOGGER.debug("Successfully update professor with status:" + professor);
@@ -153,7 +160,8 @@ public class ProfessorRestController {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw responseStatusException;
         }
 
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully remove professor with id: " + professorId);
