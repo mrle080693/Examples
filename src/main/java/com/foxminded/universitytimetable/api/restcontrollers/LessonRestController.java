@@ -132,12 +132,12 @@ public class LessonRestController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public int remove(@RequestParam int lessonId) {
+    public Lesson remove(@RequestParam int lessonId) {
         LOGGER.debug("Try to remove lesson with id = " + lessonId);
-        int status = 0;
+        Lesson lesson;
 
         try {
-            status = lessonService.remove(lessonId);
+            lesson = lessonService.remove(lessonId);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
@@ -151,6 +151,6 @@ public class LessonRestController {
 
         LOGGER.debug("Successfully remove lesson with id: " + lessonId);
 
-        return status;
+        return lesson;
     }
 }

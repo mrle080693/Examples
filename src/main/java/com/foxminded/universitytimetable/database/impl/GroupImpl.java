@@ -98,17 +98,17 @@ public class GroupImpl implements GroupDAO {
     }
 
     @Override
-    public int remove(int groupId) {
+    public Group remove(int groupId) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to remove group with id = " + groupId);
         }
 
-        int status = groupRepository.remove(groupId);
+        Group group = groupRepository.remove(groupId);
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Successfully remove group with id: " + groupId);
         }
 
-        return status;
+        return group;
     }
 }

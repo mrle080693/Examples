@@ -304,25 +304,9 @@ class LessonServiceTest {
     }
 
     @Test
-    void removeMustThrowNotFoundEntityExceptionIfLessonImplReturnStatusNotOne() {
-        when(lessonImpl.remove(7)).thenReturn(-1);
-        Assertions.assertThrows(NotFoundEntityException.class, () -> lessonService.remove(1));
-    }
-
-    @Test
     void removeMustThrowDAOExceptionIfLessonImplThrowsDataAccessException() {
         when(lessonImpl.remove(7)).thenThrow(new DataAccessException("") {
         });
         Assertions.assertThrows(DAOException.class, () -> lessonService.remove(7));
-    }
-
-    @Test
-    void removeMustReturnStatusOneIfLessonImplWasReturnStatusOne() {
-        int expected = 1;
-        when(lessonImpl.remove(1)).thenReturn(expected);
-
-        int actual = lessonService.remove(1);
-
-        assertEquals(expected, actual);
     }
 }

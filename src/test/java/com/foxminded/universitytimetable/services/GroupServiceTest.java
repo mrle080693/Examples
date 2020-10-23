@@ -234,25 +234,9 @@ class GroupServiceTest {
     }
 
     @Test
-    void removeMustThrowNotFoundEntityExceptionIfGroupImplReturnStatusNotOne() {
-        when(groupImpl.remove(7)).thenReturn(-1);
-        Assertions.assertThrows(NotFoundEntityException.class, () -> groupService.remove(1));
-    }
-
-    @Test
     void removeMustThrowDAOExceptionIfGroupImplThrowsDataAccessException() {
         when(groupImpl.remove(7)).thenThrow(new DataAccessException("") {
         });
         Assertions.assertThrows(DAOException.class, () -> groupService.remove(7));
-    }
-
-    @Test
-    void removeMustReturnStatusOneIfGroupImplWasReturnStatusOne() {
-        int expected = 1;
-        when(groupImpl.remove(1)).thenReturn(expected);
-
-        int actual = groupService.remove(1);
-
-        assertEquals(expected, actual);
     }
 }

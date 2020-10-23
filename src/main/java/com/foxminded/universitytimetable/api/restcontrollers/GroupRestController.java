@@ -146,12 +146,12 @@ public class GroupRestController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public int remove(@RequestParam int groupId) {
+    public Group remove(@RequestParam int groupId) {
         LOGGER.debug("Try to remove group with id = " + groupId);
-        int status = 0;
+        Group group = null;
 
         try {
-            status = groupService.remove(groupId);
+            group = groupService.remove(groupId);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
@@ -165,6 +165,6 @@ public class GroupRestController {
 
         LOGGER.debug("Successfully remove group with id: " + groupId);
 
-        return status;
+        return group;
     }
 }

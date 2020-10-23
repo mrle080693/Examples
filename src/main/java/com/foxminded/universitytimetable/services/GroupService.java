@@ -196,22 +196,15 @@ public class GroupService {
         return returnedGroup;
     }
 
-    public int remove(int groupId) {
+    public Group remove(int groupId) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to remove group with id = " + groupId);
         }
 
-        int status;
+        Group group;
 
         try {
-            status = groupDAO.remove(groupId);
-
-            if (status != 1) {
-                String exMessage = "Group with input id: " + groupId + " does not exist";
-                NotFoundEntityException ex = new NotFoundEntityException(exMessage);
-                LOGGER.warn(exMessage);
-                throw ex;
-            }
+            group = groupDAO.remove(groupId);
         } catch (DataAccessException ex) {
             String exMessage = "Cant remove from table groups. Group id: " + groupId;
             LOGGER.error(exMessage);
@@ -222,7 +215,7 @@ public class GroupService {
             LOGGER.debug("Successfully remove group with id: " + groupId);
         }
 
-        return status;
+        return group;
     }
 
     private void checkGroup(Group group) {

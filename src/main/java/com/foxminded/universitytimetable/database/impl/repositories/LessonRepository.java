@@ -13,5 +13,5 @@ public interface LessonRepository extends JpaRepository<Lesson, Integer> {
     @Transactional
     @Modifying
     @Query(JPQLQueries.DELETE_LESSON)
-    int remove(int id);
+    Lesson remove(int id);
 }

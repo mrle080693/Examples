@@ -13,5 +13,5 @@ public interface LessonDAO {
 
     Lesson update(Lesson lesson);
 
-    int remove(int lessonId);
+    Lesson remove(int lessonId);
 }

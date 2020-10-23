@@ -18,5 +18,5 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
     @Transactional
     @Modifying
     @Query(JPQLQueries.DELETE_GROUP)
-    int remove(int id);
+    Group remove(int id);
 }
