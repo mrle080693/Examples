@@ -174,6 +174,13 @@ public class LessonService {
 
         Lesson lesson;
 
+        if(lessonId < 0) {
+            String exMessage = "Id cunt be < 0! Input id = " + lessonId;
+            ValidationException ex = new ValidationException(exMessage);
+            LOGGER.warn(exMessage);
+            throw ex;
+        }
+
         try {
             lesson = lessonDAO.remove(lessonId);
         } catch (DataAccessException ex) {

@@ -4,9 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /*
-Package controllers have not to be.
-Its not deleted because I will have to rewrite all frontend views.
-I hope I will never needs this example
+
  */
 @Controller("/html")
 public class BrowserViewsController {

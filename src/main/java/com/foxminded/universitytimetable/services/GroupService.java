@@ -205,6 +205,13 @@ public class GroupService {
 
         try {
             group = groupDAO.remove(groupId);
+
+            if (groupId < 0) {
+                String exMessage = "Id cunt be < 0! Input id = " + groupId;
+                ValidationException ex = new ValidationException(exMessage);
+                LOGGER.warn(exMessage);
+                throw ex;
+            }
         } catch (DataAccessException ex) {
             String exMessage = "Cant remove from table groups. Group id: " + groupId;
             LOGGER.error(exMessage);
