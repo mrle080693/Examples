@@ -1,5 +1,6 @@
 package com.foxminded.universitytimetable.api.restcontrollers;
 
+import com.foxminded.universitytimetable.api.constants.Urls;
 import com.foxminded.universitytimetable.services.exceptions.ValidationException;
 import com.foxminded.universitytimetable.services.StatisticsService;
 import org.slf4j.Logger;
@@ -12,7 +13,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.sql.Date;
 
 @RestController
-@RequestMapping("/rest/statistics")
 public class StatisticsRestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(StatisticsRestController.class);
     private final StatisticsService statisticsService;
@@ -25,7 +25,7 @@ public class StatisticsRestController {
         this.statisticsService = statisticsService;
     }
 
-    @RequestMapping("/group_employment")
+    @RequestMapping(Urls.GET_EMPLOYMENT_GROUP_JSON)
     public long getGroupEmployment(@RequestParam int groupId,
                                    @RequestParam("from") Date from,
                                    @RequestParam("till") Date till) {
@@ -48,7 +48,7 @@ public class StatisticsRestController {
         return lessonsQuantity;
     }
 
-    @RequestMapping("/professor_employment")
+    @RequestMapping(Urls.GET_EMPLOYMENT_PROFESSOR_JSON)
     public long getProfessorEmployment(@RequestParam int professorId,
                                        @RequestParam("from") Date from,
                                        @RequestParam("till") Date till) {

@@ -1,5 +1,6 @@
 package com.foxminded.universitytimetable.api.restcontrollers;
 
+import com.foxminded.universitytimetable.api.constants.Urls;
 import com.foxminded.universitytimetable.services.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.services.exceptions.ValidationException;
 import com.foxminded.universitytimetable.models.Group;
@@ -15,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest/groups")
 public class GroupRestController {
     private final GroupService groupService;
     private static final Logger LOGGER = LoggerFactory.getLogger(GroupRestController.class);
@@ -28,7 +28,7 @@ public class GroupRestController {
         this.groupService = groupService;
     }
 
-    @RequestMapping(value = "/post", method = RequestMethod.POST)
+    @RequestMapping(value = Urls.POST_GROUP_JSON, method = RequestMethod.POST)
     public Group add(@RequestParam String name) {
         LOGGER.debug("Try save group with: " + " name = " + name);
         Group group = new Group(name);
@@ -49,7 +49,7 @@ public class GroupRestController {
         return group;
     }
 
-    @RequestMapping
+    @RequestMapping(Urls.GET_GROUPS_JSON)
     public List<Group> getAll() {
         LOGGER.debug("Try get all groups");
 
@@ -73,7 +73,7 @@ public class GroupRestController {
         return groups;
     }
 
-    @RequestMapping("/{id}")
+    @RequestMapping(Urls.GET_GROUP_JSON_BY_ID)
     public Group getById(@PathVariable int id) {
         LOGGER.debug("Try get group with id = " + id);
         Group group = new Group();
@@ -96,7 +96,7 @@ public class GroupRestController {
         return group;
     }
 
-    @RequestMapping("/{name}")
+    @RequestMapping(Urls.GET_GROUP_JSON_BY_NAME)
     public List<Group> getByName(@PathVariable String name) {
         LOGGER.debug("Try to get groups with name = " + name);
         List<Group> groups = new ArrayList<>();
@@ -119,7 +119,7 @@ public class GroupRestController {
         return groups;
     }
 
-    @RequestMapping(value = "/put", method = RequestMethod.PUT)
+    @RequestMapping(value = Urls.PUT_GROUP_JSON, method = RequestMethod.PUT)
     public Group update(@RequestParam int id, @RequestParam String name) {
         LOGGER.debug("Try to update group with id = " + id);
         Group group = new Group();
@@ -145,7 +145,7 @@ public class GroupRestController {
         return group;
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = Urls.DELETE_GROUP_JSON, method = RequestMethod.DELETE)
     public Group remove(@RequestParam int groupid) {
         LOGGER.debug("Try to remove group with id = " + groupid);
         Group group = null;

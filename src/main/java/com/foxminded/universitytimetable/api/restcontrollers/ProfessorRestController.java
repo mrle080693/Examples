@@ -1,5 +1,6 @@
 package com.foxminded.universitytimetable.api.restcontrollers;
 
+import com.foxminded.universitytimetable.api.constants.Urls;
 import com.foxminded.universitytimetable.services.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.services.exceptions.ValidationException;
 import com.foxminded.universitytimetable.models.Professor;
@@ -15,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest/professors")
 public class ProfessorRestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProfessorRestController.class);
     private final ProfessorService professorService;
@@ -28,7 +28,7 @@ public class ProfessorRestController {
         this.professorService = professorService;
     }
 
-    @RequestMapping(value = "/post", method = RequestMethod.POST)
+    @RequestMapping(value = Urls.POST_PROFESSOR_JSON, method = RequestMethod.POST)
     public Professor add(@RequestParam String name, @RequestParam String surname,
                          @RequestParam String patronymic, @RequestParam String subject) {
         LOGGER.debug("Try to add professor with: " + " name = " + name + " surname = " + surname + " patronymic = " +
@@ -51,7 +51,7 @@ public class ProfessorRestController {
         return professor;
     }
 
-    @RequestMapping
+    @RequestMapping(Urls.GET_PROFESSORS_JSON)
     public List<Professor> getAll() {
         LOGGER.debug("Try to get all professors");
 
@@ -75,7 +75,7 @@ public class ProfessorRestController {
         return professors;
     }
 
-    @RequestMapping("/{id}")
+    @RequestMapping(Urls.GET_PROFESSOR_JSON_BY_ID)
     public Professor getById(@PathVariable int id) {
         LOGGER.debug("Try to get professor with id = " + id);
         Professor professor = new Professor();
@@ -98,7 +98,7 @@ public class ProfessorRestController {
         return professor;
     }
 
-    @RequestMapping("/{surname}")
+    @RequestMapping(Urls.GET_PROFESSOR_JSON_BY_SURNAME)
     public List<Professor> getBySurname(@PathVariable String surname) {
         LOGGER.debug("Try to get all professors with surname = " + surname);
         List<Professor> professors = new ArrayList<>();
@@ -121,7 +121,7 @@ public class ProfessorRestController {
         return professors;
     }
 
-    @RequestMapping(value = "/put", method = RequestMethod.PUT)
+    @RequestMapping(value = Urls.PUT_PROFESSOR_JSON, method = RequestMethod.PUT)
     public Professor update(@RequestParam int id, @RequestParam String name, @RequestParam String surname,
                             @RequestParam String patronymic, @RequestParam String subject) {
         LOGGER.debug("Try to update professor with: id = " + id + " name = " + name + " surname = " + surname + " patronymic = " +
@@ -149,7 +149,7 @@ public class ProfessorRestController {
         return professor;
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = Urls.DELETE_PROFESSOR_JSON, method = RequestMethod.DELETE)
     public Professor remove(@RequestParam int professorId) {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to remove professor with id = " + professorId);
         Professor returnedProfessor = new Professor();

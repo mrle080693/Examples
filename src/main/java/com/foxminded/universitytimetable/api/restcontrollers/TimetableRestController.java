@@ -1,5 +1,6 @@
 package com.foxminded.universitytimetable.api.restcontrollers;
 
+import com.foxminded.universitytimetable.api.constants.Urls;
 import com.foxminded.universitytimetable.services.exceptions.ValidationException;
 import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.services.TimetableService;
@@ -15,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest/timetable")
 public class TimetableRestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(StatisticsRestController.class);
     private final TimetableService timetableService;
@@ -28,7 +28,7 @@ public class TimetableRestController {
         this.timetableService = timetableService;
     }
 
-    @RequestMapping("/group_timetable")
+    @RequestMapping(Urls.GET_TIMETABLE_GROUP_JSON)
     public List<Lesson> getGroupEmployment(@RequestParam int groupId,
                                            @RequestParam("from") Date from,
                                            @RequestParam("till") Date till) {
@@ -51,7 +51,7 @@ public class TimetableRestController {
         return lessons;
     }
 
-    @RequestMapping("/professor_timetable")
+    @RequestMapping(Urls.GET_TIMETABLE_PROFESSOR_JSON)
     public List<Lesson> getProfessorEmployment(@RequestParam int professorId,
                                                @RequestParam("from") Date from,
                                                @RequestParam("till") Date till) {

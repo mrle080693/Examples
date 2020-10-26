@@ -1,5 +1,6 @@
 package com.foxminded.universitytimetable.api.restcontrollers;
 
+import com.foxminded.universitytimetable.api.constants.Urls;
 import com.foxminded.universitytimetable.services.exceptions.NotFoundEntityException;
 import com.foxminded.universitytimetable.services.exceptions.ValidationException;
 import com.foxminded.universitytimetable.models.Lesson;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest/lessons")
 public class LessonRestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(LessonRestController.class);
     private final LessonService lessonService;
@@ -29,7 +29,7 @@ public class LessonRestController {
         this.lessonService = lessonService;
     }
 
-    @RequestMapping(value = "/post", method = RequestMethod.POST)
+    @RequestMapping(value = Urls.POST_LESSON_JSON, method = RequestMethod.POST)
     public Lesson add(@RequestParam Date date, @RequestParam int lessonNumber, @RequestParam int groupId,
                       @RequestParam int professorId, @RequestParam String building, @RequestParam String classroom) {
 
@@ -54,7 +54,7 @@ public class LessonRestController {
         return lesson;
     }
 
-    @RequestMapping
+    @RequestMapping(Urls.GET_LESSONS_JSON)
     public List<Lesson> getAll() {
         LOGGER.debug("Try get all lessons");
         List<Lesson> lessons = new ArrayList<>();
@@ -77,7 +77,7 @@ public class LessonRestController {
         return lessons;
     }
 
-    @RequestMapping("/{id}")
+    @RequestMapping(Urls.GET_LESSON_JSON)
     public Lesson getById(@PathVariable int id) {
         LOGGER.debug("Try get lesson with id = " + id);
         Lesson lesson = new Lesson();
@@ -100,7 +100,7 @@ public class LessonRestController {
         return lesson;
     }
 
-    @RequestMapping(value = "/put", method = RequestMethod.PUT)
+    @RequestMapping(value = Urls.PUT_LESSON_JSON, method = RequestMethod.PUT)
     public Lesson update(@RequestParam(value = "id", defaultValue = "0") int id, @RequestParam Date date,
                          @RequestParam int lessonNumber, @RequestParam int groupId, @RequestParam int professorId,
                          @RequestParam String building, @RequestParam String classroom) {
@@ -131,7 +131,7 @@ public class LessonRestController {
         return lesson;
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = Urls.DELETE_LESSON_JSON, method = RequestMethod.DELETE)
     public Lesson remove(@RequestParam int lessonId) {
         LOGGER.debug("Try to remove lesson with id = " + lessonId);
         Lesson lesson;
