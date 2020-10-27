@@ -28,7 +28,7 @@ public class GroupRestController {
         this.groupService = groupService;
     }
 
-    @RequestMapping(value = Urls.POST_GROUP_JSON, method = RequestMethod.POST)
+    @RequestMapping(value = Urls.API_REST_POST_GROUP_JSON, method = RequestMethod.POST)
     public Group add(@RequestParam String name) {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try save group with: " + " name = " + name);
         Group group = new Group(name);
@@ -49,7 +49,7 @@ public class GroupRestController {
         return group;
     }
 
-    @RequestMapping(Urls.GET_GROUPS_JSON)
+    @RequestMapping(Urls.API_REST_GET_GROUPS_JSON)
     public List<Group> getAll() {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get all groups");
 
@@ -73,7 +73,7 @@ public class GroupRestController {
         return groups;
     }
 
-    @RequestMapping(Urls.GET_GROUP_JSON_BY_ID)
+    @RequestMapping(Urls.API_REST_GET_GROUP_JSON_BY_ID)
     public Group getById(@PathVariable int id) {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get group with id = " + id);
         Group group = new Group();
@@ -96,7 +96,7 @@ public class GroupRestController {
         return group;
     }
 
-    @RequestMapping(Urls.GET_GROUP_JSON_BY_NAME)
+    @RequestMapping(Urls.API_REST_GET_GROUP_JSON_BY_NAME)
     public List<Group> getByName(@PathVariable String name) {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to get groups with name = " + name);
         List<Group> groups = new ArrayList<>();
@@ -119,7 +119,7 @@ public class GroupRestController {
         return groups;
     }
 
-    @RequestMapping(value = Urls.PUT_GROUP_JSON, method = RequestMethod.PUT)
+    @RequestMapping(value = Urls.API_REST_PUT_GROUP_JSON, method = RequestMethod.PUT)
     public Group update(@RequestParam int id, @RequestParam String name) {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to update group with id = " + id);
         Group group = new Group();
@@ -145,7 +145,7 @@ public class GroupRestController {
         return group;
     }
 
-    @RequestMapping(value = Urls.DELETE_GROUP_JSON, method = RequestMethod.DELETE)
+    @RequestMapping(value = Urls.API_REST_DELETE_GROUP_JSON, method = RequestMethod.DELETE)
     public Group remove(@RequestParam int groupid) {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to remove group with id = " + groupid);
         Group group = null;

@@ -1,36 +1,36 @@
 package com.foxminded.universitytimetable.api.constants;
 
 public interface Urls {
-    String GET_INDEX_HTML = "/api/get/index/html";
-    String GET_GROUPS_HTML = "/api/get/groups/html";
-    String GET_PROFESSORS_HTML = "/api/get/professors/html";
-    String GET_LESSONS_HTML = "/api/get/lessons/html";
-    String GET_STATISTICS_HTML = "/api/get/statistics/html";
-    String GET_TIMETABLE_HTML = "/api/get/timetable/html";
-    String GET_ERROR_HTML = "/api/get/sorry/html";
+    String API_GET_INDEX_HTML = "/api/get/index/html";
+    String API_GET_GROUPS_HTML = "/api/get/groups/html";
+    String API_GET_PROFESSORS_HTML = "/api/get/professors/html";
+    String API_GET_LESSONS_HTML = "/api/get/lessons/html";
+    String API_GET_STATISTICS_HTML = "/api/get/statistics/html";
+    String API_GET_TIMETABLE_HTML = "/api/get/timetable/html";
+    String API_GET_ERROR_HTML = "/api/get/sorry/html";
 
-    String GET_GROUP_JSON_BY_ID = "/api/get/group/json/{id}";
-    String GET_GROUP_JSON_BY_NAME = "/api/get/group/json/{name}";
-    String GET_GROUPS_JSON = "/api/get/groups/json";
-    String GET_PROFESSOR_JSON_BY_ID = "/api/get/professor/json/{id}";
-    String GET_PROFESSOR_JSON_BY_SURNAME = "/api/get/group/json/{surname}";
-    String GET_PROFESSORS_JSON = "/api/get/professors/json";
-    String GET_LESSON_JSON = "/api/get/lesson/json/{id}";
-    String GET_LESSONS_JSON = "/api/get/lessons/json";
-    String GET_EMPLOYMENT_GROUP_JSON = "/api/get/employment/group";
-    String GET_EMPLOYMENT_PROFESSOR_JSON = "/api/get/employment/professor";
-    String GET_TIMETABLE_GROUP_JSON = "/api/get/timetable/group";
-    String GET_TIMETABLE_PROFESSOR_JSON = "/api/get/timetable/professor";
+    String API_REST_GET_GROUP_JSON_BY_ID = "/api/rest/get/group/json/{id}";
+    String API_REST_GET_GROUP_JSON_BY_NAME = "/api/rest/get/group/json/{name}";
+    String API_REST_GET_GROUPS_JSON = "/api/rest/get/groups/json";
+    String API_REST_GET_PROFESSOR_JSON_BY_ID = "/api/rest/get/professor/json/{id}";
+    String API_REST_GET_PROFESSOR_JSON_BY_SURNAME = "/api/rest/get/group/json/{surname}";
+    String API_REST_GET_PROFESSORS_JSON = "/api/rest/get/professors/json";
+    String API_REST_GET_LESSON_JSON = "/api/rest/get/lesson/json/{id}";
+    String API_REST_GET_LESSONS_JSON = "/api/rest/get/lessons/json";
+    String API_REST_GET_EMPLOYMENT_GROUP_JSON = "/api/rest/get/employment/group";
+    String API_REST_GET_EMPLOYMENT_PROFESSOR_JSON = "/api/rest/get/employment/professor";
+    String API_REST_GET_TIMETABLE_GROUP_JSON = "/api/rest/get/timetable/group";
+    String API_REST_GET_TIMETABLE_PROFESSOR_JSON = "/api/rest/get/timetable/professor";
 
-    String POST_GROUP_JSON = "/api/post/group/json";
-    String POST_PROFESSOR_JSON = "/api/post/professor/json";
-    String POST_LESSON_JSON = "/api/post/lesson/json";
+    String API_REST_POST_GROUP_JSON = "/api/rest/post/group/json";
+    String API_REST_POST_PROFESSOR_JSON = "/api/rest/post/professor/json";
+    String API_REST_POST_LESSON_JSON = "/api/rest/post/lesson/json";
 
-    String PUT_GROUP_JSON = "/api/put/group/json";
-    String PUT_PROFESSOR_JSON = "/api/put/professor/json";
-    String PUT_LESSON_JSON = "/api/put/lesson/json";
+    String API_REST_PUT_GROUP_JSON = "/api/rest/put/group/json";
+    String API_REST_PUT_PROFESSOR_JSON = "/api/rest/put/professor/json";
+    String API_REST_PUT_LESSON_JSON = "/api/rest/put/lesson/json";
 
-    String DELETE_GROUP_JSON = "/api/delete/group/json";
-    String DELETE_PROFESSOR_JSON = "/api/delete/professor/json";
-    String DELETE_LESSON_JSON = "/api/delete/lesson/json";
+    String API_REST_DELETE_GROUP_JSON = "/api/rest/delete/group/json";
+    String API_REST_DELETE_PROFESSOR_JSON = "/api/rest/delete/professor/json";
+    String API_REST_DELETE_LESSON_JSON = "/api/rest/delete/lesson/json";
 }

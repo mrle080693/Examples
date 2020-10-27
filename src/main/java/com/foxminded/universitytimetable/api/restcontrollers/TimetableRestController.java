@@ -28,7 +28,7 @@ public class TimetableRestController {
         this.timetableService = timetableService;
     }
 
-    @RequestMapping(Urls.GET_TIMETABLE_GROUP_JSON)
+    @RequestMapping(Urls.API_REST_GET_TIMETABLE_GROUP_JSON)
     public List<Lesson> getGroupEmployment(@RequestParam int groupId,
                                            @RequestParam("from") Date from,
                                            @RequestParam("till") Date till) {
@@ -53,7 +53,7 @@ public class TimetableRestController {
         return lessons;
     }
 
-    @RequestMapping(Urls.GET_TIMETABLE_PROFESSOR_JSON)
+    @RequestMapping(Urls.API_REST_GET_TIMETABLE_PROFESSOR_JSON)
     public List<Lesson> getProfessorEmployment(@RequestParam int professorId,
                                                @RequestParam("from") Date from,
                                                @RequestParam("till") Date till) {

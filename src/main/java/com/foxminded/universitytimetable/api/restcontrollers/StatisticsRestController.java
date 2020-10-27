@@ -25,7 +25,7 @@ public class StatisticsRestController {
         this.statisticsService = statisticsService;
     }
 
-    @RequestMapping(Urls.GET_EMPLOYMENT_GROUP_JSON)
+    @RequestMapping(Urls.API_REST_GET_EMPLOYMENT_GROUP_JSON)
     public long getGroupEmployment(@RequestParam int groupId,
                                    @RequestParam("from") Date from,
                                    @RequestParam("till") Date till) {
@@ -49,7 +49,7 @@ public class StatisticsRestController {
         return lessonsQuantity;
     }
 
-    @RequestMapping(Urls.GET_EMPLOYMENT_PROFESSOR_JSON)
+    @RequestMapping(Urls.API_REST_GET_EMPLOYMENT_PROFESSOR_JSON)
     public long getProfessorEmployment(@RequestParam int professorId,
                                        @RequestParam("from") Date from,
                                        @RequestParam("till") Date till) {

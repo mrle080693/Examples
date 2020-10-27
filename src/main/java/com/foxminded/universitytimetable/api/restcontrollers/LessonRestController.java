@@ -29,7 +29,7 @@ public class LessonRestController {
         this.lessonService = lessonService;
     }
 
-    @RequestMapping(value = Urls.POST_LESSON_JSON, method = RequestMethod.POST)
+    @RequestMapping(value = Urls.API_REST_POST_LESSON_JSON, method = RequestMethod.POST)
     public Lesson add(@RequestParam Date date, @RequestParam int lessonNumber, @RequestParam int groupId,
                       @RequestParam int professorId, @RequestParam String building, @RequestParam String classroom) {
 
@@ -54,7 +54,7 @@ public class LessonRestController {
         return lesson;
     }
 
-    @RequestMapping(Urls.GET_LESSONS_JSON)
+    @RequestMapping(Urls.API_REST_GET_LESSONS_JSON)
     public List<Lesson> getAll() {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get all lessons");
         List<Lesson> lessons = new ArrayList<>();
@@ -77,7 +77,7 @@ public class LessonRestController {
         return lessons;
     }
 
-    @RequestMapping(Urls.GET_LESSON_JSON)
+    @RequestMapping(Urls.API_REST_GET_LESSON_JSON)
     public Lesson getById(@PathVariable int id) {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get lesson with id = " + id);
         Lesson lesson = new Lesson();
@@ -100,7 +100,7 @@ public class LessonRestController {
         return lesson;
     }
 
-    @RequestMapping(value = Urls.PUT_LESSON_JSON, method = RequestMethod.PUT)
+    @RequestMapping(value = Urls.API_REST_PUT_LESSON_JSON, method = RequestMethod.PUT)
     public Lesson update(@RequestParam(value = "id", defaultValue = "0") int id, @RequestParam Date date,
                          @RequestParam int lessonNumber, @RequestParam int groupId, @RequestParam int professorId,
                          @RequestParam String building, @RequestParam String classroom) {
@@ -131,7 +131,7 @@ public class LessonRestController {
         return lesson;
     }
 
-    @RequestMapping(value = Urls.DELETE_LESSON_JSON, method = RequestMethod.DELETE)
+    @RequestMapping(value = Urls.API_REST_DELETE_LESSON_JSON, method = RequestMethod.DELETE)
     public Lesson remove(@RequestParam int lessonId) {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to remove lesson with id = " + lessonId);
         Lesson lesson;
