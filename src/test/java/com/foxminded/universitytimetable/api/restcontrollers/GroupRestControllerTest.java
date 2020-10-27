@@ -1,5 +1,6 @@
 package com.foxminded.universitytimetable.api.restcontrollers;
 
+import com.foxminded.universitytimetable.api.constants.Urls;
 import com.foxminded.universitytimetable.models.Group;
 import com.foxminded.universitytimetable.services.GroupService;
 import com.foxminded.universitytimetable.services.exceptions.NotFoundEntityException;
@@ -40,7 +41,7 @@ class GroupRestControllerTest {
 
             given(groupService.add(any(Group.class))).willReturn(group);
 
-            mockMvc.perform(post("/rest/groups/post")
+            mockMvc.perform(post(Urls.API_REST_POST_GROUP_JSON)
                     .param("name", "test"))
                     .andExpect(status().isOk())
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -54,7 +55,7 @@ class GroupRestControllerTest {
     void addHaveToThrowResponseStatusExceptionWithCorrectStatusIfCatchException() {
         try {
             given(groupService.add(any(Group.class))).willThrow(ValidationException.class);
-            mockMvc.perform(post("/rest/groups/post")
+            mockMvc.perform(post(Urls.API_REST_POST_GROUP_JSON)
                     .param("name", "test"))
                     .andExpect(status().isBadRequest());
 
@@ -70,7 +71,7 @@ class GroupRestControllerTest {
     @Test
     void addHaveToThrowResponseStatusExceptionWithBadRequestStatusIfRequestParamIsWrong() {
         try {
-            mockMvc.perform(post("/rest/groups/post")
+            mockMvc.perform(post(Urls.API_REST_POST_GROUP_JSON)
                     .contentType(MediaType.APPLICATION_JSON)
                     .param("wrong", ""))
                     .andExpect(status().isBadRequest());
@@ -89,7 +90,7 @@ class GroupRestControllerTest {
 
             given(groupService.getAll()).willReturn(groups);
 
-            mockMvc.perform(get("/rest/groups")
+            mockMvc.perform(get(Urls.API_REST_GET_GROUPS_JSON)
                     .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk())
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -103,17 +104,17 @@ class GroupRestControllerTest {
     void getAllHaveToThrowResponseStatusExceptionWithCorrectStatusIfCatchException() {
         try {
             given(groupService.getAll()).willThrow(ValidationException.class);
-            mockMvc.perform(get("/rest/groups")
+            mockMvc.perform(get(Urls.API_REST_GET_GROUPS_JSON)
                     .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isBadRequest());
 
             given(groupService.getAll()).willThrow(NotFoundEntityException.class);
-            mockMvc.perform(get("/rest/groups")
+            mockMvc.perform(get(Urls.API_REST_GET_GROUPS_JSON)
                     .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isNotFound());
 
             given(groupService.getAll()).willThrow(Exception.class);
-            mockMvc.perform(get("/rest/groups")
+            mockMvc.perform(get(Urls.API_REST_GET_GROUPS_JSON)
                     .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isInternalServerError());
         } catch (Exception e) {
@@ -130,7 +131,7 @@ class GroupRestControllerTest {
 
             given(groupService.getById(3)).willReturn(group);
 
-            mockMvc.perform(get("/rest/groups/{id}"))
+            mockMvc.perform(get(Urls.API_REST_GET_GROUP_JSON_BY_ID))
                     .andExpect(status().isOk())
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                     .andExpect(content().json(groupJson));
@@ -145,15 +146,15 @@ class GroupRestControllerTest {
             int id = 3;
 
             given(groupService.getById(id)).willThrow(ValidationException.class);
-            mockMvc.perform(get("/rest/groups/{1}"))
+            mockMvc.perform(get(Urls.API_REST_GET_GROUP_JSON_BY_ID))
                     .andExpect(status().isBadRequest());
 
             given(groupService.getById(id)).willThrow(NotFoundEntityException.class);
-            mockMvc.perform(get("/rest/groups/{1}"))
+            mockMvc.perform(get(Urls.API_REST_GET_GROUP_JSON_BY_ID))
                     .andExpect(status().isNotFound());
 
             given(groupService.getAll()).willThrow(Exception.class);
-            mockMvc.perform(get("/rest/groups/{1}"))
+            mockMvc.perform(get(Urls.API_REST_GET_GROUP_JSON_BY_ID))
                     .andExpect(status().isInternalServerError());
         } catch (Exception e) {
             // try/catch for see green test. Throws make test red and disoriented me.
@@ -171,7 +172,7 @@ class GroupRestControllerTest {
 
             given(groupService.getByName(name)).willReturn(groups);
 
-            mockMvc.perform(get("/rest/groups/{name}")
+            mockMvc.perform(get(Urls.API_REST_GET_GROUP_JSON_BY_NAME)
                     .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk())
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -187,15 +188,15 @@ class GroupRestControllerTest {
             String name = "Name";
 
             given(groupService.getByName(name)).willThrow(ValidationException.class);
-            mockMvc.perform(get("/rest/groups/{Name}"))
+            mockMvc.perform(get(Urls.API_REST_GET_GROUP_JSON_BY_NAME))
                     .andExpect(status().isBadRequest());
 
             given(groupService.getByName(name)).willThrow(NotFoundEntityException.class);
-            mockMvc.perform(get("/rest/groups/{Name}"))
+            mockMvc.perform(get(Urls.API_REST_GET_GROUP_JSON_BY_NAME))
                     .andExpect(status().isNotFound());
 
             given(groupService.getByName(name)).willThrow(Exception.class);
-            mockMvc.perform(get("/rest/groups/{Name}"))
+            mockMvc.perform(get(Urls.API_REST_GET_GROUP_JSON_BY_NAME))
                     .andExpect(status().isInternalServerError());
         } catch (Exception e) {
             // try/catch for see green test. Throws make test red and disoriented me.
@@ -213,7 +214,7 @@ class GroupRestControllerTest {
 
             given(groupService.update(any(Group.class))).willReturn(group);
 
-            mockMvc.perform(put("/rest/groups/put")
+            mockMvc.perform(put(Urls.API_REST_PUT_GROUP_JSON)
                     .param("id", String.valueOf(id))
                     .param("name", name))
                     .andExpect(status().isOk())
@@ -228,13 +229,13 @@ class GroupRestControllerTest {
     void updateHaveToThrowResponseStatusExceptionWithCorrectStatusIfCatchException() {
         try {
             given(groupService.update(any(Group.class))).willThrow(ValidationException.class);
-            mockMvc.perform(put("/rest/groups/put")
+            mockMvc.perform(put(Urls.API_REST_PUT_GROUP_JSON)
                     .param("id", "1")
                     .param("name", "test"))
                     .andExpect(status().isBadRequest());
 
             given(groupService.update(any(Group.class))).willThrow(Exception.class);
-            mockMvc.perform(put("/rest/groups/put")
+            mockMvc.perform(put(Urls.API_REST_PUT_GROUP_JSON)
                     .param("id", "1")
                     .param("name", "test"))
                     .andExpect(status().isInternalServerError());
@@ -246,7 +247,7 @@ class GroupRestControllerTest {
     @Test
     void updateHaveToThrowResponseStatusExceptionWithBadRequestStatusIfRequestParamIsWrong() {
         try {
-            mockMvc.perform(put("/rest/groups/put")
+            mockMvc.perform(put(Urls.API_REST_PUT_GROUP_JSON)
                     .param("wrong", "1")
                     .param("name", ""))
                     .andExpect(status().isBadRequest());
@@ -271,7 +272,7 @@ class GroupRestControllerTest {
 
             given(groupService.remove(id)).willReturn(group);
 
-            mockMvc.perform(delete("/rest/groups/delete")
+            mockMvc.perform(delete(Urls.API_REST_DELETE_GROUP_JSON)
                     .param("groupid", String.valueOf(id)))
                     .andExpect(status().isOk())
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -285,17 +286,17 @@ class GroupRestControllerTest {
     void removeHaveToThrowResponseStatusExceptionWithCorrectStatusIfCatchException() {
         try {
             given(groupService.remove(any(Integer.class))).willThrow(NotFoundEntityException.class);
-            mockMvc.perform(delete("/rest/groups/delete")
+            mockMvc.perform(delete(Urls.API_REST_DELETE_GROUP_JSON)
                     .param("groupid", "1"))
                     .andExpect(status().isNotFound());
 
             given(groupService.remove(-1)).willThrow(ValidationException.class);
-            mockMvc.perform(delete("/rest/groups/delete")
+            mockMvc.perform(delete(Urls.API_REST_DELETE_GROUP_JSON)
                     .param("id", "1"))
                     .andExpect(status().isBadRequest());
 
             given(groupService.remove(1)).willThrow(Exception.class);
-            mockMvc.perform(delete("/rest/groups/delete")
+            mockMvc.perform(delete(Urls.API_REST_DELETE_GROUP_JSON)
                     .param("id", "1"))
                     .andExpect(status().isInternalServerError());
         } catch (Exception e) {
@@ -306,7 +307,7 @@ class GroupRestControllerTest {
     @Test
     void removeHaveToThrowResponseStatusExceptionWithBadRequestStatusIfRequestParamIsWrong() {
         try {
-            mockMvc.perform(put("/rest/groups/delete")
+            mockMvc.perform(put(Urls.API_REST_DELETE_GROUP_JSON)
                     .param("wrong", "1"))
                     .andExpect(status().isBadRequest());
         } catch (Exception e) {

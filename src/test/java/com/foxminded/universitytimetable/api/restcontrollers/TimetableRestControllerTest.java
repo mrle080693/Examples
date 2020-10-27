@@ -1,5 +1,6 @@
 package com.foxminded.universitytimetable.api.restcontrollers;
 
+import com.foxminded.universitytimetable.api.constants.Urls;
 import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.services.TimetableService;
 import com.foxminded.universitytimetable.services.exceptions.ValidationException;
@@ -55,7 +56,7 @@ class TimetableRestControllerTest {
             given(timetableService.getGroupTimetable(any(Integer.class), any(Date.class), any(Date.class)))
                     .willReturn(lessons);
 
-            mockMvc.perform(get("/rest/timetable/group_timetable")
+            mockMvc.perform(get(Urls.API_REST_GET_GROUP_TIMETABLE_JSON)
                     .param("groupId", String.valueOf(id))
                     .param("from", String.valueOf(from))
                     .param("till", String.valueOf(till)))
@@ -73,7 +74,7 @@ class TimetableRestControllerTest {
         try {
             given(timetableService.getGroupTimetable(any(Integer.class), any(Date.class), any(Date.class)))
                     .willThrow(ValidationException.class);
-            mockMvc.perform(get("/rest/timetable/group_timetable")
+            mockMvc.perform(get(Urls.API_REST_GET_GROUP_TIMETABLE_JSON)
                     .param("groupId", String.valueOf(id))
                     .param("from", String.valueOf(from))
                     .param("till", String.valueOf(till)))
@@ -82,7 +83,7 @@ class TimetableRestControllerTest {
 
             given(timetableService.getGroupTimetable(any(Integer.class), any(Date.class), any(Date.class)))
                     .willThrow(Exception.class);
-            mockMvc.perform(get("/rest/timetable/group_timetable")
+            mockMvc.perform(get(Urls.API_REST_GET_GROUP_TIMETABLE_JSON)
                     .param("groupId", String.valueOf(id))
                     .param("from", String.valueOf(from))
                     .param("till", String.valueOf(till)))
@@ -98,7 +99,7 @@ class TimetableRestControllerTest {
             given(timetableService.getProfessorTimetable(any(Integer.class), any(Date.class), any(Date.class)))
                     .willReturn(lessons);
 
-            mockMvc.perform(get("/rest/timetable/professor_timetable")
+            mockMvc.perform(get(Urls.API_REST_GET_PROFESSOR_TIMETABLE_JSON)
                     .param("professorId", String.valueOf(id))
                     .param("from", String.valueOf(from))
                     .param("till", String.valueOf(till)))
@@ -116,7 +117,7 @@ class TimetableRestControllerTest {
         try {
             given(timetableService.getProfessorTimetable(any(Integer.class), any(Date.class), any(Date.class)))
                     .willThrow(ValidationException.class);
-            mockMvc.perform(get("/rest/timetable/professor_timetable")
+            mockMvc.perform(get(Urls.API_REST_GET_PROFESSOR_TIMETABLE_JSON)
                     .param("professorId", String.valueOf(id))
                     .param("from", String.valueOf(from))
                     .param("till", String.valueOf(till)))
@@ -125,7 +126,7 @@ class TimetableRestControllerTest {
 
             given(timetableService.getGroupTimetable(any(Integer.class), any(Date.class), any(Date.class)))
                     .willThrow(Exception.class);
-            mockMvc.perform(get("/rest/timetable/professor_timetable")
+            mockMvc.perform(get(Urls.API_REST_GET_PROFESSOR_TIMETABLE_JSON)
                     .param("professorId", String.valueOf(id))
                     .param("from", String.valueOf(from))
                     .param("till", String.valueOf(till)))

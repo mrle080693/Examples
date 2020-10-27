@@ -1,5 +1,6 @@
 package com.foxminded.universitytimetable.api.restcontrollers;
 
+import com.foxminded.universitytimetable.api.constants.Urls;
 import com.foxminded.universitytimetable.models.Lesson;
 import com.foxminded.universitytimetable.services.LessonService;
 import com.foxminded.universitytimetable.services.exceptions.NotFoundEntityException;
@@ -48,7 +49,7 @@ class LessonRestControllerTest {
         try {
             given(lessonService.add(any(Lesson.class))).willReturn(LESSON);
 
-            mockMvc.perform(post("/rest/lessons/post")
+            mockMvc.perform(post(Urls.API_REST_POST_LESSON_JSON)
                     .param("date", String.valueOf(DATE))
                     .param("lessonNumber", String.valueOf(LESSON_NUMBER))
                     .param("groupId", String.valueOf(GROUP_ID))
@@ -68,7 +69,7 @@ class LessonRestControllerTest {
     void addHaveToThrowResponseStatusExceptionWithCorrectStatusIfCatchException() {
         try {
             given(lessonService.add(any(Lesson.class))).willThrow(ValidationException.class);
-            mockMvc.perform(post("/rest/lessons/post")
+            mockMvc.perform(post(Urls.API_REST_POST_LESSON_JSON)
                     .param("date", String.valueOf(DATE))
                     .param("lessonNumber", String.valueOf(LESSON_NUMBER))
                     .param("groupId", String.valueOf(GROUP_ID))
@@ -78,7 +79,7 @@ class LessonRestControllerTest {
                     .andExpect(status().isBadRequest());
 
             given(lessonService.add(any(Lesson.class))).willThrow(Exception.class);
-            mockMvc.perform(post("/rest/lessons/post")
+            mockMvc.perform(post(Urls.API_REST_POST_LESSON_JSON)
                     .param("date", String.valueOf(DATE))
                     .param("lessonNumber", String.valueOf(LESSON_NUMBER))
                     .param("groupId", String.valueOf(GROUP_ID))
@@ -94,7 +95,7 @@ class LessonRestControllerTest {
     @Test
     void addHaveToThrowResponseStatusExceptionWithBadRequestStatusIfRequestParamIsWrong() {
         try {
-            mockMvc.perform(post("/rest/lessons/post")
+            mockMvc.perform(post(Urls.API_REST_POST_LESSON_JSON)
                     .param("WRONG !!!", String.valueOf(DATE))
                     .param("lessonNumber", String.valueOf(LESSON_NUMBER))
                     .param("groupId", String.valueOf(GROUP_ID))
@@ -117,7 +118,7 @@ class LessonRestControllerTest {
 
             given(lessonService.getAll()).willReturn(lessons);
 
-            mockMvc.perform(get("/rest/lessons")
+            mockMvc.perform(get(Urls.API_REST_GET_LESSONS_JSON)
                     .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk())
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -131,17 +132,17 @@ class LessonRestControllerTest {
     void getAllHaveToThrowResponseStatusExceptionWithCorrectStatusIfCatchException() {
         try {
             given(lessonService.getAll()).willThrow(ValidationException.class);
-            mockMvc.perform(get("/rest/lessons")
+            mockMvc.perform(get(Urls.API_REST_GET_LESSONS_JSON)
                     .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isBadRequest());
 
             given(lessonService.getAll()).willThrow(NotFoundEntityException.class);
-            mockMvc.perform(get("/rest/lessons")
+            mockMvc.perform(get(Urls.API_REST_GET_LESSONS_JSON)
                     .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isNotFound());
 
             given(lessonService.getAll()).willThrow(Exception.class);
-            mockMvc.perform(get("/rest/lessons")
+            mockMvc.perform(get(Urls.API_REST_GET_LESSONS_JSON)
                     .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isInternalServerError());
         } catch (Exception e) {
@@ -158,7 +159,7 @@ class LessonRestControllerTest {
 
             given(lessonService.getById(any(Integer.class))).willReturn(lesson);
 
-            mockMvc.perform(get("/rest/lessons/{id}"))
+            mockMvc.perform(get(Urls.API_REST_GET_LESSON_JSON))
                     .andExpect(status().isOk())
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                     .andExpect(content().json(lessonJson));
@@ -173,15 +174,15 @@ class LessonRestControllerTest {
             int id = 3;
 
             given(lessonService.getById(id)).willThrow(ValidationException.class);
-            mockMvc.perform(get("/rest/lessons/{1}"))
+            mockMvc.perform(get(Urls.API_REST_GET_LESSON_JSON))
                     .andExpect(status().isBadRequest());
 
             given(lessonService.getById(id)).willThrow(NotFoundEntityException.class);
-            mockMvc.perform(get("/rest/lessons/{1}"))
+            mockMvc.perform(get(Urls.API_REST_GET_LESSON_JSON))
                     .andExpect(status().isNotFound());
 
-            given(lessonService.getAll()).willThrow(Exception.class);
-            mockMvc.perform(get("/rest/groups/{1}"))
+            given(lessonService.getById(any(Integer.class))).willThrow(Exception.class);
+            mockMvc.perform(get(Urls.API_REST_GET_LESSON_JSON))
                     .andExpect(status().isInternalServerError());
         } catch (Exception e) {
             // try/catch for see green test. Throws make test red and disoriented me.
@@ -192,7 +193,7 @@ class LessonRestControllerTest {
     void updateHaveToThrowResponseStatusExceptionWithCorrectStatusIfCatchException() {
         try {
             given(lessonService.update(any(Lesson.class))).willThrow(ValidationException.class);
-            mockMvc.perform(put("/rest/lessons/put")
+            mockMvc.perform(put(Urls.API_REST_PUT_LESSON_JSON)
                     .param("id", String.valueOf(1))
                     .param("date", String.valueOf(DATE))
                     .param("lessonNumber", String.valueOf(LESSON_NUMBER))
@@ -203,7 +204,7 @@ class LessonRestControllerTest {
                     .andExpect(status().isBadRequest());
 
             given(lessonService.add(any(Lesson.class))).willThrow(Exception.class);
-            mockMvc.perform(put("/rest/lessons/put")
+            mockMvc.perform(put(Urls.API_REST_PUT_LESSON_JSON)
                     .param("id", String.valueOf(1))
                     .param("date", String.valueOf(DATE))
                     .param("lessonNumber", String.valueOf(LESSON_NUMBER))
@@ -220,7 +221,7 @@ class LessonRestControllerTest {
     @Test
     void updateHaveToThrowResponseStatusExceptionWithBadRequestStatusIfRequestParamIsWrong() {
         try {
-            mockMvc.perform(put("/rest/lessons/put")
+            mockMvc.perform(put(Urls.API_REST_PUT_LESSON_JSON)
                     .param("id", String.valueOf(1))
                     .param("WRONG !!!", String.valueOf(DATE))
                     .param("lessonNumber", String.valueOf(LESSON_NUMBER))
@@ -239,7 +240,7 @@ class LessonRestControllerTest {
         try {
             given(lessonService.remove(any(Integer.class))).willReturn(LESSON);
 
-            mockMvc.perform(delete("/rest/lessons/delete")
+            mockMvc.perform(delete(Urls.API_REST_DELETE_LESSON_JSON)
                     .param("lessonId", String.valueOf(any(Integer.class))))
                     .andExpect(status().isOk())
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -253,17 +254,17 @@ class LessonRestControllerTest {
     void removeHaveToThrowResponseStatusExceptionWithCorrectStatusIfCatchException() {
         try {
             given(lessonService.remove(any(Integer.class))).willThrow(NotFoundEntityException.class);
-            mockMvc.perform(delete("/rest/lessons/delete")
+            mockMvc.perform(delete(Urls.API_REST_DELETE_LESSON_JSON)
                     .param("lessonId", "1"))
                     .andExpect(status().isNotFound());
 
             given(lessonService.remove(-1)).willThrow(ValidationException.class);
-            mockMvc.perform(delete("/rest/lessons/delete")
+            mockMvc.perform(delete(Urls.API_REST_DELETE_LESSON_JSON)
                     .param("lessonId", "1"))
                     .andExpect(status().isBadRequest());
 
             given(lessonService.remove(1)).willThrow(Exception.class);
-            mockMvc.perform(delete("/rest/lessons/delete")
+            mockMvc.perform(delete(Urls.API_REST_DELETE_LESSON_JSON)
                     .param("lessonId", "1"))
                     .andExpect(status().isInternalServerError());
         } catch (Exception e) {
@@ -274,7 +275,7 @@ class LessonRestControllerTest {
     @Test
     void removeHaveToThrowResponseStatusExceptionWithBadRequestStatusIfRequestParamIsWrong() {
         try {
-            mockMvc.perform(put("/rest/lessons/delete")
+            mockMvc.perform(put(Urls.API_REST_DELETE_LESSON_JSON)
                     .param("wrong", "1"))
                     .andExpect(status().isBadRequest());
         } catch (Exception e) {
@@ -282,4 +283,3 @@ class LessonRestControllerTest {
         }
     }
 }
-

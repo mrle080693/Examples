@@ -17,10 +17,10 @@ public interface Urls {
     String API_REST_GET_PROFESSORS_JSON = "/api/rest/get/professors/json";
     String API_REST_GET_LESSON_JSON = "/api/rest/get/lesson/json/{id}";
     String API_REST_GET_LESSONS_JSON = "/api/rest/get/lessons/json";
-    String API_REST_GET_EMPLOYMENT_GROUP_JSON = "/api/rest/get/employment/group";
-    String API_REST_GET_EMPLOYMENT_PROFESSOR_JSON = "/api/rest/get/employment/professor";
-    String API_REST_GET_TIMETABLE_GROUP_JSON = "/api/rest/get/timetable/group";
-    String API_REST_GET_TIMETABLE_PROFESSOR_JSON = "/api/rest/get/timetable/professor";
+    String API_REST_GET_GROUP_EMPLOYMENT_JSON = "/api/rest/get/group-employment";
+    String API_REST_GET_PROFESSOR_EMPLOYMENT_JSON = "/api/rest/get/professor-employment";
+    String API_REST_GET_GROUP_TIMETABLE_JSON = "/api/rest/get/group-timetable";
+    String API_REST_GET_PROFESSOR_TIMETABLE_JSON = "/api/rest/get/professor-timetable";
 
     String API_REST_POST_GROUP_JSON = "/api/rest/post/group/json";
     String API_REST_POST_PROFESSOR_JSON = "/api/rest/post/professor/json";

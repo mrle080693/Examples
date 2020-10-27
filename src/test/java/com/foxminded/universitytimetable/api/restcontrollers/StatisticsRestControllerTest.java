@@ -1,5 +1,6 @@
 package com.foxminded.universitytimetable.api.restcontrollers;
 
+import com.foxminded.universitytimetable.api.constants.Urls;
 import com.foxminded.universitytimetable.services.StatisticsService;
 import com.foxminded.universitytimetable.services.exceptions.ValidationException;
 import com.google.gson.Gson;
@@ -41,7 +42,7 @@ class StatisticsRestControllerTest {
             given(statisticsService.getGroupEmployment(any(Integer.class), any(Date.class), any(Date.class)))
                     .willReturn(employment);
 
-            mockMvc.perform(get("/rest/statistics/group_employment")
+            mockMvc.perform(get(Urls.API_REST_GET_GROUP_EMPLOYMENT_JSON)
                     .param("groupId", String.valueOf(id))
                     .param("from", String.valueOf(from))
                     .param("till", String.valueOf(till)))
@@ -59,7 +60,7 @@ class StatisticsRestControllerTest {
         try {
             given(statisticsService.getGroupEmployment(any(Integer.class), any(Date.class), any(Date.class)))
                     .willThrow(ValidationException.class);
-            mockMvc.perform(get("/rest/statistics/group_employment")
+            mockMvc.perform(get(Urls.API_REST_GET_GROUP_EMPLOYMENT_JSON)
                     .param("groupId", String.valueOf(id))
                     .param("from", String.valueOf(from))
                     .param("till", String.valueOf(till)))
@@ -68,7 +69,7 @@ class StatisticsRestControllerTest {
 
             given(statisticsService.getGroupEmployment(any(Integer.class), any(Date.class), any(Date.class)))
                     .willThrow(Exception.class);
-            mockMvc.perform(get("/rest/statistics/group_employment")
+            mockMvc.perform(get(Urls.API_REST_GET_GROUP_EMPLOYMENT_JSON)
                     .param("groupId", String.valueOf(id))
                     .param("from", String.valueOf(from))
                     .param("till", String.valueOf(till)))
@@ -84,7 +85,7 @@ class StatisticsRestControllerTest {
             given(statisticsService.getProfessorEmployment(any(Integer.class), any(Date.class), any(Date.class)))
                     .willReturn(employment);
 
-            mockMvc.perform(get("/rest/statistics/professor_employment")
+            mockMvc.perform(get(Urls.API_REST_GET_PROFESSOR_EMPLOYMENT_JSON)
                     .param("professorId", String.valueOf(id))
                     .param("from", String.valueOf(from))
                     .param("till", String.valueOf(till)))
@@ -102,7 +103,7 @@ class StatisticsRestControllerTest {
         try {
             given(statisticsService.getProfessorEmployment(any(Integer.class), any(Date.class), any(Date.class)))
                     .willThrow(ValidationException.class);
-            mockMvc.perform(get("/rest/statistics/professor_employment")
+            mockMvc.perform(get(Urls.API_REST_GET_PROFESSOR_EMPLOYMENT_JSON)
                     .param("professorId", String.valueOf(id))
                     .param("from", String.valueOf(from))
                     .param("till", String.valueOf(till)))
@@ -111,7 +112,7 @@ class StatisticsRestControllerTest {
 
             given(statisticsService.getGroupEmployment(any(Integer.class), any(Date.class), any(Date.class)))
                     .willThrow(Exception.class);
-            mockMvc.perform(get("/rest/statistics/professor_employment")
+            mockMvc.perform(get(Urls.API_REST_GET_PROFESSOR_EMPLOYMENT_JSON)
                     .param("professorId", String.valueOf(id))
                     .param("from", String.valueOf(from))
                     .param("till", String.valueOf(till)))
