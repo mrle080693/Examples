@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class BrowserViewsController {
+public class ViewsController {
 
     @GetMapping(Urls.GET_INDEX_HTML)
     public String getIndex(){
@@ -37,8 +37,8 @@ public class BrowserViewsController {
         return "index";
     }
 
-    @GetMapping(Urls.GET_SORRY_HTML)
-    public String getSorryPage(){
-        return "sorry-page";
+    @GetMapping(Urls.GET_ERROR_HTML)
+    public String getErrorPage(){
+        return "error-page";
     }
 }

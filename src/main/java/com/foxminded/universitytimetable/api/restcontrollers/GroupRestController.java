@@ -17,8 +17,8 @@ import java.util.List;
 
 @RestController
 public class GroupRestController {
-    private final GroupService groupService;
     private static final Logger LOGGER = LoggerFactory.getLogger(GroupRestController.class);
+    private final GroupService groupService;
     private final ResponseStatusException responseStatusException = new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
             "                        SORRY :( \n" +
                     "We know about this trouble and will correct it soon");
@@ -30,7 +30,7 @@ public class GroupRestController {
 
     @RequestMapping(value = Urls.POST_GROUP_JSON, method = RequestMethod.POST)
     public Group add(@RequestParam String name) {
-        LOGGER.debug("Try save group with: " + " name = " + name);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try save group with: " + " name = " + name);
         Group group = new Group(name);
 
         try {
@@ -44,14 +44,14 @@ public class GroupRestController {
             throw responseStatusException;
         }
 
-        LOGGER.debug("Successfully save group " + group);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully save group " + group);
 
         return group;
     }
 
     @RequestMapping(Urls.GET_GROUPS_JSON)
     public List<Group> getAll() {
-        LOGGER.debug("Try get all groups");
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get all groups");
 
         List<Group> groups = new ArrayList<>();
 
@@ -68,14 +68,14 @@ public class GroupRestController {
             throw responseStatusException;
         }
 
-        LOGGER.debug("Successfully got with groups: " + groups.size());
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully got with groups: " + groups.size());
 
         return groups;
     }
 
     @RequestMapping(Urls.GET_GROUP_JSON_BY_ID)
     public Group getById(@PathVariable int id) {
-        LOGGER.debug("Try get group with id = " + id);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get group with id = " + id);
         Group group = new Group();
 
         try {
@@ -91,14 +91,14 @@ public class GroupRestController {
             throw responseStatusException;
         }
 
-        LOGGER.debug("Successfully got group: " + group);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully got group: " + group);
 
         return group;
     }
 
     @RequestMapping(Urls.GET_GROUP_JSON_BY_NAME)
     public List<Group> getByName(@PathVariable String name) {
-        LOGGER.debug("Try to get groups with name = " + name);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to get groups with name = " + name);
         List<Group> groups = new ArrayList<>();
 
         try {
@@ -114,14 +114,14 @@ public class GroupRestController {
             throw responseStatusException;
         }
 
-        LOGGER.debug("Successfully got with groups quantity: " + groups.size());
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully got with groups quantity: " + groups.size());
 
         return groups;
     }
 
     @RequestMapping(value = Urls.PUT_GROUP_JSON, method = RequestMethod.PUT)
     public Group update(@RequestParam int id, @RequestParam String name) {
-        LOGGER.debug("Try to update group with id = " + id);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to update group with id = " + id);
         Group group = new Group();
 
         try {
@@ -140,14 +140,14 @@ public class GroupRestController {
             throw responseStatusException;
         }
 
-        LOGGER.debug("Successfully updated");
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully updated");
 
         return group;
     }
 
     @RequestMapping(value = Urls.DELETE_GROUP_JSON, method = RequestMethod.DELETE)
     public Group remove(@RequestParam int groupid) {
-        LOGGER.debug("Try to remove group with id = " + groupid);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to remove group with id = " + groupid);
         Group group = null;
 
         try {
@@ -163,7 +163,7 @@ public class GroupRestController {
             throw responseStatusException;
         }
 
-        LOGGER.debug("Successfully remove group with id: " + groupid);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully remove group with id: " + groupid);
 
         return group;
     }

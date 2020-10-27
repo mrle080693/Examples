@@ -29,7 +29,8 @@ public class StatisticsRestController {
     public long getGroupEmployment(@RequestParam int groupId,
                                    @RequestParam("from") Date from,
                                    @RequestParam("till") Date till) {
-        LOGGER.debug("Try to get group employment with id = " + groupId + " from: " + from + " till: " + till);
+        if (LOGGER.isDebugEnabled())
+            LOGGER.debug("Try to get group employment with id = " + groupId + " from: " + from + " till: " + till);
 
         long lessonsQuantity = 0;
 
@@ -43,7 +44,7 @@ public class StatisticsRestController {
             throw responseStatusException;
         }
 
-        LOGGER.debug("Successfully got with lessons quantity: " + lessonsQuantity);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully got with lessons quantity: " + lessonsQuantity);
 
         return lessonsQuantity;
     }
@@ -52,7 +53,8 @@ public class StatisticsRestController {
     public long getProfessorEmployment(@RequestParam int professorId,
                                        @RequestParam("from") Date from,
                                        @RequestParam("till") Date till) {
-        LOGGER.debug("Try get professor employment with id = " + professorId + " from: " + from + " till: " + till);
+        if (LOGGER.isDebugEnabled())
+            LOGGER.debug("Try get professor employment with id = " + professorId + " from: " + from + " till: " + till);
 
         long lessonsQuantity = 0;
 
@@ -66,7 +68,7 @@ public class StatisticsRestController {
             throw responseStatusException;
         }
 
-        LOGGER.debug("Successfully got with lessons quantity: " + lessonsQuantity);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully got with lessons quantity: " + lessonsQuantity);
 
         return lessonsQuantity;
     }

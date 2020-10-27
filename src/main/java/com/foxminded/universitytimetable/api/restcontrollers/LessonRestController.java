@@ -33,7 +33,7 @@ public class LessonRestController {
     public Lesson add(@RequestParam Date date, @RequestParam int lessonNumber, @RequestParam int groupId,
                       @RequestParam int professorId, @RequestParam String building, @RequestParam String classroom) {
 
-        LOGGER.debug("Try to add lesson with: " + "date = " + date
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to add lesson with: " + "date = " + date
                 + " lesson number = " + lessonNumber + " group id = " + groupId + " professor id = " + professorId
                 + " building = " + building + " classroom = " + classroom);
 
@@ -49,14 +49,14 @@ public class LessonRestController {
             throw responseStatusException;
         }
 
-        LOGGER.debug("Successfully add lesson with id = " + lesson);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully add lesson with id = " + lesson);
 
         return lesson;
     }
 
     @RequestMapping(Urls.GET_LESSONS_JSON)
     public List<Lesson> getAll() {
-        LOGGER.debug("Try get all lessons");
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get all lessons");
         List<Lesson> lessons = new ArrayList<>();
 
         try {
@@ -72,14 +72,14 @@ public class LessonRestController {
             throw responseStatusException;
         }
 
-        LOGGER.debug("Successfully got " + lessons.size() + " lessons");
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully got " + lessons.size() + " lessons");
 
         return lessons;
     }
 
     @RequestMapping(Urls.GET_LESSON_JSON)
     public Lesson getById(@PathVariable int id) {
-        LOGGER.debug("Try get lesson with id = " + id);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get lesson with id = " + id);
         Lesson lesson = new Lesson();
 
         try {
@@ -95,7 +95,7 @@ public class LessonRestController {
             throw responseStatusException;
         }
 
-        LOGGER.debug("Successfully got lesson: " + lesson);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully got lesson: " + lesson);
 
         return lesson;
     }
@@ -105,7 +105,7 @@ public class LessonRestController {
                          @RequestParam int lessonNumber, @RequestParam int groupId, @RequestParam int professorId,
                          @RequestParam String building, @RequestParam String classroom) {
 
-        LOGGER.debug("Try to update lesson with: id = " + id + " date = " + date
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to update lesson with: id = " + id + " date = " + date
                 + " lesson number = " + lessonNumber + " group id = " + groupId + " professor id = " + professorId
                 + " building = " + building + " classroom = " + classroom);
 
@@ -126,14 +126,14 @@ public class LessonRestController {
             throw responseStatusException;
         }
 
-        LOGGER.debug("Successfully update lesson: " + lesson);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully update lesson: " + lesson);
 
         return lesson;
     }
 
     @RequestMapping(value = Urls.DELETE_LESSON_JSON, method = RequestMethod.DELETE)
     public Lesson remove(@RequestParam int lessonId) {
-        LOGGER.debug("Try to remove lesson with id = " + lessonId);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to remove lesson with id = " + lessonId);
         Lesson lesson;
 
         try {
@@ -149,7 +149,7 @@ public class LessonRestController {
             throw responseStatusException;
         }
 
-        LOGGER.debug("Successfully remove lesson with id: " + lessonId);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully remove lesson with id: " + lessonId);
 
         return lesson;
     }

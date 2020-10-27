@@ -31,8 +31,9 @@ public class ProfessorRestController {
     @RequestMapping(value = Urls.POST_PROFESSOR_JSON, method = RequestMethod.POST)
     public Professor add(@RequestParam String name, @RequestParam String surname,
                          @RequestParam String patronymic, @RequestParam String subject) {
-        LOGGER.debug("Try to add professor with: " + " name = " + name + " surname = " + surname + " patronymic = " +
-                patronymic + " subject = " + subject);
+        if (LOGGER.isDebugEnabled())
+            LOGGER.debug("Try to add professor with: " + " name = " + name + " surname = " + surname + " patronymic = " +
+                    patronymic + " subject = " + subject);
 
         Professor professor = new Professor(name, surname, patronymic, subject);
 
@@ -46,14 +47,14 @@ public class ProfessorRestController {
             throw responseStatusException;
         }
 
-        LOGGER.debug("Successfully add professor: " + professor);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully add professor: " + professor);
 
         return professor;
     }
 
     @RequestMapping(Urls.GET_PROFESSORS_JSON)
     public List<Professor> getAll() {
-        LOGGER.debug("Try to get all professors");
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to get all professors");
 
         List<Professor> professors = new ArrayList<>();
 
@@ -70,14 +71,14 @@ public class ProfessorRestController {
             throw responseStatusException;
         }
 
-        LOGGER.debug("Successfully got with professors: " + professors.size());
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully got with professors: " + professors.size());
 
         return professors;
     }
 
     @RequestMapping(Urls.GET_PROFESSOR_JSON_BY_ID)
     public Professor getById(@PathVariable int id) {
-        LOGGER.debug("Try to get professor with id = " + id);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to get professor with id = " + id);
         Professor professor = new Professor();
 
         try {
@@ -93,14 +94,14 @@ public class ProfessorRestController {
             throw responseStatusException;
         }
 
-        LOGGER.debug("Successfully got with professor: " + professor);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully got with professor: " + professor);
 
         return professor;
     }
 
     @RequestMapping(Urls.GET_PROFESSOR_JSON_BY_SURNAME)
     public List<Professor> getBySurname(@PathVariable String surname) {
-        LOGGER.debug("Try to get all professors with surname = " + surname);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to get all professors with surname = " + surname);
         List<Professor> professors = new ArrayList<>();
 
         try {
@@ -116,7 +117,7 @@ public class ProfessorRestController {
             throw responseStatusException;
         }
 
-        LOGGER.debug("Successfully got with professors: " + professors.size());
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully got with professors: " + professors.size());
 
         return professors;
     }
@@ -124,8 +125,9 @@ public class ProfessorRestController {
     @RequestMapping(value = Urls.PUT_PROFESSOR_JSON, method = RequestMethod.PUT)
     public Professor update(@RequestParam int id, @RequestParam String name, @RequestParam String surname,
                             @RequestParam String patronymic, @RequestParam String subject) {
-        LOGGER.debug("Try to update professor with: id = " + id + " name = " + name + " surname = " + surname + " patronymic = " +
-                patronymic + " subject = " + subject);
+        if (LOGGER.isDebugEnabled())
+            LOGGER.debug("Try to update professor with: id = " + id + " name = " + name + " surname = " + surname + " patronymic = " +
+                    patronymic + " subject = " + subject);
 
         Professor professor = new Professor(name, surname, patronymic, subject);
 
@@ -144,7 +146,7 @@ public class ProfessorRestController {
             throw responseStatusException;
         }
 
-        LOGGER.debug("Successfully update professor with status:" + professor);
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully update professor with status:" + professor);
 
         return professor;
     }

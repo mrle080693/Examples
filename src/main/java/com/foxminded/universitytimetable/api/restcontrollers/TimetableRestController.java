@@ -32,7 +32,8 @@ public class TimetableRestController {
     public List<Lesson> getGroupEmployment(@RequestParam int groupId,
                                            @RequestParam("from") Date from,
                                            @RequestParam("till") Date till) {
-        LOGGER.debug("Try get group timetable with id = " + groupId + " from: " + from + " till: " + till);
+        if (LOGGER.isDebugEnabled())
+            LOGGER.debug("Try get group timetable with id = " + groupId + " from: " + from + " till: " + till);
 
         List<Lesson> lessons = new ArrayList<>();
 
@@ -46,7 +47,8 @@ public class TimetableRestController {
             throw responseStatusException;
         }
 
-        LOGGER.debug("Successfully got group timetable with " + lessons.size() + " lessons");
+        if (LOGGER.isDebugEnabled())
+            LOGGER.debug("Successfully got group timetable with " + lessons.size() + " lessons");
 
         return lessons;
     }
@@ -55,7 +57,8 @@ public class TimetableRestController {
     public List<Lesson> getProfessorEmployment(@RequestParam int professorId,
                                                @RequestParam("from") Date from,
                                                @RequestParam("till") Date till) {
-        LOGGER.debug("Try get professor timetable with id = " + professorId + " from: " + from + " till: " + till);
+        if (LOGGER.isDebugEnabled())
+            LOGGER.debug("Try get professor timetable with id = " + professorId + " from: " + from + " till: " + till);
 
         List<Lesson> lessons = new ArrayList<>();
 
@@ -69,7 +72,8 @@ public class TimetableRestController {
             throw responseStatusException;
         }
 
-        LOGGER.debug("Successfully got professor timetable with " + lessons.size() + " lessons");
+        if (LOGGER.isDebugEnabled())
+            LOGGER.debug("Successfully got professor timetable with " + lessons.size() + " lessons");
 
         return lessons;
     }
