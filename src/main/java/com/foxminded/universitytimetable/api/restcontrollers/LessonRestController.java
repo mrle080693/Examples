@@ -54,7 +54,7 @@ public class LessonRestController {
         return lesson;
     }
 
-    @RequestMapping(Urls.API_REST_GET_LESSONS_JSON)
+    @RequestMapping(value = Urls.API_REST_GET_LESSONS_JSON, method = RequestMethod.GET)
     public List<Lesson> getAll() {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get all lessons");
         List<Lesson> lessons = new ArrayList<>();
@@ -77,7 +77,7 @@ public class LessonRestController {
         return lessons;
     }
 
-    @RequestMapping(Urls.API_REST_GET_LESSON_JSON)
+    @RequestMapping(value = Urls.API_REST_GET_LESSON_JSON, method = RequestMethod.GET)
     public Lesson getById(@PathVariable int id) {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get lesson with id = " + id);
         Lesson lesson = new Lesson();

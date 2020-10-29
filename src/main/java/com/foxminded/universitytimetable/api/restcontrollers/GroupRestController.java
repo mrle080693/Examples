@@ -49,7 +49,7 @@ public class GroupRestController {
         return group;
     }
 
-    @RequestMapping(Urls.API_REST_GET_GROUPS_JSON)
+    @RequestMapping(value = Urls.API_REST_GET_GROUPS_JSON, method = RequestMethod.GET)
     public List<Group> getAll() {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get all groups");
 
@@ -73,7 +73,7 @@ public class GroupRestController {
         return groups;
     }
 
-    @RequestMapping(Urls.API_REST_GET_GROUP_JSON_BY_ID)
+    @RequestMapping(value = Urls.API_REST_GET_GROUP_JSON_BY_ID, method = RequestMethod.GET)
     public Group getById(@PathVariable int id) {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try get group with id = " + id);
         Group group = new Group();
@@ -96,7 +96,7 @@ public class GroupRestController {
         return group;
     }
 
-    @RequestMapping(Urls.API_REST_GET_GROUP_JSON_BY_NAME)
+    @RequestMapping(value = Urls.API_REST_GET_GROUP_JSON_BY_NAME, method = RequestMethod.GET)
     public List<Group> getByName(@PathVariable String name) {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to get groups with name = " + name);
         List<Group> groups = new ArrayList<>();

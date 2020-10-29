@@ -52,7 +52,7 @@ public class ProfessorRestController {
         return professor;
     }
 
-    @RequestMapping(Urls.API_REST_GET_PROFESSORS_JSON)
+    @RequestMapping(value = Urls.API_REST_GET_PROFESSORS_JSON, method = RequestMethod.GET)
     public List<Professor> getAll() {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to get all professors");
 
@@ -76,7 +76,7 @@ public class ProfessorRestController {
         return professors;
     }
 
-    @RequestMapping(Urls.API_REST_GET_PROFESSOR_JSON_BY_ID)
+    @RequestMapping(value = Urls.API_REST_GET_PROFESSOR_JSON_BY_ID, method = RequestMethod.GET)
     public Professor getById(@PathVariable int id) {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to get professor with id = " + id);
         Professor professor = new Professor();
@@ -99,7 +99,7 @@ public class ProfessorRestController {
         return professor;
     }
 
-    @RequestMapping(Urls.API_REST_GET_PROFESSOR_JSON_BY_SURNAME)
+    @RequestMapping(value = Urls.API_REST_GET_PROFESSOR_JSON_BY_SURNAME, method = RequestMethod.GET)
     public List<Professor> getBySurname(@PathVariable String surname) {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to get all professors with surname = " + surname);
         List<Professor> professors = new ArrayList<>();
