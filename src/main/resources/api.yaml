@@ -1,0 +1,405 @@
+# API documentation
+
+/api/rest/post/group/json:
+  - request:
+      method: post
+      parameters:
+        name: "string"
+  - response:
+      status: 200
+      body:
+        {
+          "id": 0,
+          "name": "string"
+        }
+
+/api/rest/get/groups:
+  - request:
+      method: get
+      parameters:
+  - response:
+      status: 200
+      body:
+        [{
+           "id": 0,
+           "name": "string"
+         }]
+
+/api/rest/get/group/json/id/{id}:
+  - request:
+      method: get
+      parameters:
+        id: 0
+  - response:
+      status: 200
+      body:
+        {
+          "id": 0,
+          "name": "string"
+        }
+
+/api/rest/get/group/json/name/{name}:
+  - request:
+      method: get
+      parameters:
+        name: "string"
+  - response:
+      status: 200
+      body:
+        {
+          id: 0,
+          name: "string"
+        }
+
+/api/rest/put/group/json:
+  - request:
+      method: put
+      parameters:
+        id: 0,
+        name: "string"
+  - response:
+      status: 200
+      body:
+        {
+          id: 0,
+          name: "string"
+        }
+
+/api/rest/delete/group/json:
+  - request:
+      method: delete
+      parameters:
+        id: 0
+  - response:
+      status: 200
+      body:
+        {
+          id: 0,
+          name: "string"
+        }
+
+/api/rest/post/professor/json:
+  - request:
+      method: post
+      parameters:
+        name: "string"
+        surname: "string"
+        patronymic: "string"
+        subject: "string"
+  - response:
+      status: 200
+      body:
+        {
+          id: 0,
+          name: "string",
+          surname: "string",
+          patronymic: "string",
+          subject: "string"
+        }
+
+/api/rest/get/professor/json/id/{id}:
+  - request:
+      method: get
+      parameters:
+        id: 0
+  - response:
+      status: 200
+      body:
+        {
+          id: 0,
+          name: "string",
+          surname: "string",
+          patronymic: "string",
+          subject: "string"
+        }
+
+/api/rest/get/professor/json/surname/{surname}:
+  - request:
+      method: get
+      parameters:
+        surname: "string"
+  - response:
+      status: 200
+      body:
+        {
+          id: 0,
+          name: "string",
+          surname: "string",
+          patronymic: "string",
+          subject: "string"
+        }
+
+/api/rest/get/professors:
+  - request:
+      method: get
+      parameters: -
+  - response:
+      status: 200
+      body:
+        [{
+           id: 0,
+           name: "string",
+           surname: "string",
+           patronymic: "string",
+           subject: "string"
+         }]
+
+/api/rest/put/professor/json:
+  - request:
+      method: put
+      parameters:
+        id: 0,
+        name: "string",
+        surname: "string",
+        patronymic: "string",
+        subject: "string"
+  - response:
+      status: 200
+      body:
+        {
+          id: 0,
+          name: "string",
+          surname: "string",
+          patronymic: "string",
+          subject: "string"
+        }
+
+/api/rest/delete/professor:
+  - request:
+      method: delete
+      parameters:
+        id: 0
+  - response:
+      status: 200
+      body:
+        [{
+           id: 0,
+           name: "string",
+           surname: "string",
+           patronymic: "string",
+           subject: "string"
+         }]
+
+/api/rest/post/lesson/json:
+  - request:
+      method: post
+      parameters:
+        building: "string",
+        classroom: "string",
+        date: "2020-10-29",
+        groupId: 0,
+        lessonNumber: 0,
+        professorId: 0
+  - response:
+      status: 200
+      body:
+        {
+          building: "string",
+          classroom: "string",
+          date: "2020-10-29",
+          groupId: 0,
+          id: 0,
+          lessonNumber: 0,
+          professorId: 0
+        }
+
+/api/rest/get/lesson/json/id/{id}:
+  - request:
+      method: get
+      parameters:
+        id: 0
+  - response:
+      status: 200
+      body:
+        {
+          building: "string",
+          classroom: "string",
+          date: "2020-10-29",
+          groupId: 0,
+          id: 0,
+          lessonNumber: 0,
+          professorId: 0
+        }
+
+/api/rest/get/lessons/json:
+  - request:
+      method: get
+      parameters:
+  - response:
+      status: 200
+      body:
+        [{
+           building: "string",
+           classroom: "string",
+           date: "2020-10-29",
+           groupId: 0,
+           id: 0,
+           lessonNumber: 0,
+           professorId: 0
+         }]
+
+/api/rest/put/lesson/json:
+  - request:
+      method: put
+      parameters:
+        id: 0,
+        building: "string",
+        classroom: "string",
+        date: "2020-10-29",
+        groupId: 0,
+        lessonNumber: 0,
+        professorId: 0
+  - response:
+      status: 200
+      body:
+        {
+          building: "string",
+          classroom: "string",
+          date: "2020-10-29",
+          groupId: 0,
+          id: 0,
+          lessonNumber: 0,
+          professorId: 0
+        }
+
+/api/rest/delete/lesson/json:
+  - request:
+      method: delete
+      parameters:
+        id: 0
+  - response:
+      status: 200
+      body:
+        {
+          building: "string",
+          classroom: "string",
+          date: "2020-10-29",
+          groupId: 0,
+          id: 0,
+          lessonNumber: 0,
+          professorId: 0
+        }
+
+/api/rest/get/group-employment:
+  - request:
+      method: get
+      parameters:
+        groupId: 0,
+        from: "2020-10-29",
+        till: "2020-10-30"
+  - response:
+      status: 200
+      body:
+        {
+          0
+        }
+
+/api/rest/get/professor-employment:
+  - request:
+      method: get
+      parameters:
+        professorId: 0,
+        from: "2020-10-29",
+        till: "2020-10-30"
+  - response:
+      status: 200
+      body:
+        {
+          0
+        }
+
+/api/rest/get/group-timetable:
+  - request:
+      method: get
+      parameters:
+        groupId: 0,
+        from: "2020-10-29",
+        till: "2020-10-30"
+  - response:
+      status: 200
+      body:
+        [{
+           building: "string",
+           classroom: "string",
+           date: "2020-10-29",
+           groupId: 0,
+           id: 0,
+           lessonNumber: 0,
+           professorId: 0
+         }]
+
+/api/rest/get/professor-timetable:
+  - request:
+      method: get
+      parameters:
+        professorId: 0,
+        from: "2020-10-29",
+        till: "2020-10-30"
+  - response:
+      status: 200
+      body:
+        [{
+           building: "string",
+           classroom: "string",
+           date: "2020-10-29",
+           groupId: 0,
+           id: 0,
+           lessonNumber: 0,
+           professorId: 0
+         }]
+
+/api/get/index/html:
+  - request:
+      method: get
+      parameters:
+  -response:
+    status: 200
+    body: string
+
+/api/get/groups/html:
+  - request:
+      method: get
+      parameters:
+  -response:
+    status: 200
+    body: string
+
+/api/get/professors/html:
+  - request:
+      method: get
+      parameters:
+  -response:
+    status: 200
+    body: string
+
+/api/get/lessons/html:
+  - request:
+      method: get
+      parameters:
+  -response:
+    status: 200
+    body: string
+
+/api/get/statistics/html:
+  - request:
+      method: get
+      parameters:
+  -response:
+    status: 200
+    body: string
+
+/api/get/timetable/html:
+  - request:
+      method: get
+      parameters:
+  -response:
+    status: 200
+    body: string
+
+/api/get/error/html:
+  - request:
+      method: get
+      parameters:
+  -response:
+    status: 200
+    body: string
