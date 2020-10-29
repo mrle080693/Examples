@@ -9,13 +9,13 @@ public interface Urls {
     String API_GET_TIMETABLE_HTML = "/api/get/timetable/html";
     String API_GET_ERROR_HTML = "/api/get/sorry/html";
 
-    String API_REST_GET_GROUP_JSON_BY_ID = "/api/rest/get/group/json/{id}";
-    String API_REST_GET_GROUP_JSON_BY_NAME = "/api/rest/get/group/json/{name}";
+    String API_REST_GET_GROUP_JSON_BY_ID = "/api/rest/get/group/json/id/{id}";
+    String API_REST_GET_GROUP_JSON_BY_NAME = "/api/rest/get/group/json/name/{name}";
     String API_REST_GET_GROUPS_JSON = "/api/rest/get/groups/json";
-    String API_REST_GET_PROFESSOR_JSON_BY_ID = "/api/rest/get/professor/json/{id}";
-    String API_REST_GET_PROFESSOR_JSON_BY_SURNAME = "/api/rest/get/group/json/{surname}";
+    String API_REST_GET_PROFESSOR_JSON_BY_ID = "/api/rest/get/professor/json/id/{id}";
+    String API_REST_GET_PROFESSOR_JSON_BY_SURNAME = "/api/rest/get/group/json/surname/{surname}";
     String API_REST_GET_PROFESSORS_JSON = "/api/rest/get/professors/json";
-    String API_REST_GET_LESSON_JSON = "/api/rest/get/lesson/json/{id}";
+    String API_REST_GET_LESSON_JSON = "/api/rest/get/lesson/json/id/{id}";
     String API_REST_GET_LESSONS_JSON = "/api/rest/get/lessons/json";
     String API_REST_GET_GROUP_EMPLOYMENT_JSON = "/api/rest/get/group-employment";
     String API_REST_GET_PROFESSOR_EMPLOYMENT_JSON = "/api/rest/get/professor-employment";

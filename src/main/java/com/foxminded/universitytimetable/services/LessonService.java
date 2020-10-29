@@ -146,7 +146,7 @@ public class LessonService {
 
             returnedLesson = lessonDAO.update(lesson);
 
-            if (returnedLesson.getId() != 1) {
+            if (returnedLesson.getId() == 0) {
                 String exMessage = "Lesson with input id doesnt exist. Id is: " + lesson.getId();
                 NotFoundEntityException ex = new NotFoundEntityException(exMessage);
                 LOGGER.warn(exMessage);

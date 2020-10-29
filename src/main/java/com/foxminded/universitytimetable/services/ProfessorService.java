@@ -176,7 +176,7 @@ public class ProfessorService {
 
             returnedProfessor = professorDAO.update(professor);
 
-            if (returnedProfessor.getId() != 1) {
+            if (returnedProfessor.getId() == 0) {
                 String exMessage = "Professor with input id doesnt exist. " + professor;
                 NotFoundEntityException ex = new NotFoundEntityException(exMessage);
                 LOGGER.warn(exMessage);

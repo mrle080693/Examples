@@ -177,7 +177,7 @@ public class GroupService {
 
             returnedGroup = groupDAO.update(group);
 
-            if (returnedGroup.getId() != 1) {
+            if (returnedGroup.getId() == 0) {
                 String exMessage = "Group with input id doesnt exist. " + group;
                 NotFoundEntityException ex = new NotFoundEntityException(exMessage);
                 LOGGER.warn(exMessage);
