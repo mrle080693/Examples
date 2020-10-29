@@ -32,6 +32,7 @@ public class Application {
         };
     }
 
+    // your-app-root/swagger-ui/index.html
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
