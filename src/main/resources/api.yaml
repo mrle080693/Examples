@@ -164,7 +164,7 @@ paths:
       summary: remove
       operationId: removeUsingDELETE
       produces:
-        - '*/*'
+        - 'Json'
       parameters:
         - name: groupid
           in: query
@@ -875,31 +875,40 @@ definitions:
     properties:
       id:
         type: integer
+        example: 38
         format: int32
       name:
         type: string
+        example: anyString
     title: Group
   Lesson:
     type: object
     properties:
       building:
         type: string
+        example: anyString
       classroom:
         type: string
+        example: anyString
       date:
         type: string
         format: date
+        example: "2020-11-03"
       groupId:
         type: integer
+        example: 4
         format: int32
       id:
         type: integer
+        example: 1
         format: int32
       lessonNumber:
         type: integer
+        example: 1
         format: int32
       professorId:
         type: integer
+        example: 3
         format: int32
     title: Lesson
   Professor:
@@ -907,13 +916,18 @@ definitions:
     properties:
       id:
         type: integer
+        example: 11
         format: int32
       name:
         type: string
+        example: anyString
       patronymic:
         type: string
+        example: anyString
       subject:
         type: string
+        example: anyString
       surname:
         type: string
+        example: anyString
     title: Professor
