@@ -25,7 +25,5 @@ create table lessons
   groupId      integer,
   professorId  integer,
   building     char(100),
-  classroom    char(100),
-  foreign key (groupId) references groups (id) on delete cascade,
-  foreign key (professorId) references professors (id) on delete set null
+  classroom    char(100)
 );

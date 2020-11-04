@@ -1,6 +1,7 @@
-package com.foxminded.universitytimetable.api.restcontrollers;
+package com.foxminded.universitytimetable.api.restcontrollers.unit;
 
 import com.foxminded.universitytimetable.api.constants.Urls;
+import com.foxminded.universitytimetable.api.restcontrollers.StatisticsRestController;
 import com.foxminded.universitytimetable.services.StatisticsService;
 import com.foxminded.universitytimetable.services.exceptions.ValidationException;
 import com.google.gson.Gson;

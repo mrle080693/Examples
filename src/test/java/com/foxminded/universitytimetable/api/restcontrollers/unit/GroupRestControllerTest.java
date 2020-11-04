@@ -1,6 +1,7 @@
-package com.foxminded.universitytimetable.api.restcontrollers;
+package com.foxminded.universitytimetable.api.restcontrollers.unit;
 
 import com.foxminded.universitytimetable.api.constants.Urls;
+import com.foxminded.universitytimetable.api.restcontrollers.GroupRestController;
 import com.foxminded.universitytimetable.models.Group;
 import com.foxminded.universitytimetable.services.GroupService;
 import com.foxminded.universitytimetable.services.exceptions.NotFoundEntityException;
