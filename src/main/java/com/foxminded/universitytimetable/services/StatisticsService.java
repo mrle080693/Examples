@@ -36,6 +36,13 @@ public class StatisticsService {
         groupService.getById(groupId);
 
         try {
+            if (groupId < 1) {
+                String exMessage = "Input id cant be < 1. Input is: " + groupId;
+                ValidationException ex = new ValidationException(exMessage);
+                LOGGER.warn(exMessage);
+                throw ex;
+            }
+
             lessonsQuantity = statisticsDAO.getGroupEmployment(groupId, from, till);
         } catch (DataAccessException ex) {
             String exMessage = "Cant get group employment. Group id = " + groupId + "from: " + from + " till: " + till;
@@ -69,6 +76,13 @@ public class StatisticsService {
         professorService.getById(professorId);
 
         try {
+            if (professorId < 1) {
+                String exMessage = "Input id cant be < 1. Input is: " + professorId;
+                ValidationException ex = new ValidationException(exMessage);
+                LOGGER.warn(exMessage);
+                throw ex;
+            }
+
             lessonsQuantity = statisticsDAO.getProfessorEmployment(professorId, from, till);
         } catch (DataAccessException ex) {
             String exMessage = "Cant get professor employment. Professor id = " + professorId + " from: " + from

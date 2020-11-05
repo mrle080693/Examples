@@ -92,8 +92,8 @@ public class ProfessorService {
         Professor professor;
 
         try {
-            if (id == 0) {
-                String exMessage = "Professor id is 0.";
+            if (id < 1) {
+                String exMessage = "Input id cant be < 1. Input is: " + id;
                 ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;
@@ -167,8 +167,8 @@ public class ProfessorService {
         try {
             checkProfessor(professor);
 
-            if (professor.getId() == 0) {
-                String exMessage = "Professor id is 0. " + professor;
+            if (professor.getId() < 1) {
+                String exMessage = "Input id cant be < 1. Input is: " + professor;
                 ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;
@@ -205,6 +205,13 @@ public class ProfessorService {
         Professor returnedProfessor;
 
         try {
+            if (professorId < 1) {
+                String exMessage = "Input id cant be < 1. Input is: " + professorId;
+                ValidationException ex = new ValidationException(exMessage);
+                LOGGER.warn(exMessage);
+                throw ex;
+            }
+
             returnedProfessor = professorDAO.remove(professorId);
 
             if (returnedProfessor.getId() != 1) {

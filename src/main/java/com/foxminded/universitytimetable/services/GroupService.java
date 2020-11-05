@@ -93,8 +93,8 @@ public class GroupService {
         Group group = null;
 
         try {
-            if (id == 0) {
-                String exMessage = "Group id is 0. " + group;
+            if (id < 1) {
+                String exMessage = "Group id cant be < 1. " + group;
                 ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;
@@ -168,8 +168,8 @@ public class GroupService {
         try {
             checkGroup(group);
 
-            if (group.getId() == 0) {
-                String exMessage = "Group id is 0." + group;
+            if (group.getId() < 1) {
+                String exMessage = "Group id cant be < 1. " + group;
                 ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;
@@ -206,8 +206,8 @@ public class GroupService {
         try {
             group = groupDAO.remove(groupId);
 
-            if (groupId < 0) {
-                String exMessage = "Id cunt be < 0! Input id = " + groupId;
+            if (groupId < 1) {
+                String exMessage = "Id cunt be < 1! Input id = " + groupId;
                 ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;

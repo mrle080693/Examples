@@ -102,8 +102,8 @@ public class LessonService {
         Lesson lesson = null;
 
         try {
-            if (id == 0) {
-                String exMessage = "Lesson id is 0. " + lesson;
+            if (id < 1) {
+                String exMessage = "Lesson id cant be < 1. Input lesson: " + lesson;
                 ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;
@@ -137,8 +137,8 @@ public class LessonService {
         try {
             checkLesson(lesson);
 
-            if (lesson.getId() == 0) {
-                String exMessage = "Lesson id is 0. " + lesson;
+            if (lesson.getId() < 1) {
+                String exMessage = "Lesson id cant be < 1. Input lesson: " + lesson;
                 ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;
