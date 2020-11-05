@@ -81,17 +81,17 @@ public class LessonImpl implements LessonDAO {
     }
 
     @Override
-    public Lesson remove(int lessonId) {
+    public Integer remove(int lessonId) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to remove lesson with id = " + lessonId);
         }
 
-        Lesson lesson = lessonRepository.remove(lessonId);
+        Integer status = lessonRepository.remove(lessonId);
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Successfully remove lesson with id: " + lessonId);
         }
 
-        return lesson;
+        return status;
     }
 }

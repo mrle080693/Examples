@@ -1,5 +1,6 @@
 package com.foxminded.universitytimetable.database;
 
+import com.foxminded.universitytimetable.models.Group;
 import com.foxminded.universitytimetable.models.Lesson;
 
 import java.util.List;
@@ -13,5 +14,5 @@ public interface LessonDAO {
 
     Lesson update(Lesson lesson);
 
-    Lesson remove(int lessonId);
+    Integer remove(int lessonId);
 }

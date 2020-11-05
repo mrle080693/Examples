@@ -15,5 +15,5 @@ public interface GroupDAO {
 
     Group update(Group group);
 
-    Group remove(int groupId);
+    Integer remove(int groupId);
 }

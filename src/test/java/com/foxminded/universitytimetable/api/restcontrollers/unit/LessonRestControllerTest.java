@@ -18,7 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -239,7 +238,7 @@ class LessonRestControllerTest {
     @Test
     void removeHaveToReturnCorrectResponse() {
         try {
-            given(lessonService.remove(any(Integer.class))).willReturn(LESSON);
+            given(lessonService.remove(any(Integer.class))).willReturn(1);
 
             mockMvc.perform(delete(Urls.API_REST_DELETE_LESSON_JSON)
                     .param("lessonId", String.valueOf(any(Integer.class))))

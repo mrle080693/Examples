@@ -270,7 +270,7 @@ class ProfessorRestControllerTest {
     @Test
     void removeHaveToReturnCorrectResponse() {
         try {
-            given(professorService.remove(any(Integer.class))).willReturn(PROFESSOR);
+            given(professorService.remove(any(Integer.class))).willReturn(1);
 
             mockMvc.perform(delete(Urls.API_REST_DELETE_PROFESSOR_JSON)
                     .param("professorId", String.valueOf(1)))

@@ -20,7 +20,7 @@ public class ProfessorRestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProfessorRestController.class);
     private final ProfessorService professorService;
     private final ResponseStatusException responseStatusException = new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-            "                        SORRY :( \n" +
+            "\n                       SORRY :( \n" +
                     "We know about this trouble and will correct it soon");
 
     @Autowired
@@ -152,12 +152,12 @@ public class ProfessorRestController {
     }
 
     @RequestMapping(value = Urls.API_REST_DELETE_PROFESSOR_JSON, method = RequestMethod.DELETE)
-    public Professor remove(@RequestParam int professorId) {
+    public Integer remove(@RequestParam int professorId) {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to remove professor with id = " + professorId);
-        Professor returnedProfessor = new Professor();
+        Integer status;
 
         try {
-            returnedProfessor = professorService.remove(professorId);
+            status = professorService.remove(professorId);
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -168,6 +168,6 @@ public class ProfessorRestController {
 
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully remove professor with id: " + professorId);
 
-        return returnedProfessor;
+        return status;
     }
 }

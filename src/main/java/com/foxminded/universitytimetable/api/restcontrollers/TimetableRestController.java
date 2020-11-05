@@ -20,7 +20,7 @@ public class TimetableRestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(StatisticsRestController.class);
     private final TimetableService timetableService;
     private final ResponseStatusException responseStatusException = new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-            "                        SORRY :( \n" +
+            "\n                       SORRY :( \n" +
                     "We know about this trouble and will correct it soon");
 
     @Autowired

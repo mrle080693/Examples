@@ -20,7 +20,7 @@ public class GroupRestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(GroupRestController.class);
     private final GroupService groupService;
     private final ResponseStatusException responseStatusException = new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-            "                        SORRY :( \n" +
+            "\n                        SORRY :( \n" +
                     "We know about this trouble and will correct it soon");
 
     @Autowired
@@ -146,12 +146,12 @@ public class GroupRestController {
     }
 
     @RequestMapping(value = Urls.API_REST_DELETE_GROUP_JSON, method = RequestMethod.DELETE)
-    public Group remove(@RequestParam int groupid) {
+    public Integer remove(@RequestParam int groupid) {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to remove group with id = " + groupid);
-        Group group = null;
+        Integer status;
 
         try {
-            group = groupService.remove(groupid);
+            status = groupService.remove(groupid);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
@@ -165,6 +165,6 @@ public class GroupRestController {
 
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully remove group with id: " + groupid);
 
-        return group;
+        return status;
     }
 }

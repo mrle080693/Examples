@@ -266,12 +266,10 @@ class GroupRestControllerTest {
     void removeHaveToReturnCorrectResponse() {
         try {
             int id = 1;
-            String name = "Name";
-            Group group = new Group(name);
-            group.setId(id);
-            String groupJson = gson.toJson(group);
+            Integer status = 1;
+            String groupJson = gson.toJson(status);
 
-            given(groupService.remove(id)).willReturn(group);
+            given(groupService.remove(id)).willReturn(status);
 
             mockMvc.perform(delete(Urls.API_REST_DELETE_GROUP_JSON)
                     .param("groupid", String.valueOf(id)))

@@ -167,22 +167,22 @@ public class LessonService {
         return returnedLesson;
     }
 
-    public Lesson remove(int lessonId) {
+    public Integer remove(int lessonId) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to remove lesson with id = " + lessonId);
         }
 
-        Lesson lesson;
+        Integer status;
 
-        if(lessonId < 0) {
-            String exMessage = "Id cunt be < 0! Input id = " + lessonId;
+        if(lessonId < 1) {
+            String exMessage = "Id cunt be < 1! Input id = " + lessonId;
             ValidationException ex = new ValidationException(exMessage);
             LOGGER.warn(exMessage);
             throw ex;
         }
 
         try {
-            lesson = lessonDAO.remove(lessonId);
+            status = lessonDAO.remove(lessonId);
         } catch (DataAccessException ex) {
             String exMessage = "Cant remove from table lessons. Group id: " + lessonId;
             LOGGER.error(exMessage);
@@ -195,7 +195,7 @@ public class LessonService {
             LOGGER.debug("Successfully remove lesson with id: " + lessonId);
         }
 
-        return lesson;
+        return status;
     }
 
     private void checkLesson(Lesson lesson) {

@@ -196,22 +196,22 @@ public class GroupService {
         return returnedGroup;
     }
 
-    public Group remove(int groupId) {
+    public Integer remove(int groupId) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to remove group with id = " + groupId);
         }
 
-        Group group;
+        Integer status;
 
         try {
-            group = groupDAO.remove(groupId);
-
             if (groupId < 1) {
                 String exMessage = "Id cunt be < 1! Input id = " + groupId;
                 ValidationException ex = new ValidationException(exMessage);
                 LOGGER.warn(exMessage);
                 throw ex;
             }
+
+            status = groupDAO.remove(groupId);
         } catch (DataAccessException ex) {
             String exMessage = "Cant remove from table groups. Group id: " + groupId;
             LOGGER.error(exMessage);
@@ -222,7 +222,7 @@ public class GroupService {
             LOGGER.debug("Successfully remove group with id: " + groupId);
         }
 
-        return group;
+        return status;
     }
 
     private void checkGroup(Group group) {

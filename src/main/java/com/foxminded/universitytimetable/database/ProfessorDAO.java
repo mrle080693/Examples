@@ -15,5 +15,5 @@ public interface ProfessorDAO {
 
     Professor update(Professor professor);
 
-    Professor remove(int professorId);
+    Integer remove(int professorId);
 }

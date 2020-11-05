@@ -21,7 +21,7 @@ public class LessonRestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(LessonRestController.class);
     private final LessonService lessonService;
     private final ResponseStatusException responseStatusException = new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-            "                        SORRY :( \n" +
+            "\n                       SORRY :( \n" +
                     "We know about this trouble and will correct it soon");
 
     @Autowired
@@ -132,12 +132,12 @@ public class LessonRestController {
     }
 
     @RequestMapping(value = Urls.API_REST_DELETE_LESSON_JSON, method = RequestMethod.DELETE)
-    public Lesson remove(@RequestParam int lessonId) {
+    public Integer remove(@RequestParam int lessonId) {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Try to remove lesson with id = " + lessonId);
-        Lesson lesson;
+        Integer status;
 
         try {
-            lesson = lessonService.remove(lessonId);
+            status = lessonService.remove(lessonId);
         } catch (ValidationException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
@@ -151,6 +151,6 @@ public class LessonRestController {
 
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Successfully remove lesson with id: " + lessonId);
 
-        return lesson;
+        return status;
     }
 }

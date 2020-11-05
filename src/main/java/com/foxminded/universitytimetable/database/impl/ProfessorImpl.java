@@ -96,12 +96,12 @@ public class ProfessorImpl implements ProfessorDAO {
     }
 
     @Override
-    public Professor remove(int professorId) {
+    public Integer remove(int professorId) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to remove professor with id = " + professorId);
         }
 
-        Professor status = professorRepository.remove(professorId);
+        Integer status = professorRepository.remove(professorId);
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Successfully remove professor with id: " + professorId);

@@ -197,12 +197,12 @@ public class ProfessorService {
         return returnedProfessor;
     }
 
-    public Professor remove(int professorId) {
+    public Integer remove(int professorId) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Try to remove professor with id = " + professorId);
         }
 
-        Professor returnedProfessor;
+        Integer status;
 
         try {
             if (professorId < 1) {
@@ -212,14 +212,7 @@ public class ProfessorService {
                 throw ex;
             }
 
-            returnedProfessor = professorDAO.remove(professorId);
-
-            if (returnedProfessor.getId() != 1) {
-                String exMessage = "Professor with input id: " + professorId + " does not exist";
-                NotFoundEntityException ex = new NotFoundEntityException(exMessage);
-                LOGGER.warn(exMessage);
-                throw ex;
-            }
+            status = professorDAO.remove(professorId);
         } catch (DataAccessException ex) {
             String exMessage = "Cant remove from table professors. Professor id: " + professorId;
             LOGGER.error(exMessage);
@@ -232,7 +225,7 @@ public class ProfessorService {
             LOGGER.debug("Successfully remove professor with id: " + professorId);
         }
 
-        return returnedProfessor;
+        return status;
     }
 
     private void checkProfessor(Professor professor) {
