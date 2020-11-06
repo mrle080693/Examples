@@ -158,6 +158,9 @@ public class ProfessorRestController {
 
         try {
             status = professorService.remove(professorId);
+        } catch (ValidationException e){
+            LOGGER.warn(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (NotFoundEntityException e) {
             LOGGER.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
