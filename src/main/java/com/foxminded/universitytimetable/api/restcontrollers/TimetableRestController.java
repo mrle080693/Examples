@@ -29,9 +29,9 @@ public class TimetableRestController {
     }
 
     @RequestMapping(value = Urls.API_REST_GET_GROUP_TIMETABLE_JSON, method = RequestMethod.GET)
-    public List<Lesson> getGroupEmployment(@RequestParam int groupId,
-                                           @RequestParam("from") Date from,
-                                           @RequestParam("till") Date till) {
+    public List<Lesson> getGroupTimetable(@RequestParam int groupId,
+                                          @RequestParam("from") Date from,
+                                          @RequestParam("till") Date till) {
         if (LOGGER.isDebugEnabled())
             LOGGER.debug("Try get group timetable with id = " + groupId + " from: " + from + " till: " + till);
 
@@ -54,9 +54,9 @@ public class TimetableRestController {
     }
 
     @RequestMapping(value = Urls.API_REST_GET_PROFESSOR_TIMETABLE_JSON, method = RequestMethod.GET)
-    public List<Lesson> getProfessorEmployment(@RequestParam int professorId,
-                                               @RequestParam("from") Date from,
-                                               @RequestParam("till") Date till) {
+    public List<Lesson> getProfessorTimetable(@RequestParam int professorId,
+                                              @RequestParam("from") Date from,
+                                              @RequestParam("till") Date till) {
         if (LOGGER.isDebugEnabled())
             LOGGER.debug("Try get professor timetable with id = " + professorId + " from: " + from + " till: " + till);
 

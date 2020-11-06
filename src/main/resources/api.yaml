@@ -239,7 +239,7 @@ paths:
     get:
       tags:
         - statistics-rest-controller
-      summary: getGroupEmployment
+      summary: getGroupTimetable
       operationId: getGroupEmploymentUsingGET_1
       produces:
         - '*/*'
@@ -278,7 +278,7 @@ paths:
     get:
       tags:
         - timetable-rest-controller
-      summary: getGroupEmployment
+      summary: getGroupTimetable
       operationId: getGroupEmploymentUsingGET_3
       produces:
         - '*/*'
@@ -466,7 +466,7 @@ paths:
     get:
       tags:
         - statistics-rest-controller
-      summary: getProfessorEmployment
+      summary: getProfessorTimetable
       operationId: getProfessorEmploymentUsingGET_1
       produces:
         - '*/*'
@@ -505,7 +505,7 @@ paths:
     get:
       tags:
         - timetable-rest-controller
-      summary: getProfessorEmployment
+      summary: getProfessorTimetable
       operationId: getProfessorEmploymentUsingGET_3
       produces:
         - '*/*'
