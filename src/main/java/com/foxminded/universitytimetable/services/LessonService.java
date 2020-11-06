@@ -213,8 +213,6 @@ public class LessonService {
         String building = lesson.getBuilding();
         String classroom = lesson.getClassroom();
 
-        Date todayDate = new Date(Calendar.getInstance().getTime().getTime());
-
         if (date == null || building == null || classroom == null) {
             String exMessage = "Lesson date, building or classroom is null: " + lesson;
             ValidationException ex = new ValidationException(exMessage);
@@ -234,29 +232,6 @@ public class LessonService {
             ValidationException ex = new ValidationException(exMessage);
             LOGGER.warn(exMessage);
             throw ex;
-        }
-
-        if (date.before(todayDate)) {
-            String exMessage = "Lesson date is earlier then today: " + lesson;
-            ValidationException ex = new ValidationException(exMessage);
-            LOGGER.warn(exMessage);
-            throw ex;
-        }
-
-        try {
-            groupDAO.getById(groupId);
-        } catch (EmptyResultDataAccessException ex) {
-            String exMessage = "Try add lesson to group which not exists: " + lesson;
-            LOGGER.warn(exMessage);
-            throw new NotFoundEntityException(exMessage, ex);
-        }
-
-        try {
-            professorDAO.getById(professorId);
-        } catch (EmptyResultDataAccessException ex) {
-            String exMessage = "Try add lesson to professor which not exists: " + lesson;
-            LOGGER.warn(exMessage);
-            throw new NotFoundEntityException(exMessage, ex);
         }
     }
 }

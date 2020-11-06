@@ -21,9 +21,9 @@ create table lessons
 (
   id           serial primary key,
   date         date,
-  lessonNumber integer,
-  groupId      integer,
-  professorId  integer,
+  lesson_number integer,
+  group_id      integer,
+  professor_id  integer,
   building     char(100),
   classroom    char(100)
 );
