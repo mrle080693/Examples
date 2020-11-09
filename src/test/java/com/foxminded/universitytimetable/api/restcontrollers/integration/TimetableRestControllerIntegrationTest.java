@@ -59,14 +59,14 @@ class TimetableRestControllerIntegrationTest {
 
     @Test
     void getGroupTimetableHaveToReturnCorrectResult() {
-        List<Lesson> lessons = timetableService.getGroupTimetable(1, FROM, TILL);
+        List<Lesson> lessons = timetableRestController.getGroupTimetable(1, FROM, TILL);
         long expected = 0;
         long actual = lessons.size();
         assertEquals(expected, actual);
 
         lessonDAO.add(lesson);
 
-        lessons = timetableService.getGroupTimetable(1, FROM, TILL);
+        lessons = timetableRestController.getGroupTimetable(1, FROM, TILL);
         expected = 1;
         actual = lessons.size();
         assertEquals(expected, actual);
@@ -116,14 +116,14 @@ class TimetableRestControllerIntegrationTest {
 
     @Test
     void getProfessorTimetableHaveToReturnCorrectResult() {
-        List<Lesson> lessons = timetableService.getProfessorTimetable(1, FROM, TILL);
+        List<Lesson> lessons = timetableRestController.getProfessorTimetable(1, FROM, TILL);
         long expected = 0;
         long actual = lessons.size();
         assertEquals(expected, actual);
 
         lessonDAO.add(lesson);
 
-        lessons = timetableService.getProfessorTimetable(1, FROM, TILL);
+        lessons = timetableRestController.getProfessorTimetable(1, FROM, TILL);
         expected = 1;
         actual = lessons.size();
         assertEquals(expected, actual);

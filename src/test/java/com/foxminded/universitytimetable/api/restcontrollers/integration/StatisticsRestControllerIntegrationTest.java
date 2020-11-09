@@ -59,13 +59,13 @@ class StatisticsRestControllerIntegrationTest {
     @Test
     void getGroupEmploymentHaveToReturnCorrectResult() {
         long expected = 0;
-        long actual = statisticsService.getGroupEmployment(1, FROM, TILL);
+        long actual = statisticsRestController.getGroupEmployment(1, FROM, TILL);
         assertEquals(expected, actual);
 
         lessonDAO.add(lesson);
 
         expected = 1;
-        actual = statisticsService.getGroupEmployment(1, FROM, TILL);
+        actual = statisticsRestController.getGroupEmployment(1, FROM, TILL);
         assertEquals(expected, actual);
     }
 
