@@ -79,10 +79,10 @@ class TimetableRestControllerIntegrationTest {
 
     @Test
     void getGroupTimetableHaveToThrowCorrectException() {
-        assertThrows(ResponseStatusException.class, () -> timetableRestController.getGroupTimetable(-12,
-                FROM, TILL));
-        assertThrows(ResponseStatusException.class, () -> timetableRestController.getGroupTimetable(1,
-                null, TILL));
+        assertThrows(ResponseStatusException.class, () -> timetableRestController.getGroupTimetable(-12, FROM,
+                TILL));
+        assertThrows(ResponseStatusException.class, () -> timetableRestController.getGroupTimetable(1, null,
+                TILL));
         try {
             timetableRestController.getGroupTimetable(-12, FROM, TILL);
         } catch (ResponseStatusException e) {

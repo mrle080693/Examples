@@ -71,10 +71,10 @@ class StatisticsRestControllerIntegrationTest {
 
     @Test
     void getGroupEmploymentHaveToThrowCorrectException() {
-        assertThrows(ResponseStatusException.class, () -> statisticsRestController.getGroupEmployment(-12,
-                FROM, TILL));
-        assertThrows(ResponseStatusException.class, () -> statisticsRestController.getGroupEmployment(1,
-                null, TILL));
+        assertThrows(ResponseStatusException.class, () -> statisticsRestController.getGroupEmployment(-12, FROM,
+                TILL));
+        assertThrows(ResponseStatusException.class, () -> statisticsRestController.getGroupEmployment(1, null,
+                TILL));
         try {
             statisticsRestController.getGroupEmployment(-12, FROM, TILL);
         } catch (ResponseStatusException e) {
@@ -121,15 +121,17 @@ class StatisticsRestControllerIntegrationTest {
 
     @Test
     void getProfessorEmploymentHaveToThrowCorrectException() {
-        assertThrows(ResponseStatusException.class, () -> statisticsRestController.getProfessorEmployment(-12,
-                FROM, TILL));
-        assertThrows(ResponseStatusException.class, () -> statisticsRestController.getProfessorEmployment(1,
-                null, TILL));
+        assertThrows(ResponseStatusException.class, () -> statisticsRestController.getProfessorEmployment(-12, FROM,
+                TILL));
+        assertThrows(ResponseStatusException.class, () -> statisticsRestController.getProfessorEmployment(1, null,
+                TILL));
         try {
             statisticsRestController.getProfessorEmployment(-12, FROM, TILL);
         } catch (ResponseStatusException e) {
             int expected = 400;
-            int actual = e.getStatus().value();
+            int actual = e.
+                    getStatus().
+                    value();
 
             assertEquals(expected, actual);
         }
