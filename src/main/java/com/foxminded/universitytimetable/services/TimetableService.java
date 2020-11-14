@@ -34,9 +34,6 @@ public class TimetableService {
 
         List<Lesson> lessons;
 
-        // For check if group exists
-        groupService.getById(groupId);
-
         try {
             if (groupId < 1) {
                 String exMessage = "Input id cant be < 1. Input is: " + groupId;
@@ -73,9 +70,6 @@ public class TimetableService {
         }
 
         List<Lesson> lessons;
-
-        // For check if professor exists
-        professorService.getById(professorId);
 
         try {
             if (professorId < 1) {
