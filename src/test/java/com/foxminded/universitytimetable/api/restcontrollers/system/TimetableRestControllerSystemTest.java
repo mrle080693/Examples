@@ -32,7 +32,7 @@ class TimetableRestControllerSystemTest {
             1, "Any", "Any");
 
     @Test
-    void getGroupTimetableShouldReturnCorrectResponseWhenRequestIsValid() throws Exception {
+    void getGroupTimetable_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         String expected = "[]";
         mockMvc.perform(get(Urls.API_REST_GET_GROUP_TIMETABLE_JSON)
                 .param("groupId", "1")
@@ -53,7 +53,7 @@ class TimetableRestControllerSystemTest {
     }
 
     @Test
-    void getGroupTimetableShouldReturnCorrectResponseWhenRequestIsNotValid() throws Exception {
+    void getGroupTimetable_shouldReturnCorrectResponse_whenRequestIsNotCorrect() throws Exception {
         mockMvc.perform(get(Urls.API_REST_GET_GROUP_TIMETABLE_JSON)
                 .param("wrong", "1")
                 .param("from", String.valueOf(FROM))
@@ -68,7 +68,7 @@ class TimetableRestControllerSystemTest {
     }
 
     @Test
-    void getProfessorTimetableShouldReturnCorrectResponseWhenRequestIsValid() throws Exception {
+    void getProfessorTimetable_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         String expected = "[]";
         mockMvc.perform(get(Urls.API_REST_GET_PROFESSOR_TIMETABLE_JSON)
                 .param("professorId", "1")
@@ -89,7 +89,7 @@ class TimetableRestControllerSystemTest {
     }
 
     @Test
-    void getProfessorTimetableShouldReturnCorrectResponseWhenRequestIsNotValid() throws Exception {
+    void getProfessorTimetable_shouldReturnCorrectResponse_whenRequestIsNotCorrect() throws Exception {
         mockMvc.perform(get(Urls.API_REST_GET_PROFESSOR_TIMETABLE_JSON)
                 .param("wrong", "1")
                 .param("from", String.valueOf(FROM))

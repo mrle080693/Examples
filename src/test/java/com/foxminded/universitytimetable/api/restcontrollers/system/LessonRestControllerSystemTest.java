@@ -36,7 +36,7 @@ class LessonRestControllerSystemTest {
     private Gson gson = new Gson();
 
     @Test
-    void addShouldReturnCorrectResponseWhenRequestIsValid() throws Exception {
+    void add_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         Lesson lesson = new Lesson(DATE, LESSON_NUMBER, GROUP_ID, PROFESSOR_ID, BUILDING, CLASSROOM);
         lesson.setId(1);
         String lessonJson = gson.toJson(lesson);
@@ -54,14 +54,14 @@ class LessonRestControllerSystemTest {
     }
 
     @Test
-    void addShouldReturnCorrectResponseWhenRequestIsNotValid() throws Exception {
+    void add_shouldReturnCorrectResponse_whenRequestIsNotCorrect() throws Exception {
         mockMvc.perform(post(Urls.API_REST_POST_LESSON_JSON)
                 .param("nam", ""))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    void getAllShouldReturnCorrectResponse() throws Exception {
+    void getAll_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         String expected = "";
         mockMvc.perform(get(Urls.API_REST_GET_LESSONS_JSON))
                 .andExpect(content().string(expected));
@@ -89,7 +89,7 @@ class LessonRestControllerSystemTest {
     }
 
     @Test
-    void getByIdShouldReturnCorrectResponseWhenRequestIsValid() throws Exception {
+    void getById_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         Lesson lesson = new Lesson(DATE, LESSON_NUMBER, GROUP_ID, PROFESSOR_ID, BUILDING, CLASSROOM);
         lessonDAO.add(lesson);
         lesson.setId(1);
@@ -102,13 +102,13 @@ class LessonRestControllerSystemTest {
     }
 
     @Test
-    void getByIdShouldReturnCorrectResponseWhenRequestIsNotValid() throws Exception {
+    void getById_shouldReturnCorrectResponse_whenRequestIsNotCorrect() throws Exception {
         mockMvc.perform(get(Urls.API_REST_GET_LESSON_JSON, "wrong"))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    void updateShouldReturnCorrectResponseWhenRequestIsValid() throws Exception {
+    void update_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         Lesson lesson = new Lesson(DATE, LESSON_NUMBER, GROUP_ID, PROFESSOR_ID, BUILDING, CLASSROOM);
         lessonDAO.add(lesson);
         lesson.setId(1);
@@ -129,7 +129,7 @@ class LessonRestControllerSystemTest {
     }
 
     @Test
-    void updateShouldReturnCorrectResponseWhenRequestIsNotValid() throws Exception {
+    void update_shouldReturnCorrectResponse_whenRequestIsNotCorrect() throws Exception {
         mockMvc.perform(put(Urls.API_REST_PUT_LESSON_JSON)
                 .param("id", "wrong !!")
                 .param("date", String.valueOf(DATE))
@@ -147,7 +147,7 @@ class LessonRestControllerSystemTest {
     }
 
     @Test
-    void removeShouldReturnCorrectResponseWhenRequestIsValid() throws Exception {
+    void remove_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         Lesson lesson = new Lesson(DATE, LESSON_NUMBER, GROUP_ID, PROFESSOR_ID, BUILDING, CLASSROOM);
         lessonDAO.add(lesson);
 
@@ -159,7 +159,7 @@ class LessonRestControllerSystemTest {
     }
 
     @Test
-    void removeShouldReturnCorrectResponseWhenRequestIsNotValid() throws Exception {
+    void remove_shouldReturnCorrectResponse_whenRequestIsNotCorrect() throws Exception {
         mockMvc.perform(delete(Urls.API_REST_DELETE_GROUP_JSON)
                 .param("wrong", "1"))
                 .andExpect(status().isBadRequest());

@@ -32,7 +32,7 @@ class StatisticsRestControllerSystemTest {
             1, "Any", "Any");
 
     @Test
-    void getGroupEmploymentShouldReturnCorrectResponseWhenRequestIsValid() throws Exception {
+    void getGroupEmployment_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         String expected = "0";
         mockMvc.perform(get(Urls.API_REST_GET_GROUP_EMPLOYMENT_JSON)
                 .param("groupId", "1")
@@ -52,7 +52,7 @@ class StatisticsRestControllerSystemTest {
     }
 
     @Test
-    void getGroupEmploymentShouldReturnCorrectResponseWhenRequestIsNotValid() throws Exception {
+    void getGroupEmployment_shouldReturnCorrectResponse_whenRequestIsNotCorrect() throws Exception {
         mockMvc.perform(get(Urls.API_REST_GET_GROUP_EMPLOYMENT_JSON)
                 .param("wrong", "1")
                 .param("from", String.valueOf(FROM))
@@ -67,7 +67,7 @@ class StatisticsRestControllerSystemTest {
     }
 
     @Test
-    void getProfessorEmploymentShouldReturnCorrectResponseWhenRequestIsValid() throws Exception {
+    void getProfessorEmployment_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         String expected = "0";
         mockMvc.perform(get(Urls.API_REST_GET_PROFESSOR_EMPLOYMENT_JSON)
                 .param("professorId", "1")
@@ -87,7 +87,7 @@ class StatisticsRestControllerSystemTest {
     }
 
     @Test
-    void getProfessorEmploymentShouldReturnCorrectResponseWhenRequestIsNotValid() throws Exception {
+    void getProfessorEmployment_shouldReturnCorrectResponse_whenRequestIsNotCorrect() throws Exception {
         mockMvc.perform(get(Urls.API_REST_GET_PROFESSOR_EMPLOYMENT_JSON)
                 .param("wrong", "1")
                 .param("from", String.valueOf(FROM))

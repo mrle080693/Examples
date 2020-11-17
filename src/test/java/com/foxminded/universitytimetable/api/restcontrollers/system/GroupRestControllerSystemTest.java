@@ -27,7 +27,7 @@ class GroupRestControllerSystemTest {
     private Gson gson = new Gson();
 
     @Test
-    void addShouldReturnCorrectResponseWhenRequestIsValid() throws Exception {
+    void add_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         Group group = new Group("test");
         group.setId(1);
         String groupJson = gson.toJson(group);
@@ -40,14 +40,14 @@ class GroupRestControllerSystemTest {
     }
 
     @Test
-    void addShouldReturnCorrectResponseWhenRequestIsNotValid() throws Exception {
+    void add_shouldReturnCorrectResponse_whenRequestIsNotCorrect() throws Exception {
         mockMvc.perform(post(Urls.API_REST_POST_GROUP_JSON)
                 .param("nam", ""))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    void getAllShouldReturnCorrectResponse() throws Exception {
+    void getAll_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         String expected = "";
         mockMvc.perform(get(Urls.API_REST_GET_GROUPS_JSON))
                 .andExpect(content().string(expected));
@@ -62,7 +62,7 @@ class GroupRestControllerSystemTest {
     }
 
     @Test
-    void getByIdShouldReturnCorrectResponseWhenRequestIsValid() throws Exception {
+    void getById_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         Group group = new Group("test");
         groupDAO.add(group);
         group.setId(1);
@@ -75,13 +75,13 @@ class GroupRestControllerSystemTest {
     }
 
     @Test
-    void getByIdShouldReturnCorrectResponseWhenRequestIsNotValid() throws Exception {
+    void getById_shouldReturnCorrectResponse_whenRequestIsNotCorrect() throws Exception {
         mockMvc.perform(get(Urls.API_REST_GET_GROUP_JSON_BY_ID, "wrong"))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    void getByNameShouldReturnCorrectResponseWhenRequestIsValid() throws Exception {
+    void getByName_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         Group group = new Group("test");
         groupDAO.add(group);
         String expected = "[{\"id\":1,\"name\":\"test\"}]";
@@ -94,7 +94,7 @@ class GroupRestControllerSystemTest {
     }
 
     @Test
-    void updateShouldReturnCorrectResponseWhenRequestIsValid() throws Exception {
+    void update_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         Group group = new Group("test");
         groupDAO.add(group);
         group.setName("updated");
@@ -110,7 +110,7 @@ class GroupRestControllerSystemTest {
     }
 
     @Test
-    void updateShouldReturnCorrectResponseWhenRequestIsNotValid() throws Exception {
+    void update_shouldReturnCorrectResponse_whenRequestIsNotCorrect() throws Exception {
         mockMvc.perform(put(Urls.API_REST_PUT_GROUP_JSON)
                 .param("id", "1")
                 .param("wrong", ""))
@@ -123,7 +123,7 @@ class GroupRestControllerSystemTest {
     }
 
     @Test
-    void removeShouldReturnCorrectResponseWhenRequestIsValid() throws Exception {
+    void remove_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         Group group = new Group("Test");
         groupDAO.add(group);
 
@@ -135,7 +135,7 @@ class GroupRestControllerSystemTest {
     }
 
     @Test
-    void removeShouldReturnCorrectResponseWhenRequestIsNotValid() throws Exception {
+    void remove_shouldReturnCorrectResponse_whenRequestIsNotCorrect() throws Exception {
         mockMvc.perform(delete(Urls.API_REST_DELETE_GROUP_JSON)
                 .param("wrong", "1"))
                 .andExpect(status().isBadRequest());

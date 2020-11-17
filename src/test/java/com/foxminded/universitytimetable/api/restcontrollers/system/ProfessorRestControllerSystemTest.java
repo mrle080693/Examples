@@ -32,7 +32,7 @@ class ProfessorRestControllerSystemTest {
     private Gson gson = new Gson();
 
     @Test
-    void addShouldReturnCorrectResponseWhenRequestIsValid() throws Exception {
+    void add_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         Professor professor = new Professor(NAME, SURNAME, PATRONYMIC, SUBJECT);
         professor.setId(1);
         String professorJson = gson.toJson(professor);
@@ -48,14 +48,14 @@ class ProfessorRestControllerSystemTest {
     }
 
     @Test
-    void addShouldReturnCorrectResponseWhenRequestIsNotValid() throws Exception {
+    void add_shouldReturnCorrectResponse_whenRequestIsNotCorrect() throws Exception {
         mockMvc.perform(post(Urls.API_REST_POST_PROFESSOR_JSON)
                 .param("wrong", ""))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    void getAllShouldReturnCorrectResponse() throws Exception {
+    void getAll_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         String expected = "";
         mockMvc.perform(get(Urls.API_REST_GET_PROFESSORS_JSON))
                 .andExpect(content().string(expected));
@@ -79,7 +79,7 @@ class ProfessorRestControllerSystemTest {
     }
 
     @Test
-    void getByIdShouldReturnCorrectResponseWhenRequestIsValid() throws Exception {
+    void getById_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         Professor professor = new Professor(NAME, SURNAME, PATRONYMIC, SUBJECT);
         professorDAO.add(professor);
 
@@ -93,13 +93,13 @@ class ProfessorRestControllerSystemTest {
     }
 
     @Test
-    void getByIdShouldReturnCorrectResponseWhenRequestIsNotValid() throws Exception {
+    void getById_shouldReturnCorrectResponse_whenRequestIsNotCorrect() throws Exception {
         mockMvc.perform(get(Urls.API_REST_GET_PROFESSOR_JSON_BY_ID, "wrong"))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    void getBySurnameShouldReturnCorrectResponseWhenRequestIsValid() throws Exception {
+    void getBySurname_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         Professor professor = new Professor(NAME, SURNAME, PATRONYMIC, SUBJECT);
         professorDAO.add(professor);
         String expected = "[{\"id\":1,\"name\":\"TestName\",\"surname\":\"TestSurname\"," +
@@ -113,7 +113,7 @@ class ProfessorRestControllerSystemTest {
     }
 
     @Test
-    void updateShouldReturnCorrectResponseWhenRequestIsValid() throws Exception {
+    void update_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         Professor professor = new Professor(NAME, SURNAME, PATRONYMIC, SUBJECT);
         professorDAO.add(professor);
 
@@ -133,7 +133,7 @@ class ProfessorRestControllerSystemTest {
     }
 
     @Test
-    void updateShouldReturnCorrectResponseWhenRequestIsNotValid() throws Exception {
+    void update_shouldReturnCorrectResponse_whenRequestIsNotCorrect() throws Exception {
         mockMvc.perform(put(Urls.API_REST_PUT_PROFESSOR_JSON)
                 .param("id", "1")
                 .param("wrong", ""))
@@ -149,7 +149,7 @@ class ProfessorRestControllerSystemTest {
     }
 
     @Test
-    void removeShouldReturnCorrectResponseWhenRequestIsValid() throws Exception {
+    void remove_shouldReturnCorrectResponse_whenRequestIsCorrect() throws Exception {
         Professor professor = new Professor(NAME, SURNAME, PATRONYMIC, SUBJECT);
         professorDAO.add(professor);
 
@@ -161,7 +161,7 @@ class ProfessorRestControllerSystemTest {
     }
 
     @Test
-    void removeShouldReturnCorrectResponseWhenRequestIsNotValid() throws Exception {
+    void remove_shouldReturnCorrectResponse_whenRequestIsNotCorrect() throws Exception {
         mockMvc.perform(delete(Urls.API_REST_DELETE_PROFESSOR_JSON)
                 .param("wrong", "1"))
                 .andExpect(status().isBadRequest());
