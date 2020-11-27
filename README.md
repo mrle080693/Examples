@@ -1,16 +1,16 @@
 # Examples of:
-Spring JDBC
-Hibernate JPA
-Spring Data JPA
+* Spring JDBC
+* Hibernate JPA
+* Spring Data JPA
 
-Spring MVC
-Spring Boot
-REST
+* Spring MVC
+* Spring Boot
+* REST
+* Swagger
+* Thymeleaf
 
-JUnit
-Mockito
-MockMVC
+* JUnit
+* Mockito
+* MockMVC
 
-Swagger
-Thymeleaf
-SL4J
+* SL4J
